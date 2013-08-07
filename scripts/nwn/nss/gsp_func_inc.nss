@@ -302,9 +302,11 @@ void ApplySpellImpactToTarget(struct SpellInfo si, struct SpellImpact impact, st
                     nDamage -= nDamage2;
                 }
                 eDam = EffectDamage(nDamage2, impact.nDamType2);
-                ApplyDamageIfAlive(si.target, eDam);
+		SetEffectCreator(eDam, si.caster);
+                DelayCommand(fDelay, ApplyDamageIfAlive(si.target, eDam));
             }
             eDam = EffectDamage(nDamage, impact.nDamType);
+	    SetEffectCreator(eDam, si.caster);
             DelayCommand(fDelay, ApplyEffectIfAlive(si.target, eDam, EffectVisualEffect(impact.nImpact)));
         }
     }
