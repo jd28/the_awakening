@@ -57,7 +57,7 @@ Ft.RegisterFeatUses(
 
 Ft.RegisterFeatUses(
    function(feat, cre)
-      return 3 + cre:GetLevelByClass(Cls.DRAGON_DISCIPLE)
+      return 3 + (cre:GetLevelByClass(Cls.DRAGON_DISCIPLE) / 10)
    end,
    Ft.DRAGON_DIS_BREATH)
 
