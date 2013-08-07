@@ -57,7 +57,7 @@ Ft.RegisterFeatUses(
 
 Ft.RegisterFeatUses(
    function(feat, cre)
-      return 3 + cre:GetLevelByClass(Cls.DRAGON_DISCPLE)
+      return 3 + cre:GetLevelByClass(Cls.DRAGON_DISCIPLE)
    end,
    Ft.DRAGON_DIS_BREATH)
 
@@ -108,7 +108,7 @@ Ft.RegisterFeatUses(harper,
 
 Ft.RegisterFeatUses(
    function (feat, cre)
-      local level = cre:GetLevelByClasss(Cls.ASSASSIN)
+      local level = cre:GetLevelByClass(Cls.ASSASSIN)
       local uses  = 1
       if level >= 40 then
 	 uses = 4
