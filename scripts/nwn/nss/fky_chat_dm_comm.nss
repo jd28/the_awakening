@@ -984,7 +984,7 @@ void DoDMVar(struct pl_chat_command pcc){ //dm_var <mod> <type> <variable name> 
     pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 4);
     sValue = GetStringRight(pcc.sOriginal, GetStringLength(pcc.sOriginal) - 4);
 
-    if (GetStringLeft(pcc.sCommand, 3) == "mod "){
+    if (GetStringLeft(pcc.sCommand, 4) == "mod "){
         pcc.oTarget = GetModule();
         pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 4);
         sValue = GetStringRight(sValue, GetStringLength(sValue) - 4);
