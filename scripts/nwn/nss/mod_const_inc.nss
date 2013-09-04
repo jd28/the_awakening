@@ -50,6 +50,10 @@ const int    GUILD_AWAKENING_ADVENTURERS       = 6;
 const string GUILD_AWAKENING_ADVENTURERS_NAME  = "Awakening Adventurers Guild";
 const string GUILD_AWAKENING_ADVENTURERS_ABBRV = "(AAG)";
 
+const int    GUILD_AWAKENING_ROLE_PLAYERS       = 7;
+const string GUILD_AWAKENING_ROLE_PLAYERS_NAME  = "Awakening Role Players Guild";
+const string GUILD_AWAKENING_ROLE_PLAYERS_ABBRV = "*ARPG*";
+
 // -----------------------------------------------------------------------------
 // CONSTANTS - Area Related
 // -----------------------------------------------------------------------------

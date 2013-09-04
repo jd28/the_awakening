@@ -14,6 +14,8 @@ string GetGuildName(int nGuild){
             return GUILD_THE_DIRTY_DOZEN_NAME;
         case GUILD_AWAKENING_ADVENTURERS:
             return GUILD_AWAKENING_ADVENTURERS_NAME;
+        case GUILD_AWAKENING_ROLE_PLAYERS:
+            return GUILD_AWAKENING_ROLE_PLAYERS_NAME;
     }
 
     return "";
@@ -33,6 +35,8 @@ string GetGuildAbbreviation(int nGuild){
             return GUILD_THE_DIRTY_DOZEN_ABBRV;
         case GUILD_AWAKENING_ADVENTURERS:
             return GUILD_AWAKENING_ADVENTURERS_ABBRV;
+        case GUILD_AWAKENING_ROLE_PLAYERS:
+            return GUILD_AWAKENING_ROLE_PLAYERS_ABBRV;
     }
 
     return "";
