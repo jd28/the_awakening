@@ -480,8 +480,8 @@ void InitWeaponFeats(){
     SetWeaponOfChoiceFeat(nBaseItem, FEAT_WEAPON_OF_CHOICE_SHORTSPEAR);
     SetWeaponOverwhelmingCriticalFeat(nBaseItem, FEAT_EPIC_OVERWHELMING_CRITICAL_SHORTSPEAR);
     SetWeaponSpecializationFeat(nBaseItem, FEAT_WEAPON_SPECIALIZATION_SPEAR);
-    SetWeaponLegendarySpecializationFeat(nBaseItem, TA_FEAT_LEG_WEAPON_SPECIALIZATION_KAMA);
-    SetWeaponGreaterSpecializationFeat(nBaseItem, TA_FEAT_SUP_WEAPON_SPECIALIZATION_KAMA);
+    SetWeaponLegendarySpecializationFeat(nBaseItem, TA_FEAT_LEG_WEAPON_SPECIALIZATION_SHORTSPEAR);
+    SetWeaponGreaterSpecializationFeat(nBaseItem, TA_FEAT_SUP_WEAPON_SPECIALIZATION_SHORTSPEAR);
 
     // Sai -> Kama
     nBaseItem = BASE_ITEM_SAI;
