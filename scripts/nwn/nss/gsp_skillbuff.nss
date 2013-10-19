@@ -22,7 +22,7 @@ void main(){
             ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_FNF_LOS_HOLY_30), si.loc);
         case SPELL_CAMOFLAGE:
             nSkill1 = SKILL_HIDE;
-            fDuration = MetaDuration(si, si.clevel, DURATION_IN_ROUNDS);
+            fDuration = MetaDuration(si, 10 * si.clevel, DURATION_IN_TURNS);
             eSkill1 = EffectSkillIncrease(SKILL_HIDE, 10);
             if(si.id == SPELL_MASS_CAMOFLAGE){
                 eSkill2 = EffectConcealment(20);
