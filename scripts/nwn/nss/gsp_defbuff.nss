@@ -409,8 +409,7 @@ effect GetASImprovedInvisEffect(){
 
     eLink = EffectConcealment(nConceal);
 
-    // +1 AC per 5 levels above 5th.
-    int nAC = (nLevel - 5) / 5;
+    int nAC = nLevel / 3;
     if(nAC > 10) nAC = 10;
     if(nAC > 0)
         eLink = EffectLinkEffects(eLink, EffectACIncrease(nAC));
