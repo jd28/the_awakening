@@ -17,4 +17,4 @@ rm $RM_MOD_NSS
 cp $CP $MOD
 NWNScriptCompiler -1ceglo -n "C:/NeverwinterNights/NWN" -r $MOD "$MASK"
 rm $RM_MOD_NSS
-mv $MOVE ncs/
+mv $MOVE ../../resman/ncs/
