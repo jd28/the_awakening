@@ -268,9 +268,10 @@ void ApplySpellImpactToTarget(struct SpellInfo si, struct SpellImpact impact, st
             && !GetSpellSaved(si, impact.nSave, si.target, impact.nSaveType, fDelay)){
 
         effect eDeath;
-            eDeath = EffectDeath();
+	eDeath = EffectDeath();
+	SetEffectCreator(eDeath, si.caster);
         
-        if(!GetIsImmune(si.target, IMMUNITY_TYPE_DEATH))         
+        if(!GetIsImmune(si.target, IMMUNITY_TYPE_DEATH))
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, si.target);
         ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_DEATH), si.target);
     }   
