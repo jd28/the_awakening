@@ -9,6 +9,9 @@ local ffi = require 'ffi'
 local C = ffi.C
 local fmt = string.format
 
+math.randomseed( os.time() )
+math.random(100)
+
 -- Needed for C.Local_NWNXLog below.
 require 'solstice.nwn.funcs'
 
