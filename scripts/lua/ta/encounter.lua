@@ -2,6 +2,7 @@ local M = {}
 local ffi = require 'ffi'
 local Obj = require 'solstice.object'
 local encenv = require 'ta.encounter_env'
+local Dyn = require 'ta.dynamo'
 
 local _HOLDER = {}
 
@@ -21,17 +22,7 @@ function M.Load(file)
    encenv.enc = nil
 end
 
-local function get_value(value, use_max)
-   if value.start == value.stop then
-      return value.start
-   end
 
-   if use_max then
-      return value.stop
-   else
-      return math.random(value.start, value.stop)
-   end
-end
 
 local function spawn_monster(resref, loc, enc)
    assert(enc:GetIsValid())
@@ -41,19 +32,6 @@ local function spawn_monster(resref, loc, enc)
    mon:SetLocalObject("ssp_encounter", enc)
 end
 
-local function getspawns(enc, level)
-   if level >= 3 and enc.Level3 then
-      return enc.Level3
-   end
-   if level >= 2 and enc.Level2 then
-      return enc.Level3
-   end
-   if level >= 1 and enc.Level1 then
-      return enc.Level1
-   end
-
-   return enc.Default
-end
 
 --- Get furthest spawn point.
 -- @param enc Encounter in question.
@@ -77,7 +55,7 @@ end
 
 function M.Spawn(encounter, level, cre)
    local holder        = assert(_HOLDER[encounter:GetTag()])
-   local spawns        = getspawns(holder, level)
+   local spawns        = Dyn.GetLevelTable(holder, level)
    local policy        = holder.policy or spawns.policy
    local base_delay    = spawns.delay or holder.delay
    local fallover      = spawns.fallover or holder.fallover
@@ -105,7 +83,7 @@ function M.Spawn(encounter, level, cre)
 	    loc = encounter:GetSpawnPointByIndex(spawn_point)
 	 end
 	 if sp.chance >= math.random(100) then
-	    for i=1, get_value(sp.count) do
+	    for i=1, Dyn.GetValue(sp.count) do
 	       encounter:DelayCommand(delay, spawn_monster(sp.resref, loc, encounter))
 	       delay = delay + holder.delay
 	       mon_spawned = mon_spawned + 1
@@ -138,7 +116,7 @@ function M.Test(resref)
       if not v.chance or chance <= v.chance then
 	 table.insert(out, string.format("  Creature %s, Count: %d",
 					 ffi.string(v.resref),
-					 get_value(v.count)))
+					 Dyn.GetValue(v.count)))
       end
    end
 

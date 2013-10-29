@@ -12,7 +12,7 @@ function ta_enc_enter(enc)
       and enc.obj.enc_is_active == 1
       and not enc:GetLocalBool("ssp_spawned")
    then
-      Enc.Spawn(enc, 0, Ev.GetEnteringObject())
+      E.Spawn(enc, 0, Ev.GetEnteringObject())
    end
 end
 
