@@ -5,7 +5,7 @@ function ta_item_gen(obj)
    if not obj:GetIsValid() then return end
 
    local i = 1
-   local var    = fmt("GENERATE_ITEM_%d", i)
+   local var    = "GENERATE_ITEM_1"
    local resref = obj:GetLocalString(var)
    local chance = obj:GetLocalInt(var)
 

@@ -1,4 +1,3 @@
-
 local Dyn = require 'ta.dynamo'
 
 local E = {}
@@ -19,9 +18,9 @@ function E.Spawn(resref, count, point)
       count = E.Random(count, count)
    end
    return { resref = resref,
-	    count  = count,
-	    chance = 100,
-	    point  = point or -1 }
+            count  = count,
+            chance = 100,
+            point  = point or -1 }
 end
 
 return E
