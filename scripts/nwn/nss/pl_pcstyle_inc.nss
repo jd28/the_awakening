@@ -33,6 +33,7 @@ void SetUndeadStyle(object oPC, int nStyle);
 int CheckStyleItemRequirement(object oPC, object oItem){
     int nStyle;
     int bGood = TRUE;
+    int base = GetBaseItemType(oItem);
 
     // Currently only restrictions are on Fighting Styles.
     nStyle = GetFightingStyle(oPC);
@@ -72,6 +73,9 @@ int CheckStyleItemRequirement(object oPC, object oItem){
             case STYLE_ASSASSIN_NINJA:
                 if(GetIsShield(oItem) || GetIsRangedWeapon2(oItem))
                     bGood = FALSE;
+		else if(base == BASE_ITEM_TWOBLADEDSWORD ||
+		        base == 321 || base == 339 || base == 324)
+		    bGood = TRUE;
                 else if(GetIsMeleeWeapon(oItem) && GetIsWeaponTwoHanded(oPC, oItem))
                     bGood = FALSE; 
             break;
