@@ -79,7 +79,7 @@ void main(){
     effect eLink = EffectLinkEffects(eHaste, eDur);
     eLink = EffectLinkEffects(eLink, eAB);
     if(nExtraAttacks > 0)
-        eLink = EffectLinkEffects(eLink, eExtraAttacks);
+    { eLink = EffectLinkEffects(eLink, eExtraAttacks); }                 // edited by Guile added {}
     eLink = EffectLinkEffects(eLink, eAC);
     eLink = EffectLinkEffects(eLink, eSave);
     eLink = EffectLinkEffects(eLink, eDam);
@@ -89,7 +89,8 @@ void main(){
     //Check for metamagic extension
 
     // Apply effects to the currently selected target.
-    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ExtraordinaryEffect(eLink), si.caster, fDuration);
     effect eVis = EffectVisualEffect(460);
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, si.caster);
+    ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ExtraordinaryEffect(eLink), si.caster, fDuration);
+    
 }
