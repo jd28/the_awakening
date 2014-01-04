@@ -3,7 +3,7 @@
 CP="nss/*.nss" 
 MASK="nss/$1*.nss"
 MOVE="nss/$1*.ncs"
-NCS="ncs/$1*.ncs"
+NCS="../../resman/ncs/$1*.ncs"
 MOD="c:/Users/josh/software/NWN/modules/temp0"
 RM_MOD_NSS="$MOD/*.nss"
 
