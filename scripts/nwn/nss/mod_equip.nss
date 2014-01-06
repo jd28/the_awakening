@@ -36,7 +36,7 @@ void ApplyFeatSuperNaturalEffectsOnEquip(object oPC, object oItem){
         int bUnarmed = (GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, oPC) == OBJECT_INVALID);
         int nHasEffect = GetHasSpellEffect(TASPELL_CIRCLE_KICK, oPC);
 
-        if(!nHasEffect && bUnarmed)
+        if(nHasEffect && bUnarmed) // Edited by Guile ~  We are checking to see if has feat (! deleted)
         {
             eEff = EffectAdditionalAttacks(1);
             SetEffectSpellId(eEff, TASPELL_CIRCLE_KICK);
@@ -44,7 +44,7 @@ void ApplyFeatSuperNaturalEffectsOnEquip(object oPC, object oItem){
 
             SendMessageToPC(oPC, C_GREEN+"Circle Kick: Bonus attack applied!"+C_END);
         }
-        else if(!bUnarmed && nHasEffect){
+        else if(!bUnarmed || !nHasEffect){  // Edited by Guile - if either condition is true Remove Effect
             GZRemoveSpellEffects(TASPELL_CIRCLE_KICK, oPC, FALSE);
             SendMessageToPC(oPC, C_RED+"Circle Kick: Bonus attack removed!"+C_END);
         }
