@@ -9,9 +9,7 @@ M.INSTANCE_LEVEL_3       = 3
 
 function M.GetIsInstanceable(transition)
    local instance_level = transition:GetLocalInt("instance_level")
-   if instance_level == 0 then return false end
-
-   return true
+   return instance_level > 0 and instance_level < 4
 end
 
 function M.CreateInstance(transition, area, level)
