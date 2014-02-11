@@ -16,6 +16,6 @@ M.NXLog = logging.new(
       return true
    end)
 
-M.Log = logging.file("/opt/nwn/logs.0/ta_log.txt")
+M.Log = logging.file(OPT.LOG_DIR .. "/ta_log.txt")
 
 return M
