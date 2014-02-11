@@ -19,6 +19,7 @@
 #include "sha_subr_methds"
 #include "msg_func_inc"
 #include "pl_pcstyle_inc"
+#include "nwnx_areas"
 
 // -----------------------------------------------------------------------------
 //  PROTOTYPES - Loading
@@ -63,29 +64,14 @@ void main(){
         if( Script != "" ) SetLocalString(oPC, "LetoScript", "");
     }
 
+
     string sString = Logger(oPC, "DebugLogs", LOGLEVEL_NOTICE, "CLIENT ENTER : " +
         "Login: %s, Name: %s, CDKey: %s, IP Address: %s:%s", GetPCPlayerName(oPC),
         GetName(oPC), GetPCPublicCDKey(oPC), GetPCIPAddress(oPC), IntToString(GetPCPort(oPC)));
 
     SendMessageToAllDMs(sString);
-/*
-    object oStorage = GetFirstPC();
-    while(oStorage != OBJECT_INVALID){
-        if(oStorage != oPC && GetPCIPAddress(oPC) == GetPCIPAddress(oStorage)
-           && GetPCPort (oPC) == GetPCPort (oStorage)){
-            BootPlayer(oPC);//Boot them if Valid Object
-        }
-        oStorage = GetNextPC();
-    }
-*/
-// -----------------------------------------------------------------------------
-// DM Section
-// -----------------------------------------------------------------------------
-    //if((GetIsDM(oPC) || GetIsDMPossessed(oPC)) && (VerifyAdminKey(oPC) || VerifyDMKey(oPC))){
-    //    LoadDM(oPC);
-    //    return;
-    //}
 
+	NWNXAreas_FixCreature(oPC);
 // -----------------------------------------------------------------------------
 // PC Section
 // -----------------------------------------------------------------------------
