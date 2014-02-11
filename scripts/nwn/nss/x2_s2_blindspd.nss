@@ -71,15 +71,18 @@ void main(){
 
     effect eHaste = EffectHaste();
     effect eAB = EffectAttackIncrease(nAttackBonus);
-    effect eExtraAttacks = EffectAdditionalAttacks(nExtraAttacks);
     effect eAC = EffectACIncrease(nACDodge);
     effect eSave = EffectSavingThrowIncrease(SAVING_THROW_ALL, nSaveBonus);
     effect eDam = EffectDamageIncrease(nDamBonus, nDamType);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
     effect eLink = EffectLinkEffects(eHaste, eDur);
     eLink = EffectLinkEffects(eLink, eAB);
-    if(nExtraAttacks > 0)
-    { eLink = EffectLinkEffects(eLink, eExtraAttacks); }                 // edited by Guile added {}
+
+    if(nExtraAttacks > 0) {
+        effect eExtraAttacks = EffectModifyAttacks(nExtraAttacks);
+        eLink = EffectLinkEffects(eLink, eExtraAttacks);
+    }                 // edited by Guile added {}
+
     eLink = EffectLinkEffects(eLink, eAC);
     eLink = EffectLinkEffects(eLink, eSave);
     eLink = EffectLinkEffects(eLink, eDam);
