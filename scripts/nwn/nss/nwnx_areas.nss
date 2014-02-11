@@ -11,6 +11,7 @@ void DestroyArea(object oArea);
 // Set name for oArea
 void SetAreaName(object oArea, string sName);
 
+void NWNXAreas_FixCreature(object oCreature);
 
 object LoadArea(string sResRef)
 {
@@ -31,4 +32,9 @@ void DestroyArea(object oArea)
 void SetAreaName(object oArea, string sName)
 {
     SetLocalString(oArea, "NWNX!AREAS!SET_AREA_NAME", sName);
+}
+
+void NWNXAreas_FixCreature(object oCreature)
+{
+    SetLocalString(GetModule(), "NWNX!AREAS!FIX", ObjectToString(oCreature));
 }
