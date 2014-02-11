@@ -38,7 +38,7 @@ void ApplyFeatSuperNaturalEffectsOnEquip(object oPC, object oItem){
 
         if(!nHasEffect && bUnarmed)
         {
-            eEff = EffectAdditionalAttacks(1);
+            eEff = EffectModifyAttacks(1);
             SetEffectSpellId(eEff, TASPELL_CIRCLE_KICK);
             ApplyEffectToObject(DURATION_TYPE_PERMANENT, SupernaturalEffect(eEff), oPC);
 
