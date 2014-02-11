@@ -12,15 +12,15 @@ function M.Load(file)
    encenv.enc = setmetatable({}, { __index = encenv })
 
    local res = runfile(file, encenv.enc)
-   assert(res.resref)
+   assert(res.tag)
 
    res.delay  = res.delay or 0.3
    res.policy = res.policy or encenv.POLICY_NONE
 
-   _HOLDER[res.resref] = res
+   _HOLDER[res.tag] = res
 
    encenv.enc = nil
-   return res.resref
+   return res.tag
 end
 
 
@@ -104,8 +104,8 @@ function M.Spawn(encounter, level, cre)
    encounter:SetLocalInt("ssp_spawned", true)
 end
 
-function M.Test(resref)
-   local enc = _HOLDER[resref]
+function M.Test(tag)
+   local enc = _HOLDER[tag]
    assert(enc)
 
    local function out_spawn(out, v)
@@ -122,7 +122,7 @@ function M.Test(resref)
    end
 
    out = {}
-   table.insert(out, string.format("Resref: %s", enc.resref))
+   table.insert(out, string.format("Tag: %s", enc.tag))
    table.insert(out, string.format("Delay: %f", enc.delay))
    table.insert(out, string.format("Policy: %d", enc.policy))
    table.insert(out, string.format("Fallover: %d", enc.fallover or -1))
