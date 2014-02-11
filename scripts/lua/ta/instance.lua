@@ -1,5 +1,5 @@
 local NWNXAreas = require 'solstice.nwnx.areas'
-
+local Log = require('ta.logger').Log
 local M = {}
 
 M.INSTANCE_LEVEL_DEFAULT = 0
@@ -18,13 +18,13 @@ function M.CreateInstance(transition, area, level)
 
    local resref = area:GetResRef()
    if resref ~= "" then
-      print("Instancing:", resref, level)
+      Log:info("Instancing Area: %s, Level: %d", resref, level)
       local area = NWNXAreas.CreateArea(resref)
       if area:GetIsValid() then
-	 area:SetLocalInt("instance_level", level)
-	 area:SetLocalBool("area_no_loc_save", true)
+         area:SetLocalInt("instance_level", level)
+         area:SetLocalBool("area_no_loc_save", true)
       else
-	 print("Area invalid")
+         Log:error("Instancing Area: %s invalid!", resref)
       end
    end
 
@@ -33,30 +33,28 @@ end
 
 function M.GetInstanceTarget(target, pc, level)
    local tag = target:GetTag()
-   print(tag)
    local obj
+
    if level > 0 then
       local nth = 0
-      
+
       repeat
-	 obj = nwn.GetObjectByTag(tag, nth)
-	 nth = nth + 1
-	 if not obj:GetIsValid() then
-	    break
-	 end
-	 local area = obj:GetArea()
-	 if level == area:GetLocalInt("instance_level") then
-	    break
-	 end
+         obj = nwn.GetObjectByTag(tag, nth)
+         nth = nth + 1
+         if not obj:GetIsValid() then
+            break
+         end
+         local area = obj:GetArea()
+         if level == area:GetLocalInt("instance_level") then
+            break
+         end
       until false
    end
-   -- Set Transition BMP
-   
+
    if obj and obj:GetIsValid() then
       return obj
    end
 
-   print "obj invalid"
    return target
 end
 
