@@ -3,7 +3,7 @@
 CP="nss/*.nss" 
 MASK="nss/$1*.nss"
 MOVE="nss/$1*.ncs"
-NCS="../../resman/ncs/$1*.ncs"
+NCS="c:/Users/josh/software/NWN/modules/temp0/$1*.ncs"
 MOD="c:/Users/josh/software/NWN/modules/temp0"
 RM_MOD_NSS="$MOD/*.nss"
 
@@ -17,4 +17,4 @@ rm $RM_MOD_NSS
 cp $CP $MOD
 NWNScriptCompiler -1ceglo -n "c:/Users/josh/software/NWN" -r $MOD "$MASK"
 rm $RM_MOD_NSS
-mv $MOVE ../../resman/ncs/
+mv $MOVE $MOD
