@@ -2,8 +2,11 @@ local lfs = require 'lfs'
 local ffi = require 'ffi'
 local C = ffi.C
 
+local DEBUG_ENCOUNTER_LOAD = true
+
 local Ev  = require 'solstice.event'
 local E = require 'ta.encounter'
+local Log = require('ta.logger').Log
 
 local dir = "lua/encounters/"
 
@@ -24,8 +27,9 @@ for f in lfs.dir(dir) do
    if string.find(f:lower(), ".lua", -4)  then
       local file = lfs.currentdir() .. "/" .. dir .. f
       print("Loading: " .. file .. "\n")
-      E.Load(file)
+      local tag = E.Load(file)
+      if DEBUG_ENCOUNTER_LOAD then
+         Log:info(E.Test(tag))
+      end
    end
 end
-
-print(E.Test('pl_drow_1'))
