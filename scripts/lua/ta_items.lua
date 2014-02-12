@@ -1,6 +1,6 @@
 local ffi = require 'ffi'
 local C = ffi.C
-local Item = require 'solstice.item'
+local Item = require 'ta.item'
 local items_dir = "lua/items/"
 
 for f in lfs.dir(items_dir) do

@@ -9,17 +9,19 @@ local ip = require 'solstice.itemprop'
 local ipc = ip.const
 local Cre = require 'solstice.creature'
 
-local env_mt = { __index = table.chain(M.env, ipc) }
+local env_mt = { __index = table.chain(Env, ipc) }
+
+local M = {}
 
 --- Load item file.
 -- @param file Item file to load.
 function M.Load(file)
-   E.item = setmetatable({}, env_mt)
+   Env.item = setmetatable({}, env_mt)
 
-   local res = runfile(file, E.item)
+   local res = runfile(file, Env.item)
    _ITEMS[assert(res.resref)] = res
 
-   E.item = nil
+   Env.item = nil
 end
 
 --- Generate item
@@ -65,3 +67,5 @@ function M.Generate(object, resref, max)
       end
    end
 end
+
+return M

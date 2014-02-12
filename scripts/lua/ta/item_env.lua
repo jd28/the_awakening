@@ -6,6 +6,7 @@ local ffi = require 'ffi'
 local ip = require 'solstice.itemprop'
 local ipc = ip.const
 local E = {}
+local Dyn = require 'ta.dynamo'
 
 E.CRE = require('solstice.creature').const
 E.DAMAGE = require('solstice.damage').const
