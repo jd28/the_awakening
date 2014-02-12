@@ -9,6 +9,4 @@
 -- wish and have it available via the global table OPT.
 
 -- REQUIRED: Log directory.
-LOG_DIR = "../logs.0"
-
-
+LOG_DIR = "/opt/nwn/logs.0"
