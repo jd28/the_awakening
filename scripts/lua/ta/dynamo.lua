@@ -1,6 +1,7 @@
 
 local M = {}
 local ffi = require 'ffi'
+local random = math.random
 
 ffi.cdef [[
 typedef struct {
@@ -31,7 +32,7 @@ function M.GetValue(value, use_max)
    elseif use_max then
       return value.stop
    else
-      return math.random(value.start, value.stop)
+      return random(value.start, value.stop)
    end
 end
 
