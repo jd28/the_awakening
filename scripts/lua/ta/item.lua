@@ -9,7 +9,7 @@ local ip = require 'solstice.itemprop'
 local ipc = ip.const
 local Cre = require 'solstice.creature'
 
-local env_mt = { __index = table.chain(Env, ipc) }
+local env_mt = { __index = table.chain(Env, _CONSTS) }
 
 local M = {}
 

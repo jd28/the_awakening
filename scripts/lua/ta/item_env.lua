@@ -8,12 +8,6 @@ local ipc = ip.const
 local E = {}
 local Dyn = require 'ta.dynamo'
 
-E.CRE = require('solstice.creature').const
-E.DAMAGE = require('solstice.damage').const
-E.CLASS = require('solstice.class').const
-E.SKILL = require('solstice.skill').const
-E.DAMAGE = require('solstice.damage').const
-
 local function add_ip(fname, ...)
    local t = {...}
    t.f = fname
