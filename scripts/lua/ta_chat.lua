@@ -1,5 +1,5 @@
 local Srv = require 'solstice.server'
-local Chat = require 'solstice.chat'
+local Chat = require 'ta.chat'
 
 local CHAT_SYMBOL_DM = 'dm_'
 local CHAT_SYMBOL_ADMIN = 'admin_'
