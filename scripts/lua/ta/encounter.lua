@@ -63,6 +63,7 @@ function M.Spawn(encounter, level, cre)
    local num_spawns    = encounter:GetSpawnPointCount()
    local distance_hint = spawns.distance_hint or holder.distance_hint
    local mon_spawned   = 0
+   local mod = Game.GetModule()
 
    for k = 0, num_spawns - 1 do
       local loc, spawn_point
@@ -79,19 +80,26 @@ function M.Spawn(encounter, level, cre)
 
       local delay = base_delay
       for _, sp in ipairs(spawns) do
-         if policy == encenv.POLICY_SPECIFIC then
-            spawn_point = sp.point
-            loc = encounter:GetSpawnPointByIndex(spawn_point)
+         final_point = spawn_point
+         final_loc   = loc
+
+         if sp.point then
+            local l = encounter:GetSpawnPointByIndex(sp.point)
+            if l then
+               final_point = sp.point
+               final_loc = l
+            end
          end
+
          if sp.chance >= math.random(100) then
             for i=1, Dyn.GetValue(sp.count) do
-               encounter:DelayCommand(delay, spawn_monster(sp.resref, loc, encounter))
+               mod:DelayCommand(delay, function() spawn_monster(sp.resref, final_loc, encounter) end)
                delay = delay + holder.delay
                mon_spawned = mon_spawned + 1
                encounter.obj.enc_number_spawned = encounter.obj.enc_number_spawned + 1
                if fallover and mon_spawned > fallover then
-                  local l = encounter:GetSpawnPointByIndex(spawn_point + 1)
-                  loc = l or loc
+                  local l = encounter:GetSpawnPointByIndex(final_point + 1)
+                  final_loc = l or final_loc
                   mon_spawned = 0
                end
             end
@@ -106,15 +114,12 @@ end
 
 function M.Test(tag)
    local enc = _HOLDER[tag]
-   assert(enc)
+   if not enc then
+      return string.format("ERROR: Invalid encounter tag: %s", tag)
+   end
 
    local function out_spawn(out, v)
-      local chance  = math.random(100)
-      if v.chance then
-         print (chance)
-      end
-
-      if not v.chance or chance <= v.chance then
+      if not v.chance or math.random(100) <= v.chance then
          table.insert(out, string.format("  Creature %s, Count: %d",
                                          ffi.string(v.resref),
                                          Dyn.GetValue(v.count)))
@@ -154,6 +159,14 @@ function M.Test(tag)
 
    return table.concat(out, '\n')
 
+end
+
+function M.List()
+   local t = {}
+   for k, _ in pairs(_HOLDER) do
+      table.insert(t, k)
+   end
+   return table.concat(t, '\n')
 end
 
 return M

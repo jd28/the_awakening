@@ -20,7 +20,7 @@ the `Default` spawn group must be specified.
 # Settings
 All settings can be overriden by the spawn group except `resref`.
 
-* `resref` - Encounter resref.  Must be specified.
+* `tag` - Encounter resref.  Must be specified.
 * `delay` - Delay between creatures being spawned.
 * `fallover` - Maximum number of creatures per spawn point.
 * `policy` - See Policies below.
@@ -29,12 +29,10 @@ with a distance greater than or equal to `distance_hint`.
 
 
 # Policies
-There are four possible spawn point selection polcies:
+There are three possible spawn point selection polcies:
 
 * `POLICY_NONE` - No policy, spawn point selection is furthest from
 creature entering encounter.
 * `POLICY_EACH` - The spawn group is spawned at every spawn
 * `POLICY_RANDOM` - The spawn group is spawned at a random spawn
 point.
-* `POLICY_SPECIFIC` - Explicitly select of spawn.  The spawn point
-must be passed when calling `Spawn`.

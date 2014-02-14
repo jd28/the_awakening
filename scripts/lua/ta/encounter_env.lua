@@ -20,7 +20,7 @@ function E.Spawn(resref, count, point)
    return { resref = resref,
             count  = count,
             chance = 100,
-            point  = point or -1 }
+            point  = point }
 end
 
 return E
