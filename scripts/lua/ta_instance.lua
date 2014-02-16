@@ -2,7 +2,7 @@ local NWNXEvents = require 'solstice.nwnx.events'
 local Inst = require 'ta.instance'
 
 function pl_inst_check()
-   local pc = nwn.GetPCSpeaker()
+   local pc = Game.GetPCSpeaker()
    local trig = pc:GetLocalObject("PL_CONV_WITH")
    local node = NWNXEvents.GetCurrentNodeID()
 
@@ -10,7 +10,7 @@ function pl_inst_check()
 end
 
 function pl_inst_do()
-   local pc = nwn.GetPCSpeaker()
+   local pc = Game.GetPCSpeaker()
 
    local trig = pc:GetLocalObject("PL_CONV_WITH")
    local target = trig:GetTransitionTarget()

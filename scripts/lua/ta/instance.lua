@@ -39,7 +39,7 @@ function M.GetInstanceTarget(target, pc, level)
       local nth = 0
 
       repeat
-         obj = nwn.GetObjectByTag(tag, nth)
+         obj = Game.GetObjectByTag(tag, nth)
          nth = nth + 1
          if not obj:GetIsValid() then
             break
