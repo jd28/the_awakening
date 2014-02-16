@@ -1,4 +1,4 @@
-local Item = require 'solstice.item'
+local Item = require 'ta.item'
 
 command = "item"
 description = [[Item generator commands.

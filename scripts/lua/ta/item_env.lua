@@ -18,7 +18,7 @@ E.Random = Dyn.Random
 E.Chance = Dyn.Chance
 
 --- Create Ability bonus/penalty item property.
--- @param ability CRE.ABILITY_*
+-- @param ability ABILITY\_*
 -- @param mod Bonus: [1, 12], Penalty [-12, -1]
 function E.Ability(ability, mod)
    return add_ip("AbilityScore", ability, mod)
@@ -50,7 +50,7 @@ function E.AttackModifier(value)
 end
 
 --- Item Property Bonus Feat
--- @param feat solstice.itemprop.FEAT_*
+-- @param feat IP_CONST_FEAT_*
 function E.BonusFeat(value)
    return add_ip("BonusFeat", value)
 end
