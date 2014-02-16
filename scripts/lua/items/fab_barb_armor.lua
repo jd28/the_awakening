@@ -6,20 +6,20 @@ properties = {
    Ability(ABILITY_STRENGTH, 4),
    Ability(ABILITY_CONSTITUTION, 6),
 
-   DamageImmunity(IP_CONST_DAMAGE_DIVINE, 60),
-   DamageImmunity(IP_CONST_DAMAGE_MAGICAL, 60),
-   DamageImmunity(IP_CONST_DAMAGE_NEGATIVE, 60),
-   DamageImmunity(IP_CONST_DAMAGE_POSITIVE, 60),
-   DamageImmunity(IP_CONST_DAMAGE_BLUDGEONING, 60),
-   DamageImmunity(IP_CONST_DAMAGE_PIERCING, 60),
-   DamageImmunity(IP_CONST_DAMAGE_SLASHING, 60),
+   DamageImmunity(DAMAGE_TYPE_DIVINE, 60),
+   DamageImmunity(DAMAGE_TYPE_MAGICAL, 60),
+   DamageImmunity(DAMAGE_TYPE_NEGATIVE, 60),
+   DamageImmunity(DAMAGE_TYPE_POSITIVE, 60),
+   DamageImmunity(DAMAGE_TYPE_BLUDGEONING, 60),
+   DamageImmunity(DAMAGE_TYPE_PIERCING, 60),
+   DamageImmunity(DAMAGE_TYPE_SLASHING, 60),
 
-   DamageResistance(IP_CONST_DAMAGE_POSITIVE, RESIST_10),
-   DamageResistance(IP_CONST_DAMAGE_NEGATIVE, RESIST_10),
-   DamageResistance(IP_CONST_DAMAGE_DIVINE, RESIST_10),
+   DamageResistance(DAMAGE_TYPE_POSITIVE, IP_CONST_RESIST_10),
+   DamageResistance(DAMAGE_TYPE_NEGATIVE, IP_CONST_RESIST_10),
+   DamageResistance(DAMAGE_TYPE_DIVINE, IP_CONST_RESIST_10),
 
-   Immunity(IP_CONST_IMMUNITYMISC_DEATH_MAGIC),
-   SavingThrowVersus(IP_CONST_SAVEVS_UNIVERSAL, 3),
+   Immunity(IMMUNITY_TYPE_DEATH),
+   SavingThrowVersus(SAVING_THROW_VS_ALL, 3),
 
    Regeneration(6),
 
