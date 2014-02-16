@@ -4,23 +4,14 @@ local Obj = require 'solstice.object'
 local encenv = require 'ta.encounter_env'
 local Dyn = require 'ta.dynamo'
 
-local _HOLDER = {}
+local _HOLDER = encenv._HOLDER
 
 --- Load item file.
 -- @param file Item file to load.
 function M.Load(file)
    encenv.enc = setmetatable({}, { __index = encenv })
-
    local res = runfile(file, encenv.enc)
-   assert(res.tag)
-
-   res.delay  = res.delay or 0.3
-   res.policy = res.policy or encenv.POLICY_NONE
-
-   _HOLDER[res.tag] = res
-
    encenv.enc = nil
-   return res.tag
 end
 
 
@@ -84,9 +75,10 @@ function M.Spawn(encounter, level, cre)
          final_loc   = loc
 
          if sp.point then
-            local l = encounter:GetSpawnPointByIndex(sp.point)
+            spp = Dyn.GetValue(sp.point)
+            local l = encounter:GetSpawnPointByIndex(spp)
             if l then
-               final_point = sp.point
+               final_point = spp
                final_loc = l
             end
          end
@@ -108,8 +100,6 @@ function M.Spawn(encounter, level, cre)
       -- If we're not spawning at each point break
       if policy ~= encenv.POLICY_EACH then break end
    end
-
-   encounter:SetLocalInt("ssp_spawned", true)
 end
 
 function M.Test(tag)

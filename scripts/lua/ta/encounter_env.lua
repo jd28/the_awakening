@@ -12,15 +12,29 @@ E.enc = {}
 E.Random = Dyn.Random
 E.Chance = Dyn.Chance
 
+E._HOLDER = {}
+
+--- Load item file.
+local function load(res)
+   assert(res.tag)
+
+   res.delay  = res.delay or 0.3
+   res.policy = res.policy or encenv.POLICY_NONE
+
+   E._HOLDER[res.tag] = res
+end
+
 ---
 function E.Spawn(resref, count, point)
-   if type(count) == 'number' then
-      count = E.Random(count, count)
-   end
    return { resref = resref,
             count  = count,
             chance = 100,
             point  = point }
+end
+
+---
+function E.Encounter(tbl)
+   load(tbl)
 end
 
 return E
