@@ -27,7 +27,11 @@ function M.GetLevelTable(tbl, level)
 end
 
 function M.GetValue(value, use_max)
-   if value.start == value.stop then
+   if type(value) == "number" then
+      return value
+   elseif type(value) == "table" then
+      return value[random(1, #value)]
+   elseif value.start == value.stop then
       return value.start
    elseif use_max then
       return value.stop
