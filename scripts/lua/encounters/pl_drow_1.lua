@@ -1,6 +1,5 @@
 Encounter {
    tag      = 'pl_drow_1',
-   fallover = 3,
    delay    = 0.3,
    policy   = POLICY_RANDOM,
 
