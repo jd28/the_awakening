@@ -12,15 +12,16 @@ end
 function pl_inst_do()
    local pc = Game.GetPCSpeaker()
 
-   local trig = pc:GetLocalObject("PL_CONV_WITH")
-   local target = trig:GetTransitionTarget()
-   local tag = target:GetTag()
-   local level = NWNXEvents.GetSelectedNodeID()
+   local trig     = pc:GetLocalObject("PL_CONV_WITH")
+   local target   = trig:GetTransitionTarget()
+   local tar_area = target:GetArea()
+   local tag      = target:GetTag()
+   local level    = NWNXEvents.GetSelectedNodeID()
 
-   if level > 0 then
+   if level > 0 and tar_area:GetLocalBool("area_can_instance") then
       Inst.CreateInstance(trig, target:GetArea(), level)
       target = Inst.GetInstanceTarget(target, pc, level)
    end
 
-   pc:JumpSafeToObject(target)
+   pc:ActionJumpToObject(target)
 end

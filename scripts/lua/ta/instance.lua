@@ -21,6 +21,8 @@ function M.CreateInstance(transition, area, level)
       Log:info("Instancing Area: %s, Level: %d", resref, level)
       local area = NWNXAreas.CreateArea(resref)
       if area:GetIsValid() then
+         NWNXAreas.SetAreaName(area, string.format("%s - Level %d", area:GetName(),
+                                                   level))
          area:SetLocalInt("instance_level", level)
          area:SetLocalBool("area_no_loc_save", true)
       else

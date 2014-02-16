@@ -15,14 +15,14 @@ local function check_transition(trans, pc)
    local env = trans:GetLocalBool("CheckEnv")
    local level = trans:GetLocalInt("Level")
    local despawn_time = area:GetLocalInt("DespawnTime")
-   
+
    Log:debug([[Check Transitions:
    Key: %s
    Spawn: %s
    Despawn: %s
    Despawn Time: %d
    Environment: %s
-   Level: %d]], 
+   Level: %d]],
    key, tostring(spawn), tostring(despawn), despawn_time, tostring(env), level)
 
 --[[
@@ -35,7 +35,7 @@ local function check_transition(trans, pc)
     int bClear        = GetIsAreaClear(oArea, oClicker);
     int bJump         = TRUE;
     int nHideTime     = GetLocalInt(oArea, "PL_LAST_STEALTH");
-    int nTime         = GetLocalInt(GetModule(), "uptime") - nHideTime; 
+    int nTime         = GetLocalInt(GetModule(), "uptime") - nHideTime;
 
  if (nHideTime > 0 && nTime < 300 && nPercent < 50) {
         bJump = FALSE;
@@ -80,7 +80,7 @@ end
 
 function nw_g0_transition(trans)
    local pc = Ev.GetClickingObject()
-   if not pc:GetIsValid() then 
+   if not pc:GetIsValid() then
       error("Invalid PC")
    end
 
@@ -88,7 +88,7 @@ function nw_g0_transition(trans)
    if not pc:GetIsPC() and pc:GetPlotFlag() then return end
 
    if not check_transition(trans, pc) then return end
-   
+
    local cur_area = pc:GetArea()
    local target = trans:GetTransitionTarget()
    local tar_area = target:GetArea()
@@ -96,7 +96,7 @@ function nw_g0_transition(trans)
    local instance_level = cur_area:GetLocalInt("instance_level")
 
    -- Set transition BMP
-   if instance_level ~= 0 and tar_area:GetLocalInt("instance_level") ~= 0 then
+   if instance_level ~= 0 and tar_area:GetLocalBool("area_can_instance") then
       Inst.CreateInstance(trans, tar_area, instance_level)
       target = Inst.GetInstanceTarget(target, pc, instance_level)
    end
