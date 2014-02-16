@@ -68,11 +68,10 @@ function M.Spawn(encounter, level, cre)
          loc, spawn_point = GetFurthestSpawnPoint(encounter, cre, distance_hint)
       end
 
-
       local delay = base_delay
       for _, sp in ipairs(spawns) do
-         final_point = spawn_point
-         final_loc   = loc
+         local final_point = spawn_point
+         local final_loc   = loc
 
          if sp.point then
             spp = Dyn.GetValue(sp.point)
