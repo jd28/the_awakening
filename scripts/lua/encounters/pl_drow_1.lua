@@ -12,6 +12,7 @@
 --   Rotate(...)         - Cycles through spawn sets.
 --   Every(default, ...) - Spawns default spawn set, unless the Nth activation
 --                         is in a number/spawn set pair.
+--   Random(...)         - Select a random spawn set.
 
 -- Spawn chained functions: (They can occur in any order, but only after
 -- a call to Spawn.)

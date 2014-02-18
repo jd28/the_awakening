@@ -35,6 +35,8 @@ function M.GetLevelHolder(tbl, obj)
       else
          tbl.rotate = tbl.rotate + 1
       end
+   elseif tbl.rand then
+      result = tbl.rand[math.random(#tbl.rand)]
    elseif tbl.every then
       if tbl[tbl.every] then
          result = tbl[tbl.every]
@@ -101,4 +103,7 @@ function M.If(default, ...)
    return default
 end
 
+function M.Random(...)
+   local t = { rand = {...} }
+   return t
 return M

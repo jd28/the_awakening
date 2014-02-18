@@ -11,6 +11,7 @@ E._HOLDER = {}
 E.Rotate = Dyn.Rotate
 E.Every = Dyn.Every
 E.If = Dyn.If
+E.Random = E.Random
 
 --- Load item file.
 local function load(res)
