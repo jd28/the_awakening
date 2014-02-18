@@ -47,7 +47,7 @@ end
 
 function M.Spawn(encounter, level, cre)
    local holder        = assert(_HOLDER[encounter:GetTag()])
-   local spawns        = Dyn.GetLevelTable(holder, level)
+   local spawns        = Dyn.GetLevelHolder(Dyn.GetLevelTable(holder, level), encounter)
    local policy        = holder.policy or spawns.policy
    local base_delay    = spawns.delay or holder.delay
    local fallover      = spawns.fallover or holder.fallover
