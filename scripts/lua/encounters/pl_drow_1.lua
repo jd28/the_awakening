@@ -17,6 +17,7 @@
 --
 --   Every{number, spawn(set), ...}
 --      - Spawns a spawn(set) every N activations.
+--        the counter resets when the highest N is hit.
 --
 --   Random{...}
 --     - Select a spawn(set) at random.
@@ -80,7 +81,8 @@ Encounter {
 
       Percent {
          10, Spawn("pl_drow_h1_matro"): N(1),
-         60, Spawn("pl_drow_h1_matro"): N(2),
+         60, { Spawn("pl_drow_h1_matro"): N(1, 3),
+               Spawn("pl_drow_h4_wm"): At(0): N(2): Chance(80) },
          30, Spawn("pl_drow_h1_matro"): N(3)
       },
 

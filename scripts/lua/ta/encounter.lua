@@ -45,25 +45,6 @@ function GetFurthestSpawnPoint(enc, obj, stop_at)
    return loc, idx
 end
 
-local pp = require 'pl.pretty'
-
-local function buid_spawn_list(spawns, obj, acc)
-   acc = acc or {}
-   pp.dump(spawns)
-   for _, sp in ipairs(spawns) do
-      print(sp._dynamo_type)
-      local ex = Dyn.extract(sp, obj)
-      if ex then
-         if ex.spawn then
-            table.insert(acc, ex)
-         else
-            buid_spawn_list(ex, obj, acc)
-         end
-      end
-   end
-   return acc
-end
-
 function M.Spawn(encounter, level, cre)
    local holder        = assert(_HOLDER[encounter:GetTag()])
    local level_table   = Dyn.GetLevelTable(holder, level)
@@ -84,7 +65,7 @@ function M.Spawn(encounter, level, cre)
       loc, spawn_point = GetFurthestSpawnPoint(encounter, cre, distance_hint)
    end
 
-   spawns = buid_spawn_list(spawns, encounter)
+   spawns = Dyn.flatten(spawns, encounter)
 
    for k = 0, num_spawns - 1 do
       if policy == encenv.POLICY_EACH then
@@ -106,17 +87,15 @@ function M.Spawn(encounter, level, cre)
             end
          end
 
-         if sp.chance >= math.random(100) then
-            for i=1, Dyn.GetValue(sp.count) do
-               mod:DelayCommand(delay, function() spawn_monster(sp.resref, final_loc, encounter) end)
-               delay = delay + holder.delay
-               mon_spawned = mon_spawned + 1
-               encounter.obj.enc_number_spawned = encounter.obj.enc_number_spawned + 1
-               if fallover and mon_spawned > fallover then
-                  local l = encounter:GetSpawnPointByIndex(final_point + 1)
-                  final_loc = l or final_loc
-                  mon_spawned = 0
-               end
+         for i=1, Dyn.GetValue(sp.count) do
+            mod:DelayCommand(delay, function() spawn_monster(sp.resref, final_loc, encounter) end)
+            delay = delay + holder.delay
+            mon_spawned = mon_spawned + 1
+            encounter.obj.enc_number_spawned = encounter.obj.enc_number_spawned + 1
+            if fallover and mon_spawned > fallover then
+               local l = encounter:GetSpawnPointByIndex(final_point + 1)
+               final_loc = l or final_loc
+               mon_spawned = 0
             end
          end
       end
@@ -146,7 +125,7 @@ function M.Test(tag)
    table.insert(out, string.format("Fallover: %d", enc.fallover or -1))
 
    local spawns = Dyn.extract(enc.Default, OBJECT_INVALID)
-   spawns = buid_spawn_list(spawns, obj)
+   spawns = Dyn.flatten(spawns, obj)
    table.insert(out, "Spawns - Default:")
    for _, v in ipairs(spawns) do
       out_spawn(out, v)
@@ -154,7 +133,7 @@ function M.Test(tag)
 
    if enc.Level1 then
       spawns = Dyn.extract(enc.Level1, OBJECT_INVALID)
-      spawns = buid_spawn_list(spawns, OBJECT_INVALID)
+      spawns = Dyn.flatten(spawns, OBJECT_INVALID)
       table.insert(out, "Spawns - Level 1:")
       for _, v in ipairs(spawns) do
          out_spawn(out, v)
@@ -163,7 +142,7 @@ function M.Test(tag)
 
    if enc.Level2 then
       spawns = Dyn.extract(enc.Level2, OBJECT_INVALID)
-      spawns = buid_spawn_list(spawns, OBJECT_INVALID)
+      spawns = Dyn.flatten(spawns, OBJECT_INVALID)
 
       table.insert(out, "Spawns - Level 2:")
       for _, v in ipairs(spawns) do

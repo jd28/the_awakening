@@ -53,10 +53,10 @@ end
 
 ---
 function E.Spawn(resref, count)
-   local res = { spawn = true,
-                 resref = resref,
+   local res = { resref = resref,
                  chance = 100 }
    setmetatable(res, { __index = Spawn })
+   Dyn.set_base(res)
    return res
 end
 
