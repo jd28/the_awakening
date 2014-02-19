@@ -4,7 +4,7 @@ resref = "fab_druid_helm"
 properties = {
    AC(6),
    Ability(ABILITY_WISDOM, 4),
-   Ability(ABILITY_STRENGTH, Random(3, 5)),
+   Ability(ABILITY_STRENGTH, Range(3, 5)),
    Ability(ABILITY_CHARISMA, 4),
    DamageImmunity(DAMAGE_TYPE_DIVINE, 62),
    DamageImmunity(DAMAGE_TYPE_MAGICAL, 60),

@@ -14,7 +14,7 @@ local function add_ip(fname, ...)
    return t
 end
 
-E.Random = Dyn.Random
+E.Range = Dyn.Range
 E.Chance = Dyn.Chance
 
 --- Create Ability bonus/penalty item property.

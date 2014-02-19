@@ -45,10 +45,29 @@ function GetFurthestSpawnPoint(enc, obj, stop_at)
    return loc, idx
 end
 
+local pp = require 'pl.pretty'
+
+local function buid_spawn_list(spawns, obj, acc)
+   acc = acc or {}
+   pp.dump(spawns)
+   for _, sp in ipairs(spawns) do
+      print(sp._dynamo_type)
+      local ex = Dyn.extract(sp, obj)
+      if ex then
+         if ex.spawn then
+            table.insert(acc, ex)
+         else
+            buid_spawn_list(ex, obj, acc)
+         end
+      end
+   end
+   return acc
+end
+
 function M.Spawn(encounter, level, cre)
    local holder        = assert(_HOLDER[encounter:GetTag()])
    local level_table   = Dyn.GetLevelTable(holder, level)
-   local spawns        = Dyn.GetLevelHolder(level_table, encounter)
+   local spawns        = Dyn.extract(level_table, encounter)
    local policy        = holder.policy or spawns.policy
    local base_delay    = spawns.delay or holder.delay
    local fallover      = spawns.fallover or holder.fallover
@@ -57,19 +76,23 @@ function M.Spawn(encounter, level, cre)
    local mon_spawned   = 0
    local mod = Game.GetModule()
 
-   for k = 0, num_spawns - 1 do
-      local loc, spawn_point
+   local loc, spawn_point
+   if policy == encenv.POLICY_RANDOM then
+      spawn_point = math.random(num_spawns) - 1
+      loc = encounter:GetSpawnPointByIndex(spawn_point)
+   elseif policy == encenv.POLICY_NONE then
+      loc, spawn_point = GetFurthestSpawnPoint(encounter, cre, distance_hint)
+   end
 
+   spawns = buid_spawn_list(spawns, encounter)
+
+   for k = 0, num_spawns - 1 do
       if policy == encenv.POLICY_EACH then
          loc, spawn_point = encounter:GetSpawnPointByIndex(k), k
-      elseif policy == encenv.POLICY_RANDOM then
-         spawn_point = math.random(num_spawns) - 1
-         loc = encounter:GetSpawnPointByIndex(spawn_point)
-      elseif policy == encenv.POLICY_NONE then
-         loc, spawn_point = GetFurthestSpawnPoint(encounter, cre, distance_hint)
       end
 
       local delay = base_delay
+
       for _, sp in ipairs(spawns) do
          local final_point = spawn_point
          local final_loc   = loc
@@ -111,7 +134,7 @@ function M.Test(tag)
    local function out_spawn(out, v)
       if not v.chance or math.random(100) <= v.chance then
          table.insert(out, string.format("  Creature %s, Count: %d",
-                                         ffi.string(v.resref),
+                                         v.resref,
                                          Dyn.GetValue(v.count)))
       end
    end
@@ -121,28 +144,39 @@ function M.Test(tag)
    table.insert(out, string.format("Delay: %f", enc.delay))
    table.insert(out, string.format("Policy: %d", enc.policy))
    table.insert(out, string.format("Fallover: %d", enc.fallover or -1))
+
+   local spawns = Dyn.extract(enc.Default, OBJECT_INVALID)
+   spawns = buid_spawn_list(spawns, obj)
    table.insert(out, "Spawns - Default:")
-   for _, v in ipairs(enc.Default) do
+   for _, v in ipairs(spawns) do
       out_spawn(out, v)
    end
 
    if enc.Level1 then
+      spawns = Dyn.extract(enc.Level1, OBJECT_INVALID)
+      spawns = buid_spawn_list(spawns, OBJECT_INVALID)
       table.insert(out, "Spawns - Level 1:")
-      for _, v in ipairs(enc.Level1) do
+      for _, v in ipairs(spawns) do
          out_spawn(out, v)
       end
    end
 
    if enc.Level2 then
+      spawns = Dyn.extract(enc.Level2, OBJECT_INVALID)
+      spawns = buid_spawn_list(spawns, OBJECT_INVALID)
+
       table.insert(out, "Spawns - Level 2:")
-      for _, v in ipairs(enc.Level2) do
+      for _, v in ipairs(spawns) do
          out_spawn(out, v)
       end
    end
 
    if enc.Level3 then
       table.insert(out, "Spawns - Level 3:")
-      for _, v in ipairs(enc.Level3) do
+      spawns = Dyn.extract(enc.Level3, OBJECT_INVALID)
+      spawns = buid_spawn_list(spawns, OBJECT_INVALID)
+
+      for _, v in ipairs(spawns) do
          out_spawn(out, v)
       end
    end

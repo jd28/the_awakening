@@ -6,13 +6,25 @@
 --                   from entering object.
 
 -- Functions:
---   Spawn(resref)       - Creature to spawn
---   If(else, ...)       - Spawns the else spawn set, unless a
---                         function/spawn set pair returns true.
---   Rotate(...)         - Cycles through spawn sets.
---   Every(default, ...) - Spawns default spawn set, unless the Nth activation
---                         is in a number/spawn set pair.
---   Random(...)         - Select a random spawn set.
+--   Spawn(resref)
+--     - Creature to spawn
+--
+--   If{string, spawn(set), ...}
+--     - Function name, spawn(set) pairs.
+--
+--   Rotate{spawn(set)s, ...}
+--      - Cycles through an array of spawn(set)s.
+--
+--   Every{number, spawn(set), ...}
+--      - Spawns a spawn(set) every N activations.
+--
+--   Random{...}
+--     - Select a spawn(set) at random.
+--
+--   Percent{number, spawn(set), ...}
+--      - Array of percent, spawn(set) pairs.
+--        The percents when summed must equal 100.
+
 
 -- Spawn chained functions: (They can occur in any order, but only after
 -- a call to Spawn.)
@@ -47,7 +59,7 @@ Encounter {
    policy   = POLICY_RANDOM,
 
    -- Delay between spawning creatures.  Default: 0.1 if not set.
-   delay    = 0.1
+   delay    = 0.1,
 
    -- Simple spawn set is just a array of spawns.
    Default = {
@@ -60,38 +72,20 @@ Encounter {
    },
 
    -- Rotate through N number of spawn sets.
-   Level1 = Rotate(
-     { Spawn("pl_drow_h1_matro"): N(1, 3),
-       Spawn("pl_drow_h4_wm"): At(0): N(2): Chance(80) },
+   Level1 = {
+      Spawn("pl_drow_h1_matro"): N(1, 3),
 
-     { Spawn("pl_drow_h1_matro"): N(1, 2),
-       Spawn("pl_drow_h4_wm"): At(0): N(4): Chance(80) }),
+      Rotate { Spawn("pl_drow_h1_matro"): N(1, 3),
+               Spawn("pl_drow_h4_wm"): At(0): N(2): Chance(80) },
 
+      Percent {
+         10, Spawn("pl_drow_h1_matro"): N(1),
+         60, Spawn("pl_drow_h1_matro"): N(2),
+         30, Spawn("pl_drow_h1_matro"): N(3)
+      },
 
-   Level2 = Every(
-      -- Default spawn set, spawn 1 OR 3 matrons at policy spawn point
-      -- 80% chance to spawn 2 wm at spawn point 0 OR 2
-      { Spawn("pl_drow_h1_matro"): N{1, 3},
-        Spawn("pl_drow_h4_wm"): At{0, 2}: N(2): Chance(80) },
-
-      -- Every fourth trigger, do differently
-      4, { Spawn("pl_drow_h1_matro"): N(1),
-           Spawn("pl_drow_h4_wm"): At(0): N(2): Chance(80) }),
-
-   Level3 = If(
-      -- Default spawn set (the else clause, basically, spawn 1 OR 3
-      -- matrons at policy spawn point 80% chance to spawn
-      { Spawn("pl_drow_h1_matro"): N{1, 3},
-        Spawn("pl_drow_h4_wm"): At{0, 2}: N(2): Chance(80) },
-
-      -- Order dependent, first true wins
-      -- calls some_function_that_returns_true_or_false(oEncounter)
-      "some_function_that_returns_true_or_false",
-      { Spawn("pl_drow_h1_matro"): N(1),
-        Spawn("pl_drow_h4_wm"): At(0): N(2): Chance(80) },
-
-      -- calls another_function_that_returns_true_or_false(oEncounter)
-      "another_function_that_returns_true_or_false",
-      { Spawn("pl_drow_h1_matro"): N(1),
-        Spawn("pl_drow_h4_wm"): At(0): N(2): Chance(80) }),
+      Every {
+         4, Spawn("pl_drow_h1_matro"): N(24)
+      }
+   }
 }

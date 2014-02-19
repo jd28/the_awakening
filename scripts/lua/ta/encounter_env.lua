@@ -12,6 +12,8 @@ E.Rotate = Dyn.Rotate
 E.Every = Dyn.Every
 E.If = Dyn.If
 E.Random = E.Random
+E.Or = Dyn.Or
+E.Percent = Dyn.Percent
 
 --- Load item file.
 local function load(res)
@@ -28,7 +30,7 @@ local Spawn = {}
 function Spawn:At(point, rand)
    if rand then
       assert(point < rand)
-      point = Dyn.Random(point, rand)
+      point = Dyn.Range(point, rand)
    end
    self.point = point
    return self
@@ -37,7 +39,7 @@ end
 function Spawn:N(count, rand)
    if rand then
       assert(count < rand)
-      count = Dyn.Random(count, rand)
+      count = Dyn.Range(count, rand)
    end
 
    self.count = count
@@ -51,7 +53,8 @@ end
 
 ---
 function E.Spawn(resref, count)
-   local res = { resref = resref,
+   local res = { spawn = true,
+                 resref = resref,
                  chance = 100 }
    setmetatable(res, { __index = Spawn })
    return res
