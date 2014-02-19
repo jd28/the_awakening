@@ -66,15 +66,19 @@ function M.extract(tbl, obj)
             break
          end
       end
-   elseif tbl ._dynamo_type == M.DYNAMO_RANDOM then
+   elseif tbl._dynamo_type == M.DYNAMO_RANDOM then
       result = tbl[math.random(#tbl)]
-   elseif tbl ._dynamo_type == M.DYNAMO_EVERY then
+   elseif tbl._dynamo_type == M.DYNAMO_EVERY then
       if tbl[tbl.every] then
          result = tbl[tbl.every]
       else
          result = nil
       end
-      tbl.every = tbl.every + 1
+      if tbl.every == table.maxn(tbl) then
+         tbl.every = 1
+      else
+         tbl.every = tbl.every + 1
+      end
    elseif tbl._dynamo_type == M.DYNAMO_IF then
       local r
       for i = 1, #tbl, 2 do
@@ -130,7 +134,7 @@ function M.Every(t)
    res.every = 1
    res._dynamo_type = M.DYNAMO_EVERY
    for i = 1, #t, 2 do
-      res[t[i]] = t[2]
+      res[t[i]] = t[i+1]
    end
    return res
 end
