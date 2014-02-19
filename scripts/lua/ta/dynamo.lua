@@ -12,6 +12,15 @@ typedef struct {
 
 M.range_t = ffi.typeof("Range")
 
+M.DYNAMO_INVALID = 0
+M.DYNAMO_CHANCE  = 1
+M.DYNAMO_ROTATE  = 2
+M.DYNAMO_EVERY   = 3
+M.DYNAMO_IF      = 4
+M.DYNAMO_RANDOM  = 5
+M.DYNAMO_PERCENT = 6
+M.DYNAMO_OR      = 7
+
 function M.GetLevelTable(tbl, level)
    if level >= 3 and tbl.Level3 then
       return tbl.Level3
@@ -26,34 +35,69 @@ function M.GetLevelTable(tbl, level)
    return tbl.Default
 end
 
-function M.GetLevelHolder(tbl, obj)
+function M.extract(tbl, obj)
    local result = tbl
-   if tbl.rotate then
+
+   if tbl.chance and tbl.chance < math.random(100) then
+      return nil
+   end
+
+   -- If the passed in table, doesn't have a Dynamo type it, assume it
+   -- doesn't need extraction.
+   if not tbl._dynamo_type then return tbl end
+
+   if tbl._dynamo_type == M.DYNAMO_ROTATE then
+      if not tbl.rotate then
+         print(debug.traceback())
+      end
       result = tbl[tbl.rotate]
       if tbl.rotate == #tbl then
          tbl.rotate = 1
       else
          tbl.rotate = tbl.rotate + 1
       end
-   elseif tbl.rand then
-      result = tbl.rand[math.random(#tbl.rand)]
-   elseif tbl.every then
-      if tbl[tbl.every] then
-         result = tbl[tbl.every]
-      else
-         result = tbl[0]
-      end
-      tbl.every = tbl.every + 1
-   elseif tbl.if_ then
-      result = default
-      for i = 1, #tbl.if_, 2 do
-         if _G[tbl.if_[i]](obj) then
-            result = tbl.if_[i+1]
+   elseif tbl._dynamo_type == M.DYNAMO_PERCENT then
+      local r = math.random(100)
+      local tot = 0
+      for i=1, #tbl, 2 do
+         tot = tot + tbl[i]
+         if r <= tot then
+            result = tbl[i+1]
             break
          end
       end
+   elseif tbl ._dynamo_type == M.DYNAMO_RANDOM then
+      result = tbl[math.random(#tbl)]
+   elseif tbl ._dynamo_type == M.DYNAMO_EVERY then
+      if tbl[tbl.every] then
+         result = tbl[tbl.every]
+      else
+         result = nil
+      end
+      tbl.every = tbl.every + 1
+   elseif tbl._dynamo_type == M.DYNAMO_IF then
+      local r
+      for i = 1, #tbl, 2 do
+         if _G[tbl[i]](obj) then
+            r = tbl[i+1]
+            break
+         end
+      end
+      result = r
+   elseif tbl._dynamo_type == M.DYNAMO_OR then
+      local r
+      for _, v in ipairs(tbl) do
+         local r = M.extract(v)
+         if r then break end
+      end
+      result = r
    end
+
    return result
+end
+
+function M.Range(start, stop)
+   return M.range_t(start, stop)
 end
 
 function M.GetValue(value, use_max)
@@ -70,40 +114,46 @@ function M.GetValue(value, use_max)
    end
 end
 
---- Creates a range for random values.
--- @see math.random
-function M.Random(start, stop)
-   return M.range_t(start, stop)
-end
-
 function M.Chance(chance, tbl)
    tbl.chance = chance
    return tbl
 end
 
-function M.Rotate(...)
-   local t = {...}
+function M.Rotate(t)
    t.rotate = 1
+   t._dynamo_type = M.DYNAMO_ROTATE
+   return t
 end
 
-function M.Every(default, ...)
-   local t = { every = 1 }
-   t[0] = default
-
-   local temp = {...}
-   for i=1, #temp, 2 do
-      t[temp[i]] = temp[i+1]
+function M.Every(t)
+   local res = {}
+   res.every = 1
+   res._dynamo_type = M.DYNAMO_EVERY
+   for i = 1, #t, 2 do
+      res[t[i]] = t[2]
    end
+   return res
+end
 
+function M.If(t)
+   t._dynamo_type = M.DYNAMO_IF
    return t
 end
 
-function M.If(default, ...)
-   default.if_ = {...}
-   return default
+function M.Random(t)
+   t._dynamo_type = M.DYNAMO_RANDOM
+   return t
 end
 
-function M.Random(...)
-   local t = { rand = {...} }
+function M.Percent(t)
+   t._dynamo_type = M.DYNAMO_PERCENT
+   assert(#t % 2 == 0)
    return t
+end
+
+function M.Or(t)
+   t._dynamo_type = M.DYNAMO_OR
+   return t
+end
+
 return M
