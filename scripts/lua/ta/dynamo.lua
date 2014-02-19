@@ -35,6 +35,25 @@ function M.GetLevelTable(tbl, level)
    return tbl.Default
 end
 
+function M.set_base(tbl)
+   tbl._dynamo_base = true
+end
+
+function M.flatten(tbl, obj, acc)
+   acc = acc or {}
+   for _, sp in ipairs(tbl) do
+      local ex = M.extract(sp, obj)
+      if ex then
+         if ex._dynamo_base then
+            table.insert(acc, ex)
+         else
+            M.flatten(ex, obj, acc)
+         end
+      end
+   end
+   return acc
+end
+
 function M.extract(tbl, obj)
    local result = tbl
 
