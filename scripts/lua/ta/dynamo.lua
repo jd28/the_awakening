@@ -171,6 +171,11 @@ end
 function M.Percent(t)
    t._dynamo_type = M.DYNAMO_PERCENT
    assert(#t % 2 == 0)
+   local sum = 0
+   for i=1, #t, 2 do
+      sum = sum + t[i]
+   end
+   assert(sum == 100)
    return t
 end
 
