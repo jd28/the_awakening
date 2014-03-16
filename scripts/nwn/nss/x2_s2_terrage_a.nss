@@ -47,7 +47,7 @@ void main(){
         return;
 
     // Hit dice below barb.... run like hell!
-    if (GetHitDice(oTarget)< GetHitDice(oBarb)){
+    if (GetHitDice(oTarget) < GetHitDice(oBarb)){
         //Apply the VFX impact and effects
         effect eFear = EffectParalyze();
         eLink = EffectLinkEffects(eFear, eDur);
@@ -55,10 +55,12 @@ void main(){
         eLink = ExtraordinaryEffect(eLink);
         ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nDuration));
         ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget);
-        PlayVoiceChat(VOICE_CHAT_HELP,oTarget);
+		if (d6() == 1)
+			PlayVoiceChat(VOICE_CHAT_HELP,oTarget);
     }
+
     // Up to twice the barbs HD ... shaken
-    else if (GetHitDice(oTarget)< GetHitDice(oBarb)*2){
+    if (GetHitDice(oTarget) < GetHitDice(oBarb)*2){
         eLink = EffectLinkEffects(eDur, EffectSavingThrowDecrease(SAVING_THROW_ALL, 2));
         eLink = EffectLinkEffects(eLink, EffectAttackDecrease(2));
         eLink = EffectLinkEffects(eLink,EffectDamageImmunityDecrease(DAMAGE_TYPE_BLUDGEONING, 5));
