@@ -1,5 +1,5 @@
 local Ev = require 'solstice.event'
-local Log = require('ta.logger').Log
+local Log = System.GetLogger()
 local Inst = require 'ta.instance'
 
 local function check_transition(trans, pc)
