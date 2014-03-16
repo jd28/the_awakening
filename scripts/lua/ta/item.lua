@@ -68,4 +68,22 @@ function M.Generate(object, resref, max)
    end
 end
 
+function M.Test(resref, max)
+   local item = _ITEMS[resref]
+   local ips  = Dyn.flatten(item.properties, OBJECT_INVALID)
+   local res = { "Item: "..resref }
+
+   for _, p in ipairs(ips) do
+      local t = {}
+      for _, v in ipairs(p) do
+         local val = Dyn.GetValue(v, max)
+         table.insert(t, val)
+      end
+
+      table.insert(res, p.f .. "(" .. table.concat(t, ', ') .. ")")
+   end
+
+   return table.concat(res, '\n')
+end
+
 return M

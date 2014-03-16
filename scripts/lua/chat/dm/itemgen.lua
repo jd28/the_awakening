@@ -13,5 +13,7 @@ function action(chat_info)
       Item.Generate(pc, act[2])
    elseif act[1] == "list" then
       pc:SendMessage(Item.List())
+   elseif act[1] == "test" then
+      pc:SendMessage(Item.Test(act[2], act[3] == "true"))
    end
 end
