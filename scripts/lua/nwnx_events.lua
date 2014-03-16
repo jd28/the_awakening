@@ -4,7 +4,6 @@ NXEv.RegisterEventHandler(
    NXEv.EVENT_TYPE_DESTROY_OBJECT,
    function (ev)
       local obj = ev.object
-      _SOL_REMOVE_CACHED_OBJECT(obj.id)
+      _SOL_REMOVE_CACHED_OBJECT(obj.type, obj.id)
       return false
    end)
-   
