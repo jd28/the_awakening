@@ -10,3 +10,6 @@
 
 -- REQUIRED: Log directory.
 LOG_DIR = "/opt/nwn/logs.0"
+
+-- REQUIRED: Consant loader.
+CONSTANTS = "ta_constants"

@@ -39,13 +39,15 @@ safe_require "solstice.util.lua_preload"
 
 OPT = runfile('./'..script_dir..'/settings.lua')
 
+--- Constants MUST be loaded before solstice.
+safe_require(OPT.CONSTANTS)
+
 safe_require "solstice.preload"
 
 if OPT.PRELOAD then
    safe_require(OPT.PRELOAD)
 end
 
-safe_require 'ta_constants'
 for f in lfs.dir("./"..script_dir) do
    if f ~= "preload.lua" and
       f ~= "settings.lua" and
