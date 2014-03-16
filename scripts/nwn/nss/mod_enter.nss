@@ -19,7 +19,6 @@
 #include "sha_subr_methds"
 #include "msg_func_inc"
 #include "pl_pcstyle_inc"
-#include "nwnx_areas"
 
 // -----------------------------------------------------------------------------
 //  PROTOTYPES - Loading
@@ -71,7 +70,6 @@ void main(){
 
     SendMessageToAllDMs(sString);
 
-	NWNXAreas_FixCreature(oPC);
 // -----------------------------------------------------------------------------
 // PC Section
 // -----------------------------------------------------------------------------
@@ -144,7 +142,7 @@ void PCLoadPlayer(object oPC){
         }
 
         if(!GetPlayerInt(oPC, "pc_enhanced", TRUE)){
-            DelayCommand(15.0f, SendChatLogMessage(oPC, C_RED+"It is highly suggested that you go to the forums at theawakening1.freeforums.org and download " + 
+            DelayCommand(15.0f, SendChatLogMessage(oPC, C_RED+"It is highly suggested that you go to the forums at theawakening1.freeforums.org and download " +
                 "the server HAKs and TLK and use one of the !opt enhanced commands.  This is a small 3MB download.  Without it, you will see some " +
                 "missing things and might have difficulty leveling your character.  However, it shouldn't " +
                 "stop you from getting some sense of the server or playing for some time."+C_END, oPC, 4));
