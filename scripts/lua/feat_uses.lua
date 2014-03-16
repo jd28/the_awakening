@@ -1,4 +1,4 @@
-local Cre = require 'solstice.creature'
+local TDA = require 'solstice.2da'
 
 local function infinite() return 100 end
 local function one() return 1 end
@@ -8,7 +8,7 @@ Rules.RegisterFeatUses(
    function (feat, cre)
       return 1 + cre:GetLevelByClass(CLASS_TYPE_BARBARIAN)
    end,
-   FEAT_BARBARIAN_RAGE)
+   293)
 
 local function bard_song(feat, cre)
    local level = cre:GetLevelByClass(CLASS_TYPE_BARD)
@@ -21,7 +21,7 @@ local function bard_song(feat, cre)
    return uses
 end
 
-Rules.RegisterFeatUses(bard_song, FEAT_BARD_SONGS)
+Rules.RegisterFeatUses(bard_song, 257)
 -- This is because Bioware decided to make a bunch of (pointless)
 -- extra bard song feats.
 for i = 355, 373 do
@@ -31,7 +31,7 @@ end
 Rules.RegisterFeatUses(
    function(feat, cre)
       if cre:GetLevelByClass(CLASS_TYPE_BLACKGUARD) >= 45 or
-	 cre:GetLevelByClass(CLASS_TYPE_ASSASSIN) >= 45
+         cre:GetLevelByClass(CLASS_TYPE_ASSASSIN) >= 45
       then return 2
       else return 1
       end
@@ -43,11 +43,11 @@ Rules.RegisterFeatUses(
       local uses = 1
       local l = cre:GetLevelByClass(CLASS_TYPE_DIVINE_CHAMPION)
       if l >= 40 then
-	 uses = 4
+         uses = 4
       elseif l >= 30 then
-	 uses = 3
+         uses = 3
       elseif l >= 20 then
-	 uses = 2
+         uses = 2
       end
       return uses
    end,
@@ -85,9 +85,9 @@ Rules.RegisterFeatUses(
 Rules.RegisterFeatUses(none, FEAT_KI_DAMAGE)
 
 Rules.RegisterFeatUses(one,
-		    FEAT_HARPER_CATS_GRACE,
-		    FEAT_HARPER_EAGLES_SPLENDOR,
-		    FEAT_HARPER_SLEEP)
+                       FEAT_HARPER_CATS_GRACE,
+                       FEAT_HARPER_EAGLES_SPLENDOR,
+                       FEAT_HARPER_SLEEP)
 
 local function harper(feat, cre)
    local level = cre:GetLevelByClass(CLASS_TYPE_HARPER)
@@ -101,19 +101,19 @@ local function harper(feat, cre)
 end
 
 Rules.RegisterFeatUses(harper,
-		    FEAT_DENEIRS_EYE,
-		    2097)
+                       FEAT_DENEIRS_EYE,
+                       2097)
 
 Rules.RegisterFeatUses(
    function (feat, cre)
       local level = cre:GetLevelByClass(CLASS_TYPE_ASSASSIN)
       local uses  = 1
       if level >= 40 then
-	 uses = 4
+         uses = 4
       elseif level >= 30 then
-	 uses = 3
+         uses = 3
       elseif level >= 20 then
-	 uses = 2
+         uses = 2
       end
       return uses
    end,
@@ -136,7 +136,7 @@ Rules.RegisterFeatUses(
       local uses = 1
       local level = cre:GetLevelByClass(CLASS_TYPE_SHADOWDANCER)
       if level >= 45 then
-	 uses = 2
+         uses = 2
       end
       return uses
    end,
@@ -147,7 +147,7 @@ Rules.RegisterFeatUses(
       local level = cre:GetLevelByClass(CLASS_TYPE_MONK)
       local uses = 1 + (level / 4)
       if cre:GetHasFeat(FEAT_EXTRA_STUNNING_ATTACK) then
-	 uses = uses + 3
+         uses = uses + 3
       end
       return uses
    end,
@@ -155,9 +155,9 @@ Rules.RegisterFeatUses(
 
 Rules.RegisterFeatUses(
    function (feat, cre)
-      local uses = 3 + cre:GetAbilityModifier(Cre.ABILITY_CHARISMA)
+      local uses = 3 + cre:GetAbilityModifier(ABILITY_CHARISMA)
       if cre:GetHasFeat(FEAT_EXTRA_TURNING) then
-	 uses = uses + 6
+         uses = uses + 6
       end
       return uses
    end,
@@ -172,12 +172,12 @@ local function smite(feat, cre)
 end
 
 Rules.RegisterFeatUses(smite,
-		    FEAT_SMITE_EVIL,
-		    FEAT_SMITE_GOOD)
+                       FEAT_SMITE_EVIL,
+                       FEAT_SMITE_GOOD)
 
 local function epic_spell(feat, cre)
    local level = math.max(cre:GetLevelByClass(CLASS_TYPE_SORCERER),
-			  cre:GetLevelByClass(CLASS_TYPE_WIZARD))
+                          cre:GetLevelByClass(CLASS_TYPE_WIZARD))
 
    level = math.max(level, cre:GetLevelByClass(CLASS_TYPE_DRUID))
    level = math.max(level, cre:GetLevelByClass(CLASS_TYPE_CLERIC))
@@ -199,8 +199,8 @@ local function epic_spell(feat, cre)
 end
 
 Rules.RegisterFeatUses(epic_spell,
-		    FEAT_EPIC_SPELL_RUIN,
-		    FEAT_EPIC_SPELL_HELLBALL)
+                       FEAT_EPIC_SPELL_RUIN,
+                       FEAT_EPIC_SPELL_HELLBALL)
 
 Rules.RegisterFeatUses(infinite,
 		    FEAT_EPIC_SHIFTER_INFINITE_WILDSHAPE_1,
