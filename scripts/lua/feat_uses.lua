@@ -66,22 +66,6 @@ Rules.RegisterFeatUses(
    end,
    FEAT_DWARVEN_DEFENDER_DEFENSIVE_STANCE)
 
-Rules.RegisterFeatUses(
-   function(feat, cre)
-      if cre:GetHasFeat(FEAT_EPIC_DRUID_INFINITE_ELEMENTAL_SHAPE) then
-	 return 100
-      end
-   end,
-   FEAT_ELEMENTAL_SHAPE)
-
-Rules.RegisterFeatUses(
-   function(feat, cre)
-      if cre:GetHasFeat(FEAT_EPIC_DRUID_INFINITE_WILDSHAPE) then
-	 return 100
-      end
-   end,
-   FEAT_WILD_SHAPE)
-
 Rules.RegisterFeatUses(none, FEAT_KI_DAMAGE)
 
 Rules.RegisterFeatUses(one,
@@ -203,8 +187,28 @@ Rules.RegisterFeatUses(epic_spell,
                        FEAT_EPIC_SPELL_HELLBALL)
 
 Rules.RegisterFeatUses(infinite,
-		    FEAT_EPIC_SHIFTER_INFINITE_WILDSHAPE_1,
-		    FEAT_EPIC_SHIFTER_INFINITE_WILDSHAPE_2,
-		    FEAT_EPIC_SHIFTER_INFINITE_WILDSHAPE_3,
-		    FEAT_EPIC_SHIFTER_INFINITE_WILDSHAPE_4,
-		    FEAT_EPIC_SHIFTER_INFINITE_HUMANOID_SHAPE)
+                       FEAT_EPIC_SHIFTER_INFINITE_HUMANOID_SHAPE,
+                       FEAT_EPIC_DRUID_INFINITE_WILDSHAPE,
+                       FEAT_EPIC_DRUID_INFINITE_ELEMENTAL_SHAPE)
+
+Rules.RegisterFeatUses(
+   function(feat, cre)
+      if cre:GetHasFeat(FEAT_EPIC_DRUID_INFINITE_ELEMENTAL_SHAPE) then
+         return 100
+      else
+         local tda = TDA.Get2daString("feat", "USESPERDAY", feat)
+         return tonumber(tda) or 100
+      end
+   end,
+   304, 340, 341, 342)
+
+Rules.RegisterFeatUses(
+   function(feat, cre)
+      if cre:GetHasFeat(FEAT_EPIC_DRUID_INFINITE_WILDSHAPE) then
+         return 100
+      else
+         local tda = TDA.Get2daString("feat", "USESPERDAY", feat)
+         return tonumber(tda) or 100
+      end
+   end,
+   305, 335, 336, 337, 338, 339)
