@@ -116,12 +116,12 @@ void ResetServer(){
 // -----------------------------------------------------------------------------
 int VerifyDMKey(object oPlayer){
     string cdkey = GetPCPublicCDKey(oPlayer);
-    return GetLocalInt(GetModule(), "AUTH_"+cdkey);
+    return GetLocalInt(GetModule(), cdkey);
 }
 
 int VerifyAdminKey(object oPlayer){
     string cdkey = GetPCPublicCDKey(oPlayer);
-    int val = GetLocalInt(GetModule(), "AUTH_"+cdkey);
+    int val = GetLocalInt(GetModule(), cdkey);
     return val > 1;
 }
 

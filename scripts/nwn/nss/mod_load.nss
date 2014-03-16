@@ -132,7 +132,7 @@ void main(){
        string key = SQLGetData(1);
        string val = SQLGetData(2);
        WriteTimestampedLogEntry("LOG : mod_load : Adding key: " + key + " : " + val);
-       SetLocalInt(GetModule(), "AUTH_"+key, StringToInt(val));
+       SetLocalInt(GetModule(), key, StringToInt(val));
     }
 
     // -------------------------------------------------------------------------
@@ -165,7 +165,7 @@ void main(){
         fDelay += 0.2;
         oArea = GetNextArea();
     }
-    
+
     DelayCommand(1.5, InitializeWanderingSpirit());
     // -------------------------------------------------------------------------
     // Quests
@@ -444,7 +444,7 @@ void InitWeaponFeats(){
     SetWeaponLegendarySpecializationFeat(nBaseItem, TA_FEAT_LEG_WEAPON_SPECIALIZATION_SICKLE);
     SetWeaponGreaterSpecializationFeat(nBaseItem, TA_FEAT_SUP_WEAPON_SPECIALIZATION_SICKLE);
 
-    // Katar -> Kukri 
+    // Katar -> Kukri
     nBaseItem = BASE_ITEM_KATAR;
     SetWeaponDevastatingCriticalFeat(nBaseItem, FEAT_EPIC_DEVASTATING_CRITICAL_KUKRI);
     SetWeaponEpicFocusFeat(nBaseItem, FEAT_EPIC_WEAPON_FOCUS_KUKRI);
@@ -535,6 +535,6 @@ void InitializeWanderingSpirit() {
         return;
 
     SetLocalInt(area, "area_spawn", 1);
-    
+
     CreateObject(OBJECT_TYPE_WAYPOINT, "wp_pl_spirit", loc);
 }
