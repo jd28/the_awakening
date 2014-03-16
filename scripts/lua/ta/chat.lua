@@ -4,6 +4,8 @@ local ffi = require 'ffi'
 local C = ffi.C
 local lfs = require 'lfs'
 
+local GetIsValid = require('solstice.object').Object.GetIsValid
+
 local _COMMANDS = {}
 local _SYMBOLS = {}
 
@@ -20,66 +22,101 @@ local M = {}
 -- following the chat command.
 -- @see solstice.chat.RegisterCommand
 
+local function get_command(start, cmd)
+   local first_space
+   for i=1, #cmd do
+      if cmd:index(i) == " " then
+         first_space = i
+         break
+      end
+   end
+
+   local command, action
+
+   if first_space then
+      command = string.sub(cmd, #start+1, first_space - 1)
+      action = string.sub(cmd, first_space+1, #cmd)
+   else
+      command = string.sub(cmd, #start+1, #cmd)
+      action = ""
+   end
+
+   return command, action
+end
+
+local info
+
+local function get_symbol(cmd)
+   for i = 1, #_SYMBOLS, 2 do
+      sym, ver = _SYMBOLS[i], _SYMBOLS[i+1]
+      if cmd:starts(sym) then
+         return sym, ver
+      end
+   end
+end
+
+
+local function run_command(cmd)
+   local dispatch
+   local symbol
+
+   local sym, ver = get_symbol(cmd)
+   if not sym then return end
+
+   local speaker = info.speaker
+
+   if ver == true or ver(info.speaker) then
+      symbol   = sym
+      dispatch = _COMMANDS[sym]
+   else
+      speaker:SendMessage("You are not authorized to use this command!")
+   end
+
+   -- If not a command or emote return false and don't suppress
+   -- chat.
+   if not dispatch then return false end
+
+   info.cmd, info.param = get_command(symbol, cmd)
+   --print (info.cmd, info.param)
+
+   if dispatch[info.cmd] then
+      if info.param:match("--help") then
+         speaker:SendMessage(dispatch[info.cmd].description)
+      else
+         dispatch[info.cmd].func(info)
+      end
+
+      return true
+--   else
+--      speaker:SendMessage("Invalid Command!")
+   end
+end
+
 --- Chat Handler
 -- @param channel
 -- @param speaker
 -- @param msg
 -- @param to
 function M.ChatHandler(channel, speaker, msg, to)
-   local function get_command(start, cmd)
-      local command = cmd:match(start.."(%w+)%s?") or ""
-      local action = cmd:match("%s+(.+)") or ""
-      return command, action
-   end
-
-   if not speaker:GetIsValid() then return false end
-   if speaker.type ~= OBJECT_TRUETYPE_CREATURE then
+   -- Speaker must be a valid PC and the msg must start with
+   -- a command.
+   if not GetIsValid(speaker) or
+      speaker.type ~= OBJECT_TRUETYPE_CREATURE or
+      not speaker:GetIsPC() or
+      not get_symbol(msg)
+   then
       return false
    end
-   if not speaker:GetIsPC() then return false end
 
-   local info = {
+   local commands = msg:split('&&')
+
+   info = {
       channel  = channel,
       speaker  = speaker,
       target   = to
    }
 
-   local commands = msg:split('&&')
-
-   for _, cmd in ipairs(commands) do
-      local dispatch
-      local symbol
-
-      for sym, ver in pairs(_SYMBOLS) do
-         if cmd:starts(sym) then
-            if ver == true or ver(speaker) then
-               symbol   = sym
-               dispatch = _COMMANDS[sym]
-            else
-               speaker:SendMessage("You are not authorized to use this command!")
-            end
-         end
-      end
-
-      -- If not a command or emote return false and don't suppress
-      -- chat.
-      if not dispatch then return false end
-
-      info.cmd, info.param = get_command(symbol, cmd)
-      --print (info.cmd, info.param)
-
-      if dispatch[info.cmd] then
-         if info.param:match("--help") then
-            speaker:SendMessage(dispatch[info.cmd].description)
-         else
-            dispatch[info.cmd].func(info)
-         end
-
-         return true
-      else
-         speaker:SendMessage("Invalid Command!")
-      end
-   end
+   each(run_command, iter(commands))
 
    return false
 end
@@ -90,7 +127,8 @@ local function load_dir(symbol, dir)
    for f in lfs.dir(chatdir) do
       if string.find(f:lower(), ".lua", -4)  then
          local file =  chatdir .. f
-         local res = runfile(file, setmetatable({}, { __index = _G }))
+         local c = setmetatable({}, { __index = _G })
+         local res = runfile(file, c)
          if res.command and type(res.command) == "string" and
             res.action and type(res.action) == "function"
          then
@@ -114,9 +152,17 @@ function M.RegisterSymbol(symbol, dir, verify)
    if verify ~= nil and type(verify) ~= "function" then
       error "The symbol verifier if passed must be a function!"
    end
-
-   _SYMBOLS[symbol] = verify or true
+   table.insert(_SYMBOLS, symbol)
+   table.insert(_SYMBOLS, verify or true)
    load_dir(symbol, dir)
+end
+
+function IsRegisteredSymbol(cmd)
+   for i=1, #_SYMBOLS, 2 do
+      if cmd == _SYMBOLS[i] then
+         return cmd
+      end
+   end
 end
 
 --- Register chat command.
@@ -125,7 +171,7 @@ end
 -- @param desc
 -- @param func
 function M.RegisterCommand(symbol, name, desc, func)
-   if not _SYMBOLS[symbol] then
+   if not IsRegisteredSymbol(symbol) then
       error(fmt("Symbol %s has not been registered!", symbol))
    end
    _COMMANDS[symbol] = _COMMANDS[symbol] or {}
@@ -141,5 +187,6 @@ end
 
 local NXChat = safe_require 'solstice.nwnx.chat'
 NXChat.SetChatHandler(M.ChatHandler)
+NXChat.SetCombatMessageHandler(M.CCMessageHandler)
 
 return M
