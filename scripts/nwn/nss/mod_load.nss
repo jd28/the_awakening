@@ -19,7 +19,6 @@ void InitWeaponFeats();
 void InitializeWanderingSpirit();
 
 void main(){
-    NWNXSolstice_LoadConstants();
     // -------------------------------------------------------------------------
     // Execute default Bioware Script.
     // -------------------------------------------------------------------------
