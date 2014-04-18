@@ -35,16 +35,6 @@ int SetCustomEffectHandler(int nEffectType, string sScript);
 //      if true that it was.
 void SetCustomEffectSuccess(int bSuccess = TRUE);
 
-effect EffectAdditionalAttacks(int nAmount){
-    if(nAmount > 5) nAmount = 5;
-    else if (nAmount < 0) nAmount = 1;
-
-    effect eEff = EffectVisualEffect(NWNX_EFFECT_ADDITIONAL_ATTACKS);
-    SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
-    SetEffectInteger(eEff, 1, nAmount);
-    return eEff;
-}
-
 int GetCustomEffectType(){
     SetLocalString(GetModule(), "NWNX!EFFECTS!GETEFFECTTYPE", "     ");
     return StringToInt(GetLocalString(GetModule(), "NWNX!EFFECTS!GETEFFECTTYPE"));
@@ -65,7 +55,7 @@ int SetCustomEffectHandler(int nEffectType, string sScript){
     if (sScript == "")
         return -1;
 
-    string sParam = IntToString(nEffectType) + " " + sScript; 
+    string sParam = IntToString(nEffectType) + " " + sScript;
     SetLocalString(GetModule(), "NWNX!EFFECTS!SETEFFECTHANDLER", sParam);
     return StringToInt(GetLocalString(GetModule(), "NWNX!EFFECTS!SETEFFECTHANDLER"));
 }

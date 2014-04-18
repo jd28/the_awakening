@@ -3,15 +3,13 @@
 #include "nwnx_structs"
 #include "nwnx_effects"
 
-int TA_EFFECT_DC_DECREASE            = 1;
-int TA_EFFECT_ONHAND_ATTACKS         = 2;
-int TA_EFFECT_OFFHAND_ATTACKS        = 3;
-int TA_EFFECT_PERMENANT_HITPOINTS    = 4;
-int TA_EFFECT_DC_INCREASE            = 5;
-int TA_EFFECT_IMMUNITY_DECREASE      = 6;
-int TA_EFFECT_ADDITIONAL_ATTACKS     = 7;
-int TA_EFFECT_OATH_OF_WRATH          = 8;
-int TA_EFFECT_MOVEMENT_RATE          = 9;
+const int CUSTOM_EFFECT_TYPE_ADDITIONAL_ATTACKS = 0;
+const int CUSTOM_EFFECT_TYPE_IMMUNITY_DECREASE = 1;
+const int CUSTOM_EFFECT_TYPE_HITPOINTS = 2;
+const int CUSTOM_EFFECT_TYPE_MOVEMENT_RATE = 3;
+const int CUSTOM_EFFECT_TYPE_SPELL_DC_INCREASE = 4;
+const int CUSTOM_EFFECT_TYPE_SPELL_DC_DECREASE = 5;
+const int CUSTOM_EFFECT_TYPE_RECURRING = 6;
 
 effect EffectAdditionalAttacks(int nAmount);
 effect EffectBonusFeat (int nFeat);
@@ -20,11 +18,15 @@ effect EffectDCDecrease(int nAmount);
 effect EffectIcon (int nIcon);
 effect EffectImmunityDecrease (int nImmunity, int nVuln);
 effect EffectMovementRate(int nRate);
+effect EffectPermenantHitpoints(int nHitpoints);
+effect EffectWounding (int nAmount);
+
+
+/*
 effect EffectOathOfWrath(int nAmount);
 effect EffectOffhandAttackIncrease(int nAttacks);
 effect EffectOnhandAttackIncrease(int nAttacks);
-effect EffectPermenantHitpoints(int nHitpoints);
-effect EffectWounding (int nAmount);
+*/
 
 effect EffectBonusFeat (int nFeat) {
     effect eEff = EffectVisualEffect(nFeat);
@@ -33,41 +35,80 @@ effect EffectBonusFeat (int nFeat) {
     return eEff;
 }
 
-effect EffectDCIncrease(int nAmount){
-    effect eEff = EffectVisualEffect(TA_EFFECT_DC_INCREASE);
-    SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
-    SetEffectInteger(eEff, 1, nAmount);
-    return eEff;
-}
-
-effect EffectDCDecrease(int nAmount){
-    effect eEff = EffectVisualEffect(TA_EFFECT_DC_DECREASE);
-    SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
-    SetEffectInteger(eEff, 1, nAmount);
-    return eEff;
-}
-
 effect EffectIcon (int nIcon) {
     effect eEff = EffectVisualEffect(nIcon);
-
     SetEffectTrueType(eEff, EFFECT_TRUETYPE_ICON);
     return eEff;
 }
 
-effect EffectImmunityDecrease (int nImmunity, int nVuln) {
-    effect eEff = EffectVisualEffect(TA_EFFECT_IMMUNITY_DECREASE);
+effect EffectWounding (int nAmount) {
+    effect eEff = EffectVisualEffect(nAmount);
+
+    SetEffectTrueType(eEff, EFFECT_TRUETYPE_WOUNDING);
+    return eEff;
+}
+
+effect EffectAdditionalAttacks(int nAmount) {
+	effect eEff = EffectVisualEffect(0);
     SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
-    SetEffectInteger(eEff, 1, nImmunity);
-    SetEffectInteger(eEff, 2, nVuln);
+	SetEffectInteger(eEff, 1, CUSTOM_EFFECT_TYPE_ADDITIONAL_ATTACKS);
+	SetEffectInteger(eEff, 2, nAmount);
+    return eEff;
+}
+
+effect EffectDCIncrease(int nAmount){
+    effect eEff = EffectVisualEffect(0);
+    SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
+	SetEffectInteger(eEff, 1, CUSTOM_EFFECT_TYPE_SPELL_DC_DECREASE);
+	SetEffectInteger(eEff, 2, nAmount);
+    return eEff;
+}
+
+effect EffectDCDecrease(int nAmount){
+    effect eEff = EffectVisualEffect(0);
+    SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
+	SetEffectInteger(eEff, 1, CUSTOM_EFFECT_TYPE_SPELL_DC_INCREASE);
+	SetEffectInteger(eEff, 2, nAmount);
+    return eEff;
+}
+
+effect EffectImmunityDecrease (int nImmunity, int nVuln) {
+    effect eEff = EffectVisualEffect(0);
+    SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
+	SetEffectInteger(eEff, 1, CUSTOM_EFFECT_TYPE_IMMUNITY_DECREASE);
+	SetEffectInteger(eEff, 2, nImmunity);
+	SetEffectInteger(eEff, 3, nVuln);
+    return eEff;
+}
+
+effect EffectPermenantHitpoints(int nHitpoints){
+    effect eEff = EffectVisualEffect(0);
+    SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
+	SetEffectInteger(eEff, 1, CUSTOM_EFFECT_TYPE_HITPOINTS);
+	SetEffectInteger(eEff, 2, nHitpoints);
     return eEff;
 }
 
 effect EffectMovementRate(int nRate){
-    effect eEff = EffectVisualEffect(TA_EFFECT_MOVEMENT_RATE);
+    effect eEff = EffectVisualEffect(0);
     SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
-    SetEffectInteger(eEff, 1, nRate);
+	SetEffectInteger(eEff, 1, CUSTOM_EFFECT_TYPE_MOVEMENT_RATE);
+	SetEffectInteger(eEff, 2, nRate);
     return eEff;
 }
+
+effect ExpandedEffectDamageIncrease(int nBonus, int nDamageType, int bCritical, int bUnblockable) {
+	int mask = 0;
+	if (bCritical) mask |= 2;
+	if (bUnblockable) mask |= 4;
+
+	effect dmginc = EffectDamageIncrease(nBonus, nDamageType);
+	SetEffectInteger(dmginc, 6, mask);
+	return dmginc;
+}
+
+/*
+
 
 effect EffectOathOfWrath(int nAmount){
     if(nAmount < 1)      nAmount = 1;
@@ -92,18 +133,4 @@ effect EffectOnhandAttackIncrease(int nAttacks){
     SetEffectInteger(eEff, 1, nAttacks);
     return eEff;
 }
-
-effect EffectPermenantHitpoints(int nHitpoints){
-    effect eEff = EffectVisualEffect(TA_EFFECT_PERMENANT_HITPOINTS);
-    SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
-    SetEffectInteger(eEff, 1, nHitpoints);
-    return eEff;
-}
-
-effect EffectWounding (int nAmount) {
-    effect eEff = EffectVisualEffect(nAmount);
-
-    SetEffectTrueType(eEff, EFFECT_TRUETYPE_WOUNDING);
-    return eEff;
-}
-
+*/
