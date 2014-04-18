@@ -19,6 +19,7 @@
 #include "sha_subr_methds"
 #include "msg_func_inc"
 #include "pl_pcstyle_inc"
+#include "x0_i0_match"
 
 // -----------------------------------------------------------------------------
 //  PROTOTYPES - Loading
@@ -76,6 +77,9 @@ void main(){
     if(!GetIsPC(oPC) || GetIsDM(oPC) || GetIsDMPossessed(oPC)) return;
 
     //DumpSpells(oPC);
+	if(!GetHasEffect(EFFECT_TYPE_CUTSCENEGHOST, oPC)) {
+		ApplyEffectToObject(4, EffectCutsceneGhost(), oPC);
+	}
 
     if(GetPCPlayerName(oPC) == "pope_leo"){
         SetLocalInt(oPC, "DebugLoot",        1);
