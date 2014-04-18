@@ -2,6 +2,7 @@
 //#include "leto_inc"
 #include "sha_subr_methds"
 #include "pl_pvp_inc"
+#include "nwnx_solstice"
 
 void main(){
     object oPC          = GetExitingObject();
@@ -70,4 +71,6 @@ void main(){
         string Script = GetLocalString(oPC, "LetoScript");
         if( Script != "" ) Leto(Script);
     }
+
+	NWNXSolstice_RemoveFromObjectCache(oPC);
 }
