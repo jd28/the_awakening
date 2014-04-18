@@ -13,3 +13,12 @@ LOG_DIR = "/opt/nwn/logs.0"
 
 -- REQUIRED: Consant loader.
 CONSTANTS = "ta_constants"
+
+-- my server related stuff.
+TA = true
+
+--JIT_DUMP = true
+
+DISABLE_CIRCLE_KICK = true
+
+DEVCRIT_DISABLE_ALL = true
