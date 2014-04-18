@@ -13,6 +13,7 @@
 //:: Created On: Aug 13, 2001
 //:://////////////////////////////////////////////
 
+#include "pl_effects_inc"
 #include "gsp_func_inc"
 
 void main(){
@@ -35,13 +36,12 @@ void main(){
 
         // Permenant Hitpoints DO go in the link.
         eLink = EffectLinkEffects(eLink, EffectPermenantHitpoints(nLevel * 10));
-        nHeal = nLevel * 10;
+        //nHeal = nLevel * 10;
 
         int nDamage = nLevel / 5;
         if(nDamage > 0){
-            eDmg = EffectDamageIncrease(GetDamageBonus(nDamage), DAMAGE_TYPE_ELECTRICAL);
-            eLink = EffectLinkEffects(eLink, eDmg);
-        }   
+            eDmg = ExpandedEffectDamageIncrease(GetDamageBonus(nDamage), DAMAGE_TYPE_ELECTRICAL, FALSE, TRUE);
+        }
     }
     else if (nLevel >= 15){
         nAbil = 6;
@@ -81,8 +81,9 @@ void main(){
     if (GetHasFeat(988, si.caster)){
         int nDamage = d6() + (GetLevelByClass(CLASS_TYPE_BARBARIAN, si.caster)/2);
         struct EquippedWeapons ew = GetTargetedOrEquippedWeapon(si.caster, TRUE, TRUE);
-        
-        AddOnHitDamageToEquippedWeapons(si, ew, DAMAGE_TYPE_SONIC, nDamage, IntToFloat(nCon)); 
+		effect crit = ExpandedEffectDamageIncrease(DAMAGE_BONUS_2d6, DAMAGE_TYPE_BLUDGEONING, TRUE, FALSE);
+		eLink = EffectLinkEffects(eLink, crit);
+        AddOnHitDamageToEquippedWeapons(si, ew, DAMAGE_TYPE_SONIC, nDamage, IntToFloat(nCon));
     }
 
     // Terrifying Rage
@@ -102,11 +103,11 @@ void main(){
         //Apply the VFX impact and effects
         ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, OBJECT_SELF, RoundsToSeconds(nCon));
         ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, OBJECT_SELF);
-        
+
         if(nHeal){
             ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectHeal(nHeal), OBJECT_SELF);
         }
-        
+
         if(nHP){
             eHP = EffectTemporaryHitpoints(nHP);
             ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eHP, OBJECT_SELF, RoundsToSeconds(nCon));
