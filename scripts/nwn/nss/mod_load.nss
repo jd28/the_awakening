@@ -74,18 +74,6 @@ void main(){
         SetWeaponFinesseSize(BASE_ITEM_KATANA, CREATURE_SIZE_MEDIUM);
 
         InitWeaponFeats();
-
-        SetCustomEffectHandler (TA_EFFECT_ONHAND_ATTACKS, "eff_atton");
-        SetCustomEffectHandler (TA_EFFECT_OFFHAND_ATTACKS, "eff_attoff");
-        SetCustomEffectHandler (TA_EFFECT_DC_INCREASE, "eff_dc_inc");
-        SetCustomEffectHandler (TA_EFFECT_DC_DECREASE, "eff_dc_dec");
-        SetCustomEffectHandler (TA_EFFECT_OATH_OF_WRATH, "eff_oathwrath");
-        SetCustomEffectHandler (TA_EFFECT_MOVEMENT_RATE, "eff_moverate");
-
-        SetSpecialAttackHandler(NWNX_SPECIAL_ATTACK_KNOCKDOWN, "spat_knockdown");
-        SetSpecialAttackHandler(NWNX_SPECIAL_ATTACK_KNOCKDOWN_IMPROVED, "spat_knockdown");
-        SetSpecialAttackHandler(NWNX_SPECIAL_ATTACK_SMITE_GOOD, "spat_smitegood");
-        SetSpecialAttackHandler(NWNX_SPECIAL_ATTACK_SMITE_EVIL, "spat_smiteevil");
     }
     else if ( version >= 2 ) {
          NWNXCombat_InitTables();
