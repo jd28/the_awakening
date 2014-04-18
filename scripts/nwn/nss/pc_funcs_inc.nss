@@ -195,6 +195,7 @@ void ApplyRespawnPenalty(object oPC){
 }
 
 void ApplyFeatSuperNaturalEffects(object oPC){
+/*
     effect eEff;
 
     if(GetHasFeat(TA_FEAT_CIRCLE_KICK, oPC)
@@ -209,6 +210,7 @@ void ApplyFeatSuperNaturalEffects(object oPC){
         ApplyEffectToObject(DURATION_TYPE_PERMANENT, eEff, oPC);
         SendMessageToPC(oPC, C_GREEN+"Circle Kick: Bonus attack applied!"+C_END);
     }
+*/
 }
 
 void BootPlayer(object oPC){
@@ -401,7 +403,7 @@ int GetIsPCShifted(object oPC){
 int GetIsRelevelable(object oPC){
     if(GetLootable(oPC) > 40 || GetPlayerInt(oPC, VAR_PC_NO_RELEVEL))
         return FALSE;
-        
+
     if(!GetIsTestCharacter(oPC)
        && (GetLevelByClass(CLASS_TYPE_PALEMASTER, oPC) >= 1
            || GetLevelByClass(CLASS_TYPE_DRAGONDISCIPLE, oPC) >= 1))
@@ -1309,7 +1311,7 @@ int GetNextUnknownFeat(int nFeat, object oPC){
     for(; nFeat <= last; nFeat++)
         if(!GetKnowsFeat(nFeat, oPC))
             return nFeat;
-        
+
     return -1;
 }
 
@@ -1337,8 +1339,8 @@ int Delevel(object oPC, int nLevels){
 
     for (i = 0; i < nLevels; i++){
         ExecuteScript("pl_leveldown", oPC);
-        LevelDown(oPC); 
+        LevelDown(oPC);
     }
 
     return GetHitDice(oPC);
-} 
+}

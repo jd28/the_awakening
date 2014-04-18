@@ -29,27 +29,6 @@
 // -----------------------------------------------------------------------------
 
 void ApplyFeatSuperNaturalEffectsOnEquip(object oPC, object oItem){
-    effect eEff;
-
-    if(GetHasFeat(TA_FEAT_CIRCLE_KICK, oPC))
-    {
-        int bUnarmed = (GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, oPC) == OBJECT_INVALID);
-        int nHasEffect = GetHasSpellEffect(TASPELL_CIRCLE_KICK, oPC);
-
-        if(!nHasEffect && bUnarmed)
-        {
-            eEff = EffectModifyAttacks(1);
-            SetEffectSpellId(eEff, TASPELL_CIRCLE_KICK);
-            ApplyEffectToObject(DURATION_TYPE_PERMANENT, SupernaturalEffect(eEff), oPC);
-
-            SendMessageToPC(oPC, C_GREEN+"Circle Kick: Bonus attack applied!"+C_END);
-        }
-        else if(!bUnarmed && nHasEffect){
-            GZRemoveSpellEffects(TASPELL_CIRCLE_KICK, oPC, FALSE);
-            SendMessageToPC(oPC, C_RED+"Circle Kick: Bonus attack removed!"+C_END);
-        }
-    }
-    
     if(GetLevelByClass(CLASS_TYPE_BLACKGUARD, oPC) >= 40 && GetIsMeleeWeapon(oItem))
         AddDmgBonusToWeapon(oItem, 18000.0f, CEP_IP_CONST_DAMAGEBONUS_3d6, DAMAGE_TYPE_FIRE);
 
@@ -138,5 +117,3 @@ void main(){
     // SSE
     SubraceOnPlayerEquipItem();
 }
-
-
