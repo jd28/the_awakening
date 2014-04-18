@@ -12,8 +12,9 @@ local fmt = string.format
 math.randomseed( os.time() )
 math.random(100)
 
--- Needed for C.Local_NWNXLog below.
-require 'solstice.nwn.funcs'
+ffi.cdef[[
+void           Local_NWNXLog(int32_t level, const char* log);
+]]
 
 --- Safe wrapper for require.
 -- Allows for better catching errors and logging.
@@ -38,6 +39,11 @@ end
 safe_require "solstice.util.lua_preload"
 
 OPT = runfile('./'..script_dir..'/settings.lua')
+
+if OPT.JIT_DUMP then
+   local dump = require 'jit.dump'
+   dump.on(nil, "luajit.dump")
+end
 
 --- Constants MUST be loaded before solstice.
 safe_require(OPT.CONSTANTS)
