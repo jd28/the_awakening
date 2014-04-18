@@ -95,11 +95,5 @@ function nw_g0_transition(trans)
    local tag = target:GetTag()
    local instance_level = cur_area:GetLocalInt("instance_level")
 
-   -- Set transition BMP
-   if instance_level ~= 0 and tar_area:GetLocalBool("area_can_instance") then
-      Inst.CreateInstance(trans, tar_area, instance_level)
-      target = Inst.GetInstanceTarget(target, pc, instance_level)
-   end
-
    pc:ActionJumpToObject(target)
 end

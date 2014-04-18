@@ -18,10 +18,10 @@ function pl_inst_do()
    local tag      = target:GetTag()
    local level    = NWNXEvents.GetSelectedNodeID()
 
-   if level > 0 and tar_area:GetLocalBool("area_can_instance") then
-      Inst.CreateInstance(trig, target:GetArea(), level)
-      target = Inst.GetInstanceTarget(target, pc, level)
-   end
+   --if level > 0 and tar_area:GetLocalBool("area_can_instance") then
+   --   Inst.CreateInstance(trig, target:GetArea(), level)
+   --   target = Inst.GetInstanceTarget(target, pc, level)
+   --end
 
    pc:ActionJumpToObject(target)
 end

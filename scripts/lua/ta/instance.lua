@@ -1,4 +1,4 @@
-local NWNXAreas = require 'solstice.nwnx.areas'
+--local NWNXAreas = require 'solstice.nwnx.areas'
 local Log = require('ta.logger').Log
 local M = {}
 
@@ -15,6 +15,8 @@ end
 function M.CreateInstance(transition, area, level)
    local is_created = transition:GetLocalBool("instance_created_"..level)
    if is_created then return end
+
+   if area == transition:GetArea() then return end
 
    local resref = area:GetResRef()
    if resref ~= "" then
@@ -33,10 +35,30 @@ function M.CreateInstance(transition, area, level)
    transition:SetLocalBool("instance_created_"..level, true)
 end
 
+function M.GetIsInstanceCreated(target, level)
+   local tag = target:GetTag()
+   if level > 0 then
+      local nth = 0
+
+      repeat
+         obj = Game.GetObjectByTag(tag, nth)
+         nth = nth + 1
+         if not obj:GetIsValid() then
+            break
+         end
+         local area = obj:GetArea()
+         if level == area:GetLocalInt("instance_level") then
+            return true
+         end
+      until false
+   end
+
+   return false
+end
+
 function M.GetInstanceTarget(target, pc, level)
    local tag = target:GetTag()
    local obj
-
    if level > 0 then
       local nth = 0
 
