@@ -76,9 +76,6 @@ void main(){
 
         InitWeaponFeats();
     }
-    else if ( version >= 2 ) {
-         NWNXCombat_InitTables();
-    }
 
     // -------------------------------------------------------------------------
     // Set Spellhook
