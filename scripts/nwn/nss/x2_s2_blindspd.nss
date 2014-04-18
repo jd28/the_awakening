@@ -65,9 +65,16 @@ void main(){
         fDuration = 60.0f;
     }
 
-    if(GetLevelByClass(CLASS_TYPE_MONK, si.caster) > 0)
-        nExtraAttacks = 0;
-    
+	object rh = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND);
+
+    if(GetLevelByClass(CLASS_TYPE_MONK, si.caster) > 0 &&
+	   (rh == OBJECT_INVALID                          ||
+		GetBaseItemType(rh) == BASE_ITEM_QUARTERSTAFF ||
+		GetBaseItemType(rh) == BASE_ITEM_KAMA)) {
+
+		nExtraAttacks = 0;
+	}
+
 
     effect eHaste = EffectHaste();
     effect eAB = EffectAttackIncrease(nAttackBonus);
@@ -79,7 +86,7 @@ void main(){
     eLink = EffectLinkEffects(eLink, eAB);
 
     if(nExtraAttacks > 0) {
-        effect eExtraAttacks = EffectModifyAttacks(nExtraAttacks);
+        effect eExtraAttacks = EffectAdditionalAttacks(nExtraAttacks);
         eLink = EffectLinkEffects(eLink, eExtraAttacks);
     }                 // edited by Guile added {}
 
@@ -95,5 +102,5 @@ void main(){
     effect eVis = EffectVisualEffect(460);
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, si.caster);
     ApplyEffectToObject(DURATION_TYPE_TEMPORARY, ExtraordinaryEffect(eLink), si.caster, fDuration);
-    
+
 }
