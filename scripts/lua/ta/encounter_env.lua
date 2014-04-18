@@ -52,7 +52,7 @@ function Spawn:Chance(chance)
 end
 
 ---
-function E.Spawn(resref, count)
+function E.Spawn(resref)
    local res = { resref = resref,
                  chance = 100 }
    setmetatable(res, { __index = Spawn })

@@ -93,7 +93,7 @@ function M.extract(tbl, obj)
       else
          result = nil
       end
-      if tbl.every == table.maxn(tbl) then
+      if tbl.every == tbl._dynamo_every_max then
          tbl.every = 1
       else
          tbl.every = tbl.every + 1
@@ -152,7 +152,9 @@ function M.Every(t)
    local res = {}
    res.every = 1
    res._dynamo_type = M.DYNAMO_EVERY
+   res._dynamo_every_max = -1
    for i = 1, #t, 2 do
+      res._dynamo_every_max = math.max(res._dynamo_every_max, t[i])
       res[t[i]] = t[i+1]
    end
    return res
