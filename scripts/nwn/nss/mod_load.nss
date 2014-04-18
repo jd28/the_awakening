@@ -72,6 +72,7 @@ void main(){
         SetWeaponOption(NWNX_WEAPONS_OPT_LEGSPEC_DAM_BONUS,        1);
 
         SetWeaponFinesseSize(BASE_ITEM_KATANA, CREATURE_SIZE_MEDIUM);
+        SetWeaponFinesseSize(BASE_ITEM_NUNCHAKU, CREATURE_SIZE_MEDIUM);
 
         InitWeaponFeats();
     }
