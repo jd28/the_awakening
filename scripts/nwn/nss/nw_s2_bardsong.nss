@@ -101,7 +101,7 @@ void main(){
         }
 
         if(nPerform >= 115 && nLevel >= 52){
-            if(bCurse)  bKnockdown = TRUE; 
+            if(bCurse)  bKnockdown = TRUE;
             else        eLink = EffectLinkEffects(eLink, EffectDamageIncrease(DAMAGE_BONUS_10, DAMAGE_TYPE_SLASHING));
         }
         if(nPerform >= 110 && nLevel >= 48){
@@ -511,7 +511,7 @@ void main(){
         nSkill      = 0;
     }
 
-    
+
 
     Logger(si.caster, "DebugSpells", LOGLEVEL_DEBUG,
         "Bard/Curse Song: Type: %s, Attack: %s, Damage: %s, W/F/R: %s/%s/%s, HP/Dmg: %s, AC: %s, Skills: %s, Duration: %s",
@@ -552,18 +552,18 @@ void main(){
     }
 
     if(nReflex > 0){
-        if(bCurse)  eReflex = EffectSavingThrowDecrease(SAVING_THROW_REFLEX, nReflex); 
+        if(bCurse)  eReflex = EffectSavingThrowDecrease(SAVING_THROW_REFLEX, nReflex);
         else        eReflex = EffectSavingThrowIncrease(SAVING_THROW_REFLEX, nReflex);
         eLink = EffectLinkEffects(eLink, eReflex);
     }
 
     if(nHP > 0){
-        if(bCurse)  eHP = EffectDamage(nHP, DAMAGE_TYPE_SONIC, DAMAGE_POWER_NORMAL); 
+        if(bCurse)  eHP = EffectDamage(nHP, DAMAGE_TYPE_SONIC, DAMAGE_POWER_NORMAL);
         else        eHP = ExtraordinaryEffect(EffectTemporaryHitpoints(nHP));
     }
     if(nAC > 0){
         if(bCurse)  eAC = EffectACDecrease(nAC, AC_DODGE_BONUS);
-        else        eAC = EffectACIncrease(nAC, AC_DODGE_BONUS); 
+        else        eAC = EffectACIncrease(nAC, AC_DODGE_BONUS);
         eLink = EffectLinkEffects(eLink, eAC);
     }
 
@@ -598,7 +598,7 @@ void main(){
         for(si.target = GetFirstObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(si.caster));
             si.target != OBJECT_INVALID;
             si.target = GetNextObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(si.caster))){
-            
+
             if(!GetIsSpellTarget(si, si.target))
                 continue;
 
@@ -623,7 +623,7 @@ void main(){
             if(bWound){
                 DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eWound, si.target, RoundsToSeconds(nDuration)));
             }
-            
+
             if(bBreach){
                 DelayCommand(fDelay, DoSpellBreach(si.target, 3, 5, SPELL_LESSER_SPELL_BREACH));
             }
@@ -637,7 +637,7 @@ void main(){
         for(si.target = GetFirstObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(si.caster));
             si.target != OBJECT_INVALID;
             si.target = GetNextObjectInShape(SHAPE_SPHERE, RADIUS_SIZE_COLOSSAL, GetLocation(si.caster))){
-            
+
             if(GetHasFeatEffect(FEAT_BARD_SONGS, si.target)         ||
                     GetHasSpellEffect(si.id, si.target)             ||
                     GetHasEffect(EFFECT_TYPE_SILENCE, si.target)    ||
@@ -668,4 +668,3 @@ void main(){
         }
     }
 }
-
