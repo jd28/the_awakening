@@ -62,7 +62,11 @@ function M.Generate(object, resref, max)
       local count = p.n or 1
       for i = 1,count do
          if not p.chance or math.random(1, 100) <= p.chance then
-            it:AddItemProperty(DURATION_TYPE_PERMANENT, ip[f](unpack(t)))
+            local func = ip[f]
+            if not func then
+               error(string.format("No such funtion: %s\n%s", f, debug.traceback()))
+            end
+            it:AddItemProperty(DURATION_TYPE_PERMANENT, func(unpack(t)))
          end
       end
    end
