@@ -2041,6 +2041,7 @@ int TalentDragonCombat(object oIntruder = OBJECT_INVALID)
 // * GZ: Capped bardsong at level 20 so we don't overflow into
 //       other feats
 int TalentBardSong(){
+/*
     // Got it and not silenced
     if(GetHasFeat(FEAT_BARD_SONGS) && !GetHasEffect(EFFECT_TYPE_SILENCE, OBJECT_SELF)){
         // the spell script used is 411
@@ -2074,7 +2075,7 @@ int TalentBardSong(){
     }
     return FALSE;
 
-/*
+*/
     int iMyBardFeat;
     //MyPrintString("TalentBardSong Enter");
     int iMyBardLevel = GetLevelByClass(CLASS_TYPE_BARD, OBJECT_SELF);
@@ -2131,7 +2132,7 @@ int TalentBardSong(){
     }
     //MyPrintString("TalentBardSong Failed Exit");
     return FALSE;
-*/
+
 }
 
 //**********************************
