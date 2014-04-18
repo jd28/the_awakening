@@ -170,6 +170,7 @@ void PCLoadPlayer(object oPC){
             return;
         }
 
+		NWNXSolstice_UpdateCombatInfo(oPC);
 
         if(!GetKnowsFeat(FEAT_PLAYER_TOOL_01, oPC))
             AddKnownFeat(oPC, FEAT_PLAYER_TOOL_01);
