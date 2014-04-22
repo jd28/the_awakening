@@ -59,7 +59,7 @@ Made the message about which items are merged more explicit.
 */
 //:://////////////////////////////////////////////
 
-#include "ws_inc_shifter"
+#include "ws_inc_shifter2"
 #include "x3_inc_horse"
 #include "pc_funcs_inc"
 
@@ -226,4 +226,3 @@ void main()
 
     ApplyPolymorph(OBJECT_SELF, nPoly, nWeaponType);
 }
-
