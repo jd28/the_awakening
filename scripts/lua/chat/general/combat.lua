@@ -101,26 +101,13 @@ function action(info)
       tinsert(t, fmt("  Ranged: Base: %d, Vs Blindfight: %d",
                      range, floor((range * range) / 100)))
 
-      tinsert(t, "Soak:")
-      tinsert(t, fmt('  Innate: %d', pc.ci.defense.soak))
-      for i = 0, DAMAGE_POWER_NUM - 1 do
-         tinsert(t, fmt('  %d: Effect: TODO, Stacking: %d',
-                        i, pc.ci.defense.soak_stack[i]))
-      end
+
 
       tinsert(t, "Damage Immunity:")
       for i = 0, DAMAGE_INDEX_NUM - 1 do
          tinsert(t, fmt('  %d: Innate: %d, Effect: %d',
                         i, pc.ci.defense.immunity_base[i],
                         pc.ci.defense.immunity[i]))
-      end
-
-     tinsert(t, "Damage Resist:")
-      for i = 0, DAMAGE_INDEX_NUM - 1 do
-         tinsert(t, fmt('  %d: Innate: %d, Effect: TODO, Stacking: %d',
-                        i,
-                        pc.ci.defense.resist[i],
-                        pc.ci.defense.resist_stack[i]))
       end
 
       tinsert(t, "Immunities:")
@@ -184,5 +171,9 @@ function action(info)
                          pc.ci.mod_mode.dmg.roll.sides,
                          pc.ci.mod_mode.dmg.roll.bonus,
                          pc.ci.mod_mode.dmg.mask))
+   elseif act[1] == 'abilities' then
+      pc:SendMessage(pc:DebugAbilities())
+   elseif act[1] == 'skills' then
+      pc:SendMessage(pc:DebugSkills())
    end
 end
