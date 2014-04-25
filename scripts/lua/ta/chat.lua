@@ -72,23 +72,43 @@ local function run_command(cmd)
       speaker:SendMessage("You are not authorized to use this command!")
    end
 
-   -- If not a command or emote return false and don't suppress
-   -- chat.
+   -- If not a command or emote return false and don't suppress chat.
    if not dispatch then return false end
 
+   info.original = cmd
    info.cmd, info.param = get_command(symbol, cmd)
-   --print (info.cmd, info.param)
+
+   -- Use levenshtein to guess what command a player might have mistyped.
+   if not dispatch[info.cmd] and speaker:GetIsPC() then
+      local best, highest
+      for k, _ in pairs(dispatch) do
+         if not highest then
+            best = k
+            highest = string.levenshtein(info.cmd, k)
+         else
+            local t = string.levenshtein(info.cmd, k)
+            if t < highest then
+               best, highest = k, t
+            end
+         end
+      end
+      if best then
+         speaker:ErrorMessage(string.format("Invalid commad: %s!  Perhaps you meant: %s?",
+                                            symbol..info.cmd, symbol..best))
+      end
+      return
+   end
 
    if dispatch[info.cmd] then
       if info.param:match("--help") then
          speaker:SendMessage(dispatch[info.cmd].description)
+         return true
       else
-         dispatch[info.cmd].func(info)
+         if dispatch[info.cmd].func then
+            dispatch[info.cmd].func(info)
+         end
+         return true
       end
-
-      return true
---   else
---      speaker:SendMessage("Invalid Command!")
    end
 end
 
@@ -133,7 +153,10 @@ local function load_dir(symbol, dir)
             res.action and type(res.action) == "function"
          then
             C.Local_NWNXLog(0, "Loaded Chat Command: " .. file .. "\n")
-            M.RegisterCommand(symbol, res.command, res.description or "", res.action)
+            M.RegisterCommand(symbol,
+                              res.command,
+                              res.description and string.strip_margin(res.description) or "",
+                              res.action)
          else
             C.Local_NWNXLog(0, "Error Loading Chat Command: " .. file .. "\n")
          end
@@ -178,6 +201,18 @@ function M.RegisterCommand(symbol, name, desc, func)
    _COMMANDS[symbol][name] = {func = func, description = desc }
 end
 
+--- Register external chat command.
+-- @param symbol
+-- @param name
+-- @param desc
+function M.RegisterExternalCommand(symbol, name, desc)
+   if not IsRegisteredSymbol(symbol) then
+      error(fmt("Symbol %s has not been registered!", symbol))
+   end
+   _COMMANDS[symbol] = _COMMANDS[symbol] or {}
+   _COMMANDS[symbol][name] = { description = desc or "" }
+end
+
 function M.CCMessageHandler(msg)
 
    if msg.type == 11 and msg.subtype == 151 then
@@ -197,5 +232,37 @@ end
 local NXChat = safe_require 'solstice.nwnx.chat'
 NXChat.SetChatHandler(M.ChatHandler)
 NXChat.SetCombatMessageHandler(M.CCMessageHandler)
+
+function M.VerifyTarget(info, type, pc_only)
+   local speaker, target = info.speaker, info.target
+   local ret = target
+   if not target:GetIsValid() then
+      ret = speaker:GetLocalObject("FKY_CHAT_TARGET")
+      if not ret:GetIsValid() then
+         speaker:ErrorMessage("Command requires a target!")
+         speaker:SetLocalString("FKY_CHAT_COMMAND", info.original);
+
+         if not speaker:HasItem("fky_chat_target") then
+            speaker:GiveItem("fky_chat_target")
+         end
+
+         return OBJECT_INVALID;
+      else
+         speaker:DeleteLocalObject("FKY_CHAT_TARGET")
+      end
+   end
+
+   if pc_only and not ret:GetIsPC() then
+      speaker:ErrorMessage("Command requires a PC target!")
+      return OBJECT_INVALID
+   end
+
+   if bit.band(ret:GetType(), type) == 0 then
+      speaker:ErrorMessage("Incorrect target type!")
+      return OBJECT_INVALID
+   end
+
+   return ret
+end
 
 return M
