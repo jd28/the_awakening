@@ -171,9 +171,5 @@ function action(info)
                          pc.ci.mod_mode.dmg.roll.sides,
                          pc.ci.mod_mode.dmg.roll.bonus,
                          pc.ci.mod_mode.dmg.mask))
-   elseif act[1] == 'abilities' then
-      pc:SendMessage(pc:DebugAbilities())
-   elseif act[1] == 'skills' then
-      pc:SendMessage(pc:DebugSkills())
    end
 end
