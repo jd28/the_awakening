@@ -179,8 +179,17 @@ function M.RegisterCommand(symbol, name, desc, func)
 end
 
 function M.CCMessageHandler(msg)
+
    if msg.type == 11 and msg.subtype == 151 then
       return true
+   elseif msg.type == 3 then
+      local sum = 0
+      for i = 0, 12 do
+         if msg.msg_data.integers.data[i] > 0 then
+            sum = sum + msg.msg_data.integers.data[i]
+         end
+      end
+      return sum <= 0
    end
    return false
 end
