@@ -69,7 +69,7 @@ local function run_command(cmd)
       symbol   = sym
       dispatch = _COMMANDS[sym]
    else
-      speaker:SendMessage("You are not authorized to use this command!")
+      speaker:ErrorMessage("You are not authorized to use this command!")
    end
 
    -- If not a command or emote return false and don't suppress chat.
@@ -257,7 +257,7 @@ function M.VerifyTarget(info, type, pc_only)
       return OBJECT_INVALID
    end
 
-   if bit.band(ret:GetType(), type) == 0 then
+   if type and bit.band(ret:GetType(), type) == 0 then
       speaker:ErrorMessage("Incorrect target type!")
       return OBJECT_INVALID
    end
