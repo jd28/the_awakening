@@ -5,7 +5,8 @@ description = [[Debugging Information:
                |  !debug abilities
                |  !debug resist
                |  !debug skills
-               |  !debug soak]]
+               |  !debug soak
+               |  !debug immunities]]
 
 function action(info)
    local pc  = info.speaker
@@ -20,5 +21,7 @@ function action(info)
       pc:SendMessage(pc:DebugAbilities())
    elseif act[1] == 'skills' then
       pc:SendMessage(pc:DebugSkills())
+   elseif act[1] == 'immunities' then
+      pc:SendMessage(pc:DebugDamageImmunities())
    end
 end

@@ -102,14 +102,6 @@ function action(info)
                      range, floor((range * range) / 100)))
 
 
-
-      tinsert(t, "Damage Immunity:")
-      for i = 0, DAMAGE_INDEX_NUM - 1 do
-         tinsert(t, fmt('  %d: Innate: %d, Effect: %d',
-                        i, pc.ci.defense.immunity_base[i],
-                        pc.ci.defense.immunity[i]))
-      end
-
       tinsert(t, "Immunities:")
       for i = 0, IMMUNITY_TYPE_NUM - 1 do
          tinsert(t, fmt('  %d: Amount: %d',
