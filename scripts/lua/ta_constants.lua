@@ -16,7 +16,6 @@ Rules.RegisterConstants("classes", "Constant")
 Rules.RegisterConstants("combatmods", "ID")
 Rules.RegisterConstants("combatmodes", "ID")
 
-
 Rules.RegisterConstants("combatupd", "ID", nil, "Value", "int")
 Rules.RegisterConstant("COMBAT_UPDATE_ALL", 0xFFFFFFFF)
 
@@ -81,6 +80,7 @@ Rules.RegisterConstants("iprp_soakcost", "Constant")
 Rules.RegisterConstants("iprp_weightcost", "Constant")
 Rules.RegisterConstants("iprp_weightinc", "Constant")
 Rules.RegisterConstants("itempropdef", "Constant")
+Rules.RegisterConstants("itemevents", "ID")
 Rules.RegisterConstants("masterfeats", "Constant")
 Rules.RegisterConstants("misschtypes", "ID")
 Rules.RegisterConstants("mstrwpnfeats", "Constant")
@@ -96,6 +96,7 @@ Rules.RegisterConstants("skills", "Constant")
 Rules.RegisterConstant("SKILL_LAST", 27)
 Rules.RegisterConstant("SKILL_NUM", 28)
 
+Rules.RegisterConstants("scriptreturn", "ID")
 Rules.RegisterConstants("skyboxes", "Constant")
 Rules.RegisterConstants("shapes", "Constant")
 Rules.RegisterConstants("situations", "ID")
