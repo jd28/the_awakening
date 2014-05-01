@@ -1,4 +1,3 @@
-local Ev = require 'solstice.event'
 local Log = System.GetLogger()
 local Inst = require 'ta.instance'
 
@@ -79,7 +78,7 @@ local function check_transition(trans, pc)
 end
 
 function nw_g0_transition(trans)
-   local pc = Ev.GetClickingObject()
+   local pc = Game.GetClickingObject()
    if not pc:GetIsValid() then
       error("Invalid PC")
    end

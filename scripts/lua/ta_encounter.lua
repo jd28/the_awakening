@@ -2,7 +2,6 @@ local lfs = require 'lfs'
 local ffi = require 'ffi'
 local C = ffi.C
 
-local Ev  = require 'solstice.event'
 local E = require 'ta.encounter'
 local Log = require('ta.logger').Log
 
@@ -14,7 +13,7 @@ function ta_enc_enter(enc)
       and enc:GetLocalInt("ssp_spawned") == 0
    then
       enc:SetLocalInt("ssp_spawned", 1)
-      E.Spawn(enc, 0, Ev.GetEnteringObject())
+      E.Spawn(enc, 0, Game.GetEnteringObject())
    end
 end
 
