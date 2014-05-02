@@ -136,9 +136,14 @@ function M.ChatHandler(channel, speaker, msg, to)
       target   = to
    }
 
-   each(run_command, iter(commands))
-
-   return false
+   local ret = false
+   for _it, v in map(run_command, iter(commands)) do
+      if v then
+         ret = true
+         break
+      end
+   end
+   return ret
 end
 
 local function load_dir(symbol, dir)
