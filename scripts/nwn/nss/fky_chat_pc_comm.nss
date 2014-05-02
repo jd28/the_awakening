@@ -547,78 +547,6 @@ void DoUnnickname(struct pl_chat_command pcc){ //!unnickname <nickname>
     SendMessageToPC(pcc.oPC, C_RED+"Nickname "+pcc.sCommand+" removed!"+C_END);
 }
 
-void DoOpt(struct pl_chat_command pcc){ //!opt <option>
-    pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 4);
-    int nOption;
-    string sOptionType;
-
-    if (pcc.sCommand == "dragshape kin"){
-        sOptionType = "pc_dragshape";
-        nOption = 1;
-
-        SendChatLogMessage(pcc.oPC, C_GREEN+"Dragon Shape: Dragonkin"+C_END + "\n", pcc.oPC, 5);
-    }
-    else if (pcc.sCommand == "dragshape drag"){
-        sOptionType = "pc_dragshape";
-        nOption = 0;
-        SendChatLogMessage(pcc.oPC, C_GREEN+"Dragon Shape: Dragon"+C_END + "\n", pcc.oPC, 5);
-    }
-    else if(pcc.sCommand == "helm hide"){
-    	SetPlayerInt(pcc.oPC, "NWNX_HELM_HIDDEN", 1);
-        SendChatLogMessage(pcc.oPC, C_GREEN+"Helmet Hidden! Note: you may need to reequip for the effect to work."+C_END + "\n", pcc.oPC, 5);
-		return;
-    }
-    else if(pcc.sCommand == "helm show"){
-    	SetPlayerInt(pcc.oPC, "NWNX_HELM_HIDDEN", 0);
-        SendChatLogMessage(pcc.oPC, C_GREEN+"Helmet Unhidden!"+C_END + "\n", pcc.oPC, 5);
-		return;
-    }
-    else if(pcc.sCommand == "enhanced basic"){
-        int age = GetAge(pcc.oPC);
-        age = SetIntegerDigit(age, 0, 1);
-        SetAge(pcc.oPC, age);
-        SetPlayerInt(pcc.oPC, "pc_enhanced", 1, TRUE);
-        SuccessMessage(pcc.oPC, "Your login is now flagged enhanced at the basic level.!");
-        return;
-    }
-    else if(pcc.sCommand == "enhanced full"){
-        int age = GetAge(pcc.oPC);
-        age = SetIntegerDigit(age, 0, 2);
-        SetAge(pcc.oPC, age);
-        SetPlayerInt(pcc.oPC, "pc_enhanced", 2, TRUE);
-        SuccessMessage(pcc.oPC, "Your login is now flagged fully enhanced!");
-        return;
-    }
-    else if(pcc.sCommand == "enhanced off"){
-        int age = GetAge(pcc.oPC);
-        age = SetIntegerDigit(age, 0, 0);
-        SetAge(pcc.oPC, age);
-        SetPlayerInt(pcc.oPC, "pc_enhanced", 0, TRUE);
-        SuccessMessage(pcc.oPC, "Your login is no longer flagged as being enhanced!");
-        return;
-    }
-    else if(pcc.sCommand == "appear off"){
-        if(GetPlayerInt(pcc.oPC, "pc_style_dragon") || GetPlayerInt(pcc.oPC, "pc_style_undead")) 
-            SetCreatureAppearanceType(pcc.oPC, GetDefaultAppearance(GetRacialType(pcc.oPC)));
-
-        SuccessMessage(pcc.oPC, "Appearance reverted!");
-        return;
-    }
-    else if(pcc.sCommand == "anims off"){
-        if(GetFightingStyle(pcc.oPC))
-            SetPhenoType(PHENOTYPE_NORMAL, pcc.oPC);
-
-        SuccessMessage(pcc.oPC, "Animations reverted!");
-        return;
-    }
-
-
-    if(sOptionType != "")
-        SetPlayerInt(pcc.oPC, sOptionType, nOption);
-    else
-        ErrorMessage(pcc.oPC, "Invalid Option!");
-
-}
 void DoPartyFix(object oPC){
     object oLeader = GetFirstFactionMember(oPC);
     if(oLeader == oPC)
@@ -1408,8 +1336,6 @@ void main(){
                 else CommandRedirect(pcc.oPC, 1);
             break;
     /*o*/   case 14:
-                if (GetStringLeft(pcc.sCommand, 4) == "opt ") DoOpt(pcc);
-                else CommandRedirect(pcc.oPC, 1);
             break;
 
     /*p*/   case 15:
