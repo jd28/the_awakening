@@ -77,7 +77,8 @@ void main(){
     if(!GetIsPC(oPC) || GetIsDM(oPC) || GetIsDMPossessed(oPC)) return;
 
     //DumpSpells(oPC);
-	if(!GetHasEffect(EFFECT_TYPE_CUTSCENEGHOST, oPC)) {
+	if(!GetHasEffect(EFFECT_TYPE_CUTSCENEGHOST, oPC)
+	   && GetPlayerInt(oPC, "pc_block")) {
 		ApplyEffectToObject(4, EffectCutsceneGhost(), oPC);
 	}
 
