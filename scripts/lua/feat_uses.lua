@@ -61,7 +61,7 @@ Rules.RegisterFeatUses(
 
 Rules.RegisterFeatUses(
    function(feat, cre)
-      local uses = (cre:GetLevelByClass(CLASS_TYPE_DWARVEN_DEFENDER) - 1) / 2
+      local uses = math.floor(cre:GetLevelByClass(CLASS_TYPE_DWARVEN_DEFENDER) / 2)
       return 1 + uses
    end,
    FEAT_DWARVEN_DEFENDER_DEFENSIVE_STANCE)
