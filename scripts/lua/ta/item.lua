@@ -3,25 +3,18 @@
 
 local _ITEMS = {}
 local Dyn = require 'ta.dynamo'
-local Env = require 'ta.item_env'
-
 local ip = require 'solstice.itemprop'
-local ipc = ip.const
-local Cre = require 'solstice.creature'
 
-local env_mt = { __index = table.chain(Env, _CONSTS) }
+local env_mt = { __index = Dyn.Capture }
 
 local M = {}
 
 --- Load item file.
 -- @param file Item file to load.
 function M.Load(file)
-   Env.item = setmetatable({}, env_mt)
-
-   local res = runfile(file, Env.item)
+   local t   = setmetatable({}, env_mt)
+   local res = runfile(file, t)
    _ITEMS[assert(res.resref)] = res
-
-   Env.item = nil
 end
 
 --- Generate item

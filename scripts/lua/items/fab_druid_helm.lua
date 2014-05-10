@@ -2,14 +2,14 @@ resref = "fab_druid_helm"
 
 -- Properties
 properties = {
-   AC(6),
+   ArmorClass(6),
    Ability(ABILITY_WISDOM, 4),
    Ability(ABILITY_STRENGTH, Range(3, 5)),
    Ability(ABILITY_CHARISMA, 4),
-   DamageImmunity(DAMAGE_TYPE_DIVINE, 62),
-   DamageImmunity(DAMAGE_TYPE_MAGICAL, 60),
-   DamageImmunity(DAMAGE_TYPE_NEGATIVE, 60),
-   DamageImmunity(DAMAGE_TYPE_POSITIVE, 60),
+   DamageImmunity(DAMAGE_INDEX_DIVINE, 62),
+   DamageImmunity(DAMAGE_INDEX_MAGICAL, 60),
+   DamageImmunity(DAMAGE_INDEX_NEGATIVE, 60),
+   DamageImmunity(DAMAGE_INDEX_POSITIVE, 60),
    BonusLevelSpell(CLASS_TYPE_DRUID, 6, 2),
    BonusLevelSpell(CLASS_TYPE_DRUID, 7, 2),
    BonusLevelSpell(CLASS_TYPE_DRUID, 8, 2),
