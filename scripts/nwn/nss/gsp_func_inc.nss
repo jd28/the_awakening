@@ -19,7 +19,7 @@ const int GSP_IMPACT_DEATH_SUPERNATURAL   = 2;
 
 struct FocusBonus {
     int dmg, cap;
-}; 
+};
 
 struct SpellImpact {
     float fDuration, fRadius, fDelayBase;
@@ -65,7 +65,7 @@ void SendSpellResistanceMessage(object oCaster, object oTarget, int nRoll, int n
 
 struct SpellImpact CreateSpellImpact(){
     struct SpellImpact impact;
-    
+
     impact.fDelayBase       = 0.4;
     impact.nShape           = SHAPE_SPHERE;
     impact.fRadius          = RADIUS_SIZE_COLOSSAL;
@@ -84,7 +84,7 @@ struct SpellImpact CreateSpellImpact(){
 
     impact.nDurSave         = SAVING_THROW_FORT;
     impact.nDurSaveType     = SAVING_THROW_TYPE_NONE;
-    
+
     return impact;
 }
 
@@ -129,7 +129,7 @@ void ApplySpellImpactToAOE(struct SpellInfo si, struct SpellImpact impact, struc
                 " " + GetDamageTypeName(impact.nDamType2);
         }
         if(impact.nDeath > 0){
-            sMessage += ". Death: " + IntToString(impact.nDeath); 
+            sMessage += ". Death: " + IntToString(impact.nDeath);
         }
         sMessage += ", Save: " + GetSaveName(impact.nSave, TRUE) + "/" + GetSaveTypeName(impact.nSaveType, TRUE);
         sMessage += ", Storm: " + IntToString(impact.bStorm);
@@ -177,7 +177,7 @@ void ApplySpellImpactToShape(struct SpellInfo si, struct SpellImpact impact, str
                 " " + GetDamageTypeName(impact.nDamType2);
         }
         if(impact.nDeath > 0){
-            sMessage += ". Death: " + IntToString(impact.nDeath); 
+            sMessage += ". Death: " + IntToString(impact.nDeath);
         }
         sMessage += ", Save: " + GetSaveName(impact.nSave, TRUE) + "/" + GetSaveTypeName(impact.nSaveType, TRUE);
         sMessage += ", Storm: " + IntToString(impact.bStorm);
@@ -208,10 +208,10 @@ void ApplySpellImpactToShape(struct SpellInfo si, struct SpellImpact impact, str
 void ApplySpellImpactToTarget(struct SpellInfo si, struct SpellImpact impact, struct FocusBonus fb, float fDelay = 0.0, int bDebug = TRUE){
     if(GetIsDead(si.target))
         return;
-        
+
     if(impact.nTargetType != TARGET_TYPE_ALL && !GetIsSpellTarget(si, si.target, impact.nTargetType))
         return;
-    
+
     int nBaseDamage, nDamage, nDamage2;
     effect eDam;
 
@@ -229,7 +229,7 @@ void ApplySpellImpactToTarget(struct SpellInfo si, struct SpellImpact impact, st
                 " " + GetDamageTypeName(impact.nDamType2);
         }
         if(impact.nDeath > 0){
-            sMessage += ". Death: " + IntToString(impact.nDeath); 
+            sMessage += ". Death: " + IntToString(impact.nDeath);
         }
         sMessage += ", Save: " + GetSaveName(impact.nSave, TRUE) + "/" + GetSaveTypeName(impact.nSaveType, TRUE);
         sMessage += ", Storm: " + IntToString(impact.bStorm);
@@ -270,11 +270,11 @@ void ApplySpellImpactToTarget(struct SpellInfo si, struct SpellImpact impact, st
         effect eDeath;
 	eDeath = EffectDeath();
 	SetEffectCreator(eDeath, si.caster);
-        
+
         if(!GetIsImmune(si.target, IMMUNITY_TYPE_DEATH))
             ApplyEffectToObject(DURATION_TYPE_INSTANT, eDeath, si.target);
         ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_DEATH), si.target);
-    }   
+    }
 
     if(impact.nDamType >= 0){
         nBaseDamage = MetaPower(si, impact.nDamDice, impact.nDamSides, impact.nDamBonus, fb.dmg);
@@ -344,7 +344,7 @@ void ApplyTouchImpactToShape(struct SpellInfo si, struct SpellImpact impact, str
                 " " + GetDamageTypeName(impact.nDamType2);
         }
         if(impact.nDeath > 0){
-            sMessage += ". Death: " + IntToString(impact.nDeath); 
+            sMessage += ". Death: " + IntToString(impact.nDeath);
         }
         sMessage += ", Save: " + GetSaveName(impact.nSave, TRUE) + "/" + GetSaveTypeName(impact.nSaveType, TRUE);
         sMessage += ", Storm: " + IntToString(impact.bStorm);
@@ -651,7 +651,7 @@ struct FocusBonus GetOffensiveFocusBonus(object oCaster, int nSchool, int nCap){
         nFocusDamage += 25;
 
     fb.dmg = nFocusDamage;
-    fb.cap = nCap; 
+    fb.cap = nCap;
 
     return fb;
 }
@@ -1051,6 +1051,8 @@ int CreateShadow(object oTarget, int nCasterLevel, string sName, int nAppearance
     }
 
     oShade = CopyObject(oTarget, GetSpellTargetLocation(), OBJECT_INVALID, "SDCLONE" + GetName(oPC));
+	SetLocalInt(oShade, "TA_CLONE", TRUE);
+	SetCurrentHitPoints(oShade, SetMaxHitPoints (oShade, GetMaxHitPoints(oTarget)));
     SetName(oShade, sName);
 
     if(nAppearance >= 0)
