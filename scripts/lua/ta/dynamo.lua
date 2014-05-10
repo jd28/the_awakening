@@ -39,6 +39,28 @@ function M.set_base(tbl)
    tbl._dynamo_base = true
 end
 
+function M.Capture(table, key)
+   local is_const = string.match(key, '^%u[%u_]')
+   if is_const and not _CONSTS[key] then
+      error(string.format("Invalid constant: %s!", key))
+   end
+
+   if _CONSTS[key] then
+      return _CONSTS[key]
+   elseif M[key] then
+      return M[key]
+   end
+
+   local function f(...)
+      local t = {...}
+      t.f = key
+      Dyn.set_base(t)
+      return t
+   end
+
+   return f
+end
+
 function M.flatten(tbl, obj, acc)
    acc = acc or {}
    for _, sp in ipairs(tbl) do
