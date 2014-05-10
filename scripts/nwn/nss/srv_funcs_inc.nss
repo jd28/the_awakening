@@ -108,6 +108,7 @@ void ResetDelay(){
 
 void ResetServer(){
     WriteTimestampedLogEntry("Attempting Reset Server.  Booting Players");
+	SetLocalInt(GetModule(), "SERVER_SHUTTING_DOWN", 1);
     ShutdownServer(12);
 }
 
