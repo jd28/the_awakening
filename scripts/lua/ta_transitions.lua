@@ -21,7 +21,8 @@ local function check_transition(trans, pc)
    Despawn: %s
    Despawn Time: %d
    Environment: %s
-   Level: %d\n]],
+   Level: %d
+]],
    key, tostring(spawn), tostring(despawn), despawn_time, tostring(env), level)
 
 --[[
