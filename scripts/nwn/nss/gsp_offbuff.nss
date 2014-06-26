@@ -192,7 +192,7 @@ void main(){
     if(bSingleTarget){
         //Fire cast spell at event for the specified target
         SignalEvent(si.target, EventSpellCastAt(si.caster, si.id, FALSE));
-
+		GZRemoveSpellEffects(si.id, si.target);
         //Apply the bonus effect and VFX impact
         ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, si.target);
         DelayCommand(0.2f, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, si.target, fDuration));
@@ -209,6 +209,7 @@ void main(){
                 fDelay = GetRandomDelay(0.4, 1.1);
                 //Fire spell cast at event for target
                 SignalEvent(si.target, EventSpellCastAt(si.caster, si.id, FALSE));
+				GZRemoveSpellEffects(si.id, si.target);
                 //Apply VFX impact and bonus effects
                 DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, oTarget));
                 DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, fDuration));
@@ -223,7 +224,7 @@ void main(){
 
     //DumpCombatInformation(si.target);
 
-        Logger(si.caster, VAR_DEBUG_SPELLS, LOGLEVEL_DEBUG, "Generic Offensive Buff: Attack: %s, " +
+	Logger(si.caster, VAR_DEBUG_SPELLS, LOGLEVEL_DEBUG, "Generic Offensive Buff: Attack: %s, " +
            "Hitpoints: %s; Save: %s; Extra Attacks: %s; Damage Bonus: %s of %s; Dodge Bonus: %s;" +
            "AC Decrease: %s;", IntToString(nAttackBonus), IntToString(nHPBonus), IntToString(nSaveBonus),
            IntToString(nExtraAttacks), IntToString(nDamBonus), GetDamageTypeName(nDamType), IntToString(nACDodge),

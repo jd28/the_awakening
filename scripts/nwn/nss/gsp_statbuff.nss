@@ -104,6 +104,7 @@ void main(){
     if(bSingleTarget){
         //Fire cast spell at event for the specified target
         SignalEvent(si.target, EventSpellCastAt(si.caster, si.id, FALSE));
+		GZRemoveSpellEffects(si.id, si.target);
 
         //Apply the bonus effect and VFX impact
         ApplyEffectToObject(DURATION_TYPE_INSTANT, eVis, si.target);
@@ -118,6 +119,8 @@ void main(){
 
             if(!GetIsReactionTypeFriendly(si.target) && !GetFactionEqual(si.target))
                 continue;
+
+			GZRemoveSpellEffects(si.id, si.target);
 
             fDelay = GetRandomDelay(0.4, 1.1);
             //Fire spell cast at event for target
