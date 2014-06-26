@@ -7,13 +7,13 @@ local function check_transition(trans, pc)
 
    local jump = true
    local area = pc:GetArea()
-
    local key  = trans:GetLocalString("KeyTag")
    local spawn = trans:GetLocalBool("CheckSpawn")
    local despawn = trans:GetLocalBool("CheckDespawn")
    local env = trans:GetLocalBool("CheckEnv")
    local level = trans:GetLocalInt("Level")
    local despawn_time = area:GetLocalInt("DespawnTime")
+
 
    Log:debug([[Check Transitions:
    Key: %s
@@ -89,11 +89,18 @@ function nw_g0_transition(trans)
 
    if not check_transition(trans, pc) then return end
 
-   local cur_area = pc:GetArea()
    local target = trans:GetTransitionTarget()
    local tar_area = target:GetArea()
+
+   if tar_area:GetLocalInt("area_requires_haks") > 0
+      and pc:GetPlayerInt("pc_enhanced") <= 1
+   then
+      pc:ErrorMessage "You do not have the required hak files to enter this area!"
+      return
+   end
+
+   local cur_area = pc:GetArea()
    local tag = target:GetTag()
-   local instance_level = cur_area:GetLocalInt("instance_level")
 
    pc:ActionJumpToObject(target)
 end
