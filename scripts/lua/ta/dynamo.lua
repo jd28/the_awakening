@@ -54,7 +54,7 @@ function M.Capture(table, key)
    local function f(...)
       local t = {...}
       t.f = key
-      Dyn.set_base(t)
+      M.set_base(t)
       return t
    end
 
