@@ -1,6 +1,6 @@
 ----------------------------------------------------------------------
 -- Settings Example File.
--- The `Solstice/settings.lua` file will be read into a global table
+-- The `settings.lua` file will be read into a global table
 -- OPT.  The file must be present or the system will throw an error.
 
 -- The following are only those used by the Solstice library.
@@ -14,11 +14,17 @@ LOG_DIR = "/opt/nwn/logs.0"
 -- REQUIRED: Consant loader.
 CONSTANTS = "ta_constants"
 
--- my server related stuff.
+-- OPTIONAL: my server related stuff.
 TA = true
+
+-- OPTIONAL: If you're using CEP, you can use the following setting to get
+-- some additional CEP functionality.
+CEP = true
 
 --JIT_DUMP = true
 
+-- OPTIONAL:
 DISABLE_CIRCLE_KICK = true
 
+-- OPTIONAL:
 DEVCRIT_DISABLE_ALL = true
