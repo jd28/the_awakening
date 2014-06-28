@@ -84,6 +84,7 @@ end
 
 function tlk_mt:GetString(i)
    if not self.table or not self.table[i] then
+      if not self.entries then return end
       local entry = self.entries[i]
       local soff = self.header.str_offset + entry.offset
 
@@ -210,7 +211,7 @@ local function from_table(file)
    }
    ffi.copy(tlk.header.type, "TLK ")
    ffi.copy(tlk.header.version, "V3.0")
-   return tlk
+   return setmetatable(tlk, tlk_mt)
 end
 
 local function LuaToTlk(input, output)
@@ -274,4 +275,5 @@ local M = {}
 M.load = load
 M.close = close
 M.LuaToTlk = LuaToTlk
+M.from_table = from_table
 return M
