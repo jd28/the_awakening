@@ -13,7 +13,7 @@
 //:: Updated By: Georg Zoeller, Oct 2003
 //:://////////////////////////////////////////////
 
-#include "ws_inc_shifter2"
+#include "ws_inc_shifter"
 #include "pc_funcs_inc"
 
 void PMUpgradeSummon(object oSelf, string sScript)

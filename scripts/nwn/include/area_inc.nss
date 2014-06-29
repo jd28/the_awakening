@@ -3,7 +3,7 @@
 #include "inc_draw"
 #include "pc_funcs_inc"
 #include "spawn_functions"
-#include "pl_getab_inc"
+#include "test"
 
 struct AreaDamage{
     int nDamType, nDamDice, nDamSides, nDC, nDelay;
@@ -63,7 +63,7 @@ int AreaGetIsPlayerInArea(object oArea){
 
 int GetIsAreaClear (object oArea, object oPC);
 int GetIsAreaClear (object oArea, object oPC) {
-    object oMonster = GetNearestCreature(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_NOT_PC, oPC, 1, CREATURE_TYPE_REPUTATION, REPUTATION_TYPE_ENEMY); 
+    object oMonster = GetNearestCreature(CREATURE_TYPE_PLAYER_CHAR, PLAYER_CHAR_NOT_PC, oPC, 1, CREATURE_TYPE_REPUTATION, REPUTATION_TYPE_ENEMY);
     return oMonster == OBJECT_INVALID;
 }
 
@@ -73,9 +73,9 @@ int GetPercentEncountersSpawned(object oArea, object oPC){
     object oEnc;
     int nTotal, nInactive;
     float fPercent;
-    
+
     for(oEnc = GetNearestObject(OBJECT_TYPE_ENCOUNTER, oPC, nTotal);
-            oEnc != OBJECT_INVALID; 
+            oEnc != OBJECT_INVALID;
             oEnc = GetNearestObject(OBJECT_TYPE_ENCOUNTER, oPC, nTotal)){
         nTotal++;
         if(GetEncounterActive(oEnc))
@@ -83,7 +83,7 @@ int GetPercentEncountersSpawned(object oArea, object oPC){
     }
 
     //SendMessageToPC(oPC, "Total: " + IntToString(nTotal) + " Active: " + IntToString(nInactive));
-    
+
     if(nTotal == 0)
         return 0;
 
@@ -222,7 +222,7 @@ void AreaRespawnTraps(object oArea){
       else
       {
          SetLocalInt(oArea, "NO_TRAPS_TO_SET", TRUE);
-         SE_Debug("[" + GetName(oArea) + "] Player has entered. No objects or doors are set for respawning traps in this area - return");
+         SE_Debug("[" + GetName(oArea) + "] Player has entered. No fsda objects ofdsfr doors are set for respawning traps in this area - return");
       }
    }
    else if(GetLocalInt(oArea, "TRAP_RESPAWN_INITIATED") == TRUE)
@@ -857,8 +857,8 @@ int CheckTransition(object oTransition, object oClicker){
     int bClear        = GetIsAreaClear(oArea, oClicker);
     int bJump         = TRUE;
     int nHideTime     = GetLocalInt(oArea, "PL_LAST_STEALTH");
-    int nTime         = GetLocalInt(GetModule(), "uptime") - nHideTime; 
-    
+    int nTime         = GetLocalInt(GetModule(), "uptime") - nHideTime;
+
    /* if (nHideTime > 0 && nTime < 300 && nPercent < 50) {
         bJump = FALSE;
         FloatingTextStringOnCreature("You cannot make this transition after hiding.", oClicker);
@@ -897,4 +897,3 @@ int CheckTransition(object oTransition, object oClicker){
 
     return bJump;
 }
-

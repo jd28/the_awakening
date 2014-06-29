@@ -59,7 +59,7 @@ Made the message about which items are merged more explicit.
 */
 //:://////////////////////////////////////////////
 
-#include "ws_inc_shifter2"
+#include "ws_inc_shifter"
 #include "x3_inc_horse"
 #include "pc_funcs_inc"
 

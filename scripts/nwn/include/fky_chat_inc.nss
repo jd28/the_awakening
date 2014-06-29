@@ -142,8 +142,7 @@ object Speech_GetPlayer(int nID)
   return GetLocalObject(GetModule(), sSpeech_SpeechList + IntToString(nID));
 }
 
-string Speech_GetChannel(int nChannel)
-{
+string Speech_GetChannel(int nChannel) {
     string sChannel;
 
     switch(nChannel)
@@ -1421,4 +1420,3 @@ void HandleOtherSpeech(object oHOPC, object oHOTarget, string sHOText, int nHOCh
 }
 
 //void main(){}
-

@@ -3,7 +3,7 @@
 #include "zep_inc_phenos2"
 #include "info_inc"
 #include "pl_effects_inc"
-#include "ws_inc_shifter2"
+//#include "ws_inc_shifter2"
 
 // Apply Respawn Penalty to PC
 void ApplyRespawnPenalty(object oPC);
@@ -656,6 +656,7 @@ string PCGenerateUID(object oPC, int nSize){
     return sUID;
 }
 
+/*
 void RePoly(object oPC) {
 	int is_poly = ScanForPolymorphEffect(oPC) != -2;
 	if (is_poly) {
@@ -667,12 +668,12 @@ void RePoly(object oPC) {
 		SendPCMessage(oPC, C_GREEN+"Your character has been re-polymorphed."+C_END);
 	}
 }
-
+*/
 void PCOnAcquireSave(object oPC){
     DeleteLocalInt(oPC, VAR_PC_ACQUIRE_SAVE);
     ExportSingleCharacter(oPC);
     SendPCMessage(oPC, C_GREEN+"Your character has been saved."+C_END);
-	DelayCommand(0.4, RePoly(oPC));
+	//DelayCommand(0.4, RePoly(oPC));
 }
 
 void PCRespawn(object oPC){

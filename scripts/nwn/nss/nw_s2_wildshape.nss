@@ -24,7 +24,7 @@ See Iznoghoud's x2_s2_gwildshp script for an in-detail description.
 */
 //:://////////////////////////////////////////////
 
-#include "ws_inc_shifter2"
+#include "ws_inc_shifter"
 #include "x3_inc_horse"
 
 void main()

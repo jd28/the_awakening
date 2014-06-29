@@ -12,6 +12,7 @@ void main(){
         return;
     }
 
+
     QuestAdvance(OBJECT_SELF, oPC, 2);
 
     string sTag;
