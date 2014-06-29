@@ -26,7 +26,7 @@ function M.GetLevelTable(tbl, level)
       return tbl.Level3
    end
    if level >= 2 and tbl.Level2 then
-      return tbl.Level3
+      return tbl.Level2
    end
    if level >= 1 and tbl.Level1 then
       return tbl.Level1
@@ -123,7 +123,7 @@ function M.extract(tbl, obj)
    elseif tbl._dynamo_type == M.DYNAMO_IF then
       local r
       for i = 1, #tbl, 2 do
-         if _G[tbl[i]](obj) then
+         if tbl[i](obj) then
             r = tbl[i+1]
             break
          end
