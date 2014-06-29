@@ -14,9 +14,9 @@ properties = {
    DamageImmunity(DAMAGE_INDEX_PIERCING, 10),
    DamageImmunity(DAMAGE_INDEX_SLASHING, 10),
 
-   DamageResistance(DAMAGE_INDEX_POSITIVE, IP_CONST_RESIST_10),
-   DamageResistance(DAMAGE_INDEX_NEGATIVE, IP_CONST_RESIST_10),
-   DamageResistance(DAMAGE_INDEX_DIVINE, IP_CONST_RESIST_10),
+   DamageResistance(DAMAGE_INDEX_POSITIVE, 10),
+   DamageResistance(DAMAGE_INDEX_NEGATIVE, 10),
+   DamageResistance(DAMAGE_INDEX_DIVINE, 10),
 
    ImmunityMisc(IMMUNITY_TYPE_DEATH),
    SavingThrowVersus(SAVING_THROW_VS_ALL, 3),
