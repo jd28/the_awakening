@@ -3,7 +3,6 @@
 #include "inc_draw"
 #include "pc_funcs_inc"
 #include "spawn_functions"
-#include "test"
 
 struct AreaDamage{
     int nDamType, nDamDice, nDamSides, nDC, nDelay;
