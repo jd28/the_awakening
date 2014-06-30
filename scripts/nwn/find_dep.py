@@ -32,10 +32,7 @@ res = set(get_includes(sys.argv[1]))
 source = os.path.basename(sys.argv[1])
 source = os.path.splitext(source)[0]
 
-with open(os.path.join('ncs', source + '.d'), 'w') as f:
-    nss = ' '.join([r + '.nss' for r in res])
-    if len(res):
-        f.write(source + ".ncs: " + nss)
-        f.write('\n')
-    f.write("ncs/" + source + ".d: " + source + '.nss' + " "+ nss)
-    f.write('\n')
+nss = ' '.join([r + '.nss' for r in res])
+if len(res):
+    print(source + ".ncs: " + nss)
+print("ncs/" + source + ".d: " + source)# + '.nss') + " "+ nss)

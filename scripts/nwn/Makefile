@@ -1,6 +1,5 @@
 VPATH = nss:include:ncs:bioware
-
-
+OUTDIR=ncs
 SOURCES=$(shell find nss -type f -iname '*.nss')
 OBJECTS=$(foreach x, $(basename $(notdir $(SOURCES))), $(x).ncs)
 
@@ -11,13 +10,15 @@ MAKEFLAGS += -r
 
 TARGET = TAScripts
 
-$(TARGET) : $(OBJECTS)
-	touch $(TARGET)
+$(TARGET) : $(OBJECTS) ;
 
 %.ncs: %.nss
-	NWNScriptCompiler.exe -q -b ncs -i "nss;include;bioware" -1cego $<
+	@find_dep.py $< > $(patsubst %.ncs,$(OUTDIR)/%.d, $@)
+	@NWNScriptCompiler.exe -q -b $(OUTDIR) -i "nss;include;bioware" -1cego $<
+	@echo "NSS $<"
 
-ncs/%.d: %.nss
-	find_dep.py $<
+-include $(OBJECTS:%.ncs=$(OUTDIR)/%.d)
 
--include $(OBJECTS:%.ncs=ncs/%.d)
+.PHONY: clean
+clean:
+	rm $(OUTDIR)/*
