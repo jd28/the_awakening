@@ -19,6 +19,7 @@ const int GSP_IMPACT_DEATH_SUPERNATURAL   = 2;
 
 struct FocusBonus {
     int dmg, cap;
+	int sf, gsf, esf;
 };
 
 struct SpellImpact {
@@ -602,7 +603,6 @@ int GetSpellSaved(struct SpellInfo si, int nSave, object oTarget, int nSaveType 
 }
 
 struct FocusBonus GetOffensiveFocusBonus(object oCaster, int nSchool, int nCap){
-    int sf, gsf, esf;
     struct FocusBonus fb;
     int nFocusDamage;
 
@@ -611,43 +611,43 @@ struct FocusBonus GetOffensiveFocusBonus(object oCaster, int nSchool, int nCap){
 
     switch(nSchool){
         case SPELL_SCHOOL_NECROMANCY:
-            sf = FEAT_SPELL_FOCUS_NECROMANCY;
-            gsf = FEAT_GREATER_SPELL_FOCUS_NECROMANCY;
-            esf = FEAT_EPIC_SPELL_FOCUS_NECROMANCY;
+            fb.sf = FEAT_SPELL_FOCUS_NECROMANCY;
+            fb.gsf = FEAT_GREATER_SPELL_FOCUS_NECROMANCY;
+            fb.esf = FEAT_EPIC_SPELL_FOCUS_NECROMANCY;
         break;
         case SPELL_SCHOOL_ILLUSION:
-            sf = FEAT_SPELL_FOCUS_ILLUSION;
-            gsf = FEAT_GREATER_SPELL_FOCUS_ILLUSION;
-            esf = FEAT_EPIC_SPELL_FOCUS_ILLUSION;
+            fb.sf = FEAT_SPELL_FOCUS_ILLUSION;
+            fb.gsf = FEAT_GREATER_SPELL_FOCUS_ILLUSION;
+            fb.esf = FEAT_EPIC_SPELL_FOCUS_ILLUSION;
         break;
         case SPELL_SCHOOL_EVOCATION:
-            sf = FEAT_SPELL_FOCUS_EVOCATION;
-            gsf = FEAT_GREATER_SPELL_FOCUS_EVOCATION;
-            esf = FEAT_EPIC_SPELL_FOCUS_EVOCATION;
+            fb.sf = FEAT_SPELL_FOCUS_EVOCATION;
+            fb.gsf = FEAT_GREATER_SPELL_FOCUS_EVOCATION;
+            fb.esf = FEAT_EPIC_SPELL_FOCUS_EVOCATION;
         break;
         case SPELL_SCHOOL_ABJURATION:
-            sf = FEAT_SPELL_FOCUS_ABJURATION;
-            gsf = FEAT_GREATER_SPELL_FOCUS_ABJURATION;
-            esf = FEAT_EPIC_SPELL_FOCUS_ABJURATION;
+            fb.sf = FEAT_SPELL_FOCUS_ABJURATION;
+            fb.gsf = FEAT_GREATER_SPELL_FOCUS_ABJURATION;
+            fb.esf = FEAT_EPIC_SPELL_FOCUS_ABJURATION;
         break;
         case SPELL_SCHOOL_TRANSMUTATION:
-            sf = FEAT_SPELL_FOCUS_TRANSMUTATION;
-            gsf = FEAT_GREATER_SPELL_FOCUS_TRANSMUTATION;
-            esf = FEAT_EPIC_SPELL_FOCUS_TRANSMUTATION;
+            fb.sf = FEAT_SPELL_FOCUS_TRANSMUTATION;
+            fb.gsf = FEAT_GREATER_SPELL_FOCUS_TRANSMUTATION;
+            fb.esf = FEAT_EPIC_SPELL_FOCUS_TRANSMUTATION;
         break;
     }
 
-    if(GetHasFeat(sf, oCaster))
+    if(GetHasFeat(fb.sf, oCaster))
         nFocusDamage += 5;
 
-    if(GetHasFeat(gsf, oCaster)){
+    if(GetHasFeat(fb.gsf, oCaster)){
         if(nCap == 60)
             nFocusDamage += 10;
         else
             nCap += 10;
     }
 
-    if(GetHasFeat(esf, oCaster))
+    if(GetHasFeat(fb.esf, oCaster))
         nFocusDamage += 25;
 
     fb.dmg = nFocusDamage;
