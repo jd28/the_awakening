@@ -172,7 +172,7 @@ local function epic_spell(feat, cre)
       return 2
    end
 
-   level = cre:GetLevelByClass(CLASS_TYPE_PALEMASTER)
+   level = cre:GetLevelByClass(CLASS_TYPE_PALE_MASTER)
    if level >= 40 then
       return 3
    elseif level >= 30 then
