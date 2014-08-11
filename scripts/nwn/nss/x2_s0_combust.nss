@@ -33,12 +33,16 @@ void main(){
     struct SpellInfo si = GetSpellInfo();
     if (si.id < 0) return;
 
-    int nDamType = DAMAGE_TYPE_FIRE, nDamDice = 2, nDamSides = 6;
+    int nDamType = DAMAGE_TYPE_FIRE, nDamDice = si.clevel, nDamSides = 6;
+
+	struct FocusBonus fb = GetOffensiveFocusBonus(si.caster, si.school, 20);
+	if (nDamDice > fb.cap)
+		nDamDice = fb.cap;
 
     //--------------------------------------------------------------------------
     // Calculate the damage, 2d6 + casterlevel, capped at +10
     //--------------------------------------------------------------------------
-    int nDamage = MetaPower(si, nDamDice, nDamSides, si.clevel, 0);
+    int nDamage = MetaPower(si, nDamDice, nDamSides, si.clevel, fb.dmg);
 
     //--------------------------------------------------------------------------
     // Calculate the duration (we need a duration or bad things would happen

@@ -12,6 +12,8 @@ void main(){
     int nMissiles = si.clevel, nDamType = DAMAGE_TYPE_MAGICAL, nDamDice, nDamSides = 6, nDamBonus;
     effect eVis, eMissile, eDam;
 
+    struct FocusBonus fb = GetOffensiveFocusBonus(si.caster, si.school, 0);
+
     switch(si.id){
         case SPELL_ISAACS_LESSER_MISSILE_STORM:
             eVis = EffectVisualEffect(VFX_IMP_MAGBLUE);
@@ -22,7 +24,7 @@ void main(){
         case SPELL_ISAACS_GREATER_MISSILE_STORM:
             eVis = EffectVisualEffect(VFX_IMP_MAGBLUE);
             eMissile = EffectVisualEffect(VFX_IMP_MIRV);
-            nDamDice = 2;
+            nDamDice = fb.gsf ? 3 : 2;
             if (si.clevel > 20) nMissiles = (20 + ((si.clevel - 20) / 4));
         break;
         case SPELL_FIREBRAND:
@@ -46,8 +48,6 @@ void main(){
             nDamDice = nMissiles;
         break;
     }
-
-    struct FocusBonus fb = GetOffensiveFocusBonus(si.caster, si.school, 0);
 
     if (nSaveType == SAVING_THROW_TYPE_NONE) {
         switch (nDamType) {

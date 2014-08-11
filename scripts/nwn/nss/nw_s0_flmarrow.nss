@@ -23,7 +23,9 @@ void main(){
 
     //Declare major variables  ( fDist / (3.0f * log( fDist ) + 2.0f) )
     int nDamage = 0, nCnt;
-    effect eMissile = EffectVisualEffect(VFX_IMP_FLAME_S);
+	effect eMissile = EffectVisualEffect(VFX_IMP_MIRV_FLAME);
+
+    effect eImp = EffectVisualEffect(VFX_IMP_FLAME_S);
     int nMissiles = (si.clevel) / 4;
     float fDist = GetDistanceBetween(OBJECT_SELF, si.target);
     float fDelay = fDist/(3.0 * log(fDist) + 2.0), fTime, fDelay2;
@@ -33,6 +35,8 @@ void main(){
         nMissiles = 1;
 
     struct FocusBonus fb = GetOffensiveFocusBonus(si.caster, si.school, 0);
+	int dice = 4;
+	if (fb.gsf) { dice = 14; }
 
     if(GetIsReactionTypeFriendly(si.target))
         return;
@@ -49,7 +53,7 @@ void main(){
 
     //Apply a single damage hit for each missile instead of as a single mass
     for (nCnt = 1; nCnt <= nMissiles; nCnt++){
-        nDamage = MetaPower(si, 4, 6, 1, fb.dmg);
+        nDamage = MetaPower(si, dice, 6, 1, fb.dmg);
         nDamage = GetReflexAdjustedDamage(nDamage, si.target, si.dc, SAVING_THROW_TYPE_FIRE);
 
         fTime = fDelay;
@@ -61,7 +65,6 @@ void main(){
 
         //Apply the MIRV and damage effect
         DelayCommand(fTime, ApplyEffectToObject(DURATION_TYPE_INSTANT, eDam, si.target));
-        DelayCommand(fDelay2, ApplyEffectToObject(DURATION_TYPE_INSTANT, eMissile, si.target));
+        DelayCommand(fDelay2, ApplyEffectToObject(DURATION_TYPE_INSTANT, eImp, si.target));
      }
 }
-

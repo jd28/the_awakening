@@ -30,15 +30,18 @@ void main(){
 
     effect eMissile = EffectVisualEffect(VFX_IMP_MIRV);
     effect eVis = EffectVisualEffect(VFX_IMP_MAGBLUE);
-
+	int dice = 2;
     int nMissiles = (si.clevel / 2) + 1;
-    nMissiles = (nMissiles > 10) ? 10 : nMissiles;
+    struct FocusBonus fb = GetOffensiveFocusBonus(si.caster, si.school, 0);
+
+    nMissiles = (nMissiles > fb.cap) ? fb.cap : nMissiles;
+	if (fb.gsf) { dice = 3; }
+
 
     float fDist = GetDistanceBetween(si.caster, si.target);
     float fDelay = fDist / (3.0 * log(fDist) + 2.0);
     float fDelay2, fTime;
 
-    struct FocusBonus fb = GetOffensiveFocusBonus(si.caster, si.school, 0);
 
     if(!GetIsReactionTypeFriendly(si.target)){
         //Fire cast spell at event for the specified target
@@ -48,7 +51,7 @@ void main(){
         if (!GetSpellResisted(si, si.target, fDelay)){
             //Apply a single damage hit for each missile instead of as a single mass
             for (nCnt = 1; nCnt <= nMissiles; nCnt++){
-                nDamage = MetaPower(si, 2, 4, 2, fb.dmg);
+                nDamage = MetaPower(si, dice, 4, 2, fb.dmg);
 
                 fTime = fDelay;
                 fDelay2 += 0.1;

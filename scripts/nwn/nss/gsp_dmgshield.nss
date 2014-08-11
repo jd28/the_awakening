@@ -17,11 +17,18 @@ void main(){
     int nDamType, bDebug = FALSE;
     effect eShield = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
 
+	struct FocusBonus fb = GetOffensiveFocusBonus(si.caster, si.school, 0);
+
     switch(si.id){
         case SPELL_DEATH_ARMOR:
+			if ( fb.sf ) { nDamBonus = DAMAGE_BONUS_2d6; }
             nDamType = DAMAGE_TYPE_MAGICAL;
             nDam /= 2;
-            nDam = nDam > 10 ? 10 : nDam;
+
+			if (fb.esf) nDam = nDam > 20 ? 20 : nDam;
+			else if (fb.gsf) nDam = nDam > 15 ? 15 : nDam;
+			else nDam = nDam > 10 ? 10 : nDam;
+
             eShield = EffectVisualEffect(463);
         break;
         case SPELL_WOUNDING_WHISPERS:
