@@ -25,14 +25,12 @@ end
 -- @see solstice.item.Load
 function M.Generate(object, resref, max)
    local item = _ITEMS[resref]
-   if not item then
-      error("No such resref: " .. resref)
-   end
 
-   local it  = object:GiveItem(resref)
+   local it = object:GiveItem(resref)
    if not it:GetIsValid() then
       error("Invalid item: Resref: " .. resref)
    end
+   if not item then return end
 
    -- This probably could be done in a better fashion...
 

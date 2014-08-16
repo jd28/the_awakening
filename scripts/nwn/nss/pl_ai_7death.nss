@@ -46,8 +46,8 @@ void main(){
     string sScript = GetLocalString(OBJECT_SELF, "ES_Death");
     if(sScript != "") ExecuteScript(sScript, OBJECT_SELF);
 
-    if(GetIsEncounterCreature(OBJECT_SELF) ||
-       GetLocalInt(OBJECT_SELF, "PL_AI_SPAWNED")){
+    if(GetIsEncounterCreature(OBJECT_SELF)
+       || GetLocalInt(OBJECT_SELF, "PL_AI_SPAWNED")){
         //RLGS Loot...
         struct rlgs_info ri;
 
@@ -56,6 +56,7 @@ void main(){
         ri.oPC = oKiller;
 
         DelayCommand(0.5f, RLGSGenerateLoot(ri));
+        DelayCommand(0.5f, ExecuteScript("ta_loot_gen", OBJECT_SELF));
     }
 
     string sDoor = GetLocalString(OBJECT_SELF, "UnlockDoor");

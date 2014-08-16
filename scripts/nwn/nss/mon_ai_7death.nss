@@ -41,8 +41,8 @@ void main(){
     SpeakString("NW_ATTACK_MY_TARGET", TALKVOLUME_SILENT_TALK);
 
     if(GetIsEncounterCreature(OBJECT_SELF)
-            || GetLocalInt(OBJECT_SELF, "PL_AI_SPAWNED")
-            || GetLocalInt(OBJECT_SELF, "Despawn") > 0){
+	   || GetLocalInt(OBJECT_SELF, "PL_AI_SPAWNED")
+	   || GetLocalInt(OBJECT_SELF, "Despawn") > 0){
         //RLGS Loot...
         struct rlgs_info ri;
 
@@ -51,7 +51,7 @@ void main(){
         ri.oPC = oKiller;
 
         DelayCommand(0.5f, RLGSGenerateLoot(ri));
-        DelayCommand(0.6f, ExecuteScript("ta_item_gen", OBJECT_SELF));
+        DelayCommand(0.6f, ExecuteScript("ta_loot_gen", OBJECT_SELF));
     }
 
     string sDoor = GetLocalString(OBJECT_SELF, "UnlockDoor");
