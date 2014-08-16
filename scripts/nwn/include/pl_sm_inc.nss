@@ -32,6 +32,7 @@ int SMCheckActive(){
 
 void SpawnMonster(string sResref, string sSpawn, location lLoc, int nTally){
     object oMonster = CreateObject(OBJECT_TYPE_CREATURE, sResref, lLoc, FALSE, "Spawned");
+	DelayCommand(0.1, SetLocalInt(oMonster, "PL_AI_SPAWNED", TRUE));
     SetLocalObject(oMonster, "ssp_master", OBJECT_SELF);
     SetLocalObject(OBJECT_SELF, sSpawn + IntToString(nTally), oMonster);
 

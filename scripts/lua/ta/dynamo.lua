@@ -22,6 +22,7 @@ M.DYNAMO_PERCENT = 6
 M.DYNAMO_OR      = 7
 
 function M.GetLevelTable(tbl, level)
+   level = level or 0
    if level >= 3 and tbl.Level3 then
       return tbl.Level3
    end
