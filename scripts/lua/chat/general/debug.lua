@@ -1,12 +1,15 @@
 command = "debug"
 
 description = [[Debugging Information:
-               |Usage:
-               |  !debug abilities
-               |  !debug resist
-               |  !debug skills
-               |  !debug soak
-               |  !debug immunities]]
+               |  Usage: !debug [option]
+               |  Options:
+               |    ab - Debug attack bonus
+               |    abilities - Debug ability scores.
+               |    ac - Debug armor class.
+               |    resist - Debug damage resistance
+               |    skills - Debug skills.
+               |    soak - Debug damage reduction.
+               |    immunities - Debug immunities]]
 
 function action(info)
    local pc  = info.speaker
@@ -23,5 +26,9 @@ function action(info)
       pc:SendMessage(pc:DebugSkills())
    elseif act[1] == 'immunities' then
       pc:SendMessage(pc:DebugDamageImmunities())
+   elseif act[1] == 'ac' then
+      pc:SendMessage(pc:DebugArmorClass())
+   elseif act[1] == 'ab' then
+      pc:SendMessage(pc:DebugAttackBonus())
    end
 end
