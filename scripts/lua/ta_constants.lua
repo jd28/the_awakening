@@ -3,6 +3,9 @@ local Rules = require 'solstice.rules.constants'
 Rules.RegisterConstants("abilities", "ID")
 Rules.RegisterConstant("ABILITY_NUM", 6)
 
+Rules.RegisterConstant("GENDER_MALE", 0)
+Rules.RegisterConstant("GENDER_FEMALE", 1)
+
 Rules.RegisterConstants("actions", "Constant")
 Rules.RegisterConstants("actionmodes", "ID")
 Rules.RegisterConstants("ambientsound", "Constant")
