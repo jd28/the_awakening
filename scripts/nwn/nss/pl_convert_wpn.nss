@@ -36,8 +36,8 @@ void main(){
         SpeakString("Ye can't convert this weapon!");
         return;
     }
-    else if(GetItemEnhancementBonus(oOriginal) > 5){
-        SpeakString("Ye can only weapons less than +5!");
+    else if(GetItemEnhancementBonus(oOriginal) > 6){
+        SpeakString("Ye can only weapons less than +6!");
         return;
     }
     else if(GetGold(oPC) < 500000){
