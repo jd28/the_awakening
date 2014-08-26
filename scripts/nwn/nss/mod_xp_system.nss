@@ -200,6 +200,11 @@ void GiveXP(object oKiller, int nXPToGive, int nBossXP, float fKillerBonus, int 
 
                 }
 
+				if (GetLocalInt(OBJECT_SELF, "Boss")) {
+					IncrementLocalInt(oParty, "kill_" + GetResRef(OBJECT_SELF));
+					IncrementLocalInt(oParty, "killg_" + GetResRef(OBJECT_SELF));
+				}
+
                 GiveTakeXP(oParty, nXPToGive);
                 GiveGoldToCreature(oParty, FloatToInt(((GetChallengeRating(OBJECT_SELF) / 2) +1 ) * 40));
             }
