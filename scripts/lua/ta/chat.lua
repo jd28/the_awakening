@@ -143,7 +143,7 @@ function M.ChatHandler(channel, speaker, msg, to)
          break
       end
    end
-   return ret
+   return false
 end
 
 local function load_dir(symbol, dir)
