@@ -347,8 +347,7 @@ int InvisibleBecome(object oSelf = OBJECT_SELF)
     if(GetHasSpell(SPELL_DARKNESS) && GetHasSpell(SPELL_DARKVISION)) iDarkness = TRUE;
     if(GetHasSpell(SPELL_IMPROVED_INVISIBILITY) || GetHasSpell(SPELL_INVISIBILITY) ||
        GetHasSpell(SPELL_INVISIBILITY_SPHERE) || (iDarkness) || GetHasSpell(SPELL_SANCTUARY)
-       || GetHasSpell(SPELL_ETHEREALNESS)
-       || GetHasFeat(FEAT_HIDE_IN_PLAIN_SIGHT, oSelf) == TRUE)
+       || GetHasSpell(SPELL_ETHEREALNESS))
     {
 
         // * cannot already be invisible, otherwise what is the point

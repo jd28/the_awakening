@@ -57,17 +57,6 @@ void main()
        bDying)
         return;
 
-    // Check to see if should re-enter stealth mode
-    if (GetIsInCombat() == FALSE)
-    {
-        int nStealth=GetLocalInt(OBJECT_SELF, "X2_HENCH_STEALTH_MODE");
-        if((nStealth == 1 || nStealth == 2)
-            && GetActionMode(OBJECT_SELF, ACTION_MODE_STEALTH) == FALSE)
-            {
-                SetActionMode(OBJECT_SELF, ACTION_MODE_STEALTH, TRUE);
-            }
-    }
-
     // * checks to see if a ranged weapon was being used
     // * if so, it equips it back
     if (GetIsInCombat() == FALSE)
@@ -91,6 +80,3 @@ void main()
 
     ExecuteScript("nw_ch_ac1", OBJECT_SELF);
 }
-
-
-
