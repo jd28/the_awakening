@@ -15,6 +15,7 @@ function M.Load(file)
 end
 
 function M.Run(resref, level, obj)
+   if not _HOLDER[resref] then return end
    local res       = assert(_HOLDER[resref])
    local lvl_table = Dyn.GetLevelTable(res, level)
    local items     = Dyn.flatten(lvl_table)

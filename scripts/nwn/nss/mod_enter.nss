@@ -148,9 +148,8 @@ void PCLoadPlayer(object oPC){
 
         if(!GetPlayerInt(oPC, "pc_enhanced", TRUE)){
             DelayCommand(15.0f, SendChatLogMessage(oPC, C_RED+"It is highly suggested that you go to the forums at theawakening1.freeforums.org and download " +
-                "the server HAKs and TLK and use one of the !opt enhanced commands.  This is a small 3MB download.  Without it, you will see some " +
-                "missing things and might have difficulty leveling your character.  However, it shouldn't " +
-                "stop you from getting some sense of the server or playing for some time."+C_END, oPC, 4));
+                "the server HAKs and TLK and use one of the !opt enhanced commands.  This is a small 3MB download.  You can play for awhile without it, " +
+				"but leveling without it will likely negatively impact your character!  Please be aware!"+C_END, oPC, 4));
         }
 
         int nHP = GetDbInt(oPC, VAR_PC_HP);
@@ -195,6 +194,8 @@ void PCLoadPlayer(object oPC){
     SetLocalInt(oPC, VAR_PC_XP_BANK, nXP);
     Logger(oPC, VAR_DEBUG_LOGS, LOGLEVEL_DEBUG, "Player: %s, Name: %s, XP Bank: %s",
         GetPCPlayerName(oPC), GetName(oPC), IntToString(nXP));
+
+	ExecuteScript("ta_load_kills", oPC);
 }
 
 void LoadDM(object oPC){

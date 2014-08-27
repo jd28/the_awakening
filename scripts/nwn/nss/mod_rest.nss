@@ -70,6 +70,7 @@ void main()
                 SendPCMessage(oPC, C_GREEN+"Your character has been saved."+C_END);
                 ExportSingleCharacter(oPC);
                 SavePersistentLocation(oPC);
+				ExecuteScript("ta_update_kills", oPC);
             }
         }
         break;
@@ -84,4 +85,3 @@ void main()
         break;
     } // switch (nRestType)
 } // void main()
-

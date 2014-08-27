@@ -60,6 +60,8 @@ void main(){
         "Attempting to set  XP Bank to %sXP in %s's bank.",
         IntToString(nBanked), GetPCPlayerName(oPC));
 
+	ExecuteScript("ta_update_kills", oPC);
+
     if(GetLocalInt(GetArea(oPC), "area_dmg") == 13)
         SetLocalInt(oMod, "WATER_LOG_" + sUID, TRUE);
 

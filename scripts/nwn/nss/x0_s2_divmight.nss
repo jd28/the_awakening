@@ -20,6 +20,8 @@
 //:://////////////////////////////////////////////
 #include "x0_i0_spells"
 #include "x2_inc_itemprop"
+#include "pl_effects_inc"
+
 void main()
 {
 
@@ -43,7 +45,7 @@ void main()
 
             int nDamage1 = IPGetDamageBonusConstantFromNumber(nCharismaBonus);
 
-            effect eDamage1 = EffectDamageIncrease(nDamage1,DAMAGE_TYPE_DIVINE);
+            effect eDamage1 = ExpandedEffectDamageIncrease(nDamage1, DAMAGE_TYPE_DIVINE, FALSE, TRUE);
             effect eLink = EffectLinkEffects(eDamage1, eDur);
             eLink = SupernaturalEffect(eLink);
 
@@ -74,6 +76,3 @@ void main()
         DecrementRemainingFeatUses(OBJECT_SELF, FEAT_TURN_UNDEAD);
     }
 }
-
-
-

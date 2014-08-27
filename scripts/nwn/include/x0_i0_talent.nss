@@ -1421,10 +1421,10 @@ int WhirlwindGetNumberOfMeleeAttackers(float fDist=5.0)
 int GetOKToWhirl(object oCreature)
 {
     int nWhirl = GetLocalInt(oCreature, "X2_WHIRLPERCENT");
+	if (nWhirl == 0) { return FALSE; }
 
 
-
-    if (nWhirl == 0 || nWhirl == 100)
+    if (nWhirl == 100)
     {
         return TRUE; // 0 or 100 is 100%
     }

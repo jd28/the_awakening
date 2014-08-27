@@ -672,6 +672,7 @@ void RePoly(object oPC) {
 void PCOnAcquireSave(object oPC){
     DeleteLocalInt(oPC, VAR_PC_ACQUIRE_SAVE);
     ExportSingleCharacter(oPC);
+	ExecuteScript("ta_update_kills", oPC);
     SendPCMessage(oPC, C_GREEN+"Your character has been saved."+C_END);
 	//DelayCommand(0.4, RePoly(oPC));
 }

@@ -133,14 +133,6 @@ void main(){
     WriteTimestampedLogEntry("Attempting to Load SSE");
     DelayCommand(1.0f, ExecuteScript("sha_on_modload", OBJECT_SELF));
 
-    if ( version != 2 ) {
-        // -------------------------------------------------------------------------
-        // Set nwnx_defenses - Seperate crit immunity and sneak/death attack immunity
-        // -------------------------------------------------------------------------
-        SetDefenseOption (NWNX_DEFENSES_OPT_DEATHATT_IGNORE_CRIT_IMM, TRUE);
-        SetDefenseOption (NWNX_DEFENSES_OPT_SNEAKATT_IGNORE_CRIT_IMM, TRUE);
-    }
-
     SetGlobalEventHandler(EVENT_TYPE_USE_FEAT, "pl_feat_event");
 
     object oArea = GetFirstArea();

@@ -1,7 +1,7 @@
 #include "sha_subr_methds"
 void main(){
 
-struct SubraceBaseStatsModifier MyStats;
+	struct SubraceBaseStatsModifier MyStats;
 
 //:::::::::::::::::::::::::::::::::::
 //:::: SUBRACE: Human - Aasimar :::::
@@ -10,24 +10,25 @@ struct SubraceBaseStatsModifier MyStats;
 //Subrace Name: Aasimar/////////////////////////////////////////////////////////
 
 //Must be: Human
-     CreateSubrace(RACIAL_TYPE_HUMAN, "Aasimar", "pchide", "pl_subitem_010", FALSE, 0, FALSE, 0);
+	string subrace = "Aasimar";
+	CreateSubrace(RACIAL_TYPE_HUMAN, subrace, "pchide", "pl_subitem_010", FALSE, 0, FALSE, 0);
 
 //LETO - Change ability scores:
-    struct SubraceBaseStatsModifier AasimarStats = CustomBaseStatsModifiers(0, 0, 0, 0, 2, 4, MOVEMENT_SPEED_CURRENT);
-    CreateBaseStatModifier("Aasimar", AasimarStats, 1);
+    MyStats = CustomBaseStatsModifiers(0, 0, 0, 0, 2, 4, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(subrace, MyStats, 1);
 
 //LETO - Feats:
-    ModifySubraceFeat("Aasimar", FEAT_RESIST_ENERGY_COLD, 1);
-    ModifySubraceFeat("Aasimar", FEAT_RESIST_ENERGY_ELECTRICAL, 1);
-    ModifySubraceFeat("Aasimar", FEAT_RESIST_ENERGY_SONIC, 1);
-    ModifySubraceFeat("Aasimar", FEAT_IMPROVED_INITIATIVE, 1);
+    ModifySubraceFeat(subrace, FEAT_RESIST_ENERGY_COLD, 1);
+    ModifySubraceFeat(subrace, FEAT_RESIST_ENERGY_ELECTRICAL, 1);
+    ModifySubraceFeat(subrace, FEAT_RESIST_ENERGY_SONIC, 1);
+    ModifySubraceFeat(subrace, FEAT_IMPROVED_INITIATIVE, 1);
 
 //LETO - Skills:
-    ModifySubraceSkill("Aasimar", SKILL_PERSUADE, 5, 1, FALSE);
-    ModifySubraceSkill("Aasimar", SKILL_SPELLCRAFT, 5, 1, FALSE);
+    ModifySubraceSkill(subrace, SKILL_PERSUADE, 5, 1, FALSE);
+    ModifySubraceSkill(subrace, SKILL_SPELLCRAFT, 5, 1, FALSE);
 
 //LETO - Add Angel Wings.
-     ModifySubraceAppearanceAttachment("Aasimar", CREATURE_WING_TYPE_ANGEL, CREATURE_WING_TYPE_ANGEL, 0, 0, 1);
+     ModifySubraceAppearanceAttachment(subrace, CREATURE_WING_TYPE_ANGEL, CREATURE_WING_TYPE_ANGEL, 0, 0, 1);
 
 //End Subrace Name: Aasimar/////////////////////////////////////////////////////
 
@@ -38,19 +39,20 @@ struct SubraceBaseStatsModifier MyStats;
 //Subrace Name: Lizardfolk
 
 //Must be: Half-Orc.
-      CreateSubrace(RACIAL_TYPE_HUMAN, "Lizardfolk", "pl_subhide_005", "pl_subitem_017");
+	 subrace = "Lizardfolk";
+	 CreateSubrace(RACIAL_TYPE_HUMAN, subrace, "pl_subhide_005", "pl_subitem_017");
 
 //LETO - Change ability scores:  (Str, Dex, Con, Int, Wis, Cha)
-    struct SubraceBaseStatsModifier LizardStats = CustomBaseStatsModifiers(2, 0, 4, 0, 0, -2, MOVEMENT_SPEED_CURRENT);
-    CreateBaseStatModifier("Lizardfolk", LizardStats, 1);
+    MyStats = CustomBaseStatsModifiers(2, 0, 4, 0, 0, -2, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(subrace, MyStats, 1);
 
 //LETO - Feats:
     //Darkvision
-    ModifySubraceFeat("Lizardfolk", FEAT_DODGE, 1);
-    ModifySubraceFeat("Lizardfolk", FEAT_MOBILITY, 1);
+    ModifySubraceFeat(subrace, FEAT_DODGE, 1);
+    ModifySubraceFeat(subrace, FEAT_MOBILITY, 1);
 
 //Apearance: Goblin - Permanent.
-      CreateSubraceAppearance("Lizardfolk", TIME_BOTH, 2508, 2509);
+      CreateSubraceAppearance(subrace, TIME_BOTH, 2508, 2509);
 
 //Subrace Name: Tiefling////////////////////////////////////////////////////////
 //Must be: Human
@@ -98,6 +100,21 @@ struct SubraceBaseStatsModifier MyStats;
     ModifySubraceFeat("Werewolf", FEAT_EPIC_WEAPON_SPECIALIZATION_UNARMED, 1);
 
 /////////////////////////////////////////////////////////////////////////////////////////
+
+//Subrace Name: Lizardfolk_plain
+
+//Must be: Half-Orc.
+	 subrace = "Lizardfolk_plain";
+	 CreateSubrace(RACIAL_TYPE_HUMAN, subrace, "pl_subhide_005", "pl_subitem_017");
+
+//LETO - Change ability scores:  (Str, Dex, Con, Int, Wis, Cha)
+    MyStats = CustomBaseStatsModifiers(2, 0, 4, 0, 0, -2, MOVEMENT_SPEED_CURRENT);
+    CreateBaseStatModifier(subrace, MyStats, 1);
+
+//LETO - Feats:
+    //Darkvision
+    ModifySubraceFeat(subrace, FEAT_DODGE, 1);
+    ModifySubraceFeat(subrace, FEAT_MOBILITY, 1);
 
     WriteTimestampedLogEntry("SUBRACE : pl_sub_human : Loaded");
 }
