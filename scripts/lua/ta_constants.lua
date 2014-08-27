@@ -6,6 +6,12 @@ Rules.RegisterConstant("ABILITY_NUM", 6)
 Rules.RegisterConstant("GENDER_MALE", 0)
 Rules.RegisterConstant("GENDER_FEMALE", 1)
 
+Rules.RegisterConstant("VARIABLE_TYPE_INT", 1)
+Rules.RegisterConstant("VARIABLE_TYPE_FLOAT", 2)
+Rules.RegisterConstant("VARIABLE_TYPE_STRING", 3)
+Rules.RegisterConstant("VARIABLE_TYPE_OBJECT", 4)
+Rules.RegisterConstant("VARIABLE_TYPE_LOCATION", 5)
+
 Rules.RegisterConstants("actions", "Constant")
 Rules.RegisterConstants("actionmodes", "ID")
 Rules.RegisterConstants("ambientsound", "Constant")
