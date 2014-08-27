@@ -45,6 +45,23 @@ if OPT.JIT_DUMP then
    dump.on(nil, "luajit.dump")
 end
 
+if OPT.DATABASE_HOSTNAME
+   and OPT.DATABASE_PASSWORD
+   and OPT.DATABASE_NAME
+   and OPT.DATABASE_USER
+then
+   -- load driver
+   local luasql = require "luasql.mysql"
+   -- create environment object
+   OPT.dbenv = assert (luasql.mysql())
+   -- connect to data source
+   OPT.dbcon = assert (OPT.dbenv:connect(OPT.DATABASE_NAME,
+                                         OPT.DATABASE_USER,
+                                         OPT.DATABASE_PASSWORD,
+                                         OPT.DATABASE_HOSTNAME,
+                                         OPT.DATABASE_PORT))
+end
+
 --- Constants MUST be loaded before solstice.
 safe_require(OPT.CONSTANTS)
 

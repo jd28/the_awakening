@@ -194,6 +194,8 @@ void PCLoadPlayer(object oPC){
     SetLocalInt(oPC, VAR_PC_XP_BANK, nXP);
     Logger(oPC, VAR_DEBUG_LOGS, LOGLEVEL_DEBUG, "Player: %s, Name: %s, XP Bank: %s",
         GetPCPlayerName(oPC), GetName(oPC), IntToString(nXP));
+
+	ExecuteScript("ta_load_kills", oPC);
 }
 
 void LoadDM(object oPC){
