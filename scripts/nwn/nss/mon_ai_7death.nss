@@ -40,9 +40,10 @@ void main(){
     //Shout Attack my target, only works with the On Spawn In setup
     SpeakString("NW_ATTACK_MY_TARGET", TALKVOLUME_SILENT_TALK);
 
-    if(GetIsEncounterCreature(OBJECT_SELF)
-	   || GetLocalInt(OBJECT_SELF, "PL_AI_SPAWNED")
-	   || GetLocalInt(OBJECT_SELF, "Despawn") > 0){
+    if( !GetLocalInt(OBJECT_SELF, "DM_SPAWNED")
+		&& (GetIsEncounterCreature(OBJECT_SELF)
+			|| GetLocalInt(OBJECT_SELF, "PL_AI_SPAWNED")
+			|| GetLocalInt(OBJECT_SELF, "Despawn") > 0) ) {
         //RLGS Loot...
         struct rlgs_info ri;
 

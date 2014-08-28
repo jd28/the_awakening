@@ -388,18 +388,18 @@ void DoDMChangeAppearPerm(struct pl_chat_command pcc){//dm_change_perm appear <v
 void DoDMDeity(struct pl_chat_command pcc){ //dm_deity <place> <value>
     pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 6);
     pcc.oTarget = VerifyTarget(pcc, OBJECT_TARGET, DM_COMMAND_SYMBOL, FALSE);
-    
+
     int place, value;
     int nDeity = StringToInt(GetDeity(pcc.oTarget));
     struct SubString ss = GetFirstSubString(pcc.sCommand);
-     
+
     if(!VerifyNumber(pcc.oPC, ss.first)) return;
     if(!VerifyNumber(pcc.oPC, ss.rest)) return;
     place = StringToInt(ss.first);
     value = StringToInt(ss.rest);
 
     if(value > 9 || value < 0)
-        return;    
+        return;
 
     nDeity = SetIntegerDigit(nDeity, place, value);
     SendMessageToPC(pcc.oTarget, "Deity: " + IntToString(nDeity));
@@ -412,7 +412,7 @@ void DoDMDumpVars(struct pl_chat_command pcc){
     struct LocalVariable lv;
     for(i = 0; i < count; i++){
         lv = GetLocalVariableByPosition(pcc.oTarget, i);
-        SendMessageToPC(pcc.oTarget, "Name: " + lv.name + " type: "+IntToString(lv.type) + 
+        SendMessageToPC(pcc.oTarget, "Name: " + lv.name + " type: "+IntToString(lv.type) +
             " pos: " + IntToString(lv.pos));
     }
 }
@@ -1089,6 +1089,7 @@ void DoDMSpawn(struct pl_chat_command pcc){
         lLoc =  VerifyLocation(pcc.oPC, pcc.sOriginal);
         if (!GetIsObjectValid(GetAreaFromLocation(lLoc))) return;
         oStorage = CreateObject(OBJECT_TYPE_CREATURE, pcc.sCommand, lLoc);
+		SetLocalInt(oStorage, "DM_SPAWNED", TRUE);
         if (GetIsObjectValid(oStorage)) FloatingTextStringOnCreature(C_GREEN+SPAWNED+C_END, pcc.oPC);
         else FloatingTextStringOnCreature(C_RED+NO_CRITTER_RESREF+C_END, pcc.oPC);
         DeleteLocalLocation(pcc.oPC, "FKY_CHAT_LOCATION");

@@ -72,6 +72,7 @@ void main() {
         object oArea = oGetDMAction_Target(TRUE);
         vector vPos = vGetDMAction_Position();
         WriteTimestampedLogEntry("DM Action: <"+GetName(oDM)+"> (SpawnCreature "+GetResRef(oTarget)+") Area("+GetResRef(oArea)+") x:"+FloatToString(vPos.x, 0)+" y:"+FloatToString(vPos.y, 0)+" z:"+FloatToString(vPos.z, 0));
+		SetLocalInt(oTarget, "DM_SPAWNED", TRUE);
    } else
    if(nAction == DM_ACTION_TOGGLE_INVULNERABILITY) {
         object oTarget = oGetDMAction_Target();
