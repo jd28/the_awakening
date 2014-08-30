@@ -1,6 +1,6 @@
 // tall_inc
 //
-// Description: 
+// Description:
 //
 // Credits: Code originally derived from Higher Ground Legendary Leveler by FunkySwerve.  <LINK>
 
@@ -74,13 +74,13 @@ int GetCanGainLL(object pc){
 
 struct CreatureAbilities GetAbilities(object pc, int base = TRUE){
 	struct CreatureAbilities ca;
-	ca.a_str = GetAbilityScore(pc, ABILITY_STRENGTH, base); 
+	ca.a_str = GetAbilityScore(pc, ABILITY_STRENGTH, base);
 	ca.a_dex = GetAbilityScore(pc, ABILITY_DEXTERITY, base);
 	ca.a_con = GetAbilityScore(pc, ABILITY_CONSTITUTION, base);
 	ca.a_int = GetAbilityScore(pc, ABILITY_INTELLIGENCE, base);
 	ca.a_wis = GetAbilityScore(pc, ABILITY_WISDOM, base);
 	ca.a_cha = GetAbilityScore(pc, ABILITY_CHARISMA, base);
-	
+
 	return ca;
 }
 
@@ -166,7 +166,7 @@ int GetIsSkillAvailable(object pc, int skill, int class){
         cost = 2;
         max = (GetLocalInt(pc, "LL_LEVEL") + 4) / 2;
     }
-	
+
 	rank = GetSkillRank(skill, pc, TRUE) + GetLocalInt(pc, "LL_SKILL_"+IntToString(skill));
 
     return (GetLocalInt(pc, "LL_SKILL_POINTS") >= cost && rank < max);
@@ -221,7 +221,7 @@ int GetMeetsCustomFeatReq(object pc, int feat, int class){
 
 int GetIsFeatAvailable(object pc, int feat, int class){
     int stat = GetGainsStatOnLevelUp(GetLocalInt(pc, "LL_LEVEL")) ? GetLocalInt(pc, "LL_STAT") : -1;
-    struct CreatureSkills sk = GetLegendaryLevelSkills(pc);
+    //struct CreatureSkills sk = GetLegendaryLevelSkills(pc);
 	int class_pos = GetLocalInt(pc, "LL_CLASS_POSITION");
 	int class_lvl = GetLocalInt(pc, "LL_CLASSLEVEL_"+IntToString(class_pos));
 
@@ -233,15 +233,15 @@ int GetIsFeatAvailable(object pc, int feat, int class){
         return TRUE;
 
 	if(GetIsClassGrantedFeat(class, feat) == class_lvl){
-        SetLocalInt(pc, "LL_FEAT_"+IntToString(GetLocalInt(pc, "LL_FEAT_COUNT")), feat+1 );
-        IncrementLocalInt(pc, "LL_FEAT_COUNT");
+        //SetLocalInt(pc, "LL_FEAT_"+IntToString(GetLocalInt(pc, "LL_FEAT_COUNT")), feat+1 );
+        //IncrementLocalInt(pc, "LL_FEAT_COUNT");
 		return FALSE;
 	}
 
     if (!GetIsClassGeneralFeat(class, feat) && !GetIsClassBonusFeat(class, feat))
         return FALSE; //if it's not a class skill and it's not a general skill return FALSE
-    
-	if (GetMeetsLevelUpFeatRequirements (pc, feat, class, stat, sk))
+
+	if (NWNXLevels_GetMeetsLevelUpFeatRequirements(pc, feat))
         return TRUE;
 
     return FALSE;
@@ -263,7 +263,7 @@ void LoadPCSkills(object pc, int base = TRUE, string prefix="SKILL_"){
 }
 
 void LegendaryLevelLoad(object pc){
-	
+
 	int class1, class2, class3, level1, level2, level3, new_level;
 
 	class1 = GetClassByPosition(1, pc) + 1;
@@ -290,11 +290,11 @@ void LegendaryLevelLoad(object pc){
 
 	new_level = level1 + level2 + level3 + 1;
 
-    SetLocalInt(pc, "LL_CLASS_1", class1); 
+    SetLocalInt(pc, "LL_CLASS_1", class1);
     SetLocalInt(pc, "LL_CLASSLEVEL_1", level1);
-    SetLocalInt(pc, "LL_CLASS_2", class2); 
+    SetLocalInt(pc, "LL_CLASS_2", class2);
     SetLocalInt(pc, "LL_CLASSLEVEL_2", level2);
-   	SetLocalInt(pc, "LL_CLASS_3", class3); 
+   	SetLocalInt(pc, "LL_CLASS_3", class3);
     SetLocalInt(pc, "LL_CLASSLEVEL_3", level3);
     SetLocalInt(pc, "LL_LEVEL", new_level);
 

@@ -55,10 +55,10 @@ void BuildFeatList(object pc, int nStartFeat, int nInterval, float fDelay) {
                     ReplaceIntElement(nCount2 - 1, -(nMaster + 1), "feat_select", pc);
    		        }
             }
-			
+
             nCount2 = AddStringElement(GetFeatName(feat), sList, pc);
             ReplaceIntElement(nCount2 - 1, feat, sList, pc);
-	
+
         }
     }
 }
@@ -79,9 +79,9 @@ void BuildSkillList(object pc, int rebuild = FALSE){
 		if (GetIsSkillAvailable(pc, i, class)){ //if the PC can take the skill, it is displayed
 			if (GetSkillCost(class, i) == 2)
 	           	sCrossClass = " [Cross-Class]";
-		    else	
+		    else
     			sCrossClass = "";
-	
+
     	    count = AddStringElement(GetSkillName(i) + sCrossClass, SKILL_SELECT, pc );
         	ReplaceIntElement(count - 1, i, SKILL_SELECT, pc); //store the skill int with the skill
    		}
@@ -92,7 +92,7 @@ void BuildSkillList(object pc, int rebuild = FALSE){
 int GetHasSpellLevel(object pc, int cls, int cls_level, int sp_level){
     int ability = ABILITY_CHARISMA;
     string twoda, sValue;
-    
+
     switch (cls){
         case CLASS_TYPE_WIZARD:
             ability = ABILITY_INTELLIGENCE;
@@ -105,10 +105,10 @@ int GetHasSpellLevel(object pc, int cls, int cls_level, int sp_level){
             twoda = "cls_spgn_bard";
         break;
     }
-    
+
     if(GetAbilityScore(pc, ability, TRUE) - sp_level - 10 < 0)
         return FALSE;
-    
+
     sValue = Get2DAString(twoda, "SpellLevel"+IntToString(sp_level), cls_level);
     if(sValue == "****")
         return FALSE;
@@ -148,7 +148,7 @@ void BuildKnownSpellList(object pc, int spell_level){
 	int spell, i, count;
 
 	for(i = 0; i < known_spells; i++){
-		spell = GetKnownSpell(pc, class, spell_level, i);		
+		spell = GetKnownSpell(pc, class, spell_level, i);
 		count = AddStringElement(GetSpellName(spell), SIXPOINTTHREE_PAGE, pc );
         ReplaceIntElement(count - 1, spell, SIXPOINTTHREE_PAGE, pc);
 	}
@@ -165,13 +165,13 @@ void BuildUnknownSpellList(object pc, int spell_level, string page){
         sClass = "Bard";
     else
         sClass = "Wiz_Sorc";
-    
+
     //SendMessageToPC(pc, IntToString(spell_level));
 
     DeleteList(page, pc);//must build the next page here based on their selection
     if( GetElementCount(page, pc) != 0 )
 		return;
-				
+
 	for(i = 0; i < 570; i++){
         sValue = Get2DAString("spells", sClass, i);
         if(sValue == "****")
@@ -223,7 +223,7 @@ void Init(){
                 int class = GetControlClass(pc);
 			    AddStringElement(GetClassName(class), CLASS_SELECT, pc);
                 ReplaceIntElement(0, GetPositionByClass(pc, class), CLASS_SELECT, pc);
-                 
+
             }
             else {
 		    	int class = GetLocalInt(pc, "LL_CLASS_1") - 1;
@@ -439,13 +439,13 @@ void PageInit(){
 			sPrompt += " " + temp + "\n";
 		else
 			sPrompt += " none\n";
-		
+
 		temp = "";
 		sPrompt += "Feats:";
         for(i = 0; i < GetLocalInt(pc, "LL_FEAT_COUNT"); i++){
 
 			value = GetLocalInt(pc, "LL_FEAT_"+IntToString(i)) - 1;
-            if(value > 0) 
+            if(value > 0)
     			temp += "    " + GetFeatName(value) + "\n";
         }
 		if(temp != "")
@@ -460,7 +460,7 @@ void PageInit(){
         for(j = 0; j < 10; j++){
             for(i = 0; i < GetLocalInt(pc, "LL_SPGN"+IntToString(j)+"_USED"); i++){
                 value = GetLocalInt(pc, "LL_SPGN"+IntToString(j)+"_"+ IntToString(i)) - 1;
-                if(value > 0) 
+                if(value > 0)
     	            temp += "    " + GetSpellName(value) + "\n";
             }
         }
@@ -474,14 +474,14 @@ void PageInit(){
         for(j = 0; j < 10; j++){
             for(i = 0; i < GetLocalInt(pc, "LL_SPRM"+IntToString(j)+"_USED"); i++){
                 value = GetLocalInt(pc, "LL_SPRM"+IntToString(j)+"_"+ IntToString(i)) - 1;
-                if(value > 0) 
+                if(value > 0)
     	            temp += "    " + GetSpellName(value) + "\n";
             }
         }
 		if(temp != "")
 			sPrompt += "\n" + temp + "\n";
 		else
-			sPrompt += " none\n"; 
+			sPrompt += " none\n";
 
         sPrompt += "Are these the selections you want?";
 
@@ -514,7 +514,7 @@ void HandleSelection(){
         {
             EndDlg();
         }
-        else{ 
+        else{
             nChange = GetIntElement(selection, CLASS_SELECT, pc);
             class = GetLocalInt(pc, "LL_CLASS_"+IntToString(nChange)) - 1;
             sName = GetClassName(class);
@@ -545,15 +545,15 @@ void HandleSelection(){
 
                         old = Get2DAString("cls_spkn_bard", "SpellLevel"+IntToString(i), cls_level - 1);
                         new = Get2DAString("cls_spkn_bard", "SpellLevel"+IntToString(i), cls_level);
-                        if(old == "****") 
+                        if(old == "****")
                             last = 0;
                         else
                             last = StringToInt(old);
-                        if(new == "****") 
+                        if(new == "****")
                             current = 0;
                         else
                             current = StringToInt(new);
-                        
+
                         //SendMessageToPC(pc, "Level: " + IntToString(i) + " New: " +IntToString(current - last));
                         SetLocalInt(pc, "LL_SPKN_"+IntToString(i), current - last);
                         total += current - last;
@@ -566,15 +566,15 @@ void HandleSelection(){
 
                         old = Get2DAString("cls_spkn_sorc", "SpellLevel"+IntToString(i), cls_level - 1);
                         new = Get2DAString("cls_spkn_sorc", "SpellLevel"+IntToString(i), cls_level);
-                        if(old == "****") 
+                        if(old == "****")
                             last = 0;
                         else
                             last = StringToInt(old);
-                        if(new == "****") 
+                        if(new == "****")
                             current = 0;
                         else
                             current = StringToInt(new);
-                        
+
                         //SendMessageToPC(pc, "Level: " + IntToString(i) + " New: " +IntToString(current - last));
                         SetLocalInt(pc, "LL_SPKN_"+IntToString(i), current - last);
                         total += current - last;
@@ -584,12 +584,13 @@ void HandleSelection(){
             }
 			// We need to know the class before we can initialize the Skill and Feat Lists
 		    BuildSkillList(pc);
+			ExecuteScript("tall_load_bfeat", pc);
 			BuildFeatList(pc, 3999, 25, 0.01f);
 
             if (GetGainsStatOnLevelUp(level))
-   	            SetDlgPageString( "stat", 2.0f );
+   	            SetDlgPageString( "stat", 4.0f );
            	else
-               	SetDlgPageString( "skill", 2.0f );
+               	SetDlgPageString( "skill", 4.0f );
 		}
 		else
 			EndDlg();
@@ -611,7 +612,7 @@ void HandleSelection(){
 			SetLocalInt(pc, "LL_STAT_"+IntToString(nChange), 1);
         	SetDlgPageString( "skill" );
 		}
-		else 
+		else
 			EndDlg();
     }
     else if(page == "skill"){
@@ -647,7 +648,7 @@ void HandleSelection(){
             case 1: // Yes, done
                 //Don't track skill changes, we'll create that list at the end.
                 nChange = GetLocalInt(pc, "LastResponseInt");
-				
+
 				IncrementLocalInt(pc, "LL_SKILL_"+IntToString(nChange));
 				IncrementLocalInt(pc, "LL_SKILLS_"+IntToString(nChange));
 
@@ -693,7 +694,7 @@ void HandleSelection(){
 		}
 		else
        		SetDlgPageString( "featresponse" );
-	
+
     }
     else if ( page == "featresponse" ){
         switch( selection ){
@@ -724,12 +725,12 @@ void HandleSelection(){
 		//add to last selection string and int
        	SetLocalString(pc, "LastResponse", sName);
        	SetLocalInt(pc, "LastResponseInt", nChange);
-		
+
 		if(nChange == -1)
 			SetDlgPageString( "feat" );
-		else		
+		else
        		SetDlgPageString( "masterfeatresponse" );
-	
+
     }
     else if ( page == "masterfeatresponse" ){
         switch( selection ){
@@ -871,7 +872,7 @@ void HandleSelection(){
     else if ( page == "spells_gain_confirm" )
     {
         nSpell = GetLocalInt(pc, "SpellToGain");
-        int used, innate; 
+        int used, innate;
 
         switch( selection ){
             case 0://Yes
@@ -879,7 +880,7 @@ void HandleSelection(){
                     innate = StringToInt(Get2DAString("spells", "Bard", nSpell));
                 else if (class == CLASS_TYPE_SORCERER)
                     innate = StringToInt(Get2DAString("spells", "Wiz_Sorc", nSpell));
-                
+
                 used = GetLocalInt(pc, "LL_SPGN"+IntToString(innate)+"_USED");
                 SetLocalInt(pc, "LL_SPGN"+IntToString(innate)+"_"+IntToString(used), nSpell + 1);
                 IncrementLocalInt(pc, "LL_SPGN"+IntToString(innate)+"_USED");
