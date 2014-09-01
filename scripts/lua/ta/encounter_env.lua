@@ -20,7 +20,7 @@ local function load(res)
    assert(res.tag)
 
    res.delay  = res.delay or 0.1
-   res.policy = res.policy or encenv.POLICY_NONE
+   res.policy = res.policy or E.POLICY_NONE
 
    E._HOLDER[res.tag] = res
 end
@@ -54,7 +54,9 @@ end
 ---
 function E.Spawn(resref)
    local res = { resref = resref,
-                 chance = 100 }
+                 chance = 100,
+                 count = 1
+   }
    setmetatable(res, { __index = Spawn })
    Dyn.set_base(res)
    return res
