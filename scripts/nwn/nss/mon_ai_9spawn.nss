@@ -23,18 +23,18 @@ void AddHeals(){
         if(nRoll <= 20)
             CreateItemOnObject("nw_it_mpotion012", OBJECT_SELF, 1); // Heal
         else
-            CreateItemOnObject("pl_p_restgrt_051", OBJECT_SELF, 1); // Greater Restoration 
+            CreateItemOnObject("pl_p_restgrt_051", OBJECT_SELF, 1); // Greater Restoration
     }
     else if(nLevel >= 50 && nRoll <= 20){
         if(nRoll <= 10)
             CreateItemOnObject("nw_it_mpotion012", OBJECT_SELF, 1); // Heal
         else
-            CreateItemOnObject("pl_p_restgrt_051", OBJECT_SELF, 1); // Greater Restoration 
+            CreateItemOnObject("pl_p_restgrt_051", OBJECT_SELF, 1); // Greater Restoration
     }
     else if(nLevel >= 40 && nRoll <= 10){
         CreateItemOnObject("nw_it_mpotion012", OBJECT_SELF, 1); // Heal
     }
-    
+
 }
 void ApplyBossProperties(){
     effect eEff;
@@ -102,11 +102,15 @@ void main() {
     if(GetLocalInt(OBJECT_SELF, "Fall"))
         ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectAppear(), OBJECT_SELF);
 
-    //CheckParagon();
-    if(nID)
+	if(GetLocalInt(OBJECT_SELF, "ta_spawn_buff")) {
+		DelayCommand(0.5f, ExecuteScript("ta_spawn_buff", OBJECT_SELF));
+	}
+    else if(nID) {
         DelayCommand(1.0f, ApplyDDS(OBJECT_SELF, nID));
+	}
 
-    DelayCommand(1.0f, ApplyLocals());
+	DelayCommand(1.0f, ApplyLocals());
+
     SetListening(OBJECT_SELF, TRUE);
     SetListenPattern(OBJECT_SELF, "NW_I_WAS_ATTACKED", 1);
     if (GetLocalInt(OBJECT_SELF, "FKY_AI_WALKWAYPOINTS") || GetLocalInt(OBJECT_SELF, "PL_AI_WALKWAY"))
@@ -140,7 +144,7 @@ void main() {
 
     //if(GetHitDice(OBJECT_SELF) >= 40)
     //    AddHeals();
-    
+
     if(GetLocalString(OBJECT_SELF, "ES_Spawn") != ""){
         ExecuteScript(GetLocalString(OBJECT_SELF, "ES_Spawn"), OBJECT_SELF);
     }
@@ -159,4 +163,3 @@ void main() {
     if (nSpecEvent & 2)
         SignalEvent(OBJECT_SELF, EventUserDefined(EVENT_USER_DEFINED_POSTSPAWN));
 }
-
