@@ -6,4 +6,6 @@ function ta_spawn_buff(cre)
    if math.random(100) <= 65 then
       cre:ApplyEffect(DURATION_TYPE_INNATE, Eff.Immunity(IMMUNITY_TYPE_MIND_SPELLS, 100))
    end
+
+   cre:UpdateCombatInfo(-1)
 end
