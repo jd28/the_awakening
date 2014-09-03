@@ -42,6 +42,7 @@ end
 function M.Generate(object, max)
    local resref = object:GetResRef()
    local creature = _CREATURES[resref]
+   if not creature then return end
    creature   = Dyn.GetLevelTable(creature, level)
    if not creature then return end
 
