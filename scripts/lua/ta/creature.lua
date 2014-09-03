@@ -13,8 +13,8 @@ function env_mt.Creature(tbl)
    return tbl
 end
 
-function env_mt.Copy(resref, tbl)
-   _CREATURES[assert(resref)] = tbl
+function env_mt.Copy(from, to)
+   _CREATURES[to] = assert(_CREATURES[from])
 end
 
 --- Load file.
