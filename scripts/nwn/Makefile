@@ -8,13 +8,13 @@ MAKEFLAGS += -r
 .SUFFIXES:
 .SUFFIXES: .d .nss .ncs
 
-TARGET = TAScripts
+TARGET = NWScripts
 
 $(TARGET) : $(OBJECTS) ;
 
 %.ncs: %.nss
 	@find_dep.py $< > $(patsubst %.ncs,$(OUTDIR)/%.d, $@)
-	@NWNScriptCompiler.exe -q -b $(OUTDIR) -i "nss;include;bioware" -1cego $<
+	@nwnnsscomp -q -i "nss;include;bioware" -go $< ncs/
 	@echo "NSS $<"
 
 -include $(OBJECTS:%.ncs=$(OUTDIR)/%.d)
