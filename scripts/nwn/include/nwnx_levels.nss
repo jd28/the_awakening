@@ -1,5 +1,5 @@
 int GetMaxLevelLimit ();
-int SetMaxLevelLimit (int nLevel); 
+int SetMaxLevelLimit (int nLevel);
 int LevelDown(object oPC);
 int LevelUp(object oPC);
 int ModifyXPDirect(object oPC, int xp);
@@ -31,4 +31,9 @@ int LevelUp(object oPC){
 int ModifyXPDirect(object oPC, int xp) {
     SetLocalString(oPC, "NWNX!LEVELS!MODIFYXPDIRECT", IntToString(xp));
     return StringToInt(GetLocalString(oPC, "NWNX!LEVELS!MODIFYXPDIRECT"));
+}
+
+int NWNXLevels_GetMeetsLevelUpFeatRequirements (object oCreature, int nFeat) {
+    SetLocalString(oCreature, "NWNX!LEVELS!GETMEETSFEATREQUIREMENTS", ">" + IntToString(nFeat));
+	return StringToInt(GetLocalString(oCreature, "NWNX!LEVELS!GETMEETSFEATREQUIREMENTS"));
 }

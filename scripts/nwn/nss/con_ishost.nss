@@ -2,5 +2,5 @@
 
 int StartingConditional()
 {
-    return (VerifyDMKey(GetPCSpeaker()) || VerifyAdminKey(GetPCSpeaker()));
+    return VerifyAdminKey(GetPCSpeaker());
 }

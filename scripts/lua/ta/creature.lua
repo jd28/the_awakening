@@ -2,20 +2,37 @@ local ffi = require 'ffi'
 local Dyn = require 'ta.dynamo'
 local Eff = require 'solstice.effect'
 
-local env_mt = { __index = Dyn.Capture }
+local tinsert = table.insert
 
+local env_mt = { __index = Dyn.Capture }
 local _CREATURES = {}
 local M = {}
-local pretty = require 'pl.pretty'
+
+function env_mt.Creature(tbl)
+   _CREATURES[assert(tbl.resref)] = tbl
+   return tbl
+end
+
+function env_mt.Copy(from, to)
+   _CREATURES[to] = assert(_CREATURES[from])
+end
 
 --- Load file.
 -- @param file File to load.
 function M.Load(file)
-   local t = setmetatable({}, env_mt)
+   local t = setmetatable({ Creature = env_mt.Creature,
+                            Copy = env_mt.Copy
+                          }, env_mt)
 
    local res = runfile(file, t)
-   --pretty.dump(res)
-   _CREATURES[assert(res.resref)] = res
+
+end
+
+local function apply_effects(obj, effs)
+   for i = 1, #effs do
+      effs[i]:SetCreator(obj)
+      obj:ApplyEffect(DURATION_TYPE_INNATE, effs[i])
+   end
 end
 
 --- Generate creature
@@ -25,12 +42,13 @@ end
 function M.Generate(object, max)
    local resref = object:GetResRef()
    local creature = _CREATURES[resref]
-   if not creature then
-      error("No such resref: " .. resref)
-   end
+   if not creature then return end
+   creature   = Dyn.GetLevelTable(creature, level)
+   if not creature then return end
 
    -- This probably could be done in a better fashion...
 
+   local effs = {}
    for _, p in ipairs(creature.effects) do
       local f = p.f
       if not f then
@@ -50,10 +68,16 @@ function M.Generate(object, max)
             if not func then
                error(string.format("No such funtion: %s\n%s", f, debug.traceback()))
             end
-            object:ApplyEffect(DURATION_TYPE_INNATE, func(unpack(t)))
+            local r = func(unpack(t))
+            if type(r) == 'table' then
+               for j=1, #r do tinsert(effs, r[j]) end
+            else
+               tinsert(effs, r)
+            end
          end
       end
    end
+   apply_effects(object, effs)
 end
 
 function M.Test(resref, max)
@@ -73,5 +97,6 @@ function M.Test(resref, max)
 
    return table.concat(res, '\n')
 end
+
 
 return M
