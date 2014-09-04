@@ -25,7 +25,6 @@ properties = {
 
    SkillModifier(SKILL_TAUNT, 8),
    SkillModifier(SKILL_PARRY, 8),
-   SkillModifier(SKILL_INTIMIDATE, 8),
-
-   Light(IP_CONST_LIGHTBRIGHTNESS_NORMAL, IP_CONST_LIGHTCOLOR_WHITE),
+   SkillModifier(SKILL_INTIMIDATE, 12),
+   SkillModifier(SKILL_CRAFT_WEAPON, 12),
 }
