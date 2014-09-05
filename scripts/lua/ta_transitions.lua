@@ -1,5 +1,6 @@
 local Log = System.GetLogger()
 local Inst = require 'ta.instance'
+local Color = require 'solstice.color'
 
 local function check_transition(trans, pc)
    -- DMs can go anyhwere...
@@ -25,12 +26,13 @@ local function check_transition(trans, pc)
 ]],
    key, tostring(spawn), tostring(despawn), despawn_time, tostring(env), level)
 
---[[
    if level > 0 and pc:GetHitDice() < level then
+      pc:FloatingText(string.format("%sYou must be at least level %d to use this transition.%s",
+                                    Color.RED, level, Color.END))
       return false
    end
 
-
+--[[
     int nPercent      = GetPercentEncountersSpawned(oArea, oClicker);
     int bClear        = GetIsAreaClear(oArea, oClicker);
     int bJump         = TRUE;
@@ -45,9 +47,6 @@ local function check_transition(trans, pc)
         bJump = FALSE;
     } else if (nCheckDespawn && nDespawnTime > 0) {
         FloatingTextStringOnCreature("You may not continue after despawning monsters.", oClicker, FALSE);
-        bJump = FALSE;
-    } else if (nCheckLevel && !GetIsDM(oClicker) && (nCheckLevel > GetLevelIncludingLL(oClicker))) {
-        FloatingTextStringOnCreature("You must be at least level " + IntToString(nCheckLevel) + " to use this transition.", oClicker, FALSE);
         bJump = FALSE;
     } else if (sKey != "" && !GetLocalInt(oTransition, "Open")) {
         object oKey = GetItemPossessedBy(oClicker, sKey);
