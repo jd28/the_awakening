@@ -14,11 +14,9 @@ function M.Load(file)
    encenv.enc = nil
 end
 
-
-
 local function spawn_monster(resref, loc, enc)
    assert(enc:GetIsValid())
-   local mon = Game.CreateObject(OBJECT_TYPE_CREATURE, resref, loc, false, "Spawned")
+   local mon = Game.CreateObject(OBJECT_TYPE_CREATURE, resref, loc, false)
    assert(mon:GetIsValid())
    mon.obj.cre_encounter_obj = enc.id
    mon:SetLocalObject("ssp_encounter", enc)
