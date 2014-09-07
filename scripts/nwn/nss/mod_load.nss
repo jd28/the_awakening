@@ -54,6 +54,8 @@ void main(){
     SetHakHidden("pk_swamps_v3.0", 2);
     SetHakHidden("pk_elven_v2.1", 2);
     SetHakHidden("pk_textures_v2.0", 2);
+	SetHakHidden("wrm_mirkwood", 2);
+	SetHakHidden("civ_ls_001", 2);
 
     // No Show
     SetHakHidden("ta_summon", 99);
