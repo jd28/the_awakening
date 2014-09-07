@@ -1,5 +1,10 @@
 #include "pc_funcs_inc"
 
+void CreateCreature(string resref, location loc) {
+	object obj = CreateObject(OBJECT_TYPE_CREATURE, resref, loc, FALSE);
+	SetLocalInt(obj, "DM_SPAWNED", TRUE);
+}
+
 void main(){
 
     int nEvent = GetUserDefinedItemEventNumber();
@@ -36,8 +41,7 @@ void main(){
     while(nCount > 0){
         sResref = GetLocalString(oItem, "PL_MOB_SPAWN_"+IntToString(nCount));
         if(sResref != "")
-            DelayCommand((fDelay += 0.1), ObjectToVoid(CreateObject(OBJECT_TYPE_CREATURE, sResref, lLoc, FALSE, "Spawned")));
-
+            DelayCommand((fDelay += 0.1), CreateCreature(sResref, lLoc));
         nCount--;
     }
 }
