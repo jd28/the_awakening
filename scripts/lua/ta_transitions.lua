@@ -101,5 +101,5 @@ function nw_g0_transition(trans)
    local cur_area = pc:GetArea()
    local tag = target:GetTag()
 
-   pc:ActionJumpToObject(target)
+   pc:JumpSafeToObject(target)
 end
