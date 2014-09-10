@@ -1495,7 +1495,7 @@ int TalentMeleeAttack(object oIntruder = OBJECT_INVALID)
 
     int nDiff = nAC - nAttack;
     //MyPrintString("nDiff = " + IntToString(nDiff));
-
+/*
     // * only the playable races have whirlwind attack
     // * Attempt to Use Whirlwind Attack
     int bOkToWhirl = GetOKToWhirl(OBJECT_SELF);
@@ -1504,7 +1504,7 @@ int TalentMeleeAttack(object oIntruder = OBJECT_INVALID)
     if (GetIsPlayableRacialType(OBJECT_SELF) || GetTag(OBJECT_SELF) == "x2_hen_valen")
       bPlayableRace = TRUE;
 
-/*
+
     int bNumberofAttackers = WhirlwindGetNumberOfMeleeAttackers(WHIRL_DISTANCE);
     if (bOkToWhirl == TRUE && bHasFeat == TRUE  &&   bPlayableRace == TRUE
        &&  bNumberofAttackers == TRUE)
