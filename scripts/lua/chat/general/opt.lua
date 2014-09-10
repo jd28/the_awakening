@@ -40,7 +40,7 @@ function action(info)
         return
       elseif act[2] == 'full' then
          local enhanced = pc:GetPlayerInt("pc_enhanced", true);
-         if enhanced == 0 then
+         if enhanced ~= 0 then
             pc:SetPlayerInt("pc_enhanced", 2, true);
             pc:SuccessMessage("Your login is now flagged fully enhanced! Please relog to see all content.");
          else
