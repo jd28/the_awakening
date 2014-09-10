@@ -59,7 +59,7 @@ Creature {
 
          DamageIncrease(DAMAGE_BONUS_6d10, DAMAGE_INDEX_MAGICAL),
          DamageIncrease(DAMAGE_BONUS_6d12, DAMAGE_INDEX_ELECTRICAL),
-         DamageIncrease(DAMAGE_BONUS_4d12, DAMAGE_INDEX_BLUDGEONING),
+         DamageIncrease(DAMAGE_BONUS_1d12, DAMAGE_INDEX_BLUDGEONING),
          DamageIncrease(DAMAGE_BONUS_2d12, DAMAGE_INDEX_POSITIVE),
 
          TrueSeeing(),

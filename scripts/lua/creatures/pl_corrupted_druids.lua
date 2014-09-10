@@ -152,7 +152,7 @@ Creature {
          DamageResistance(DAMAGE_INDEX_BLUDGEONING, 5),
          DamageResistance(DAMAGE_INDEX_PIERCING, 5),
          DamageImmunity(DAMAGE_INDEX_ACID, baseimm),
-         DamageImmunity(DAMAGE_INDEX_COLD, 100),
+         DamageImmunity(DAMAGE_INDEX_COLD, baseimm),
          DamageImmunity(DAMAGE_INDEX_FIRE, baseimm),
          DamageImmunity(DAMAGE_INDEX_ELECTRICAL, baseimm),
          DamageImmunity(DAMAGE_INDEX_SONIC, baseimm),
@@ -163,7 +163,6 @@ Creature {
          DamageIncrease(DAMAGE_BONUS_4d10, DAMAGE_INDEX_DIVINE),
          DamageIncrease(DAMAGE_BONUS_4d12, DAMAGE_INDEX_COLD),
          DamageIncrease(DAMAGE_BONUS_4d12, DAMAGE_INDEX_BLUDGEONING),
-         DamageIncrease(DAMAGE_BONUS_2d12, DAMAGE_INDEX_POSITIVE),
 
          TrueSeeing(),
          Haste(),
@@ -182,7 +181,7 @@ Creature {
          DamageResistance(DAMAGE_INDEX_SLASHING, 5),
          DamageResistance(DAMAGE_INDEX_BLUDGEONING, 5),
          DamageResistance(DAMAGE_INDEX_PIERCING, 5),
-         DamageImmunity(DAMAGE_INDEX_ACID, 100),
+         DamageImmunity(DAMAGE_INDEX_ACID, baseimm),
          DamageImmunity(DAMAGE_INDEX_COLD, baseimm),
          DamageImmunity(DAMAGE_INDEX_FIRE, baseimm),
          DamageImmunity(DAMAGE_INDEX_ELECTRICAL, baseimm),
@@ -195,7 +194,6 @@ Creature {
          DamageIncrease(DAMAGE_BONUS_4d10, DAMAGE_INDEX_MAGICAL),
          DamageIncrease(DAMAGE_BONUS_4d12, DAMAGE_INDEX_ACID),
          DamageIncrease(DAMAGE_BONUS_4d12, DAMAGE_INDEX_BLUDGEONING),
-         DamageIncrease(DAMAGE_BONUS_2d12, DAMAGE_INDEX_POSITIVE),
 
          Immunity(IMMUNITY_TYPE_KNOCKDOWN, 80),
          Immunity(IMMUNITY_TYPE_CRITICAL_HIT, 80),
