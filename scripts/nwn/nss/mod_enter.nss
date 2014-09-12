@@ -146,11 +146,27 @@ void PCLoadPlayer(object oPC){
             DeliverMail(oPC);
         }
 
-        if(!GetPlayerInt(oPC, "pc_enhanced", TRUE)){
+		int enhanced = GetPlayerInt(oPC, "pc_enhanced", TRUE);
+        if(enhanced == 0){
             DelayCommand(15.0f, SendChatLogMessage(oPC, C_RED+"It is highly suggested that you go to the forums at theawakening1.freeforums.org and download " +
                 "the server HAKs and TLK and use one of the !opt enhanced commands.  This is a small 3MB download.  You can play for awhile without it, " +
 				"but leveling without it will likely negatively impact your character!  Please be aware!"+C_END, oPC, 4));
         }
+
+		int hak_version = GetPlayerInt(oPC, "pc_hak_version", TRUE);
+		if( hak_version == 0) {
+			SetPlayerInt(oPC, "pc_hak_version", enhanced, TRUE);
+		}
+
+		if ( hak_version < GetLocalInt(GetModule(), "HAK_VERSION") ) {
+			DelayCommand(15.0f, SendChatLogMessage(oPC,
+												   C_RED +
+												   "Your HAK files are out of date!  Please run the updater to be sure you have access to all custom content!\n" +
+												   "Then use !opt enhanced full.  If you have already done so you will not have to relog, but this will flag your account " +
+												   "with the lasted HAK version!"
+												   +C_END, oPC, 4));
+		}
+
 
         int nHP = GetDbInt(oPC, VAR_PC_HP);
         if (nHP < 0){

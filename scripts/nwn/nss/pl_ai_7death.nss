@@ -35,10 +35,7 @@ void main(){
     string sScript = GetLocalString(OBJECT_SELF, "ES_Death");
     if(sScript != "") ExecuteScript(sScript, OBJECT_SELF);
 
-    if( !GetLocalInt(OBJECT_SELF, "DM_SPAWNED")
-		&& (GetIsEncounterCreature(OBJECT_SELF)
-			|| GetLocalInt(OBJECT_SELF, "PL_AI_SPAWNED")
-			|| GetLocalInt(OBJECT_SELF, "Despawn") > 0) ) {
+    if( !GetLocalInt(OBJECT_SELF, "DM_SPAWNED") ) {
         //RLGS Loot...
         struct rlgs_info ri;
 

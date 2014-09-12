@@ -162,26 +162,13 @@ void GiveXP(object oKiller, int nXPToGive, int nBossXP, float fKillerBonus, int 
                     nXPToGive += nBossXP;
                 }
 
-                if(GetIsSpawnCreature(OBJECT_SELF)){
-                    if(GetLocalInt(OBJECT_SELF, "xp_set_var"))
+                if(!GetLocalInt(OBJECT_SELF, "DM_SPAWNED")){
+                    if(GetLocalInt(OBJECT_SELF, "xp_set_var")) {
                         SetLocalInt(oParty, GetTag(OBJECT_SELF), TRUE);
-                    else if(GetLocalInt(OBJECT_SELF, "xp_set_persist_var"))
+					}
+                    else if(GetLocalInt(OBJECT_SELF, "xp_set_persist_var")) {
                         SetPlayerInt(oParty, GetTag(OBJECT_SELF), TRUE);
-
-                    int nCount = 1, nChance;
-                    object oItem;
-                    string sResref = GetLocalString(OBJECT_SELF, "xp_item_" + IntToString(nCount));
-                    while (sResref != ""){
-                        nChance = GetLocalInt(OBJECT_SELF, "xp_item_" + IntToString(nCount));
-
-                        if(nChance == 0 || nRoll <= nChance){
-                            oItem = CreateItemOnObject(sResref, oParty);
-                            SetIdentified(oItem, TRUE);
-                        }
-
-                        nCount++;
-                        sResref = sResref = GetLocalString(OBJECT_SELF, "xp_item_" + IntToString(nCount));
-                    }
+					}
                 }
 
                 if(GetLocalInt(oParty, "FKY_CHAT_XPBANK")){

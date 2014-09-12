@@ -1130,7 +1130,7 @@ void main (){
         /*s*/       case 18:
 		if (GetStringLeft(pcc.sCommand, 6) == "spawn ") DoDMSpawn(pcc);
         else if (pcc.sCommand == "stealth") DoDMStealth(pcc);
-        else if (GetStringLeft(pcc.sCommand, 6) == "store " && VerifyAdminKey(pcc.oPC)) DoDMStore(pcc);
+        else if (GetStringLeft(pcc.sCommand, 6) == "store ") DoDMStore(pcc);
         else CommandRedirect(pcc.oPC, 11);
         break;
         /*t*/       case 19:
