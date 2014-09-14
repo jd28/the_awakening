@@ -9,12 +9,13 @@ samples = [os.path.join('samples', i) for i in os.listdir('samples')]
 twodxs = [os.path.join('2dx', i) for i in os.listdir('2dx')]
 
 data_files = [('samples', samples),
-              ('2dx', twodxs)]
+              ('2dx', twodxs),
+              ('', ['2dasource.zip'])]
 
 if os.name == 'nt':
     import py2exe
     setup(name="2dilate",
-          version="0.1",
+          version="0.2",
           description="A different kind of 2da merger.",
           author="jmd",
           data_files = data_files,
@@ -23,7 +24,7 @@ if os.name == 'nt':
 
 elif os.name == 'posix':
     setup(name="2dilate",
-          version="0.1",
+          version="0.2",
           description="A different kind of 2da merger.",
           author="jmd",
           packages = ['src'],
