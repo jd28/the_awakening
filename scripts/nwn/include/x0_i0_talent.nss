@@ -1495,85 +1495,14 @@ int TalentMeleeAttack(object oIntruder = OBJECT_INVALID)
 
     int nDiff = nAC - nAttack;
     //MyPrintString("nDiff = " + IntToString(nDiff));
-/*
-    // * only the playable races have whirlwind attack
-    // * Attempt to Use Whirlwind Attack
-    int bOkToWhirl = GetOKToWhirl(OBJECT_SELF);
-    int bHasFeat = GetHasFeat(FEAT_WHIRLWIND_ATTACK);
-    int bPlayableRace = FALSE;
-    if (GetIsPlayableRacialType(OBJECT_SELF) || GetTag(OBJECT_SELF) == "x2_hen_valen")
-      bPlayableRace = TRUE;
 
+	//MyPrintString("TalentMeleeAttack Successful Exit");
+	ClearActions(CLEAR_X0_I0_TALENT_MeleeAttack2);
+	// * this function will call the BK function
+	EquipAppropriateWeapons(oTarget);
+	WrapperActionAttack(oTarget);
+	return TRUE;
 
-    int bNumberofAttackers = WhirlwindGetNumberOfMeleeAttackers(WHIRL_DISTANCE);
-    if (bOkToWhirl == TRUE && bHasFeat == TRUE  &&   bPlayableRace == TRUE
-       &&  bNumberofAttackers == TRUE)
-    {
-        ClearActions(CLEAR_X0_I0_TALENT_MeleeAttack1);
-        ActionUseFeat(FEAT_WHIRLWIND_ATTACK, OBJECT_SELF);
-        return TRUE;
-    }
-    else
-
-    // * Try using expertise
-    if (GetHasFeat(FEAT_EXPERTISE) && nDiff < 12)
-    {
-        ClearActions(CLEAR_X0_I0_TALENT_MeleeAttack1);
-        SetActionMode(OBJECT_SELF, ACTION_MODE_EXPERTISE, TRUE);
-        WrapperActionAttack(oTarget);
-        return TRUE;
-    }
-    else
-    // * Try using expertise
-    if (GetHasFeat(FEAT_IMPROVED_EXPERTISE) && nDiff < 15)
-    {
-        ClearActions(CLEAR_X0_I0_TALENT_MeleeAttack1);
-        SetActionMode(OBJECT_SELF, ACTION_MODE_IMPROVED_EXPERTISE, TRUE);
-        WrapperActionAttack(oTarget);
-        return TRUE;
-    }
-
-    else
-    if(nDiff < 10)
-    {
-        ClearActions(CLEAR_X0_I0_TALENT_MeleeAttack1);
-        // * this function will call the BK function
-        EquipAppropriateWeapons(oTarget);
-        tUse = GetCreatureTalent(TALENT_CATEGORY_HARMFUL_MELEE,
-                                     GetCRMax());
-        //MyPrintString("Melee Talent Valid = "+ IntToString(GetIsTalentValid(tUse)));
-        //MyPrintString("Feat ID = " + IntToString(GetIdFromTalent(tUse)));
-
-        if(GetIsTalentValid(tUse)
-           && VerifyDisarm(tUse, oTarget)
-           && VerifyCombatMeleeTalent(tUse, oTarget))
-        {
-            //MyPrintString("TalentMeleeAttack: Talent Use Successful");
-            // February 6 2003: Did not have a clear all actions before it
-            bkTalentFilter(tUse, oTarget);
-            return TRUE;
-        }
-        else
-        {
-            //MyPrintString("TalentMeleeAttack Successful Exit");
-            WrapperActionAttack(oTarget);
-            return TRUE;
-        }
-    }
-
-    else
-*/
-    {
-        //MyPrintString("TalentMeleeAttack Successful Exit");
-        ClearActions(CLEAR_X0_I0_TALENT_MeleeAttack2);
-        // * this function will call the BK function
-        EquipAppropriateWeapons(oTarget);
-        WrapperActionAttack(oTarget);
-        return TRUE;
-    }
-
-    //MyPrintString("TALENT MELEE ATTACK FAILURE EXIT - THIS IS VERY BAD");
-    return FALSE;
 }
 
 // SNEAK ATTACK OTHERS

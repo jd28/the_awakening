@@ -216,7 +216,7 @@ object bkAcquireTarget()
     {   // Don't change targets...
         return oOtherTarget;
     }
-    
+
     // * for now no 'target switching' other
     // * than what occurs in the OnDamaged and OnPerceived events
     // * (I may roll their functionality into this function
@@ -380,28 +380,11 @@ int bkEvaluationSanityCheck(object oIntruder, float fFollow)
 // Based on Pausanias's Final Talent Filter.
 //
 */
-int bkTalentFilter(talent tUse, object oTarget, int bJustTest=FALSE)
-{
-    if (bJustTest == FALSE)
-      ClearActions(CLEAR_X0_INC_GENERIC_TalentFilter);
-    //SpawnScriptDebugger();
-    // * try to equip if not equipped at this point
-    // * has to be here, to avoid ClearAllAction
-//    object oRightHand =GetItemInSlot(INVENTORY_SLOT_RIGHTHAND);
-//    int bValidOnHand = GetIsObjectValid(oRightHand);
-//    if (bValidOnHand  == FALSE || GetIsObjectValid(GetItemInSlot(INVENTORY_SLOT_LEFTHAND)) == FALSE)
-//    {
-        // MyPrintString("equipping a new item");
-        // * if a ranged weapon then I don't care that my left hand is empty
-//        int bHoldingRanged = FALSE;
-
-//        if (bValidOnHand == TRUE)
-//        {
-//            bHoldingRanged = GetWeaponRanged(oRightHand);
-//        }
-//        if (bHoldingRanged == FALSE)
-            bkEquipAppropriateWeapons(oTarget, GetAssociateState(NW_ASC_USE_RANGED_WEAPON));
-//    }
+int bkTalentFilter(talent tUse, object oTarget, int bJustTest=FALSE) {
+    if (bJustTest == FALSE) {
+		ClearActions(CLEAR_X0_INC_GENERIC_TalentFilter);
+		bkEquipAppropriateWeapons(oTarget, GetAssociateState(NW_ASC_USE_RANGED_WEAPON));
+	}
 
     talent tFinal = tUse;
     int iId = GetIdFromTalent(tUse);
