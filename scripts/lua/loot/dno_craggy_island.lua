@@ -31,5 +31,6 @@ Loot {
    resref = 'dno_axieros_1',
    Default = {
       Item("dno_tsh_bard_1"),
+      Item("pl_axieros_helm"),
    }
 }
