@@ -6,9 +6,10 @@ local function none() return 0 end
 
 Rules.RegisterFeatUses(
    function (feat, cre)
-      return 1 + cre:GetLevelByClass(CLASS_TYPE_BARBARIAN)
+      return 3 + math.floor(cre:GetLevelByClass(CLASS_TYPE_BARBARIAN) / 6)
    end,
-   293)
+   293, 326, 327, 328, 329, 330, 331)
+
 
 local function bard_song(feat, cre)
    local level = cre:GetLevelByClass(CLASS_TYPE_BARD)
