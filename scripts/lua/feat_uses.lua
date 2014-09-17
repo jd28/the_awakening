@@ -212,3 +212,17 @@ Rules.RegisterFeatUses(
       end
    end,
    305, 335, 336, 337, 338, 339)
+
+Rules.RegisterFeatUses(
+   function(feat, cre)
+      local tda = TDA.Get2daString("feat", "USESPERDAY", feat)
+      local aa  = cre:GetLevelByClass(CLASS_TYPE_ARCANE_ARCHER) - 10
+      if aa <= 0 then return tda end
+      local new = math.floor(aa / 10)
+      return tda + new
+   end,
+   FEAT_PRESTIGE_EMBUE_ARROW,
+   FEAT_PRESTIGE_SEEKER_ARROW_1,
+   FEAT_PRESTIGE_SEEKER_ARROW_2,
+   FEAT_PRESTIGE_HAIL_OF_ARROWS,
+   FEAT_PRESTIGE_ARROW_OF_DEATH)
