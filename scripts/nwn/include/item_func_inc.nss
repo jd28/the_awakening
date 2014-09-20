@@ -70,8 +70,9 @@ int GetItemEnhancementBonus(object oItem, int nDur = DURATION_TYPE_PERMANENT){
     return 0;
 }
 
-int GetisILRItem(object oItem) //no ilr for ammo and creature items
-{
+int GetisILRItem(object oItem) { //no ilr for ammo and creature items {
+	if (GetLocalString(oItem, "ilr_tagged") != "") { return TRUE; }
+
     int nTyp = GetBaseItemType(oItem);
     if      (nTyp == BASE_ITEM_ARROW)         return FALSE;
     else if (nTyp == BASE_ITEM_BOLT)          return FALSE;
@@ -509,11 +510,11 @@ object GetTargetedOrEquippedArmor(object oTarget, int bAllowShields = FALSE){
 
     if(GetObjectType(oTarget) != OBJECT_TYPE_ITEM)
         oTarget = GetItemInSlot(INVENTORY_SLOT_CHEST, oTarget);
-    
+
     if(oTarget == OBJECT_INVALID && bAllowShields){
         oTarget = GetItemInSlot(INVENTORY_SLOT_LEFTHAND, oTarget);
-        
-        if (GetBaseItemType(oTarget) != BASE_ITEM_LARGESHIELD 
+
+        if (GetBaseItemType(oTarget) != BASE_ITEM_LARGESHIELD
                 && GetBaseItemType(oTarget) != BASE_ITEM_SMALLSHIELD
                 && GetBaseItemType(oTarget) != BASE_ITEM_TOWERSHIELD)
             return OBJECT_INVALID;
@@ -521,4 +522,3 @@ object GetTargetedOrEquippedArmor(object oTarget, int bAllowShields = FALSE){
 
     return oTarget;
 }
-
