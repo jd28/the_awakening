@@ -150,6 +150,20 @@ void main(){
     // Quests
     // -------------------------------------------------------------------------
     DelayCommand(2.0, SpawnDeltaKey());
+
+	object way = GetObjectByTag("wp_sp_pos_1", d4() - 1);
+	if (GetIsObjectValid(way)) {
+		location loc = GetLocation(way);
+		object wander = CreateObject(OBJECT_TYPE_CREATURE,
+									 "pl_wander_spirit",
+									 loc);
+		if (GetIsObjectValid(wander)) {
+			WriteTimestampedLogEntry("NOTICE : Wandering Spirit Spawned");
+		}
+		else {
+			WriteTimestampedLogEntry("ERROR : Wandering Spirit Failed to spawn");
+		}
+	}
 }
 
 void InfoHashInit(){
