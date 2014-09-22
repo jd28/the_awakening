@@ -41,29 +41,15 @@ function pl_wander_et(obj)
    pc:SuccessMessage("You have received: Epic Toughness")
 end
 
-function set_weapon_crit(obj, val)
+function pl_wander_crit(obj)
    local pc = Game.GetPCSpeaker()
-   local price = 3
-   local item = pc:GetItemInSlot(INVENTORY_SLOT_RIGHTHAND)
-   if not item:GetIsValid() then
-      item = pc:GetItemInSlot(INVENTORY_SLOT_ARMS)
-   end
+   local price = 10
 
-
-   if not item:GetIsValid() then
-      obj:SpeakString("... No, no this isn't right ...")
-      return
-   elseif not can_use_spirit(pc, price) then
+   if not can_use_spirit(pc, price) then
       obj:SpeakString("... No, no this isn't right ...")
       return
    end
 
-   item:SetLocalInt("PL_CRIT_OVERRIDE", val)
-   item:SetCursedFlag(true)
-   pc:SuccessMessage("Your weapon has been changed!")
-   pc:UpdateCombatInfo(true)
+   pc:SuccessMessage("You can now use the !critical chat command!")
+   pc:SetPlayerInt("pc_set_crit", 1)
 end
-
-function pl_wander_crit_1(obj) set_weapon_crit(obj, 1) end
-function pl_wander_crit_2(obj) set_weapon_crit(obj, 2) end
-function pl_wander_crit_3(obj) set_weapon_crit(obj, 3) end
