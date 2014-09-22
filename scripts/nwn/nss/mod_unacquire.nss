@@ -25,6 +25,8 @@ void main(){
     Logger(oPC, "DebugModEvents", LOGLEVEL_NONE, "UNACQUIRE: Item: %s, Tag: %s, Resref: %s",
            GetName(oItem), GetTag(oItem), GetResRef(oItem));
 
+	DeleteLocalInt(oItem, "PL_CRIT_OVERRIDE");
+
     if(GetIsPC(oPC) && !(GetIsDM(oPC) || GetIsDMPossessed(oPC))){
         // Non-drop items are destroyed if unaquired.
         if(GetItemCursedFlag(oItem)){
