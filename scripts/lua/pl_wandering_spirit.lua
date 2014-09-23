@@ -51,5 +51,5 @@ function pl_wander_crit(obj)
    end
 
    pc:SuccessMessage("You can now use the !critical chat command!")
-   pc:SetPlayerInt("pc_set_crit", 1)
+   pc:SetPlayerInt("pc_set_crit", 1, true)
 end
