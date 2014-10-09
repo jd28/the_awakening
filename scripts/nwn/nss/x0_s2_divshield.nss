@@ -33,7 +33,7 @@ void main()
         int nCharismaBonus = GetAbilityModifier(ABILITY_CHARISMA);
         effect eAC = EffectACIncrease(nCharismaBonus);
         effect eLink = EffectLinkEffects(eAC, eDur);
-        eLink = SupernaturalEffect(eLink);
+        eLink = ExtraordinaryEffect(eLink);
 
          // * Do not allow this to stack
         RemoveEffectsFromSpell(oTarget, GetSpellId());
@@ -41,18 +41,18 @@ void main()
         //Fire cast spell at event for the specified target
         SignalEvent(oTarget, EventSpellCastAt(OBJECT_SELF, 474, FALSE));
 
-            if(GetLevelByClass(CLASS_TYPE_CLERIC, OBJECT_SELF) >= 35 ||
-               GetLevelByClass(CLASS_TYPE_BLACKGUARD, OBJECT_SELF) >= 30 ||
-               GetLevelByClass(CLASS_TYPE_PALADIN, OBJECT_SELF) >= 35)
-            {
-                nCharismaBonus *= 3;
-            }
-            else if(GetLevelByClass(CLASS_TYPE_CLERIC, OBJECT_SELF) >= 20 ||
-                    GetLevelByClass(CLASS_TYPE_BLACKGUARD, OBJECT_SELF) >= 20 ||
-                    GetLevelByClass(CLASS_TYPE_PALADIN, OBJECT_SELF) >= 20)
-            {
-                nCharismaBonus *= 2;
-            }
+		if(GetLevelByClass(CLASS_TYPE_CLERIC, OBJECT_SELF) >= 35 ||
+		   GetLevelByClass(CLASS_TYPE_BLACKGUARD, OBJECT_SELF) >= 30 ||
+		   GetLevelByClass(CLASS_TYPE_PALADIN, OBJECT_SELF) >= 35)
+		{
+			nCharismaBonus *= 3;
+		}
+		else if(GetLevelByClass(CLASS_TYPE_CLERIC, OBJECT_SELF) >= 20 ||
+				GetLevelByClass(CLASS_TYPE_BLACKGUARD, OBJECT_SELF) >= 20 ||
+				GetLevelByClass(CLASS_TYPE_PALADIN, OBJECT_SELF) >= 20)
+		{
+			nCharismaBonus *= 2;
+		}
 
         //Apply Link and VFX effects to the target
         ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLink, oTarget, RoundsToSeconds(nCharismaBonus));
@@ -61,6 +61,3 @@ void main()
         DecrementRemainingFeatUses(OBJECT_SELF, FEAT_TURN_UNDEAD);
     }
 }
-
-
-
