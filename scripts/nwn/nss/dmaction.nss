@@ -23,9 +23,9 @@ void main() {
     if(nAction == DM_ACTION_CREATE_ITEM_ON_OBJECT) {
         object oTarget = oGetDMAction_Target();
         object oItem = oGetDMAction_Target(TRUE);
-        //PreventDMAction();
-        //DestroyObject(oItem);
-        //SendMessageToPC(oDM, C_RED+"Please use dm_store if the item you are trying to create is a drop or dm_create for plot items."+C_END);
+        PreventDMAction();
+        DestroyObject(oItem);
+        SendMessageToPC(oDM, C_RED+"Please use dm_store if the item you are trying to create is a drop or dm_create for plot items."+C_END);
         WriteTimestampedLogEntry("DM Action: <"+GetName(oDM)+"> (CreateItem "+GetResRef(oItem)+") <"+GetName(oTarget)+"> <"+(GetIsPC(oTarget)?GetPCPlayerName(oTarget):GetTag(oTarget))+">");
     } else
     if(nAction == DM_ACTION_CREATE_ITEM_ON_AREA) {
@@ -33,9 +33,9 @@ void main() {
         object oArea = oGetDMAction_Target();
         object oItem = oGetDMAction_Target(TRUE);
 
-        //PreventDMAction();
-        //DestroyObject(oItem);
-        //SendMessageToPC(oDM, C_RED+"Please use dm_store if the item you are trying to create is a drop or dm_create for plot items."+C_END);
+        PreventDMAction();
+        DestroyObject(oItem);
+        SendMessageToPC(oDM, C_RED+"Please use dm_store if the item you are trying to create is a drop or dm_create for plot items."+C_END);
         WriteTimestampedLogEntry("DM Action: <"+GetName(oDM)+"> (CreateItem "+GetResRef(oItem)+") <"+GetName(oArea)+">");
     } else
     if(nAction == DM_ACTION_HEAL_CREATURE) {
