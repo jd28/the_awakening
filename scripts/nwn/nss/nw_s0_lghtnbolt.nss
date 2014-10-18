@@ -33,10 +33,11 @@ void main() {
     int nCnt = 1;
 
 	//Get first target in the lightning area by passing in the location of first target and the casters vector (position)
-	si.target = GetFirstObjectInShape(SHAPE_SPELLCYLINDER, 30.0, lTarget, TRUE, nMask, GetPosition(si.caster));
-	while (GetIsObjectValid(si.target)) {
-		if ( si.target == OBJECT_SELF ) { continue; }
+	for (si.target = GetFirstObjectInShape(SHAPE_SPELLCYLINDER, 30.0, lTarget, TRUE, nMask, GetPosition(si.caster));
+		 GetIsObjectValid(si.target);
+		 si.target = GetNextObjectInShape(SHAPE_SPELLCYLINDER, 30.0, lTarget, TRUE, nMask, GetPosition(si.caster))) {
 
+		if ( si.target == OBJECT_SELF ) { continue; }
 		if (!GetIsSpellTarget(si, si.target, TARGET_TYPE_SELECTIVE)) { continue; }
 		//Fire cast spell at event for the specified target
 		SignalEvent(si.target, EventSpellCastAt(si.caster, si.id));
@@ -60,6 +61,6 @@ void main() {
 
 		ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLightning, si.target, 1.0);
 		//Get the next object in the lightning cylinder
-		si.target = GetNextObjectInShape(SHAPE_SPELLCYLINDER, 30.0, lTarget, TRUE, nMask, GetPosition(si.caster));
+
 	}
 }
