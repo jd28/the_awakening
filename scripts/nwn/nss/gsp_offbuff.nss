@@ -38,10 +38,10 @@ void main(){
             ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_FNF_LOS_HOLY_30), si.loc);
             nAttackBonus = 1;
 
-            fDuration = MetaDuration(si, nAttackBonus, DURATION_IN_TURNS);
+            fDuration = MetaDuration(si, si.clevel, DURATION_IN_ROUNDS);
             nAttackBonus = si.clevel / 3;
             if (nAttackBonus < 1) nAttackBonus = 1;
-            if (nAttackBonus > 5) nAttackBonus = 5;
+            if (nAttackBonus > 6) nAttackBonus = 6;
             si.target = si.caster;
             nDamBonus = nAttackBonus;
             nDamType = DAMAGE_TYPE_MAGICAL;
