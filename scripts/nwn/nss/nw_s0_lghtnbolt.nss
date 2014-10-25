@@ -28,20 +28,19 @@ void main() {
     effect eLightning = EffectBeam(VFX_BEAM_LIGHTNING, OBJECT_SELF, BODY_NODE_HAND);
     effect eVis  = EffectVisualEffect(VFX_IMP_LIGHTNING_S);
     effect eDamage;
-    object oTarget = GetSpellTargetObject();
-    location lTarget = GetLocation(oTarget);
-    object oNextTarget, oTarget2;
+    location lTarget = GetLocation(si.target);
     float fDelay;
     int nCnt = 1;
 
 	//Get first target in the lightning area by passing in the location of first target and the casters vector (position)
-	oTarget = GetFirstObjectInShape(SHAPE_SPELLCYLINDER, 30.0, lTarget, TRUE, nMask, GetPosition(si.caster));
-	while (GetIsObjectValid(oTarget)) {
-		if ( oTarget == OBJECT_SELF ) { continue; }
+	for (si.target = GetFirstObjectInShape(SHAPE_SPELLCYLINDER, 30.0, lTarget, TRUE, nMask, GetPosition(si.caster));
+		 GetIsObjectValid(si.target);
+		 si.target = GetNextObjectInShape(SHAPE_SPELLCYLINDER, 30.0, lTarget, TRUE, nMask, GetPosition(si.caster))) {
 
+		if ( si.target == OBJECT_SELF ) { continue; }
 		if (!GetIsSpellTarget(si, si.target, TARGET_TYPE_SELECTIVE)) { continue; }
 		//Fire cast spell at event for the specified target
-		SignalEvent(oTarget, EventSpellCastAt(si.caster, si.id));
+		SignalEvent(si.target, EventSpellCastAt(si.caster, si.id));
 		//Make an SR check
 		if (GetSpellResisted(si, si.target)) { continue; }
 
@@ -49,23 +48,19 @@ void main() {
 		nDamage = MetaPower(si, dice, 6, 0, fb.dmg);
 
 		//Adjust damage based on Reflex Save, Evasion and Improved Evasion
-		nDamage = GetReflexAdjustedDamage(nDamage, oTarget, si.dc,
+		nDamage = GetReflexAdjustedDamage(nDamage, si.target, si.dc,
 										  SAVING_THROW_TYPE_ELECTRICITY);
 		//Set damage effect
 		eDamage = EffectDamage(nDamage, DAMAGE_TYPE_ELECTRICAL);
 		if(nDamage > 0) {
-			fDelay = GetSpellEffectDelay(GetLocation(oTarget), oTarget);
+			fDelay = GetSpellEffectDelay(GetLocation(si.target), si.target);
 			//Apply VFX impcat, damage effect and lightning effect
-			DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT,eDamage,oTarget));
-			DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT,eVis,oTarget));
+			DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT,eDamage, si.target));
+			DelayCommand(fDelay, ApplyEffectToObject(DURATION_TYPE_INSTANT,eVis, si.target));
 		}
 
-		ApplyEffectToObject(DURATION_TYPE_TEMPORARY,eLightning,oTarget,1.0);
-		//Set the currect target as the holder of the lightning effect
-		//oNextTarget = oTarget;
-		//eLightning = EffectBeam(VFX_BEAM_LIGHTNING, oNextTarget, BODY_NODE_CHEST);
-
+		ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eLightning, si.target, 1.0);
 		//Get the next object in the lightning cylinder
-		oTarget = GetNextObjectInShape(SHAPE_SPELLCYLINDER, 30.0, lTarget, TRUE, nMask, GetPosition(OBJECT_SELF));
+
 	}
 }

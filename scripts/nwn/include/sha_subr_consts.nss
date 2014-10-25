@@ -97,7 +97,7 @@ const string SUBRACE_WHEN_ADJECTIVE = "sub-racial";
 
 // :: Highest Level achievable by a player in this module
 // :: Default value: 40
-const int MAXIMUM_PLAYER_LEVEL = 40;
+const int MAXIMUM_PLAYER_LEVEL = 60;
 
 // :: If set to TRUE it will use SQL NWNX databases.
 // :: NWNX must be installed for this to work! Refer to sha_subr_methds for more
@@ -875,4 +875,3 @@ struct SubraceBaseStatsModifier
    int SpdModifier;
 //   int HPModifier;
 };
-

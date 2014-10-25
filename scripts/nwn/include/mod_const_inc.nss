@@ -54,6 +54,10 @@ const int    GUILD_AWAKENING_ROLE_PLAYERS       = 7;
 const string GUILD_AWAKENING_ROLE_PLAYERS_NAME  = "Awakening Role Players Guild";
 const string GUILD_AWAKENING_ROLE_PLAYERS_ABBRV = "*ARPG*";
 
+const int    GUILD_ROUGH_RIDERS       = 8;
+const string GUILD_ROUGH_RIDERS_NAME  = "Rough Riders";
+const string GUILD_ROUGH_RIDERS_ABBRV = "‡®®‡";
+
 // -----------------------------------------------------------------------------
 // CONSTANTS - Area Related
 // -----------------------------------------------------------------------------
@@ -363,7 +367,7 @@ const int TA_FEAT_PDK_VIRTUE                                 =   2094;
 const int TA_FEAT_HARPER_LYCANBANE                           =   2095;
 const int TA_FEAT_HARPER_MILILS_EAR                          =   2096;
 const int TA_FEAT_HARPER_MIELIKKIS_TRUTH                     =   2097;
- 
+
 ///////////////////////////////////////////////////////////////////////////////
 // CONSTANTS - Spells
 ///////////////////////////////////////////////////////////////////////////////
@@ -1452,4 +1456,3 @@ const int PHENOTYPE_TIGER_FANG        = 30;
 const int PHENOTYPE_SUN_FIST          = 31;
 const int PHENOTYPE_DRAGON_PALM       = 32;
 const int PHENOTYPE_BEAR_CLAW         = 33;
-

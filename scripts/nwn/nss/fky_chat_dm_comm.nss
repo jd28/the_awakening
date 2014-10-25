@@ -1061,7 +1061,7 @@ void main (){
         else CommandRedirect(pcc.oPC, 11);
         break;
         /*c*/       case 2:
-        if (GetStringLeft(pcc.sCommand, 7) == "create " && VerifyAdminKey(pcc.oPC)) DoDMCreate(pcc);
+        if (GetStringLeft(pcc.sCommand, 7) == "create ") DoDMCreate(pcc);
         else if (GetStringLeft(pcc.sCommand, 7) == "change ") DoDMChange(pcc);
         else CommandRedirect(pcc.oPC, 11);
         break;

@@ -14,7 +14,7 @@ $(TARGET) : $(OBJECTS) ;
 
 %.ncs: %.nss
 	@find_dep.py $< > $(patsubst %.ncs,$(OUTDIR)/%.d, $@)
-	@nwnnsscomp -q -i "nss;include;bioware" -go $< ncs/
+	@NWNScriptCompiler -q -b $(OUTDIR) -i "nss;include;bioware" -cego1 $<
 	@echo "NSS $<"
 
 -include $(OBJECTS:%.ncs=$(OUTDIR)/%.d)

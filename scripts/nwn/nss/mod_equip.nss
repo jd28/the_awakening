@@ -61,28 +61,6 @@ void main(){
         bUnequip = TRUE;
     }
 
-/* No longer need this with !opt hide helm
-    if(GetBaseItemType(oItem) == BASE_ITEM_SLING &&
-       GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_BULLETS, oPC)) ==  BASE_ITEM_HELMET){
-
-       ForceUnequipItem(oPC, GetItemInSlot(INVENTORY_SLOT_BULLETS, oPC));
-    }
-    if(GetBaseItemType(oItem) == BASE_ITEM_HELMET){
-
-        object oHead = GetItemInSlot(INVENTORY_SLOT_HEAD, oPC);
-        object oBullet = GetItemInSlot(INVENTORY_SLOT_BULLETS, oPC);
-        if(oHead == oItem && GetBaseItemType(oBullet) == BASE_ITEM_HELMET){
-            ForceUnequipItem(oPC, oBullet);
-        }
-        else if(oBullet == oItem){
-            if(GetBaseItemType(oHead) == BASE_ITEM_HELMET)
-                ForceUnequipItem(oPC, oHead);
-            if(GetBaseItemType(GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, oPC)) == BASE_ITEM_SLING)
-                ForceUnequipItem(oPC, GetItemInSlot(INVENTORY_SLOT_RIGHTHAND, oPC));
-
-        }
-    }
-*/
     if(!CheckStyleItemRequirement(oPC, oItem))
         bUnequip = TRUE;
 

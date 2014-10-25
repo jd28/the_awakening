@@ -65,17 +65,6 @@ void main(){
         fDuration = 60.0f;
     }
 
-	object rh = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND);
-
-    if(GetLevelByClass(CLASS_TYPE_MONK, si.caster) > 0 &&
-	   (rh == OBJECT_INVALID                          ||
-		GetBaseItemType(rh) == BASE_ITEM_QUARTERSTAFF ||
-		GetBaseItemType(rh) == BASE_ITEM_KAMA)) {
-
-		nExtraAttacks = 0;
-	}
-
-
     effect eHaste = EffectHaste();
     effect eAB = EffectAttackIncrease(nAttackBonus);
     effect eAC = EffectACIncrease(nACDodge);

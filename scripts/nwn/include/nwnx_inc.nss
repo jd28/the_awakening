@@ -6,7 +6,6 @@
 #include "nwnx_structs"
 #include "nwnx_events"
 #include "nwnx_hashset"
-#include "nwnx_weapons"
 #include "nwnx_defenses"
 #include "nwnx_solstice"
 #include "nwnx_specattack"

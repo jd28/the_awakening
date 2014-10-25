@@ -2,7 +2,7 @@ resref = "fab_barb_armor"
 
 -- Properties
 properties = {
-   ArmorClass(8),
+   ArmorClass(10),
    AbilityScore(ABILITY_STRENGTH, 4),
    AbilityScore(ABILITY_CONSTITUTION, 6),
 

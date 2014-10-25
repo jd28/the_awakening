@@ -6,9 +6,10 @@ local function none() return 0 end
 
 Rules.RegisterFeatUses(
    function (feat, cre)
-      return 1 + cre:GetLevelByClass(CLASS_TYPE_BARBARIAN)
+      return 3 + math.floor(cre:GetLevelByClass(CLASS_TYPE_BARBARIAN) / 6)
    end,
-   293)
+   293, 326, 327, 328, 329, 330, 331)
+
 
 local function bard_song(feat, cre)
    local level = cre:GetLevelByClass(CLASS_TYPE_BARD)
@@ -212,3 +213,17 @@ Rules.RegisterFeatUses(
       end
    end,
    305, 335, 336, 337, 338, 339)
+
+Rules.RegisterFeatUses(
+   function(feat, cre)
+      local tda = TDA.Get2daString("feat", "USESPERDAY", feat)
+      local aa  = cre:GetLevelByClass(CLASS_TYPE_ARCANE_ARCHER) - 10
+      if aa <= 0 then return tda end
+      local new = math.floor(aa / 10)
+      return tda + new
+   end,
+   FEAT_PRESTIGE_EMBUE_ARROW,
+   FEAT_PRESTIGE_SEEKER_ARROW_1,
+   FEAT_PRESTIGE_SEEKER_ARROW_2,
+   FEAT_PRESTIGE_HAIL_OF_ARROWS,
+   FEAT_PRESTIGE_ARROW_OF_DEATH)
