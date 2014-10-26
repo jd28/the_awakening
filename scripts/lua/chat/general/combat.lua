@@ -1,20 +1,14 @@
-command = 'combat'
+local chat = require 'ta.chat'
+
+local command = 'combat'
+local desc = ''
 
 local fmt = string.format
 local floor = math.floor
 local tinsert = table.insert
 local tconcat = table.concat
-local DAMAGE_POWER_NUM = DAMAGE_POWER_NUM
-local EQUIP_TYPE_NUM = EQUIP_TYPE_NUM
-local _SOL_GET_CACHED_OBJECT = _SOL_GET_CACHED_OBJECT
-local OBJECT_INVALID = OBJECT_INVALID
-local DAMAGE_INDEX_NUM = DAMAGE_INDEX_NUM
-local IMMUNITY_TYPE_NUM = IMMUNITY_TYPE_NUM
-local collectgarbage = collectgarbage
-local COMBAT_MOD_NUM = COMBAT_MOD_NUM
-local SITUATION_NUM = SITUATION_NUM
 
-function action(info)
+local function action(info)
    local pc  = info.speaker
    local act = info.param:split(' ')
    if not act then return end
@@ -165,3 +159,5 @@ function action(info)
                          pc.ci.mod_mode.dmg.mask))
    end
 end
+
+chat.RegisterCommand(CHAT_SYMBOL_GENERAL, command, action, desc)

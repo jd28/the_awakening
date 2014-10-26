@@ -1,9 +1,10 @@
 local Lt = require 'ta.loot'
+local chat = require 'ta.chat'
 
-command = 'loot'
-description = 'Loot System related commands'
+local command = 'loot'
+local desc = 'Loot System related commands'
 
-function action(chat_info)
+local function action(chat_info)
    local act = chat_info.param:split(' ')
    if not act then return end
    local pc = chat_info.speaker
@@ -14,3 +15,5 @@ function action(chat_info)
       pc:SendMessage(Lt.List())
    end
 end
+
+chat.RegisterCommand(CHAT_SYMBOL_DM, command, action, desc)

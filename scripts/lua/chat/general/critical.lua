@@ -1,5 +1,5 @@
-command = "critical"
-description = [[
+local command = "critical"
+local desc = [[
 * Usage: !critical [option]
   * Options:
     * 1: Critical Threat: 18-20, Critical Multiplier: x2
@@ -12,11 +12,7 @@ description = [[
   * This command is purchased from the Wandering Spirit.
 ]]
 
-local INVENTORY_SLOT_RIGHTHAND = INVENTORY_SLOT_RIGHTHAND
-local INVENTORY_SLOT_ARMS      = INVENTORY_SLOT_ARMS
-local tonumber = tonumber
-
-function action(info)
+local function action(info)
    local pc  = info.speaker
    local act = info.param:split(' ')
    if not act then return end
@@ -45,3 +41,6 @@ function action(info)
    pc:SuccessMessage("Your weapon has been changed!")
    pc:UpdateCombatInfo(true)
 end
+
+local chat = require 'ta.chat'
+chat.RegisterCommand(CHAT_SYMBOL_GENERAL, command, action, desc)
