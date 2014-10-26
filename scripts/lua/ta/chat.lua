@@ -244,7 +244,7 @@ function M.VerifyTarget(info, type, pc_only)
    if not target:GetIsValid() then
       ret = speaker:GetLocalObject("FKY_CHAT_TARGET")
       if not ret:GetIsValid() then
-         speaker:ErrorMessage("Command requires a target!")
+         speaker:ErrorMessage("Please use Player Tool 1 or your Command Targeter to select a target, or send them a tell with the !target command!")
          speaker:SetLocalString("FKY_CHAT_COMMAND", info.original);
 
          if not speaker:HasItem("fky_chat_target") then
