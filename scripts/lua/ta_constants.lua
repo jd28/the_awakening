@@ -127,3 +127,7 @@ Rules.RegisterConstants("vfx_persistent", "LABEL")
 Rules.RegisterConstants("visualeffects", "Label")
 
 Rules.RegisterConstants("wpnproptypes", "ID")
+
+Rules.RegisterConstant("CHAT_SYMBOL_DM", 'dm_')
+Rules.RegisterConstant("CHAT_SYMBOL_ADMIN", 'admin_')
+Rules.RegisterConstant("CHAT_SYMBOL_GENERAL", '!')
