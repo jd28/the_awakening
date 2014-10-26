@@ -1,11 +1,12 @@
 local Item = require 'ta.item'
+local chat = require 'ta.chat'
 
-command = "item"
-description = [[Item generator commands.
-               |  generate <resref>
-               |  list]]
+local command = "item"
+local desc = [[Item generator commands.
+              |  generate <resref>
+              |  list]]
 
-function action(chat_info)
+local function action(chat_info)
    local act = chat_info.param:split(' ')
    if not act then return end
    local pc = chat_info.speaker
@@ -17,3 +18,5 @@ function action(chat_info)
       pc:SendMessage(Item.Test(act[2], act[3] == "true"))
    end
 end
+
+chat.RegisterCommand(CHAT_SYMBOL_DM, command, action, desc)

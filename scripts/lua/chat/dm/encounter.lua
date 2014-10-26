@@ -1,9 +1,9 @@
 local Enc = require 'ta.encounter'
 
-command = 'encounter'
-description = 'Encounter Spawn System related commands'
+local command = 'encounter'
+local desc = 'Encounter Spawn System related commands'
 
-function action(chat_info)
+local function action(chat_info)
    local act = chat_info.param:split(' ')
    if not act then return end
    local pc = chat_info.speaker
@@ -14,3 +14,6 @@ function action(chat_info)
       pc:SendMessage(Enc.List())
    end
 end
+
+local chat = require 'ta.chat'
+chat.RegisterCommand(CHAT_SYMBOL_DM, command, action, desc)

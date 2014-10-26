@@ -1,14 +1,23 @@
+local chat = require 'ta.chat'
 local NWNXDb = require 'solstice.nwnx.database'
 local fmt = string.format
-local print = print
-local tonumber = tonumber
 
-command = "wallet"
+local command = "wallet"
+local desc = ''
 
-function action(info)
+local function IsTestCharacter(pc)
+   return string.find(pc:GetName(), '[TEST]')
+end
+
+local function action(info)
    local pc  = info.speaker
    local act = info.param:split(' ')
    if not act then return end
+
+   if IsTestCharacter(pc) then
+      pc:ErrorMessage 'You are unable to use this command on test characters!'
+      return
+   end
 
    if act[1] == "balance" then
       pc:SendServerMessage(fmt("Your current balance is %d", NWNXDb.GetInt(pc, "UPB_GOLD", true)))
@@ -46,3 +55,5 @@ function action(info)
       pc:GiveGold(amt, false)
    end
 end
+
+chat.RegisterCommand(CHAT_SYMBOL_GENERAL, command, action, desc)

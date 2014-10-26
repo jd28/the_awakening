@@ -1,10 +1,10 @@
-command = "opt"
+local command = "opt"
+local desc = ''
 
 local Eff = require 'solstice.effect'
-local EFFECT_TYPE_CUTSCENEGHOST = EFFECT_TYPE_CUTSCENEGHOST
-local Game = Game
+local chat = require 'ta.chat'
 
-function action(info)
+local function action(info)
    local opt, optvar
 
    local pc  = info.speaker
@@ -90,3 +90,5 @@ function action(info)
       pc:ErrorMessage("Invalid option!")
    end
 end
+
+chat.RegisterCommand(CHAT_SYMBOL_GENERAL, command, action, desc)

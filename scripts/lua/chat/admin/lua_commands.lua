@@ -1,15 +1,7 @@
-command = "lua"
-description = "Lua related commands"
+local command = "lua"
+local description = "Lua related commands"
 
-local safe_require = safe_require
-local package = package
-local collectgarbage = collectgarbage
-local string = string
-
-local System = require 'solstice.system'
-local _SOL_REMOVE_CACHED_OBJECT = _SOL_REMOVE_CACHED_OBJECT
-
-function action(chat_info)
+local function action(chat_info)
    local act = chat_info.param:split(' ')
    if not act then return end
 
@@ -36,3 +28,6 @@ function action(chat_info)
       _SOL_REMOVE_CACHED_OBJECT(chat_info.target.id)
    end
 end
+
+local chat = require 'ta.chat'
+chat.RegisterCommand(CHAT_SYMBOL_ADMIN, command, action, desc)

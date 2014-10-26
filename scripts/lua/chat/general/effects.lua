@@ -1,4 +1,7 @@
-command = "effects"
+local chat = require 'ta.chat'
+
+local command = "effects"
+local desc = ''
 
 local NXEffects = require 'solstice.nwnx.effects'
 local fmt = string.format
@@ -17,3 +20,5 @@ function action(info)
       NXEffects.Log(pc)
    end
 end
+
+chat.RegisterCommand(CHAT_SYMBOL_GENERAL, command, action, desc)
