@@ -1,4 +1,5 @@
 local chat = require 'ta.chat'
+local Serv = require 'ta.server'
 
 local command = "debug"
 
@@ -17,10 +18,12 @@ function action(info)
    local pc  = info.speaker
    local act = info.param:split(' ')
    if not act then return end
-   local to = chat.VerifyTarget(chat_info, OBJECT_TYPE_CREATURE)
+   local to = chat.VerifyTarget(info, OBJECT_TYPE_CREATURE)
+   if not to:GetIsValid() then return end
 
-   if pc.id ~= to.id then
+   if pc.id ~= to.id and not Serv.VerifyDM(pc) then
       pc:ErrorMessage "You are only able to use this command on yourself!"
+      return
    end
 
    if act[1] == "resist" then
