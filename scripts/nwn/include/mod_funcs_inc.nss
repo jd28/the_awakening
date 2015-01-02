@@ -463,7 +463,7 @@ int RollDice(int nDice, int nSides = 6){
     return nRoll;
 }
 
-/*
+
 void SetColorTokens(){
      SetCustomToken(100, C_END);
      SetCustomToken(101, C_GREY);
@@ -472,11 +472,11 @@ void SetColorTokens(){
      SetCustomToken(104, C_CYAN);
      SetCustomToken(105, C_MAGENTA);
      SetCustomToken(106, C_YELLOW);
-     SetCustomToken(107, C_YELLOW_T);
+     //SetCustomToken(107, C_YELLOW_T);
      SetCustomToken(108, C_RED);
      SetCustomToken(109, C_ORANGE);
      SetCustomToken(110, C_GREEN_L);
-     SetCustomToken(111, C_GREEN_D);
+     //SetCustomToken(111, C_GREEN_D);
      SetCustomToken(112, C_BLUE_L);
      SetCustomToken(113, C_BLUE_N);
      SetCustomToken(114, C_BLUE_D);
@@ -486,17 +486,16 @@ void SetColorTokens(){
      SetCustomToken(118, C_BROWN);
      SetCustomToken(119, C_BLACK);
      SetCustomToken(120, C_SILVER);
-     SetCustomToken(121, C_MAROON);
+     //SetCustomToken(121, C_MAROON);
      SetCustomToken(122, C_NAVY);
-     SetCustomToken(123, C_OLIVE);
-     SetCustomToken(124, C_TEAL);
+     //SetCustomToken(123, C_OLIVE);
+     //SetCustomToken(124, C_TEAL);
      SetCustomToken(125, C_PURPLE);
      SetCustomToken(126, C_LIME);
      SetCustomToken(127, C_BLUE);
      SetCustomToken(128, C_AQUA);
-     SetCustomToken(129, C_FUCHSIA);
+	 // SetCustomToken(129, C_FUCHSIA);
 }
-*/
 
 /* funkyswerve on bioboards */
 int SetIntegerDigit(int nInt, int nDigit, int nValue) {
@@ -707,5 +706,5 @@ int clamp(int n1, int min, int max) {
     if (n1 < min) return min;
     if (n1 > max) return max;
 
-    return n1; 
+    return n1;
 }
