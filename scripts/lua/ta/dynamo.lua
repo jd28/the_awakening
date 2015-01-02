@@ -20,6 +20,7 @@ M.DYNAMO_IF      = 4
 M.DYNAMO_RANDOM  = 5
 M.DYNAMO_PERCENT = 6
 M.DYNAMO_OR      = 7
+M.DYNAMO_WEIGHT  = 8
 
 function M.GetLevelTable(tbl, level)
    level = level or 0
@@ -100,6 +101,16 @@ function M.extract(tbl, obj)
       end
    elseif tbl._dynamo_type == M.DYNAMO_PERCENT then
       local r = math.random(100)
+      local tot = 0
+      for i=1, #tbl, 2 do
+         tot = tot + tbl[i]
+         if r <= tot then
+            result = tbl[i+1]
+            break
+         end
+      end
+   elseif tbl._dynamo_type == M.DYNAMO_WEIGHT then
+      local r = math.random(tbl._weight_sum)
       local tot = 0
       for i=1, #tbl, 2 do
          tot = tot + tbl[i]
@@ -206,6 +217,19 @@ end
 
 function M.Or(t)
    t._dynamo_type = M.DYNAMO_OR
+   return t
+end
+
+function M.Weight(t)
+   t._dynamo_type = M.DYNAMO_WEIGHT
+   assert(#t % 2 == 0)
+   local sum = 0
+   for i=1, #t, 2 do
+      sum = sum + t[i]
+   end
+
+   t._weight_sum = sum
+
    return t
 end
 
