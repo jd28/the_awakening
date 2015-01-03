@@ -13,6 +13,7 @@
 #include "nwnx_inc"
 #include "area_inc"
 #include "quest_func_inc"
+#include "mod_funcs_inc"
 
 void InfoHashInit();
 void InitWeaponFeats();
@@ -23,7 +24,7 @@ void main(){
     // Execute default Bioware Script.
     // -------------------------------------------------------------------------
     ExecuteScript("x3_mod_def_load", OBJECT_SELF);
-
+	SetColorTokens();
     SetMaxLevelLimit(60);
     SetEnhanceScript("pl_load_enhance");
 

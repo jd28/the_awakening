@@ -1,10 +1,10 @@
-command = "opt"
+local command = "opt"
+local desc = ''
 
 local Eff = require 'solstice.effect'
-local EFFECT_TYPE_CUTSCENEGHOST = EFFECT_TYPE_CUTSCENEGHOST
-local Game = Game
+local chat = require 'ta.chat'
 
-function action(info)
+local function action(info)
    local opt, optvar
 
    local pc  = info.speaker
@@ -63,14 +63,12 @@ function action(info)
          end
       end
    elseif act[1] == "anims" then
-      local style = pc:GetFightingStyle()
-      if style > 0 then
-         if act [2] == 'off' then
-            pc:SetPhenoType(PHENOTYPE_NORMAL)
-            pc:SuccessMessage("Animations reverted!")
-            return
-         end
+      if act [2] == 'off' then
+         pc:SetPhenoType(PHENOTYPE_NORMAL)
+         pc:SuccessMessage("Animations reverted!")
       end
+      return
+      -- todo[josh] Add anims on option.
    elseif act[1] == "noblock" then
       if act[2] == 'off' then
          opt, optvar = 0, "pc_block"
@@ -90,3 +88,5 @@ function action(info)
       pc:ErrorMessage("Invalid option!")
    end
 end
+
+chat.RegisterCommand(CHAT_SYMBOL_GENERAL, command, action, desc)

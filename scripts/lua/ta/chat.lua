@@ -9,8 +9,6 @@ local GetIsValid = require('solstice.object').Object.GetIsValid
 local _COMMANDS = {}
 local _SYMBOLS = {}
 
-local M = {}
-
 --- ChatInfo table.
 --     A table containing the following fields will be passed to the
 --     chat command function.
@@ -20,7 +18,7 @@ local M = {}
 -- @field cmd Chat command
 -- @field param Chat command parameters.  I.e. all text
 -- following the chat command.
--- @see solstice.chat.RegisterCommand
+-- @see ta.chat.RegisterCommand
 
 local function get_command(start, cmd)
    local first_space
@@ -54,7 +52,6 @@ local function get_symbol(cmd)
       end
    end
 end
-
 
 local function run_command(cmd)
    local dispatch
@@ -112,12 +109,114 @@ local function run_command(cmd)
    end
 end
 
+--- Register chat symbol.
+-- @param symbol Chat command prefix, e.g: dm_, !, admin_, etc
+-- @param dir Directory that contains the commands.
+-- @param[opt] verify Function that is called to verify that a command can be used.
+local function RegisterSymbol(symbol, dir, verify)
+   local function load_dir(dir)
+      local chatdir = lfs.currentdir() .. "/lua/" .. dir .. '/'
+
+      for f in lfs.dir(chatdir) do
+         if string.find(f:lower(), ".lua", -4)  then
+            local file =  chatdir .. f
+
+            C.Local_NWNXLog(0, "Loading Chat Command: " .. file .. "\n")
+            -- Wrap the dofile call in a pcall so that errors can be logged here
+            -- and so that they will not cause the for loop to abort.
+            local result, err = pcall(function() dofile(file) end)
+            if not result then
+               C.Local_NWNXLog(0, fmt("ERROR Loading: %s : %s \n", file, err))
+            end
+         end
+      end
+   end
+
+   if type(symbol) ~= "string" then
+      error "Chat symbols must be strings!"
+   end
+
+   if verify ~= nil and type(verify) ~= "function" then
+      error "The symbol verifier if passed must be a function!"
+   end
+
+   table.insert(_SYMBOLS, symbol)
+   table.insert(_SYMBOLS, verify or true)
+   load_dir(dir)
+end
+
+local function IsRegisteredSymbol(cmd)
+   for i=1, #_SYMBOLS, 2 do
+      if cmd == _SYMBOLS[i] then
+         return cmd
+      end
+   end
+end
+
+--- Register chat command.
+-- @param symbol
+-- @param name
+-- @param desc
+-- @param func
+local function RegisterCommand(symbol, name, func, desc)
+   desc = desc or ''
+   if not IsRegisteredSymbol(symbol) then
+      error(fmt("Symbol %s has not been registered!", symbol))
+   end
+   _COMMANDS[symbol] = _COMMANDS[symbol] or {}
+   _COMMANDS[symbol][name] = {func = func, description = desc }
+end
+
+--- Register external chat command.
+-- @param symbol
+-- @param name
+-- @param desc
+local function RegisterExternalCommand(symbol, name, desc)
+   if not IsRegisteredSymbol(symbol) then
+      error(fmt("Symbol %s has not been registered!", symbol))
+   end
+   _COMMANDS[symbol] = _COMMANDS[symbol] or {}
+   _COMMANDS[symbol][name] = { description = desc or "" }
+end
+
+local function VerifyTarget(info, type, pc_only)
+   local speaker, target = info.speaker, info.target
+   local ret = target
+   if not target:GetIsValid() then
+      ret = speaker:GetLocalObject("FKY_CHAT_TARGET")
+      if not ret:GetIsValid() then
+         speaker:ErrorMessage("Please use Player Tool 1 or your Command Targeter to select a target, or send them a tell with the !target command!")
+         speaker:SetLocalString("FKY_CHAT_COMMAND", info.original);
+
+         if not speaker:HasItem("fky_chat_target") then
+            speaker:GiveItem("fky_chat_target")
+         end
+
+         return OBJECT_INVALID;
+      else
+         speaker:DeleteLocalObject("FKY_CHAT_TARGET")
+      end
+   end
+
+   if pc_only and not ret:GetIsPC() then
+      speaker:ErrorMessage("Command requires a PC target!")
+      return OBJECT_INVALID
+   end
+
+   if type and bit.band(ret:GetType(), type) == 0 then
+      speaker:ErrorMessage("Incorrect target type!")
+      return OBJECT_INVALID
+   end
+
+   return ret
+end
+
 --- Chat Handler
 -- @param channel
 -- @param speaker
 -- @param msg
 -- @param to
-function M.ChatHandler(channel, speaker, msg, to)
+local function ChatHandler(channel, speaker, msg, to)
    -- Speaker must be a valid PC and the msg must start with
    -- a command.
    if not GetIsValid(speaker) or
@@ -146,80 +245,7 @@ function M.ChatHandler(channel, speaker, msg, to)
    return false
 end
 
-local function load_dir(symbol, dir)
-   local chatdir = lfs.currentdir() .. "/lua/" .. dir .. '/'
-
-   for f in lfs.dir(chatdir) do
-      if string.find(f:lower(), ".lua", -4)  then
-         local file =  chatdir .. f
-         local c = setmetatable({}, { __index = _G })
-         local res = runfile(file, c)
-         if res.command and type(res.command) == "string" and
-            res.action and type(res.action) == "function"
-         then
-            C.Local_NWNXLog(0, "Loaded Chat Command: " .. file .. "\n")
-            M.RegisterCommand(symbol,
-                              res.command,
-                              res.description and string.strip_margin(res.description) or "",
-                              res.action)
-         else
-            C.Local_NWNXLog(0, "Error Loading Chat Command: " .. file .. "\n")
-         end
-      end
-   end
-end
-
---- Register chat symbol.
--- @param symbol
--- @param[opt] verify
-function M.RegisterSymbol(symbol, dir, verify)
-   if type(symbol) ~= "string" then
-      error "Chat symbols must be strings!"
-   end
-
-   if verify ~= nil and type(verify) ~= "function" then
-      error "The symbol verifier if passed must be a function!"
-   end
-   table.insert(_SYMBOLS, symbol)
-   table.insert(_SYMBOLS, verify or true)
-   load_dir(symbol, dir)
-end
-
-function IsRegisteredSymbol(cmd)
-   for i=1, #_SYMBOLS, 2 do
-      if cmd == _SYMBOLS[i] then
-         return cmd
-      end
-   end
-end
-
---- Register chat command.
--- @param symbol
--- @param name
--- @param desc
--- @param func
-function M.RegisterCommand(symbol, name, desc, func)
-   if not IsRegisteredSymbol(symbol) then
-      error(fmt("Symbol %s has not been registered!", symbol))
-   end
-   _COMMANDS[symbol] = _COMMANDS[symbol] or {}
-   _COMMANDS[symbol][name] = {func = func, description = desc }
-end
-
---- Register external chat command.
--- @param symbol
--- @param name
--- @param desc
-function M.RegisterExternalCommand(symbol, name, desc)
-   if not IsRegisteredSymbol(symbol) then
-      error(fmt("Symbol %s has not been registered!", symbol))
-   end
-   _COMMANDS[symbol] = _COMMANDS[symbol] or {}
-   _COMMANDS[symbol][name] = { description = desc or "" }
-end
-
-function M.CCMessageHandler(msg)
-
+local function CCMessageHandler(msg)
    if msg.type == 11 and msg.subtype == 151 then
       return true
    elseif msg.type == 3 then
@@ -235,39 +261,13 @@ function M.CCMessageHandler(msg)
 end
 
 local NXChat = safe_require 'solstice.nwnx.chat'
-NXChat.SetChatHandler(M.ChatHandler)
-NXChat.SetCombatMessageHandler(M.CCMessageHandler)
+NXChat.SetChatHandler(ChatHandler)
+NXChat.SetCombatMessageHandler(CCMessageHandler)
 
-function M.VerifyTarget(info, type, pc_only)
-   local speaker, target = info.speaker, info.target
-   local ret = target
-   if not target:GetIsValid() then
-      ret = speaker:GetLocalObject("FKY_CHAT_TARGET")
-      if not ret:GetIsValid() then
-         speaker:ErrorMessage("Command requires a target!")
-         speaker:SetLocalString("FKY_CHAT_COMMAND", info.original);
-
-         if not speaker:HasItem("fky_chat_target") then
-            speaker:GiveItem("fky_chat_target")
-         end
-
-         return OBJECT_INVALID;
-      else
-         speaker:DeleteLocalObject("FKY_CHAT_TARGET")
-      end
-   end
-
-   if pc_only and not ret:GetIsPC() then
-      speaker:ErrorMessage("Command requires a PC target!")
-      return OBJECT_INVALID
-   end
-
-   if type and bit.band(ret:GetType(), type) == 0 then
-      speaker:ErrorMessage("Incorrect target type!")
-      return OBJECT_INVALID
-   end
-
-   return ret
-end
-
+local M = {}
+M.IsRegisteredSymbol = IsRegisteredSymbol
+M.RegisterCommand = RegisterCommand
+M.RegisterExternalCommand = RegisterExternalCommand
+M.RegisterSymbol = RegisterSymbol
+M.VerifyTarget = VerifyTarget
 return M

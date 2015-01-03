@@ -1,10 +1,9 @@
-command = 'dumpvars'
+local command = 'dumpvars'
+local desc = ''
 
 local fmt = string.format
-local pairs = pairs
 local tinsert = table.insert
 local tconcat = table.concat
-local tostring = tostring
 
 function action(chat_info)
    local act = chat_info.param:split(' ')
@@ -17,5 +16,7 @@ function action(chat_info)
    end
 
    pc:SendMessage(tconcat(t, '\n'))
-
 end
+
+local chat = require 'ta.chat'
+chat.RegisterCommand(CHAT_SYMBOL_DM, command, action, desc)
