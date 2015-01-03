@@ -8,12 +8,13 @@ E.POLICY_RANDOM   = 2
 
 E._HOLDER = {}
 
-E.Rotate = Dyn.Rotate
-E.Every = Dyn.Every
-E.If = Dyn.If
-E.Random = E.Random
-E.Or = Dyn.Or
+E.Rotate  = Dyn.Rotate
+E.Every   = Dyn.Every
+E.If      = Dyn.If
+E.Random  = E.Random
+E.Or      = Dyn.Or
 E.Percent = Dyn.Percent
+E.Weight  = Dyn.Weight
 
 --- Load item file.
 local function load(res)

@@ -79,11 +79,11 @@ Encounter {
       Rotate { Spawn("pl_drow_h1_matro"): N(1, 3),
                Spawn("pl_drow_h4_wm"): At(0): N(2): Chance(80) },
 
-      Percent {
-         10, Spawn("pl_drow_h1_matro"): N(1),
-         60, { Spawn("pl_drow_h1_matro"): N(1, 3),
+      Weight {
+         1, Spawn("pl_drow_h1_matro"): N(1),
+         6, { Spawn("pl_drow_h1_matro"): N(1, 3),
                Spawn("pl_drow_h4_wm"): At(0): N(2): Chance(80) },
-         30, Spawn("pl_drow_h1_matro"): N(3)
+         3, Spawn("pl_drow_h1_matro"): N(3)
       },
 
       Every {
