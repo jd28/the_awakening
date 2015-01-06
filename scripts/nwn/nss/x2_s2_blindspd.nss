@@ -44,7 +44,7 @@ void main(){
         nDamBonus = 52; // 3d8
         nDamType = DAMAGE_TYPE_BLUDGEONING;
         nSaveBonus = 6;
-        fDuration = 150.0f;
+        fDuration = 180.0f;
     }
     else if(si.id == TASPELL_BLINDING_SPEED_2){
         nAttackBonus = 3;
