@@ -285,9 +285,9 @@ local function confirm_builder(page)
 
    local class = pc:GetLocalInt("LL_CLASS") - 1;
 
-   table.insert(t, "You will gain the maximum number of hitpoints automatically, as well as any saving throw bonuses.\n")
+   table.insert(t, "You will gain BAB as well as any saving throw bonuses.\n")
    table.insert(t, fmt("Class: %s", Rules.GetClassName(class)))
-
+   table.insert(t, fmt("Hitpoints: %d", pc:GetLocalInt('LL_HP')))
    local any = false
    table.insert(t, "Abilities:")
    local abilities = {}
