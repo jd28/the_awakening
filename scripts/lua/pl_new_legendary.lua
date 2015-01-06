@@ -350,7 +350,7 @@ local function class_select(conv, it)
    pc:SetLocalInt('LL_CLASS_POSITION', pos)
    pc:SetLocalInt("LL_CLASS", class + 1)
    pc:SetLocalInt("LL_HP", Rules.GetHitPointsGainedOnLevelUp(class, pc))
-   pc:SetLocalInt("LL_SKILL_POINTS", pc:GetSkillPoints() + Rules.GetSkillPointsGainedOnLevelUp(class))
+   pc:SetLocalInt("LL_SKILL_POINTS", pc:GetSkillPoints() + Rules.GetSkillPointsGainedOnLevelUp(class, pc))
 
    if class == CLASS_TYPE_WIZARD
       and cls_level < 41
