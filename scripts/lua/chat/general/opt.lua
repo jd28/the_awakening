@@ -58,7 +58,7 @@ local function action(info)
          then
             local race = pc:GetRacialType()
             pc:SetCreatureAppearanceType(pc:GetDefaultAppearance(race))
-            pc:SuccessMessage("Animations reverted!")
+            pc:SuccessMessage("Appearance reverted!")
             return
          end
       end
