@@ -41,54 +41,43 @@ void main(){
     if (GetHasSpellEffect(1517, si.caster))
         RemoveSpellEffects(1517, OBJECT_SELF, si.caster);
 
-    int nAttackBonus, nExtraAttacks, nACDodge, nDamBonus, nDamType, nSaveBonus;
-    float fDuration;
+    int nExtraAttacks = 0;
+    float fDuration = 60.0f;
+	int hp = 1;
+	int regen = 10;
+	int imm = 5;
 
-    if(si.id == TASPELL_BLINDING_SPEED_3){
-        nAttackBonus = 4;
+    if(si.id == 1517){
         nExtraAttacks = 2;
-        nACDodge = 6;
-        nDamBonus = 52; // 3d8
-        nDamType = DAMAGE_TYPE_BLUDGEONING;
-        nSaveBonus = 6;
+		hp = 5;
+		regen = 30;
+		imm = 10;
         fDuration = 180.0f;
     }
-    else if(si.id == TASPELL_BLINDING_SPEED_2){
-        nAttackBonus = 3;
+    else if(si.id == 1516){
+		hp = 2;
+		regen = 20;
         nExtraAttacks = 1;
-        nACDodge = 5;
-        nDamBonus = DAMAGE_BONUS_2d8;
-        nDamType = DAMAGE_TYPE_BLUDGEONING;
-        nSaveBonus = 5;
         fDuration = 120.0f;
-    }
-    else{
-        nAttackBonus = 2;
-        nExtraAttacks = 0;
-        nACDodge = 4;
-        nDamBonus = DAMAGE_BONUS_1d8;
-        nDamType = DAMAGE_TYPE_BLUDGEONING;
-        nSaveBonus = 4;
-        fDuration = 60.0f;
     }
 
     effect eHaste = EffectHaste();
-    effect eAB = EffectAttackIncrease(nAttackBonus);
-    effect eAC = EffectACIncrease(nACDodge);
-    effect eSave = EffectSavingThrowIncrease(SAVING_THROW_ALL, nSaveBonus);
-    effect eDam = EffectDamageIncrease(nDamBonus, nDamType);
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
     effect eLink = EffectLinkEffects(eHaste, eDur);
-    eLink = EffectLinkEffects(eLink, eAB);
 
     if(nExtraAttacks > 0) {
         effect eExtraAttacks = EffectAdditionalAttacks(nExtraAttacks);
         eLink = EffectLinkEffects(eLink, eExtraAttacks);
-    }                 // edited by Guile added {}
+    }
 
-    eLink = EffectLinkEffects(eLink, eAC);
-    eLink = EffectLinkEffects(eLink, eSave);
-    eLink = EffectLinkEffects(eLink, eDam);
+	// Permenant Hitpoints DO go in the link.
+	eLink = EffectLinkEffects(eLink, EffectPermenantHitpoints(hp * GetHitDice(si.caster)));
+	eLink = EffectLinkEffects(eLink, EffectRegenerate(regen, 6.0));
+
+	int i;
+	for(i = 0; i < 12; ++i) {
+		eLink = EffectLinkEffects(eLink, EffectDamageImmunityIncrease(1 << i, imm));
+	}
 
     //Fire cast spell at event for the specified target
     SignalEvent(si.caster, EventSpellCastAt(si.caster, si.id, FALSE));
