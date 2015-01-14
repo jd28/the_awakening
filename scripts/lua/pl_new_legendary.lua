@@ -71,10 +71,10 @@ local function GetFeatTable()
    local t = {}
    local mt = {}
    local twoda = TDA.GetCached2da("feat")
-   local size = TDA.Get2daRowCount(twoda) - 1
+   local size = TDA.GetRowCount(twoda) - 1
    for i = 0, size do
       local master = -1
-      local msfeat = TDA.Get2daString('feat', 'MASTERFEAT', i)
+      local msfeat = TDA.GetString('feat', 'MASTERFEAT', i)
       if #msfeat > 0 then
          master = tonumber(msfeat)
          if not ms_inserted[master] then
@@ -374,8 +374,8 @@ local function class_select(conv, it)
       elseif class == CLASS_TYPE_SORCERER then
          for i=0, 9 do
             if cha - i >= 0 then
-               old = TDA.Get2daInt("cls_spkn_sorc", "SpellLevel"..tostring(i), cls_level - 1);
-               new = TDA.Get2daInt("cls_spkn_sorc", "SpellLevel"..tostring(i), cls_level);
+               old = TDA.GetInt("cls_spkn_sorc", "SpellLevel"..tostring(i), cls_level - 1);
+               new = TDA.GetInt("cls_spkn_sorc", "SpellLevel"..tostring(i), cls_level);
                pc:SetLocalInt("LL_SPKN_"..tostring(i), new - old);
                total = total + new - old;
             end
