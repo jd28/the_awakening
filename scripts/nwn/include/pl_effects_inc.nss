@@ -51,49 +51,49 @@ effect EffectWounding (int nAmount) {
 effect EffectAdditionalAttacks(int nAmount) {
 	effect eEff = EffectVisualEffect(0);
     SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
-	SetEffectInteger(eEff, 1, CUSTOM_EFFECT_TYPE_ADDITIONAL_ATTACKS);
-	SetEffectInteger(eEff, 2, nAmount);
+	SetEffectInteger(eEff, 0, CUSTOM_EFFECT_TYPE_ADDITIONAL_ATTACKS);
+	SetEffectInteger(eEff, 1, nAmount);
     return eEff;
 }
 
 effect EffectDCIncrease(int nAmount){
     effect eEff = EffectVisualEffect(0);
     SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
-	SetEffectInteger(eEff, 1, CUSTOM_EFFECT_TYPE_SPELL_DC_DECREASE);
-	SetEffectInteger(eEff, 2, nAmount);
+	SetEffectInteger(eEff, 0, CUSTOM_EFFECT_TYPE_SPELL_DC_DECREASE);
+	SetEffectInteger(eEff, 1, nAmount);
     return eEff;
 }
 
 effect EffectDCDecrease(int nAmount){
     effect eEff = EffectVisualEffect(0);
     SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
-	SetEffectInteger(eEff, 1, CUSTOM_EFFECT_TYPE_SPELL_DC_INCREASE);
-	SetEffectInteger(eEff, 2, nAmount);
+	SetEffectInteger(eEff, 0, CUSTOM_EFFECT_TYPE_SPELL_DC_INCREASE);
+	SetEffectInteger(eEff, 1, nAmount);
     return eEff;
 }
 
 effect EffectImmunityDecrease (int nImmunity, int nVuln) {
     effect eEff = EffectVisualEffect(0);
     SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
-	SetEffectInteger(eEff, 1, CUSTOM_EFFECT_TYPE_IMMUNITY_DECREASE);
-	SetEffectInteger(eEff, 2, nImmunity);
-	SetEffectInteger(eEff, 3, nVuln);
+	SetEffectInteger(eEff, 0, CUSTOM_EFFECT_TYPE_IMMUNITY_DECREASE);
+	SetEffectInteger(eEff, 1, nImmunity);
+	SetEffectInteger(eEff, 2, nVuln);
     return eEff;
 }
 
 effect EffectPermenantHitpoints(int nHitpoints){
     effect eEff = EffectVisualEffect(0);
     SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
-	SetEffectInteger(eEff, 1, CUSTOM_EFFECT_TYPE_HITPOINTS);
-	SetEffectInteger(eEff, 2, nHitpoints);
+	SetEffectInteger(eEff, 0, CUSTOM_EFFECT_TYPE_HITPOINTS);
+	SetEffectInteger(eEff, 1, nHitpoints);
     return eEff;
 }
 
 effect EffectMovementRate(int nRate){
     effect eEff = EffectVisualEffect(0);
     SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
-	SetEffectInteger(eEff, 1, CUSTOM_EFFECT_TYPE_MOVEMENT_RATE);
-	SetEffectInteger(eEff, 2, nRate);
+	SetEffectInteger(eEff, 0, CUSTOM_EFFECT_TYPE_MOVEMENT_RATE);
+	SetEffectInteger(eEff, 1, nRate);
     return eEff;
 }
 
