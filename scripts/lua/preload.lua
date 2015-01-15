@@ -1,91 +1,57 @@
--- The following should be identical to your setting in
--- nwnx2.ini
-local script_dir = "lua"
-
-package.path = package.path .. ";./"..script_dir.."/?.lua;"
-
 local lfs = require 'lfs'
 local ffi = require 'ffi'
 local C = ffi.C
 local fmt = string.format
 
-math.randomseed( os.time() )
-math.random(100)
+-- Must be the same as in nwnx2.ini
+local script_dir = 'lua'
 
-ffi.cdef[[
-void           Local_NWNXLog(int32_t level, const char* log);
-]]
+require "solstice.util.lua_preload"
+OPT = runfile(fmt('./%s/settings.lua', script_dir))
+package.path = package.path .. ";./"..script_dir.."/?.lua;"
 
---- Safe wrapper for require.
--- Allows for better catching errors and logging.
--- @param file File/module/etc to be passed to require
-function safe_require(file)
-   local ret
-   local function req ()
-      ret = require(file)
-   end
+local Sys = require 'solstice.system'
+local log = Sys.GetLogger()
 
-   C.Local_NWNXLog(0, "Requiring: " .. file .. "\n")
+--- Constants MUST be loaded before solstice.
+require(OPT.CONSTANTS)
+require('solstice.preload')
 
-   local result, err = pcall(req)
-   if not result then
-      C.Local_NWNXLog(0, fmt("ERROR Requiring: %s : %s \n", file, err))
-      return ret
-   end
-
-   return ret
-end
-
-safe_require "solstice.util.lua_preload"
-
-OPT = runfile('./'..script_dir..'/settings.lua')
-
-if OPT.JIT_DUMP then
-   local dump = require 'jit.dump'
-   dump.on(nil, "luajit.dump")
-end
-
-if OPT.DATABASE_HOSTNAME
+if OPT.DATABASE_TYPE
+   and OPT.DATABASE_HOSTNAME
    and OPT.DATABASE_PASSWORD
    and OPT.DATABASE_NAME
    and OPT.DATABASE_USER
 then
-   -- load driver
-   local luasql = require "luasql.mysql"
-   -- create environment object
-   OPT.dbenv = assert (luasql.mysql())
-   -- connect to data source
-   OPT.dbcon = assert (OPT.dbenv:connect(OPT.DATABASE_NAME,
-                                         OPT.DATABASE_USER,
-                                         OPT.DATABASE_PASSWORD,
-                                         OPT.DATABASE_HOSTNAME,
-                                         OPT.DATABASE_PORT))
-end
-
---- Constants MUST be loaded before solstice.
-safe_require(OPT.CONSTANTS)
-
-safe_require "solstice.preload"
-
-if OPT.PRELOAD then
-   safe_require(OPT.PRELOAD)
+   local DBI = require 'DBI'
+   local dbh, err = DBI.Connect(OPT.DATABASE_TYPE,
+                                OPT.DATABASE_NAME,
+                                OPT.DATABASE_USER,
+                                OPT.DATABASE_PASSWORD,
+                                OPT.DATABASE_HOSTNAME,
+                                OPT.DATABASE_PORT)
+   if not dbh then
+      log:error("Cannot connect to database: %s\n", err)
+   else
+      dbh:autocommit(true)
+      OPT.dbh = dbh
+   end
 end
 
 for f in lfs.dir("./"..script_dir) do
    if f ~= "preload.lua" and
       f ~= "settings.lua" and
-      f ~= "ta_constants.lua" and
+      f ~= OPT.CONSTANTS .. '.lua' and
       string.find(f:lower(), ".lua", -4)
    then
-      local file = lfs.currentdir() .. "/"..script_dir.."/" .. f
-
-      C.Local_NWNXLog(0, "Loading: " .. file .. "\n")
+      local file = fmt('%s/%s/%s', lfs.currentdir(), script_dir, f)
+      log:info("Loading: " .. file)
 
       -- Wrap the dofile call in a pcall so that errors can be logged here
       -- and so that they will not cause the for loop to abort.
       local result, err = pcall(function() dofile(file) end)
       if not result then
-         C.Local_NWNXLog(0, fmt("ERROR Loading: %s : %s \n", file, err))
+         log:error("ERROR Loading: %s : %s", file, err)
       end
    end
 end

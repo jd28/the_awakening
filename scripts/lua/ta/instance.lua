@@ -1,5 +1,5 @@
 --local NWNXAreas = require 'solstice.nwnx.areas'
-local Log = require('ta.logger').Log
+local Log = System.GetLogger()
 local M = {}
 
 M.INSTANCE_LEVEL_DEFAULT = 0

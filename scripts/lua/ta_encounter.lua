@@ -3,7 +3,7 @@ local ffi = require 'ffi'
 local C = ffi.C
 
 local E = require 'ta.encounter'
-local Log = require('ta.logger').Log
+local Log = System.GetLogger()
 
 local dir = "lua/encounters/"
 
@@ -24,7 +24,7 @@ end
 for f in lfs.dir(dir) do
    if string.find(f:lower(), ".lua", -4)  then
       local file = lfs.currentdir() .. "/" .. dir .. f
-      C.Local_NWNXLog(0, "Loading Encounter: " .. file .. "\n")
+      Log:info("Loading Encounter: %s", file)
       local tag = E.Load(file)
    end
 end

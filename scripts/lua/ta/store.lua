@@ -1,4 +1,4 @@
-local Log = require('ta.logger').Log
+local Log = System.GetLogger()
 
 local function GetIventoryCount(store)
    if not store:GetFirstItemInInventory():GetIsValid() then
