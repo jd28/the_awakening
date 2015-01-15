@@ -24,18 +24,13 @@ if OPT.DATABASE_TYPE
    and OPT.DATABASE_USER
 then
    local DBI = require 'DBI'
-   local dbh, err = DBI.Connect(OPT.DATABASE_TYPE,
-                                OPT.DATABASE_NAME,
-                                OPT.DATABASE_USER,
-                                OPT.DATABASE_PASSWORD,
-                                OPT.DATABASE_HOSTNAME,
-                                OPT.DATABASE_PORT)
-   if not dbh then
-      log:error("Cannot connect to database: %s\n", err)
-   else
-      dbh:autocommit(true)
-      OPT.dbh = dbh
-   end
+   System.ConnectDatabase(OPT.DATABASE_TYPE,
+                          OPT.DATABASE_NAME,
+                          OPT.DATABASE_USER,
+                          OPT.DATABASE_PASSWORD,
+                          OPT.DATABASE_HOSTNAME,
+                          OPT.DATABASE_PORT)
+
 end
 
 for f in lfs.dir("./"..script_dir) do
