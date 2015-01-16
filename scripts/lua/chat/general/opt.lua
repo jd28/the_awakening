@@ -40,15 +40,15 @@ local function action(info)
         return
       elseif act[2] == 'full' then
          local enhanced = pc:GetPlayerInt("pc_enhanced", true);
-         if enhanced ~= 0 then
-            pc:SetPlayerInt("pc_enhanced", 2, true);
+         pc:SetPlayerInt("pc_enhanced", 2, true);
+         if enhanced <= 1 then
             pc:SuccessMessage("Your login is now flagged fully enhanced! Please relog to see all content.");
          else
             pc:SuccessMessage("Your login is now flagged with the current HAK version.");
          end
          local mod = Game.GetModule()
          pc:SetPlayerInt("pc_hak_version", mod:GetLocalInt("HAK_VERSION"), true);
-        return
+         return
       end
 
    elseif act[1] == "appear" then
@@ -58,7 +58,7 @@ local function action(info)
          then
             local race = pc:GetRacialType()
             pc:SetCreatureAppearanceType(pc:GetDefaultAppearance(race))
-            pc:SuccessMessage("Animations reverted!")
+            pc:SuccessMessage("Appearance reverted!")
             return
          end
       end

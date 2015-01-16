@@ -3,7 +3,7 @@ local Dyn = require 'ta.dynamo'
 local Env = require 'ta.loot_env'
 local It  = require 'ta.item'
 local St  = require 'ta.store'
-local Log = require('ta.logger').Log
+local Log = System.GetLogger()
 
 local _HOLDER = Env._HOLDER
 

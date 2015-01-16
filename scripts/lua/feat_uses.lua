@@ -197,7 +197,7 @@ Rules.RegisterFeatUses(
       if cre:GetHasFeat(FEAT_EPIC_DRUID_INFINITE_ELEMENTAL_SHAPE) then
          return 100
       else
-         local tda = TDA.Get2daString("feat", "USESPERDAY", feat)
+         local tda = TDA.GetString("feat", "USESPERDAY", feat)
          return tonumber(tda) or 100
       end
    end,
@@ -208,7 +208,7 @@ Rules.RegisterFeatUses(
       if cre:GetHasFeat(FEAT_EPIC_DRUID_INFINITE_WILDSHAPE) then
          return 100
       else
-         local tda = TDA.Get2daString("feat", "USESPERDAY", feat)
+         local tda = TDA.GetString("feat", "USESPERDAY", feat)
          return tonumber(tda) or 100
       end
    end,
@@ -216,7 +216,7 @@ Rules.RegisterFeatUses(
 
 Rules.RegisterFeatUses(
    function(feat, cre)
-      local tda = TDA.Get2daString("feat", "USESPERDAY", feat)
+      local tda = TDA.GetString("feat", "USESPERDAY", feat)
       local aa  = cre:GetLevelByClass(CLASS_TYPE_ARCANE_ARCHER) - 10
       if aa <= 0 then return tda end
       local new = math.floor(aa / 10)

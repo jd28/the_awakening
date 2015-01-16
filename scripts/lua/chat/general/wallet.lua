@@ -6,7 +6,7 @@ local command = "wallet"
 local desc = ''
 
 local function IsTestCharacter(pc)
-   return string.find(pc:GetName(), '[TEST]')
+   return string.find(pc:GetName(), '%[TEST%]')
 end
 
 local function action(info)

@@ -3,6 +3,7 @@ local bit = require 'bit'
 local ffi = require 'ffi'
 local C = ffi.C
 local lfs = require 'lfs'
+local Log = System.GetLogger()
 
 local GetIsValid = require('solstice.object').Object.GetIsValid
 
@@ -121,12 +122,12 @@ local function RegisterSymbol(symbol, dir, verify)
          if string.find(f:lower(), ".lua", -4)  then
             local file =  chatdir .. f
 
-            C.Local_NWNXLog(0, "Loading Chat Command: " .. file .. "\n")
+            Log:info("Loading Chat Command: " .. file)
             -- Wrap the dofile call in a pcall so that errors can be logged here
             -- and so that they will not cause the for loop to abort.
             local result, err = pcall(function() dofile(file) end)
             if not result then
-               C.Local_NWNXLog(0, fmt("ERROR Loading: %s : %s \n", file, err))
+               Log:error("ERROR Loading: %s : %s \n", file, err)
             end
          end
       end

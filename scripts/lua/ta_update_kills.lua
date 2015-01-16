@@ -1,53 +1,31 @@
 local insert = table.insert
 local fmt = string.format
+local db = System.GetDatabase()
 
 function ta_update_kills(pc)
-   if not OPT.dbcon then return end
    if string.find(pc:GetName(), '%[TEST%]') then return end
-   local vars = pc:GetAllVars('^kill', VARIABLE_TYPE_INT)
    local s = [[INSERT INTO pwdata (tag, name, val)
-               VALUES
-               ('%s', '%s', '%s')
+               VALUES (?, ?, ?)
                ON DUPLICATE KEY UPDATE
-               val='%s';]]
+               val = VALUES(val)]]
+   local sth = assert(db:prepare(s))
 
-   for k, v in pairs(vars) do
-      if k:starts('killg_') then
-         local res = assert(OPT.dbcon:execute(fmt(s,
-                                                  pc:GetLocalString('pc_player_name'),
-                                                  k,
-                                                  tostring(v),
-                                                  tostring(v))))
-      elseif k:starts('kill_') then
-         local res = assert(OPT.dbcon:execute(fmt(s,
-                                                  pc:GetTag(),
-                                                  k,
-                                                  tostring(v),
-                                                  tostring(v))))
+   for k, v in pairs(pc:GetAllProperties()) do
+      if k:starts('kill_') then
+         sth:execute(pc:GetTag(), k, v)
       end
    end
+
+   sth:close()
 end
 
 function ta_load_kills(pc)
-   local s = fmt("SELECT name,val from pwdata where `name` LIKE '%%kill_%%' AND tag='%s'",
-                 pc:GetTag())
-   local cur = assert(OPT.dbcon:execute(s))
-   local i = cur:numrows()
-   local row = cur:fetch({}, 'a')
-   while row and i > 0 do
-      pc:SetLocalInt(row.name, tonumber(row.val))
-      row = cur:fetch(row, 'a')
-      i = i - 1
+   if string.find(pc:GetName(), '%[TEST%]') then return end
+   local s = [[SELECT name, val FROM pwdata WHERE name LIKE '%%kill_%%' and tag=?]]
+   local sth = assert(db:prepare(s))
+   sth:execute(pc:GetTag())
+   for row in sth:rows() do
+      pc:SetProperty(row[1], tonumber(row[2]))
    end
-
-   s = fmt("SELECT name,val from pwdata where `name` LIKE '%%killg_%%' AND tag='%s'",
-           pc:GetLocalString('pc_player_name'))
-   cur = assert(OPT.dbcon:execute(s))
-   i = cur:numrows()
-   row = cur:fetch({}, 'a')
-   while row and i > 0 do
-      pc:SetLocalInt(row.name, tonumber(row.val))
-      row = cur:fetch(row, 'a')
-      i = i - 1
-   end
+   sth:close()
 end
