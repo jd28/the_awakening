@@ -6,7 +6,7 @@ local fmt = string.format
 -- Must be the same as in nwnx2.ini
 local script_dir = 'lua'
 
-require "solstice.util.lua_preload"
+require "solstice.util"
 OPT = runfile(fmt('./%s/settings.lua', script_dir))
 package.path = package.path .. ";./"..script_dir.."/?.lua;"
 
