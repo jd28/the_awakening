@@ -1348,6 +1348,8 @@ int Delevel(object oPC, int nLevels){
         return GetHitDice(oPC);
     }
 
+	ForceRest(oPC);
+
     int nHD = GetHitDice(oPC), i;
 
     if( nHD - nLevels < 1)
