@@ -7,8 +7,6 @@ NXEv.RegisterEventHandler(
       if Game.GetModule():GetLocalBool("SERVER_SHUTTING_DOWN") then
          return false
       end
-      local obj = ev.object
-      _SOL_REMOVE_CACHED_OBJECT(obj.id)
-      C.Local_DeleteCreature(obj.id)
+      Game.RemoveObject(ev.object)
       return false
    end)
