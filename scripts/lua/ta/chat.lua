@@ -237,13 +237,10 @@ local function ChatHandler(channel, speaker, msg, to)
    }
 
    local ret = false
-   for _it, v in map(run_command, iter(commands)) do
-      if v then
-         ret = true
-         break
-      end
+   for _, com in ipairs(commands) do
+      ret = ret or run_command(com)
    end
-   return false
+   return ret
 end
 
 local function CCMessageHandler(msg)
