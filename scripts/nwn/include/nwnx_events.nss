@@ -92,19 +92,19 @@ vector GetEventPosition()
     float x, y, z;
 
     //Get X
-    int nPos = FindSubString(sVector, "¬");
+    int nPos = FindSubString(sVector, "~");
     if(nPos == -1) return Vector();
     x = StringToFloat(GetStringLeft(sVector, nPos));
     sVector = GetStringRight(sVector, GetStringLength(sVector) - nPos - 1);
 
     //Get Y
-    nPos = FindSubString(sVector, "¬");
+    nPos = FindSubString(sVector, "~");
     if(nPos == -1) return Vector();
     y = StringToFloat(GetStringLeft(sVector, nPos));
     sVector = GetStringRight(sVector, GetStringLength(sVector) - nPos - 1);
 
     //Get Z
-    nPos = FindSubString(sVector, "¬");
+    nPos = FindSubString(sVector, "~");
     if(nPos == -1)
     {
         z = StringToFloat(sVector);
@@ -190,4 +190,3 @@ void SetCurrentNodeText(string sText, int nLangID, int nGender)
     if (nGender != GENDER_FEMALE) nGender = GENDER_MALE;
     SetLocalString(GetModule(), "NWNX!EVENTS!SET_NODE_TEXT", IntToString(nLangID*2 + nGender)+"¬"+sText);
 }
-
