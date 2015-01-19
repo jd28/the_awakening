@@ -5,9 +5,70 @@ local TDA   = require 'solstice.2da'
 local TLK   = require 'solstice.tlk'
 local NWNXLevels = require 'solstice.nwnx.levels'
 
-local WELCOME_MESSAGE = "Welcome to the NEW Legendary Leveler, would you like to gain a level?  Note throughout the process there will be some small " ..
+local WELCOME_MESSAGE = "Welcome to the Legendary Leveler v3, would you like to gain a level?  Note throughout the process there will be some small " ..
                         "delays in the conversation, this is to ensure that all nodes are properly initialized.  Please report missing nodes, but " ..
-                        "restarting the conversation or exiting the dialog typically will fix it.  If not try taking the conversation slow.\n"
+                        "restarting the conversation or exiting the dialog typically will fix it.  If not try taking the conversation slow. " ..
+                        "If you are taking a level that requires spell selections or removals you MUST use the older Legendary Leveler token!"
+
+local function GetMeetsCustomFeatReq(pc, feat, class)
+    if class == CLASS_TYPE_BARD then
+       if feat == FEAT_EPIC_AUTOMATIC_STILL_SPELL_3
+          or feat == FEAT_EPIC_AUTOMATIC_STILL_SPELL_2
+          or feat == FEAT_EPIC_AUTOMATIC_STILL_SPELL_1
+       then
+          if pc:GetAbilityScore(ABILITY_CHARISMA, true) > 10
+             and pc:GetLevelByClass(CLASS_TYPE_BARD) >= 17
+             and pc:GetKnowsFeat(FEAT_STILL_SPELL)
+             and pc:GetSkillRank(nil, true) >= 27
+          then
+             if feat == FEAT_EPIC_AUTOMATIC_STILL_SPELL_3
+                and pc:GetKnowsFeat(FEAT_EPIC_AUTOMATIC_STILL_SPELL_2)
+             then
+                return true
+             elseif feat == FEAT_EPIC_AUTOMATIC_STILL_SPELL_2
+                and pc:GetKnowsFeat(FEAT_EPIC_AUTOMATIC_STILL_SPELL_1, pc)
+             then
+                return true
+             elseif feat == FEAT_EPIC_AUTOMATIC_STILL_SPELL_1 then
+                return true
+             end
+          end
+       elseif feat == FEAT_EPIC_SPELL_FOCUS_ABJURATION
+          and pc:GetKnowsFeat(FEAT_GREATER_SPELL_FOCUS_ABJURATION)
+       then
+          return true
+       elseif feat == FEAT_EPIC_SPELL_FOCUS_CONJURATION
+          and pc:GetKnowsFeat(FEAT_GREATER_SPELL_FOCUS_CONJURATION)
+       then
+          return true
+       elseif feat == FEAT_EPIC_SPELL_FOCUS_DIVINATION
+          and pc:GetKnowsFeat(FEAT_GREATER_SPELL_FOCUS_DIVINATION)
+       then
+          return true
+       elseif feat == FEAT_EPIC_SPELL_FOCUS_ENCHANTMENT
+          and pc:GetKnowsFeat(FEAT_GREATER_SPELL_FOCUS_ENCHANTMENT)
+       then
+          return true
+       elseif feat == FEAT_EPIC_SPELL_FOCUS_EVOCATION
+          and pc:GetKnowsFeat(FEAT_GREATER_SPELL_FOCUS_EVOCATION)
+       then
+          return true
+       elseif feat == FEAT_EPIC_SPELL_FOCUS_ILLUSION
+          and pc:GetKnowsFeat(FEAT_GREATER_SPELL_FOCUS_ILLUSION)
+       then
+          return true
+       elseif feat == FEAT_EPIC_SPELL_FOCUS_NECROMANCY
+          and pc:GetKnowsFeat(FEAT_GREATER_SPELL_FOCUS_NECROMANCY)
+       then
+          return true
+       elseif feat == FEAT_EPIC_SPELL_FOCUS_TRANSMUTATION
+          and pc:GetKnowsFeat(FEAT_GREATER_SPELL_FOCUS_TRANSMUTATION)
+       then
+          return true
+       end
+    end
+    return false
+end
 
 local function GetIsFeatAvailable(pc, feat, class)
     local stat = Rules.GetGainsStatOnLevelUp(pc:GetHitDice() +  1) and pc:GetLocalInt("LL_STAT") or -1
@@ -18,16 +79,16 @@ local function GetIsFeatAvailable(pc, feat, class)
     if pc:GetKnowsFeat(feat) and feat ~= 13 then return false end
 
     -- Custom Feat Requirements:
---    if GetMeetsCustomFeatReq(pc, feat, class) then
---        return true
---    end
+    if GetMeetsCustomFeatReq(pc, feat, class) then
+       return true
+    end
 
 	if Rules.GetIsClassGrantedFeat(feat, class) == class_lvl then
 		return false
 	end
 
     if not Rules.GetIsClassGeneralFeat(feat, class) and not Rules.GetIsClassBonusFeat(feat, class) then
-        return false --if it's not a class skill and it's not a general skill return FALSE
+        return false --if it's not a class skill and it's not a general skill return false
     end
 
 	if NWNXLevels.GetMeetsLevelUpFeatRequirements(pc, feat) then
@@ -333,7 +394,9 @@ local function confirm_builder(page)
 end
 
 local function confirm_accept(page)
-   print 'actually do level up'
+   local pc = Game.GetPCSpeaker()
+   pc:SetSkillPoints(pc:GetLocalInt("LL_SKILL_POINTS"))
+   NWNXLevels.LevelUp(pc)
 end
 
 local function class_select(conv, it)
