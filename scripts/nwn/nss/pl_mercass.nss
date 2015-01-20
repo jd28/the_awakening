@@ -19,7 +19,7 @@
 void main(){
     struct SpellInfo si = GetSpellInfo();
     if (si.id < 0) return;
-
+	si.caster = OBJECT_SELF;
     // Remove Stacking Effects
     if (GetHasSpellEffect(SPELL_EXPEDITIOUS_RETREAT, si.caster))
         RemoveSpellEffects(SPELL_EXPEDITIOUS_RETREAT, OBJECT_SELF, si.caster);
@@ -38,8 +38,9 @@ void main(){
         RemoveSpellEffects(1515, OBJECT_SELF, si.caster);
     if (GetHasSpellEffect(1516, si.caster))
         RemoveSpellEffects(1516, OBJECT_SELF, si.caster);
-    if (GetHasSpellEffect(1517, si.caster))
+    if (GetHasSpellEffect(1517, si.caster)) {
         RemoveSpellEffects(1517, OBJECT_SELF, si.caster);
+	}
 
     int nExtraAttacks = 0;
     float fDuration = 60.0f;
@@ -73,11 +74,7 @@ void main(){
 	// Permenant Hitpoints DO go in the link.
 	eLink = EffectLinkEffects(eLink, EffectPermenantHitpoints(hp * GetHitDice(si.caster)));
 	eLink = EffectLinkEffects(eLink, EffectRegenerate(regen, 6.0));
-
-	int i;
-	for(i = 0; i < 12; ++i) {
-		eLink = EffectLinkEffects(eLink, EffectDamageImmunityIncrease(1 << i, imm));
-	}
+	eLink = EffectLinkEffects(eLink, EffectDamageImmunityAll(imm));
 
     //Fire cast spell at event for the specified target
     SignalEvent(si.caster, EventSpellCastAt(si.caster, si.id, FALSE));
