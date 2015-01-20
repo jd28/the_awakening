@@ -44,6 +44,8 @@ void main(){
 
     if(sUID == "") return;
 
+
+
     // No windows on the rest.
     if(GetLocalInt(oMod, VAR_MOD_DEV) > 1) return;
 
@@ -69,10 +71,7 @@ void main(){
     // SIMTools Stuff
     // -------------------------------------------------------------------------
     Speech_OnClientExit(oPC);
-    if (SRV_SERVERVAULT != ""){
-        string Script = GetLocalString(oPC, "LetoScript");
-        if( Script != "" ) Leto(Script);
-    }
 
+	ExecuteScript("pl_clear_effs", oPC);
 	NWNXSolstice_RemoveFromObjectCache(oPC);
 }
