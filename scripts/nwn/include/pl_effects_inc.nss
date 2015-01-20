@@ -10,6 +10,8 @@ const int CUSTOM_EFFECT_TYPE_MOVEMENT_RATE = 3;
 const int CUSTOM_EFFECT_TYPE_SPELL_DC_INCREASE = 4;
 const int CUSTOM_EFFECT_TYPE_SPELL_DC_DECREASE = 5;
 const int CUSTOM_EFFECT_TYPE_RECURRING = 6;
+const int CUSTOM_EFFECT_TYPE_DAMAGE_IMMUNITY_ALL = 7;
+const int CUSTOM_EFFECT_TYPE_DAMAGE_VULNERABILITY_ALL = 8;
 
 effect EffectAdditionalAttacks(int nAmount);
 effect EffectBonusFeat (int nFeat);
@@ -105,6 +107,22 @@ effect ExpandedEffectDamageIncrease(int nBonus, int nDamageType, int bCritical, 
 	effect dmginc = EffectDamageIncrease(nBonus, nDamageType);
 	SetEffectInteger(dmginc, 6, mask);
 	return dmginc;
+}
+
+effect EffectDamageImmunityAll(int amount) {
+    effect eEff = EffectVisualEffect(0);
+    SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
+	SetEffectInteger(eEff, 0, CUSTOM_EFFECT_TYPE_DAMAGE_IMMUNITY_ALL);
+	SetEffectInteger(eEff, 1, amount);
+    return eEff;
+}
+
+effect EffectDamageVulnerabilityAll(int amount) {
+    effect eEff = EffectVisualEffect(0);
+    SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
+	SetEffectInteger(eEff, 0, CUSTOM_EFFECT_TYPE_DAMAGE_VULNERABILITY_ALL);
+	SetEffectInteger(eEff, 1, amount);
+    return eEff;
 }
 
 /*
