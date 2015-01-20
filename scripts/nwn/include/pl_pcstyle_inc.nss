@@ -43,32 +43,32 @@ int CheckStyleItemRequirement(object oPC, object oItem){
                 if(GetIsShield(oItem) || GetIsRangedWeapon2(oItem))
                     bGood = FALSE;
                 else if(GetIsMeleeWeapon(oItem) && GetIsWeaponTwoHanded(oPC, oItem))
-                    bGood = FALSE; 
+                    bGood = FALSE;
             break;
             case STYLE_FIGHTER_KENSEI:
                 if(GetIsShield(oItem) || GetIsRangedWeapon2(oItem))
                     bGood = FALSE;
                 else if(GetIsMeleeWeapon(oItem) && GetIsWeaponTwoHanded(oPC, oItem))
-                    bGood = FALSE; 
+                    bGood = FALSE;
             break;
             case STYLE_FIGHTER_SPARTAN:
                 if(GetIsMeleeWeapon(oItem) && GetIsWeaponTwoHanded(oPC, oItem))
-                    bGood = FALSE; 
+                    bGood = FALSE;
             break;
             case STYLE_FIGHTER_WARLORD:
                 if(GetIsShield(oItem) || GetIsRangedWeapon2(oItem))
                     bGood = FALSE;
                 else if(GetIsMeleeWeapon(oItem) && !GetIsWeaponTwoHanded(oPC, oItem))
-                    bGood = FALSE; 
+                    bGood = FALSE;
             break;
             case STYLE_MONK_BEAR_CLAW:
-            case STYLE_MONK_DRAGON_PALM: 
+            case STYLE_MONK_DRAGON_PALM:
             case STYLE_MONK_SUN_FIST:
             case STYLE_MONK_TIGER_FANG:
                 if(GetIsShield(oItem) || GetIsRangedWeapon2(oItem))
                     bGood = FALSE;
                 else if(GetIsMeleeWeapon(oItem) && GetBaseItemType(oItem) != BASE_ITEM_GLOVES)
-                    bGood = FALSE; 
+                    bGood = FALSE;
             break;
             case STYLE_ASSASSIN_NINJA:
                 if(GetIsShield(oItem) || GetIsRangedWeapon2(oItem))
@@ -77,7 +77,7 @@ int CheckStyleItemRequirement(object oPC, object oItem){
 		        base == 321 || base == 339 || base == 324)
 		    bGood = TRUE;
                 else if(GetIsMeleeWeapon(oItem) && GetIsWeaponTwoHanded(oPC, oItem))
-                    bGood = FALSE; 
+                    bGood = FALSE;
             break;
         }
     }
@@ -113,7 +113,7 @@ int GetMeetsStyleRequirement(object oPC, int nStyle){
         break;
         case STYLE_MONK_BEAR_CLAW:
         break;
-        case STYLE_MONK_DRAGON_PALM: 
+        case STYLE_MONK_DRAGON_PALM:
         break;
         case STYLE_MONK_SUN_FIST:
         break;
@@ -122,12 +122,11 @@ int GetMeetsStyleRequirement(object oPC, int nStyle){
         case STYLE_ASSASSIN_NINJA:
             if(GetKnowsFeat(FEAT_IMPROVED_TWO_WEAPON_FIGHTING, oPC)
                     && GetKnowsFeat(FEAT_EPIC_REFLEXES, oPC)
-                    && GetKnowsFeat(FEAT_WEAPON_PROFICIENCY_EXOTIC, oPC)
                     && GetLevelByClass (CLASS_TYPE_ASSASSIN, oPC) >= 25)
                 bGood = TRUE;
         break;
     }
-    
+
     return bGood;
 }
 
@@ -151,7 +150,7 @@ void SetDragonDiscipleStyle(object oPC, int nStyle){
     int nBefore     = nAge % 1000;
     int nAfter      = nAge / 100000;
     int nColor      = nStyle;
-    
+
     switch(nStyle){
         case STYLE_DRAGON_RED:
             nStyle = 0;
