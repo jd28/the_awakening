@@ -74,7 +74,11 @@ void main(){
 	// Permenant Hitpoints DO go in the link.
 	eLink = EffectLinkEffects(eLink, EffectPermenantHitpoints(hp * GetHitDice(si.caster)));
 	eLink = EffectLinkEffects(eLink, EffectRegenerate(regen, 6.0));
-	eLink = EffectLinkEffects(eLink, EffectDamageImmunityAll(imm));
+
+	int i;
+	for(i = 0; i < 12; ++i) {
+		eLink = EffectLinkEffects(eLink, EffectDamageImmunityIncrease(1 << i, imm));
+	}
 
     //Fire cast spell at event for the specified target
     SignalEvent(si.caster, EventSpellCastAt(si.caster, si.id, FALSE));
