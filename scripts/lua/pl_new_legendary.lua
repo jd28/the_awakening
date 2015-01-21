@@ -209,7 +209,7 @@ local function skill_add(conv, it)
    local pc = Game.GetPCSpeaker()
    local is_class_skill = Rules.GetIsClassSkill(it[2], pc:GetLocalInt('LL_CLASS') - 1)
    local cost = is_class_skill and 1 or 2
-   local maximum = 4 + pc:GetHitDice()
+   local maximum = 4 + pc:GetHitDice() + 1
    maximum = is_class_skill and maximum or math.floor(maximum / 2)
    local current = pc:GetLocalInt(fmt('LL_SKILL_%d', it[2])) + pc:GetSkillRank(it[2], nil, true)
    local cp  = conv:GetCurrentPage()
