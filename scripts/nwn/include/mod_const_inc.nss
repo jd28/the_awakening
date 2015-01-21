@@ -7,7 +7,7 @@
 const string SRV_SERVERVAULT = "/opt/nwn/servervault/";
 const int SRV_RESET_LENGTH = 240; // 4 Hours.
 const int SRV_RESET_DELAY = 30; // 30 Minutes.
-const int MAX_FEAT_NUM = 2046;
+const int MAX_FEAT_NUM = 2102;
 const int MAX_SPELL_NUM = 1503;
 const int MAX_VOICESET_NUM = 444;
 
