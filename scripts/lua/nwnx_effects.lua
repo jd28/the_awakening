@@ -86,7 +86,7 @@ NWNXEffects.RegisterEffectHandler(
       local new = 0
       local old = target.obj.cre_combat_round.cr_effect_atks
       if not is_remove then
-         if target:GetIsDead() or target:GetType() ~= OBJECT_TRUETYPE_CREATURE then
+         if target:GetIsDead() or target:GetType() ~= OBJECT_TYPE_CREATURE then
             return true
          end
          new = math.clamp(old + eff:GetInt(1), 0, 5)
