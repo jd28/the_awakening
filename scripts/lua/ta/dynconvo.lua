@@ -279,6 +279,14 @@ function DynConvo:SetConverser(with)
    self.converser = with
 end
 
+function DynConvo:SetSpeaker(pc)
+   self.speaker = pc
+end
+
+function DynConvo:GetSpeaker()
+   return assert(self.speaker)
+end
+
 local _ACTIVE_CONVOS = {}
 function DynConvo.GetActiveConversation(obj)
    return _ACTIVE_CONVOS[obj.id]
@@ -300,6 +308,7 @@ function DynConvo.Start(pc, with, conv, private,
    else
       conv:SetConverser(with)
    end
+   conv:SetSpeaker(pc)
    with:ActionStartConversation(pc, dlg, private, play_hello)
 end
 
