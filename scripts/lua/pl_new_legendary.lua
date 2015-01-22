@@ -436,8 +436,8 @@ local function class_select(conv, it)
       if class == CLASS_TYPE_BARD then
          for i=0, 6 do
             if cha - i >= 0 then
-               old = TDA.Get2DAInt("cls_spkn_bard", "SpellLevel"..tostring(i), cls_level - 1);
-               new = TDA.Get2DAInt("cls_spkn_bard", "SpellLevel"..tostring(i), cls_level);
+               old = TDA.GetInt("cls_spkn_bard", "SpellLevel"..tostring(i), cls_level - 1);
+               new = TDA.GetInt("cls_spkn_bard", "SpellLevel"..tostring(i), cls_level);
 
                pc:SetLocalInt("LL_SPKN_"..tostring(i), new - old);
                total = total + new - old;
