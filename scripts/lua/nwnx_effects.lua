@@ -33,8 +33,8 @@ NWNXEffects.RegisterEffectHandler(
 
 NWNXEffects.RegisterEffectHandler(
    function (effect, target, is_remove)
-      local immunity = eff:GetInt(1)
-      local amount   = eff:GetInt(2)
+      local immunity = effect:GetInt(1)
+      local amount   = effect:GetInt(2)
       local new      = target.ci.defense.immunity_misc[immunity]
 
       if not is_remove then

@@ -240,7 +240,7 @@ local function ChatHandler(channel, speaker, msg, to)
    for _, com in ipairs(commands) do
       ret = ret or run_command(com)
    end
-   return ret
+   return false
 end
 
 local function CCMessageHandler(msg)
