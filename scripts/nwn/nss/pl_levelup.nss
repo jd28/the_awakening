@@ -140,16 +140,28 @@ void main(){
             ModifySkillRankByLevel (oPC, level, SKILL_SPOT,   4);
             ModifySkillRankByLevel (oPC, level, SKILL_SEARCH, 4);
         }
-        else if(level == 26 
+        else if(level == 26
                 && GetItemPossessedBy(oPC, "pl_harper_1") == OBJECT_INVALID){
             CreateItemOnObject("pl_harper_1", oPC);
             SuccessMessage(oPC, "You have received a Harper Secret!");
         }
-        else if(level == 29 
+        else if(level == 29
                 && GetItemPossessedBy(oPC, "pl_harper_2") == OBJECT_INVALID){
             CreateItemOnObject("pl_harper_2", oPC);
             SuccessMessage(oPC, "You have received a Harper Secret!");
         }
     }
+
+	// -------------------------------------------------------------------------
+	// Announce to the server when a player has reached the following levels
+	// -------------------------------------------------------------------------
+	if(GetHitDice(oPC) % 5 == 0 && !GetIsTestCharacter(oPC))
+		SendAllMessage(C_GOLD+GetName(oPC) + " has reached level " + IntToString(GetHitDice(oPC)) + ".  Congratulations!"+C_END);
+
+    // -------------------------------------------------------------------------
+    // Apply a visual effect of knock each time a PC levels up :)
+    // -------------------------------------------------------------------------
+    ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_KNOCK), oPC);
+
     ExportSingleCharacter(oPC);
 }

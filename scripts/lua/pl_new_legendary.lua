@@ -169,6 +169,9 @@ local function finish(pc)
    pc:DeleteLocalInt('LL_CLASS')
    pc:DeleteLocalInt('LL_STAT')
    pc:DeleteLocalInt('LL_SPGN')
+   for i=0, 5 do
+      pc:DeleteLocalInt("LL_STAT_" .. tostring(i))
+   end
 end
 
 local function ability_select(conv, it)
@@ -284,7 +287,6 @@ local function feat_builder(page, conv)
    local mpage = {}
    local pc = Game.GetPCSpeaker()
    local class = pc:GetLocalInt('LL_CLASS') - 1
-   LoadFeats(pc, class)
    -- todo[josh]: make sure the person can actually take the feat...
    for i=1, #SORTED_FEATS do
       if #SORTED_FEATS[i][1] > 0
@@ -333,6 +335,11 @@ end
 
 local function class_next()
    local pc = Game.GetPCSpeaker()
+   local class = pc:GetLocalInt("LL_CLASS") - 1;
+   if class < 0 then
+      return
+   end
+
    if Rules.GetGainsStatOnLevelUp(pc:GetHitDice() + 1) then
       return "abilities"
    else
@@ -397,6 +404,7 @@ local function confirm_accept(page)
    local pc = Game.GetPCSpeaker()
    pc:SetSkillPoints(pc:GetLocalInt("LL_SKILL_POINTS"))
    NWNXLevels.LevelUp(pc)
+   Game.ExecuteScript("pl_levelup", pc);
 end
 
 local function class_select(conv, it)
@@ -409,7 +417,8 @@ local function class_select(conv, it)
    local cp = conv:GetCurrentPage()
 
    cp:SetPrompt(fmt("You've selected <CUSTOM112>%s<CUSTOM100>.  Is this the class you'd like to level up in?", Rules.GetClassName(class)))
-
+   pc:SetLocalInt("LL_FEAT_COUNT", 0)
+   LoadFeats(pc, class)
    pc:SetLocalInt('LL_CLASS_POSITION', pos)
    pc:SetLocalInt("LL_CLASS", class + 1)
    pc:SetLocalInt("LL_HP", Rules.GetHitPointsGainedOnLevelUp(class, pc))
@@ -512,12 +521,14 @@ end
 
 function pl_ll3_conv(obj)
    local pc    = Game.GetItemActivator()
+   finish(pc)
    local item  = Game.GetItemActivated()
    local event = Game.GetUserDefinedItemEventNumber(obj)
    if event ~= ITEM_EVENT_ACTIVATE then return end
    local level = pc:GetHitDice()
    local xp = Rules.GetXPLevelRequirement(level + 1)
 
+   pc:ForceRest()
    Game.ExportSingleCharacter(pc)
    if pc:GetHitDice() >= 60 then
       pc:ErrorMessage('You are unable to advance passed 60th level!')
@@ -529,7 +540,7 @@ function pl_ll3_conv(obj)
       pc:ErrorMessage(fmt('You need %d more XP before you are able to level up.', xp - pc:GetXP()))
       return
    end
-   pc:ForceRest()
+
    local c = D.new("pl_ll3_conv")
    c:SetFinishedHandler(finish)
    c:SetAbortedHandler(finish)

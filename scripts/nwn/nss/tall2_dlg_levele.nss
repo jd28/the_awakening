@@ -905,14 +905,6 @@ void HandleSelection(){
         switch( selection ){
             case 0: // Yes
 				LegendaryLevelComplete(pc);
-
-                // -------------------------------------------------------------------------
-				// Announce to the server when a player has reached the following levels
-                // -------------------------------------------------------------------------
-                if(level % 5 == 0 && !GetIsTestCharacter(pc))
-                	SendAllMessage(C_GOLD+GetName(pc) + " has reached level " + IntToString(level) + ".  Congratulations!"+C_END);
-
-                ExportSingleCharacter(pc);
                 if(GetLocalInt(pc, "LL_BOOT")){
                     FloatingTextStringOnCreature("You will have to relog to complete your Legendary Level.", pc, FALSE);
                     DeleteLocalInt(pc, "LL_BOOT");

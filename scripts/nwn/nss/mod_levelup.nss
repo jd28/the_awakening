@@ -182,16 +182,4 @@ void main(){
     if(GetLevelByClass(CLASS_TYPE_RANGER, oPC) > 0)
         LoadFavoredEnemies(oPC);
 
-    // -------------------------------------------------------------------------
-    // Announce to the server when a player has reached the following levels
-    // -------------------------------------------------------------------------
-    if(nHD % 5 == 0 && !GetIsTestCharacter(oPC)){
-        SendAllMessage(C_GOLD+GetName(oPC) + " has reached level " + IntToString(nHD) + ".  Congratulations!"+C_END);
-    }
-
-    // -------------------------------------------------------------------------
-    // Apply a visual effect of knock each time a PC levels up :)
-    // -------------------------------------------------------------------------
-    ApplyEffectToObject(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_IMP_KNOCK), oPC);
-
 } // void main()
