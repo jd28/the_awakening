@@ -61,6 +61,7 @@ function M.Generate(object, resref, max)
          end
       end
    end
+   return it
 end
 
 function M.Test(resref, max)
