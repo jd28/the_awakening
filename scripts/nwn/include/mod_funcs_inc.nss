@@ -328,11 +328,6 @@ int GetIsStringLegal(string sString){
 
 void IntToVoid(int nInt){}
 
-string Leto(string script){
-    SetLocalString(GetModule(), "NWNX!LETO!SCRIPT", script);
-    return GetLocalString(GetModule(), "NWNX!LETO!SCRIPT");
-}
-
 // Logs info... Author: Acaos
 string Logger(object oLogger, string sDebugVar, int nLogLevel, string sMessage, string sStr0="",
             string sStr1="", string sStr2="", string sStr3="", string sStr4="",
