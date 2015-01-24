@@ -72,8 +72,7 @@ end
 
 local function GetIsFeatAvailable(pc, feat, class)
     local stat = Rules.GetGainsStatOnLevelUp(pc:GetHitDice() +  1) and pc:GetLocalInt("LL_STAT") or -1
-	local class_pos = pc:GetLocalInt("LL_CLASS_POSITION")
-	local class_lvl = pc:GetLocalInt("LL_CLASSLEVEL_"..tostring(class_pos)) + 1
+	local class_lvl = pc:GetLocalInt("LL_CLASS_LEVEL")
 
     if Rules.GetFeatIsFirstLevelOnly(feat) then return false end
     if pc:GetKnowsFeat(feat) and feat ~= 13 then return false end
@@ -182,7 +181,6 @@ local function ability_select(conv, it)
    cp:SetAccetpable(true)
    cp:SetPrompt(fmt("You've selected <CUSTOM112>%s<CUSTOM100>.  Is this the ability you'd like to select?", Rules.GetAbilityName(abil)))
    pc:SetLocalInt("LL_STAT", abil + 1);
-   pc:SetLocalInt("LL_STAT_"..tostring(abil), 1);
 end
 
 local function skill_prompt(data)
@@ -353,10 +351,15 @@ local function confirm_builder(page)
 
    local class = pc:GetLocalInt("LL_CLASS") - 1;
 
-   table.insert(t, "You will gain BAB as well as any saving throw bonuses.\n")
+   table.insert(t, "You will gain BAB, maximum hitpoints, as well as any saving throw bonuses.\n")
    table.insert(t, fmt("Class: %s", Rules.GetClassName(class)))
-   table.insert(t, fmt("Hitpoints: %d", pc:GetLocalInt('LL_HP')))
    local any = false
+
+   local abil = pc:GetLocalInt("LL_STAT") - 1
+   if abil >= 0 then
+      pc:SetLocalInt("LL_STAT_"..tostring(abil), 1)
+   end
+
    table.insert(t, "Abilities:")
    local abilities = {}
    for i=0, 5 do
@@ -403,8 +406,11 @@ end
 local function confirm_accept(page)
    local pc = Game.GetPCSpeaker()
    pc:SetSkillPoints(pc:GetLocalInt("LL_SKILL_POINTS"))
-   NWNXLevels.LevelUp(pc)
-   Game.ExecuteScript("pl_levelup", pc);
+   if NWNXLevels.LevelUp(pc) then
+      Game.ExecuteScript("pl_levelup", pc);
+   else
+      pc:ErrorMessage("There was an error leveling up your character!")
+   end
 end
 
 local function class_select(conv, it)
@@ -421,6 +427,7 @@ local function class_select(conv, it)
    LoadFeats(pc, class)
    pc:SetLocalInt('LL_CLASS_POSITION', pos)
    pc:SetLocalInt("LL_CLASS", class + 1)
+   pc:SetLocalInt("LL_CLASS_LEVEL", cls_level)
    pc:SetLocalInt("LL_HP", Rules.GetHitPointsGainedOnLevelUp(class, pc))
    pc:SetLocalInt("LL_SKILL_POINTS", pc:GetSkillPoints() + Rules.GetSkillPointsGainedOnLevelUp(class, pc))
 

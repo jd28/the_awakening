@@ -251,8 +251,12 @@ void LegendaryLevelCleanup(){
 }
 
 void LegendaryLevelComplete(object pc){
-    LevelUp(pc);
-    ExecuteScript("pl_levelup", pc);
+    if(LevelUp(pc)) {
+		ExecuteScript("pl_levelup", pc);
+	}
+	else {
+		ErrorMessage(pc, "There was an error leveling up your character!");
+	}
 }
 
 void LoadPCSkills(object pc, int base = TRUE, string prefix="SKILL_"){

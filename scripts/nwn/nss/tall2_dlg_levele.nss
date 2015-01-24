@@ -532,6 +532,8 @@ void HandleSelection(){
 			SetLocalInt(pc, "LL_CLASS_POSITION", nChange);
 			SetLocalInt(pc, "LL_HP", GetHitPointsGainedOnLevelUp(class));
 			SetLocalInt(pc, "LL_SKILL_POINTS", GetPCSkillPoints(pc) + GetSkillPointsGainedOnLevelUp(pc, class));
+			Logger(pc, "tall_debug", LOGLEVEL_DEBUG, "Class: %s, Position: %s, Level: %s",
+				   IntToString(class), IntToString(nChange), IntToString(cls_level));
             if(class == CLASS_TYPE_WIZARD && cls_level < 41 && GetAbilityScore(pc, ABILITY_INTELLIGENCE, TRUE) > 10)
                 SetLocalInt(pc, "LL_SPGN", 2);
             else if (cls_level < 21){
