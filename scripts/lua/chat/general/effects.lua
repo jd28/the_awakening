@@ -1,9 +1,8 @@
 local chat = require 'ta.chat'
+local Log = System.GetLogger()
 
 local command = "effects"
 local desc = ''
-
-local NXEffects = require 'solstice.nwnx.effects'
 local fmt = string.format
 
 function action(info)
@@ -12,12 +11,16 @@ function action(info)
    if not act then return end
 
    if act[1] == "dump" then
-      NXEffects.SendEffects(pc)
+      for e in pc:Effects(true) do
+         pc:SendMessage(e:ToString())
+      end
    elseif act[1] == "count" then
       pc:SendMessage(fmt("You currently have %d effects applied",
                          pc.obj.obj.obj_effects_len))
    elseif act[1] == "log" then
-      NXEffects.Log(pc)
+      for e in pc:Effects(true) do
+         Log:info(e:ToString())
+      end
    end
 end
 
