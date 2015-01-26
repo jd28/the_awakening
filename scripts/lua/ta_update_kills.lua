@@ -9,8 +9,9 @@ function ta_update_kills(pc)
                ON DUPLICATE KEY UPDATE
                val = VALUES(val)]]
    local sth = assert(db:prepare(s))
-
-   for k, v in pairs(pc:GetAllProperties()) do
+   local props = pc:GetAllProperties()
+   if not props then return end
+   for k, v in pairs(props) do
       if k:starts('kill_') then
          sth:execute(pc:GetTag(), k, v)
       end
