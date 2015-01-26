@@ -1,3 +1,3 @@
 function pl_clear_effs(obj)
-   obj:ClearEffectCache()
+   Game.ClearCache(obj)
 end
