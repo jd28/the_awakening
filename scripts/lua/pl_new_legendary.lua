@@ -72,7 +72,7 @@ end
 
 local function GetIsFeatAvailable(pc, feat, class)
     local stat = Rules.GetGainsStatOnLevelUp(pc:GetHitDice() +  1) and pc:GetLocalInt("LL_STAT") or -1
-	local class_lvl = pc:GetLocalInt("LL_CLASS_LEVEL")
+    local class_lvl = pc:GetLevelByClass(class) + 1
 
     if Rules.GetFeatIsFirstLevelOnly(feat) then return false end
     if pc:GetKnowsFeat(feat) and feat ~= 13 then return false end
@@ -167,6 +167,7 @@ local function finish(pc)
    pc:DeleteLocalInt('LL_HP')
    pc:DeleteLocalInt('LL_CLASS')
    pc:DeleteLocalInt('LL_STAT')
+   pc:DeleteLocalInt('LL_SKILL_POINTS')
    pc:DeleteLocalInt('LL_SPGN')
    for i=0, 5 do
       pc:DeleteLocalInt("LL_STAT_" .. tostring(i))
@@ -190,7 +191,7 @@ local function skill_prompt(data, conv)
    local is_class_skill = Rules.GetIsClassSkill(data[2], obj:GetLocalInt('LL_CLASS') - 1)
    local maximum = 4 + obj:GetHitDice() + 1
 
-   if is_class_skill then
+   if is_class_skill == 1 then
       if added > 0 then
          return fmt('<CUSTOM112>%s: %d / %d<CUSTOM100>', Rules.GetSkillName(data[2]), current, maximum)
       else
@@ -211,7 +212,7 @@ local function skill_add(conv, it)
    local is_class_skill = Rules.GetIsClassSkill(it[2], pc:GetLocalInt('LL_CLASS') - 1)
    local cost = is_class_skill and 1 or 2
    local maximum = 4 + pc:GetHitDice() + 1
-   maximum = is_class_skill and maximum or math.floor(maximum / 2)
+   maximum = is_class_skill == 1 and maximum or math.floor(maximum / 2)
    local current = pc:GetLocalInt(fmt('LL_SKILL_%d', it[2])) + pc:GetSkillRank(it[2], nil, true)
    local cp  = conv:GetCurrentPage()
    local sps = pc:GetLocalInt("LL_SKILL_POINTS")
@@ -231,7 +232,7 @@ local function skill_undo(page)
    if page.undo and #page.undo > 0 then
       local skill = table.remove(page.undo)
       local is_class_skill = Rules.GetIsClassSkill(skill, pc:GetLocalInt('LL_CLASS') - 1)
-      local cost = is_class_skill and 1 or 2
+      local cost = is_class_skill == 1 and 1 or 2
 
       pc:DecrementLocalInt(fmt('LL_SKILL_%d', skill))
       pc:IncrementLocalInt("LL_SKILL_POINTS", cost)
@@ -243,9 +244,10 @@ end
 
 local function skill_builder(page, conv)
    local pc = conv:GetSpeaker()
+   local class = pc:GetLocalInt("LL_CLASS") - 1
+   assert(class > 0)
    for i=1, #SORTED_SKILLS do
-      -- todo[josh]: make sure the person can actually take the skill...
-      if Rules.CanUseSkill(SORTED_SKILLS[i], Game.GetPCSpeaker()) then
+      if Rules.GetIsClassSkill(SORTED_SKILLS[i], class) >= 0 then
          page:AddItem(skill_prompt, SORTED_SKILLS[i])
       end
    end
@@ -425,7 +427,6 @@ local function class_select(conv, it)
    cp:SetPrompt(fmt("You've selected <CUSTOM112>%s<CUSTOM100>.  Is this the class you'd like to level up in?", Rules.GetClassName(class)))
    pc:SetLocalInt("LL_FEAT_COUNT", 0)
    LoadFeats(pc, class)
-   pc:SetLocalInt('LL_CLASS_POSITION', pos)
    pc:SetLocalInt("LL_CLASS", class + 1)
    pc:SetLocalInt("LL_CLASS_LEVEL", cls_level)
    pc:SetLocalInt("LL_HP", Rules.GetHitPointsGainedOnLevelUp(class, pc))
@@ -496,34 +497,6 @@ local function class_builder(page)
 end
 
 local function preload(pc)
-   	local class1, class2, class3, level1, level2, level3, new_level;
-
-	class1 = pc:GetClassByPosition(0) + 1;
-
-	class2 = pc:GetClassByPosition(1);
-    class2 = class2 == CLASS_TYPE_INVALID and 0 or class2 + 1
-
-	class3 = pc:GetClassByPosition(2);
-    class3 = class3 == CLASS_TYPE_INVALID and 0 or class3 + 1
-
-    level1 = pc:GetLevelByClass(class1 - 1)
-    if class2 > 0 then
-        level2 = pc:GetLevelByClass(class2 - 1)
-    end
-
-    if class3 > 0 then
-       level3 = pc:GetLevelByClass(class3 - 1)
-    end
-
-	new_level = level1 + level2 + level3 + 1
-
-    pc:SetLocalInt("LL_CLASS_1", class1)
-    pc:SetLocalInt("LL_CLASSLEVEL_1", level1)
-    pc:SetLocalInt("LL_CLASS_2", class2)
-    pc:SetLocalInt("LL_CLASSLEVEL_2", level2)
-   	pc:SetLocalInt("LL_CLASS_3", class3)
-    pc:SetLocalInt("LL_CLASSLEVEL_3", level3)
-    pc:SetLocalInt("LL_LEVEL", new_level)
 end
 
 function pl_ll3_conv(obj)
