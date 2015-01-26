@@ -86,10 +86,11 @@ function Page:SetPrompt(prompt)
    self.prompt = prompt
 end
 
-function Page.new(prompt)
+function Page.new(prompt, parent)
    local t = {
       prompt = prompt,
-      items  = {}
+      items  = {},
+      parent = parent
    }
    setmetatable(t, Page)
    return t
@@ -123,7 +124,7 @@ function DynConvo:AddPage(page, prompt, nextpage, apply)
    assert(prompt and type(prompt) == 'string', 'ERROR: No prompt specified')
 
    self.pages = self.pages or {}
-   self.pages[page] = Page.new(prompt)
+   self.pages[page] = Page.new(prompt, self)
    self.pages[page].next = nextpage
    self.pages[page].apply = apply
    return self.pages[page]
@@ -135,12 +136,13 @@ function DynConvo:GetPage(page)
 end
 
 function DynConvo:SetPage(pagename, newpage)
+   newpage.parent = self
    self.pages[pagename] = newpage
 end
 
 function DynConvo:ChangePage(page, delay)
    if type(page) == 'function' then
-      page, delay = page()
+      page, delay = page(self)
    end
 
    if delay then
@@ -222,7 +224,7 @@ function DynConvo:Select(entry)
       if cp.next then
          self:ChangePage(cp.next)
       else
-         self:Ended(Game.GetPCSpeaker())
+         self:Ended(self:GetSpeaker())
       end
    elseif entry == DYNCONV_BACK_NODE then
       if cp.back then
@@ -262,7 +264,7 @@ function DynConvo:SetCurrentNodeText()
    if type(it[1]) == 'string' then
       str = it[1]
    else
-      str = it[1](it)
+      str = it[1](it, self)
    end
 
    NWNXEv.SetCurrentNodeText(str, 0, 0)

@@ -174,7 +174,7 @@ local function finish(pc)
 end
 
 local function ability_select(conv, it)
-   local pc = Game.GetPCSpeaker()
+   local pc = conv:GetSpeaker()
    local cp = conv:GetCurrentPage()
    local abil = it[2]
 
@@ -183,8 +183,8 @@ local function ability_select(conv, it)
    pc:SetLocalInt("LL_STAT", abil + 1);
 end
 
-local function skill_prompt(data)
-   local obj = Game.GetPCSpeaker()
+local function skill_prompt(data, conv)
+   local obj = conv:GetSpeaker()
    local added = obj:GetLocalInt(fmt('LL_SKILL_%d', data[2]))
    local current =  added + obj:GetSkillRank(data[2], nil, true)
    local is_class_skill = Rules.GetIsClassSkill(data[2], obj:GetLocalInt('LL_CLASS') - 1)
@@ -207,7 +207,7 @@ local function skill_prompt(data)
 end
 
 local function skill_add(conv, it)
-   local pc = Game.GetPCSpeaker()
+   local pc = conv:GetSpeaker()
    local is_class_skill = Rules.GetIsClassSkill(it[2], pc:GetLocalInt('LL_CLASS') - 1)
    local cost = is_class_skill and 1 or 2
    local maximum = 4 + pc:GetHitDice() + 1
@@ -227,7 +227,7 @@ local function skill_add(conv, it)
 end
 
 local function skill_undo(page)
-   local pc = Game.GetPCSpeaker()
+   local pc = page.parent:GetSpeaker()
    if page.undo and #page.undo > 0 then
       local skill = table.remove(page.undo)
       local is_class_skill = Rules.GetIsClassSkill(skill, pc:GetLocalInt('LL_CLASS') - 1)
@@ -241,8 +241,8 @@ local function skill_undo(page)
    end
 end
 
-local function skill_builder(page)
-   local pc = Game.GetPCSpeaker()
+local function skill_builder(page, conv)
+   local pc = conv:GetSpeaker()
    for i=1, #SORTED_SKILLS do
       -- todo[josh]: make sure the person can actually take the skill...
       if Rules.CanUseSkill(SORTED_SKILLS[i], Game.GetPCSpeaker()) then
@@ -254,7 +254,7 @@ local function skill_builder(page)
 end
 
 local function feat_select(conv, it)
-   local pc = Game.GetPCSpeaker()
+   local pc = conv:GetSpeaker()
    local cp = conv:GetCurrentPage()
 
    -- Handle returning to the main feat page.
@@ -273,7 +273,7 @@ local function feat_select(conv, it)
 end
 
 local function feat_accept(page)
-   local pc = Game.GetPCSpeaker()
+   local pc = page.parent:GetSpeaker()
    local featcount = pc:GetLocalInt("LL_FEAT_COUNT")
    if page.feat then
       pc:SetLocalInt("LL_FEAT_"..tostring(featcount), page.feat + 1)
@@ -283,7 +283,7 @@ end
 
 local function feat_builder(page, conv)
    local mpage = {}
-   local pc = Game.GetPCSpeaker()
+   local pc = conv:GetSpeaker()
    local class = pc:GetLocalInt('LL_CLASS') - 1
    -- todo[josh]: make sure the person can actually take the feat...
    for i=1, #SORTED_FEATS do
@@ -321,8 +321,8 @@ local function feat_builder(page, conv)
    end
 end
 
-local function skill_next()
-   local pc = Game.GetPCSpeaker()
+local function skill_next(conv)
+   local pc = conv:GetSpeaker()
    if Rules.GainsFeatAtLevel(pc:GetHitDice() + 1) then
       return "feats", 4.0
    else
@@ -331,8 +331,8 @@ local function skill_next()
 end
 
 
-local function class_next()
-   local pc = Game.GetPCSpeaker()
+local function class_next(conv)
+   local pc = conv:GetSpeaker()
    local class = pc:GetLocalInt("LL_CLASS") - 1;
    if class < 0 then
       return
@@ -345,8 +345,8 @@ local function class_next()
    end
 end
 
-local function confirm_builder(page)
-   local pc = Game.GetPCSpeaker()
+local function confirm_builder(page, conv)
+   local pc = conv:GetSpeaker()
    local t = {}
 
    local class = pc:GetLocalInt("LL_CLASS") - 1;
@@ -404,7 +404,7 @@ local function confirm_builder(page)
 end
 
 local function confirm_accept(page)
-   local pc = Game.GetPCSpeaker()
+   local pc = page.parent:GetSpeaker()
    pc:SetSkillPoints(pc:GetLocalInt("LL_SKILL_POINTS"))
    if NWNXLevels.LevelUp(pc) then
       Game.ExecuteScript("pl_levelup", pc);
@@ -414,7 +414,7 @@ local function confirm_accept(page)
 end
 
 local function class_select(conv, it)
-   local pc = Game.GetPCSpeaker()
+   local pc = conv:GetSpeaker()
    local class = it[2]
    local pos = pc:GetPositionByClass(class)
    local cls_level = pc:GetLevelByClass(class) + 1
@@ -465,8 +465,8 @@ local function class_select(conv, it)
    conv:GetCurrentPage():SetAccetpable(true)
 end
 
-local function class_next()
-   local pc = Game.GetPCSpeaker()
+local function class_next(conv)
+   local pc = conv:GetSpeaker()
    if Rules.GetGainsStatOnLevelUp(pc:GetHitDice() + 1) then
       return "abilities", 1.0
    else
@@ -475,7 +475,7 @@ local function class_next()
 end
 
 local function class_builder(page)
-   local pc = Game.GetPCSpeaker()
+   local pc = page.parent:GetSpeaker()
    if pc:GetSubrace() == 'Paragon' then
       local class = pc:GetHighestLevelClass()
       page:AddItem(Rules.GetClassName(class), class)
