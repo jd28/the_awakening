@@ -17,6 +17,8 @@ local log = Sys.GetLogger()
 require(OPT.CONSTANTS)
 require('solstice.preload')
 
+require 'ta.core_combat_engine'
+
 if OPT.DATABASE_TYPE
    and OPT.DATABASE_HOSTNAME
    and OPT.DATABASE_PASSWORD
