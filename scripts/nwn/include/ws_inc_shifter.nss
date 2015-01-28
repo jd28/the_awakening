@@ -1066,7 +1066,7 @@ void ApplyNaturalSpellPolymorph(object oTarget, int nPoly) {
 
 }
 
-void ApplyPolymorph(object oTarget, int nPoly, int nWeaponType){
+void ApplyPolymorph(object oTarget, int nPoly, int nWeaponType, int nPolyed = FALSE){
     effect eVis = EffectVisualEffect(VFX_IMP_POLYMORPH);
     effect ePoly;
     int nShifter = GetLevelByClass(CLASS_TYPE_SHIFTER);
@@ -1117,16 +1117,7 @@ void ApplyPolymorph(object oTarget, int nPoly, int nWeaponType){
     object oWeaponOld, oArmorOld, oRing1Old, oRing2Old, oAmuletOld, oCloakOld,
         oBootsOld, oBeltOld, oHelmetOld, oShield, oBracerOld, oHideOld;
 
-    //Assume the normal shape doesn't have a creature skin object.
-    //If using a subracesystem or something else that places a skin on the normal shape
-    //another condition is needed to decide whether or not to store current items.
-    //One way could be to scan all effects to see whether one is a polymorph effect.
-    int nPolyed = GetIsObjectValid(GetItemInSlot(INVENTORY_SLOT_CARMOUR,oTarget));
-    // If there is a creature armor see if it is a creature hide put
-    // on the unpolymorphed player by scanning for a polymorph effect.
-    if ( nPolyed )
-        nPolyed = ( ScanForPolymorphEffect(oTarget) != -2 );
-    if(! nPolyed)
+    if(!nPolyed)
     {
         //if not polymorphed get items worn and store on player.
         oWeaponOld = GetItemInSlot(INVENTORY_SLOT_RIGHTHAND,oTarget);
@@ -1162,7 +1153,7 @@ void ApplyPolymorph(object oTarget, int nPoly, int nWeaponType){
             }
         }
         SetLocalObject(oTarget,"GW_OldShield",oShield);
-
+		SetLocalInt(oTarget, "GW_WeaponType", nWeaponType);
     }
     else
     {
@@ -1217,27 +1208,15 @@ void ApplyPolymorph(object oTarget, int nPoly, int nWeaponType){
     //--------------------------------------------------------------------------
     if (bWeapon)
     {
-        //----------------------------------------------------------------------
-        // GZ: 2003-10-20
-        // Sorry, but I was forced to take that out, it was confusing people
-        // and there were problems with updating the stats sheet.
-        //----------------------------------------------------------------------
-        /* if (!GetIsObjectValid(oWeaponOld))
-        {
-            //------------------------------------------------------------------
-            // If we had no weapon equipped before, remove the old weapon
-            // to allow monks to change into unarmed forms by not equipping any
-            // weapon before polymorphing
-            //------------------------------------------------------------------
-            DestroyObject(oWeaponNew);
-        }
-        else*/
-        {
-            //------------------------------------------------------------------
-            // Merge item properties...
-            //------------------------------------------------------------------
-            WildshapeCopyWeaponProperties(oTarget, oWeaponOld,oWeaponNew);
-        }
+		//------------------------------------------------------------------
+		// Merge item properties...
+		//------------------------------------------------------------------
+		if ( GetIsObjectValid(oWeaponOld) )
+			WildshapeCopyWeaponProperties(oTarget, oWeaponOld, oWeaponNew);
+		else if (GetIsObjectValid(oBracerOld)
+				 && GetBaseItemType(oBracerOld) == BASE_ITEM_GLOVES) {
+			WildshapeCopyWeaponProperties(oTarget, oBracerOld, oWeaponNew);
+		}
     }
     else {
         switch ( GW_COPY_WEAPON_PROPS_TO_UNARMED )
