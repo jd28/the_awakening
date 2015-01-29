@@ -15,6 +15,10 @@ local function action(info)
 
    if act[1] == "equips" then
       pc:UpdateCombatInfo(true)
+      if ce and ce.UpdateCombatInformation then
+         ce.UpdateCombatInformation(pc)
+      end
+
       pc:SendMessage(pc:DebugCombatEquips())
    elseif act[1] == "aoo" then
       if act[2] == "off" then
@@ -26,11 +30,19 @@ local function action(info)
       end
    elseif act[1] == 'offense' then
       pc:UpdateCombatInfo(true)
+      if ce and ce.UpdateCombatInformation then
+         ce.UpdateCombatInformation(pc)
+      end
 
       local t = {}
       tinsert(t, "Attacks:")
       tinsert(t, fmt("    Onhand: %d", pc.ci.offense.attacks_on))
       tinsert(t, fmt("    Offhand: %d", pc.ci.offense.attacks_off))
+      tinsert(t, fmt("    Extra: %d", pc.obj.cre_combat_round.cr_effect_atks))
+
+      tinsert(t, "Critical Bonus:")
+      tinsert(t, fmt("    Damage: %.2f%%", pc:GetProperty('TA_CRIT_DMG_BONUS') or 0))
+      tinsert(t, fmt("    Chance: %.2f%%", pc:GetProperty('TA_CRIT_THREAT_BONUS') or 0))
 
       tinsert(t, "Damages:")
       for j = 0, pc.ci.offense.damage_len - 1 do
@@ -52,10 +64,10 @@ local function action(info)
                            pc:GetAttackBonusVs(OBJECT_INVALID, i)))
             tinsert(t, fmt("    Iteration: %d",
                            pc.ci.equips[i].iter))
-            tinsert(t, fmt("    Critical Threat: %d-20",
-                           21 - pc.ci.equips[i].crit_range))
-            tinsert(t, fmt("    Critical Multiplier: %d",
-                           pc.ci.equips[i].crit_mult))
+            tinsert(t, fmt("    Critical Chance: %d%%",
+                           5 * pc.ci.equips[i].crit_range))
+            tinsert(t, fmt("    Critical Damage: %d%%",
+                           pc.ci.equips[i].crit_mult * 100))
 
             tinsert(t, fmt("    Base Damage: %d-%d + %d",
                            pc.ci.equips[i].base_dmg_roll.dice,
@@ -76,6 +88,10 @@ local function action(info)
       pc:SendMessage(tconcat(t, "\n"))
    elseif act[1] == 'defense' then
       pc:UpdateCombatInfo(true)
+      if ce and ce.UpdateCombatInformation then
+         ce.UpdateCombatInformation(pc)
+      end
+
       local t = {}
       local melee = pc:GetConcealment(OBJECT_INVALID, false)
       local range = pc:GetConcealment(OBJECT_INVALID, true)
@@ -104,14 +120,11 @@ local function action(info)
       end
 
       pc:SendMessage(tconcat(t, "\n"))
-   elseif act[1] == 'try' then
-      pc:SendMessage("New combat engine Activated")
-      pc:SetLocalBool("NWNX_LUA_COMBAT", true)
-   elseif act[1] == 'off' then
-      pc:SendMessage("New combat engine Deactivated")
-      pc:SetLocalBool("NWNX_LUA_COMBAT", false)
    elseif act[1] == 'modifiers' then
       pc:UpdateCombatInfo(true)
+      if ce and ce.UpdateCombatInformation then
+         ce.UpdateCombatInformation(pc)
+      end
       local t = {}
       tinsert(t, "Modifiers: ")
       for i = 0, COMBAT_MOD_NUM - 1 do
@@ -129,6 +142,10 @@ local function action(info)
       pc:SendMessage(tconcat(t, "\n"))
    elseif act[1] == 'situations' then
       pc:UpdateCombatInfo(true)
+      if ce and ce.UpdateCombatInformation then
+         ce.UpdateCombatInformation(pc)
+      end
+
       local t = {}
       tinsert(t, "Situations: ")
       for i = 0, SITUATION_NUM - 1 do
