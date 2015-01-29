@@ -105,7 +105,8 @@ end
 -- @param info AttackInfo.
 -- @param attacker Attacking creature.
 local function GetCriticalHitRoll(info, attacker)
-   return 21 - attacker.ci.equips[info.weapon].crit_range
+   return (attacker.ci.equips[info.weapon].crit_range * 5)
+      + attacker.ci.offense.crit_chance_modifier
 end
 
 --- Get current weapon.
@@ -497,7 +498,7 @@ local function ResolveAttackRoll(info, attacker, target)
    end
 
    -- Determine if this is a critical hit.
-   if roll > GetCriticalHitRoll(info, attacker) then
+   if random(100) <= GetCriticalHitRoll(info, attacker) then
       local threat = random(20)
       SetCriticalResult(info, threat, 1)
 
@@ -731,8 +732,10 @@ local function ResolveDamage(info, attacker, target)
    local ki_strike = GetSpecialAttack(info) == 882
    -- If this is a critical hit determine the multiplier.
    local mult = 1
+   local modifier = 0
    if GetIsCriticalHit(info) then
-      mult = attacker.ci.equips[info.weapon].crit_mult
+      modifier = attacker.ci.equips[info.weapon].crit_mult * 100
+      modifier = modifier + attacker.ci.offense.crit_dmg_modifier
    end
 
    ResolveDamageResult(info, attacker, mult, ki_strike)
@@ -760,6 +763,16 @@ local function ResolveDamage(info, attacker, target)
       local d = Rules.GetSpecialAttackDamage(GetSpecialAttack(info), info, attacker, target)
       if RollValid(d.roll) then
          AddDamageToResult(info, d, mult)
+      end
+   end
+
+   if modifier > 0 then
+      for i = 0, DAMAGE_INDEX_NUM - 1 do
+         info.dmg_result.damages[i] = (info.dmg_result.damages[i] * modifier) / 100
+      end
+
+      for i = 0, DAMAGE_INDEX_NUM - 1 do
+         info.dmg_result.damages_unblocked[i] = (info.dmg_result.damages_unblocked[i] * modifier) / 100
       end
    end
 
@@ -1173,10 +1186,17 @@ local function DoRangedAttack()
    end
 end
 
+local function UpdateCombatInformation(cre)
+   cre.ci.offense.crit_chance_modifier = cre:GetProperty("TA_CRIT_THREAT_BONUS") or 0
+   cre.ci.offense.crit_dmg_modifier = cre:GetProperty("TA_CRIT_DMG_BONUS") or 0
+   cre.ci.offense.damge_bonus_modifier = cre:GetProperty("TA_DMG_BONUS") or 0
+end
+
 local M = {
    DoRangedAttack = DoRangedAttack,
    DoMeleeAttack  = DoMeleeAttack,
    DoPreAttack = ResolvePreAttack,
+   UpdateCombatInformation = UpdateCombatInformation,
 }
 
 Rules.RegisterCombatEngine(M)
