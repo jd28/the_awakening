@@ -501,7 +501,7 @@ const string VAR_BUFF_ROCK_PLUS         = "buff_rock_plus";
 const string VAR_BUFF_ROCK_NUM_SPELLS   = "buff_rock_num_spells";
 const string VAR_BUFF_ROCK_META         = "buff_rock_meta";
 const string VAR_BUFF_ROCK_SPELL        = "buff_rock_spell";
-const int BUFF_ROCK_MAX_SPELLS          = 20;
+const int BUFF_ROCK_MAX_SPELLS          = 25;
 
 // -----------------------------------------------------------------------------
 // CONSTANTS - Items

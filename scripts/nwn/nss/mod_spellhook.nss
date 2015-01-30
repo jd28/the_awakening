@@ -118,9 +118,9 @@ void AddSpellToBuffitisRock(){
                     }
                     FloatingTextStringOnCreature(sMessage + " stored!", oPC, FALSE);
                 }
-                else FloatingTextStringOnCreature(C_RED+"Hostile Spells are not allowed"+C_END, oPC, FALSE);
+				else FloatingTextStringOnCreature(C_RED+"Your Buffitis Rock is full."+C_END, oPC, FALSE);
             }
-            else FloatingTextStringOnCreature(C_RED+"Your Buffitis Rock is full."+C_END, oPC, FALSE);
+			else FloatingTextStringOnCreature(C_RED+"Hostile Spells are not allowed"+C_END, oPC, FALSE);
         }
         else  FloatingTextStringOnCreature(C_RED+"Item spells not allowed"+C_END, oPC, FALSE);
     }
