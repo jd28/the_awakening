@@ -5,7 +5,7 @@ local C = require('ffi').C
 local bit = require 'bit'
 
 NWNXEffects.RegisterEffectHandler(
-   function (effect, target, is_remove)
+   function (eff, target, is_remove)
       if not is_remove then
          if target:GetIsDead() or target.type ~= OBJECT_TRUETYPE_CREATURE then
             return true
