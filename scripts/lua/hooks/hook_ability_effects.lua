@@ -81,7 +81,7 @@ end
 
 Orig_OnRemoveAbilityDecrease = Hook.hook {
    func = Hook_OnRemoveAbilityDecrease,
-   length = 5,
+   length = 7,
    address = 0x0817CD50,
    type = 'int32_t (*)(CNWSEffectListHandler *, CNWSObject *, CGameEffect *)',
    flags = bit.bor(Hook.HOOK_DIRECT, Hook.HOOK_RETCODE)
