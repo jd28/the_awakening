@@ -78,7 +78,8 @@ local function CopyDamageToNWNAttackData(info, attacker, target)
    local s = ffi.string(C.ns_GetCombatDamageString(
                            attacker:GetName(),
                            target:GetName(),
-                           info.dmg_result))
+                           info.dmg_result,
+                           false))
 
    AddCCMessage(info, 11, {}, { 0xCC }, s)
 end
