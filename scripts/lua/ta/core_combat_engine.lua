@@ -678,6 +678,7 @@ local function ResolveOnHitEffect(info, attacker, target)
    C.nwn_ResolveOnHitEffect(attacker.obj, target.obj.obj, info.is_offhand,
                             GetIsCriticalHit(info))
 end
+jit.off(ResolveOnHitEffect)
 
 --- Resolve on hit visual effects.
 --    This is not default behavior.
