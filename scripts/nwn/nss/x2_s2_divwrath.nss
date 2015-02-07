@@ -64,7 +64,7 @@ void main(){
     SignalEvent(si.caster, EventSpellCastAt(si.caster, si.id, FALSE));
 
     eAttack = EffectAttackIncrease(nAttackBonus,ATTACK_BONUS_MISC);
-    eDamage = EffectDamageIncrease(nDamBonus, nDamType);
+    eDamage = ExpandedEffectDamageIncrease(nDamBonus, nDamType, FALSE, TRUE);
     eSaving = EffectSavingThrowIncrease(SAVING_THROW_ALL,nSaveBonus, SAVING_THROW_TYPE_ALL);
 
     effect eDur = EffectVisualEffect(VFX_DUR_CESSATE_POSITIVE);
