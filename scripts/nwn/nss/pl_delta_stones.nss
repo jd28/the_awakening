@@ -22,15 +22,13 @@ void main(){
     float fDelay = 300.0;  // Delay in seconds before fake rocks respawn.
 
     if(GetLocalInt(OBJECT_SELF, "Right")){
-        if(!GetLocalInt(oPC, "pl_delta_key")){
-            SetLocalInt(oPC, "pl_delta_key", 1);
-            CreateItemOnObject("pl_delta_key", OBJECT_SELF);
-            effect eVis = EffectVisualEffect(VFX_FNF_LOS_HOLY_10);
-            ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eVis, lLoc);
-        }
-        DeleteLocalInt(GetModule(), "pl_delta_key");
+		CreateItemOnObject("pl_delta_key", OBJECT_SELF);
+		effect eVis = EffectVisualEffect(VFX_FNF_LOS_HOLY_10);
+		ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eVis, lLoc);
+
+		DeleteLocalInt(GetModule(), "pl_delta_key");
         WriteTimestampedLogEntry("QUEST : Key Found.");
-        SpawnDeltaKey();
+        DelayCommand(1.0f, SpawnDeltaKey());
         DestroyObject(OBJECT_SELF, 0.1);
     }
     else{
