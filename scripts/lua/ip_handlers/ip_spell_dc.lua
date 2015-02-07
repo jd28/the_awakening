@@ -1,4 +1,5 @@
 local NXItems = require 'solstice.nwnx.items'
+local fmt = string.format
 
 local function spell_dc(item, obj, ip, slot, remove)
    local amt = ip.ip_cost_value
