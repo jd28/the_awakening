@@ -4,6 +4,7 @@ local Color = require 'solstice.color'
 local TDA   = require 'solstice.2da'
 local TLK   = require 'solstice.tlk'
 local NWNXLevels = require 'solstice.nwnx.levels'
+local Log = System.GetLogger()
 
 local WELCOME_MESSAGE = "Welcome to the Legendary Leveler v3, would you like to gain a level?  Note throughout the process there will be some small " ..
                         "delays in the conversation, this is to ensure that all nodes are properly initialized.  Please report missing nodes, but " ..
@@ -210,7 +211,7 @@ end
 local function skill_add(conv, it)
    local pc = conv:GetSpeaker()
    local is_class_skill = Rules.GetIsClassSkill(it[2], pc:GetLocalInt('LL_CLASS') - 1)
-   local cost = is_class_skill and 1 or 2
+   local cost = is_class_skill == 1 and 1 or 2
    local maximum = 4 + pc:GetHitDice() + 1
    maximum = is_class_skill == 1 and maximum or math.floor(maximum / 2)
    local current = pc:GetLocalInt(fmt('LL_SKILL_%d', it[2])) + pc:GetSkillRank(it[2], nil, true)
@@ -245,7 +246,7 @@ end
 local function skill_builder(page, conv)
    local pc = conv:GetSpeaker()
    local class = pc:GetLocalInt("LL_CLASS") - 1
-   assert(class > 0)
+   assert(class >= 0)
    for i=1, #SORTED_SKILLS do
       if Rules.GetIsClassSkill(SORTED_SKILLS[i], class) >= 0 then
          page:AddItem(skill_prompt, SORTED_SKILLS[i])
@@ -341,9 +342,9 @@ local function class_next(conv)
    end
 
    if Rules.GetGainsStatOnLevelUp(pc:GetHitDice() + 1) then
-      return "abilities"
+      return "abilities", 1.0
    else
-      return "skills"
+      return "skills", 1.0
    end
 end
 
@@ -423,6 +424,12 @@ local function class_select(conv, it)
    local level = pc:GetHitDice() + 1
    local total = 0
    local cp = conv:GetCurrentPage()
+
+   if class < 0 then
+      Log:debug("Invalid class: %d", class)
+      pc:ErrorMessage(string.format("Invalid class: %d", class))
+      return
+   end
 
    cp:SetPrompt(fmt("You've selected <CUSTOM112>%s<CUSTOM100>.  Is this the class you'd like to level up in?", Rules.GetClassName(class)))
    pc:SetLocalInt("LL_FEAT_COUNT", 0)
