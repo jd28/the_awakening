@@ -2,7 +2,7 @@ local Log = System.GetLogger()
 local Inst = require 'ta.instance'
 local Color = require 'solstice.color'
 
-local function check_transition(trans, pc)
+local function check_transition(trans, pc, tar_area)
    -- DMs can go anyhwere...
    if pc:GetIsDM() or pc:GetIsDMPossessed() then return true end
 
@@ -15,16 +15,15 @@ local function check_transition(trans, pc)
    local level = trans:GetLocalInt("Level")
    local despawn_time = area:GetLocalInt("DespawnTime")
 
-
    Log:debug([[Check Transitions:
+   Area: %s
    Key: %s
    Spawn: %s
    Despawn: %s
    Despawn Time: %d
    Environment: %s
-   Level: %d
-]],
-   key, tostring(spawn), tostring(despawn), despawn_time, tostring(env), level)
+   Level: %d]],
+   tar_area:GetName(), key, tostring(spawn), tostring(despawn), despawn_time, tostring(env), level)
 
    if level > 0 and pc:GetHitDice() < level then
       pc:FloatingText(string.format("%sYou must be at least level %d to use this transition.%s",
@@ -86,10 +85,9 @@ function nw_g0_transition(trans)
    -- Don't allow plot NPC's to transition
    if not pc:GetIsPC() and pc:GetPlotFlag() then return end
 
-   if not check_transition(trans, pc) then return end
-
    local target = trans:GetTransitionTarget()
    local tar_area = target:GetArea()
+   if not check_transition(trans, pc, tar_area) then return end
 
    if tar_area:GetLocalInt("area_requires_haks") > 0
       and pc:GetPlayerInt("pc_enhanced") <= 1
