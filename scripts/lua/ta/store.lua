@@ -35,6 +35,7 @@ local function GenerateLoot(object, store, attempts, chance)
          local it = GetItemByIndex(store, math.random(size))
          if it:GetIsValid() then
             it:Copy(object, true)
+            it:SetIdentified(false)
          end
       end
    end
