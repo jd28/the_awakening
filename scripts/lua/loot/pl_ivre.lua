@@ -2,7 +2,7 @@ Loot { -- Mercenary
    resref = "ms_ivre_merc",
 
    Default = {
-      Store("lt_ivre_merc") :N(1) :Chance(30),
+      Store("lt_ivre_merc") :N(1) :Chance(40),
    }
 }
 
