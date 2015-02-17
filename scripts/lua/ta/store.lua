@@ -13,12 +13,15 @@ end
 
 local function GetItemByIndex(store, idx)
    local it = store:GetFirstItemInInventory()
-   if not it:GetIsValid() then return it end
+   if not it:GetIsValid() then
+      Log:error('Store: "%s" has no items!', store:GetTag())
+      return it
+   end
 
    if idx == 1 then return it end
-   for i = 1, idx do
+   for i = 2, idx do
       it = store:GetNextItemInInventory()
-      if not it:GetIsValid() then return it end
+      if not it:GetIsValid() then break end
    end
 
    return it
@@ -36,6 +39,8 @@ local function GenerateLoot(object, store, attempts, chance)
          if it:GetIsValid() then
             it:Copy(object, true)
             it:SetIdentified(false)
+         else
+            Log:error('Store: "%s" is returning an invalid object!', store:GetTag())
          end
       end
    end
