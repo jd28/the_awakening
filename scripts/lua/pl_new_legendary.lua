@@ -181,7 +181,7 @@ local function ability_select(conv, it)
    local abil = it[2]
 
    cp:SetAccetpable(true)
-   cp:SetPrompt(fmt("You've selected <CUSTOM112>%s<CUSTOM100>.  Is this the ability you'd like to select?", Rules.GetAbilityName(abil)))
+   cp:SetPrompt(fmt("You've selected <CUSTOM1512>%s<CUSTOM1500>.  Is this the ability you'd like to select?", Rules.GetAbilityName(abil)))
    pc:SetLocalInt("LL_STAT", abil + 1);
 end
 
@@ -194,14 +194,14 @@ local function skill_prompt(data, conv)
 
    if is_class_skill == 1 then
       if added > 0 then
-         return fmt('<CUSTOM112>%s: %d / %d<CUSTOM100>', Rules.GetSkillName(data[2]), current, maximum)
+         return fmt('<CUSTOM1512>%s: %d / %d<CUSTOM1500>', Rules.GetSkillName(data[2]), current, maximum)
       else
          return fmt('%s: %d / %d', Rules.GetSkillName(data[2]), current, maximum)
       end
    else
       maximum = math.floor(maximum / 2)
       if added > 0 then
-         return fmt('<CUSTOM112>%s [Cross-Class]: %d / %d<CUSTOM100>', Rules.GetSkillName(data[2]), current, maximum)
+         return fmt('<CUSTOM1512>%s [Cross-Class]: %d / %d<CUSTOM1500>', Rules.GetSkillName(data[2]), current, maximum)
       else
          return fmt('%s [Cross-Class]: %d / %d', Rules.GetSkillName(data[2]), current, maximum)
       end
@@ -271,7 +271,7 @@ local function feat_select(conv, it)
    end
 
    cp.feat = it[2]
-   cp:SetPrompt(fmt("You selected <CUSTOM112>%s<CUSTOM100>. Is that the feat you want?", it[1]))
+   cp:SetPrompt(fmt("You selected <CUSTOM1512>%s<CUSTOM1500>. Is that the feat you want?", it[1]))
    cp:SetAccetpable(true)
 end
 
@@ -431,7 +431,7 @@ local function class_select(conv, it)
       return
    end
 
-   cp:SetPrompt(fmt("You've selected <CUSTOM112>%s<CUSTOM100>.  Is this the class you'd like to level up in?", Rules.GetClassName(class)))
+   cp:SetPrompt(fmt("You've selected <CUSTOM1512>%s<CUSTOM1500>.  Is this the class you'd like to level up in?", Rules.GetClassName(class)))
    pc:SetLocalInt("LL_FEAT_COUNT", 0)
    LoadFeats(pc, class)
    pc:SetLocalInt("LL_CLASS", class + 1)

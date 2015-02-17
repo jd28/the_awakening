@@ -460,35 +460,35 @@ int RollDice(int nDice, int nSides = 6){
 
 
 void SetColorTokens(){
-     SetCustomToken(100, C_END);
-     SetCustomToken(101, C_GREY);
-     SetCustomToken(102, C_WHITE);
-     SetCustomToken(103, C_WHITE_T);
-     SetCustomToken(104, C_CYAN);
-     SetCustomToken(105, C_MAGENTA);
-     SetCustomToken(106, C_YELLOW);
+     SetCustomToken(1500, C_END);
+     SetCustomToken(1501, C_GREY);
+     SetCustomToken(1502, C_WHITE);
+     SetCustomToken(1503, C_WHITE_T);
+     SetCustomToken(1504, C_CYAN);
+     SetCustomToken(1505, C_MAGENTA);
+     SetCustomToken(1506, C_YELLOW);
      //SetCustomToken(107, C_YELLOW_T);
-     SetCustomToken(108, C_RED);
-     SetCustomToken(109, C_ORANGE);
-     SetCustomToken(110, C_GREEN_L);
+     SetCustomToken(1508, C_RED);
+     SetCustomToken(1509, C_ORANGE);
+     SetCustomToken(1510, C_GREEN_L);
      //SetCustomToken(111, C_GREEN_D);
-     SetCustomToken(112, C_BLUE_L);
-     SetCustomToken(113, C_BLUE_N);
-     SetCustomToken(114, C_BLUE_D);
-     SetCustomToken(115, C_VIOLET);
-     SetCustomToken(116, C_VIOLET_L);
-     SetCustomToken(117, C_VIOLET_SL);
-     SetCustomToken(118, C_BROWN);
-     SetCustomToken(119, C_BLACK);
-     SetCustomToken(120, C_SILVER);
+     SetCustomToken(1512, C_BLUE_L);
+     SetCustomToken(1513, C_BLUE_N);
+     SetCustomToken(1514, C_BLUE_D);
+     SetCustomToken(1515, C_VIOLET);
+     SetCustomToken(1516, C_VIOLET_L);
+     SetCustomToken(1517, C_VIOLET_SL);
+     SetCustomToken(1518, C_BROWN);
+     SetCustomToken(1519, C_BLACK);
+     SetCustomToken(1520, C_SILVER);
      //SetCustomToken(121, C_MAROON);
-     SetCustomToken(122, C_NAVY);
+     SetCustomToken(1522, C_NAVY);
      //SetCustomToken(123, C_OLIVE);
      //SetCustomToken(124, C_TEAL);
-     SetCustomToken(125, C_PURPLE);
-     SetCustomToken(126, C_LIME);
-     SetCustomToken(127, C_BLUE);
-     SetCustomToken(128, C_AQUA);
+     SetCustomToken(1525, C_PURPLE);
+     SetCustomToken(1526, C_LIME);
+     SetCustomToken(1527, C_BLUE);
+     SetCustomToken(1528, C_AQUA);
 	 // SetCustomToken(129, C_FUCHSIA);
 }
 
