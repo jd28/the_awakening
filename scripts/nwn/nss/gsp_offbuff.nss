@@ -78,7 +78,6 @@ void main(){
 
         // 4th
         case SPELL_TENSERS_TRANSFORMATION:
-            eLink = EffectLinkEffects(eLink, EffectSpellFailure(100));
         case SPELL_DIVINE_POWER:
             eVis = EffectVisualEffect(VFX_IMP_SUPER_HEROISM);
             eLink = EffectLinkEffects(eLink, EffectVisualEffect(VFX_DUR_GLOW_RED));
