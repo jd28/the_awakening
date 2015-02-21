@@ -19,7 +19,7 @@ void main(){
                 && GetItemPossessedBy(oPC, "pl_style_fighter") == OBJECT_INVALID
                 && GetSubRace(oPC) != "Paragon"){
             CreateItemOnObject("pl_style_fighter", oPC);
-            SendMessageToPC(oPC, "You are able to select Fighting Style. MORE");
+            SendMessageToPC(oPC, "You are able to select Fighting Style.");
         }
     }
     else
@@ -36,7 +36,7 @@ void main(){
         else if(level >= 45 && !GetDragonDiscipleStyle(oPC) &&
                 GetItemPossessedBy(oPC, "pl_style_dragon") == OBJECT_INVALID){
             CreateItemOnObject("pl_style_dragon", oPC);
-            SendMessageToPC(oPC, "You are able to select your Dragon Disciple color. MORE");
+            SendMessageToPC(oPC, "You are able to select your Dragon Disciple color.");
         }
     }
     else
@@ -99,11 +99,10 @@ void main(){
         if(level >= 25 && !GetFightingStyle(oPC)                        &&
            GetKnowsFeat(FEAT_IMPROVED_TWO_WEAPON_FIGHTING, oPC)         &&
            GetKnowsFeat(FEAT_EPIC_REFLEXES, oPC)                        &&
-           GetKnowsFeat(FEAT_WEAPON_PROFICIENCY_EXOTIC, oPC)            &&
            GetItemPossessedBy(oPC, "pl_style_ninja") == OBJECT_INVALID)
         {
             CreateItemOnObject("pl_style_ninja", oPC);
-            SendMessageToPC(oPC, "You are able to study the Way of the Ninja. MORE");
+            SendMessageToPC(oPC, "You are able to study the Way of the Ninja.");
         }
     }
     else
