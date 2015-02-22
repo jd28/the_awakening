@@ -909,6 +909,7 @@ local function ResolveDeathAttack(info, attacker, target)
       C.nwn_ApplyOnHitDeathAttack(attacker.obj, target.obj.obj, random(6) + attacker:GetHitDice())
    end
 end
+jit.off(ResolveDeathAttack)
 
 --- Resolves Quivering Palm
 -- @param info Attack ctype.
