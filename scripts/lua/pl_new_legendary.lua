@@ -157,6 +157,8 @@ end
 local SORTED_FEATS, SORTED_MASTER_FEATS = GetFeatTable()
 
 local function finish(pc)
+   Log:debug("LL3: Cleaning up Local Variables. %s (%x)\n%s", pc:GetName(), pc.id, debug.traceback())
+
    for i=0, SKILL_LAST do
       pc:DeleteLocalInt(fmt('LL_SKILL_%d', i))
    end
@@ -187,9 +189,16 @@ end
 
 local function skill_prompt(data, conv)
    local obj = conv:GetSpeaker()
+   local class = obj:GetLocalInt("LL_CLASS") - 1
+   if class < 0 then
+      Log:error("LL3: Invalid class: %d, Name: '%s'", class, obj:GetName())
+      pc:ErrorMessage(string.format("LL3: Invalid class: %d, Name: '%s'", class, obj:GetName()))
+      return
+   end
+
    local added = obj:GetLocalInt(fmt('LL_SKILL_%d', data[2]))
    local current =  added + obj:GetSkillRank(data[2], nil, true)
-   local is_class_skill = Rules.GetIsClassSkill(data[2], obj:GetLocalInt('LL_CLASS') - 1)
+   local is_class_skill = Rules.GetIsClassSkill(data[2], class)
    local maximum = 4 + obj:GetHitDice() + 1
 
    if is_class_skill == 1 then
@@ -210,7 +219,14 @@ end
 
 local function skill_add(conv, it)
    local pc = conv:GetSpeaker()
-   local is_class_skill = Rules.GetIsClassSkill(it[2], pc:GetLocalInt('LL_CLASS') - 1)
+   local class = pc:GetLocalInt("LL_CLASS") - 1
+   if class < 0 then
+      Log:error("Invalid class: %d", class)
+      pc:ErrorMessage(string.format("Invalid class: %d", class))
+      return
+   end
+
+   local is_class_skill = Rules.GetIsClassSkill(it[2], class)
    local cost = is_class_skill == 1 and 1 or 2
    local maximum = 4 + pc:GetHitDice() + 1
    maximum = is_class_skill == 1 and maximum or math.floor(maximum / 2)
@@ -246,7 +262,12 @@ end
 local function skill_builder(page, conv)
    local pc = conv:GetSpeaker()
    local class = pc:GetLocalInt("LL_CLASS") - 1
-   assert(class >= 0)
+   if class < 0 then
+      Log:error("Invalid class: %d", class)
+      pc:ErrorMessage(string.format("Invalid class: %d", class))
+      return
+   end
+
    for i=1, #SORTED_SKILLS do
       if Rules.GetIsClassSkill(SORTED_SKILLS[i], class) >= 0 then
          page:AddItem(skill_prompt, SORTED_SKILLS[i])
@@ -288,6 +309,12 @@ local function feat_builder(page, conv)
    local mpage = {}
    local pc = conv:GetSpeaker()
    local class = pc:GetLocalInt('LL_CLASS') - 1
+   if class < 0 then
+      Log:error("LL3: Invalid class: %d, Name: '%s'", class, pc:GetName())
+      pc:ErrorMessage(string.format("LL3: Invalid class: %d, Name: '%s'", class, pc:GetName()))
+      return
+   end
+
    -- todo[josh]: make sure the person can actually take the feat...
    for i=1, #SORTED_FEATS do
       if #SORTED_FEATS[i][1] > 0
@@ -338,6 +365,8 @@ local function class_next(conv)
    local pc = conv:GetSpeaker()
    local class = pc:GetLocalInt("LL_CLASS") - 1;
    if class < 0 then
+      Log:error("LL3: Invalid class: %d, Name: '%s'", class, pc:GetName())
+      pc:ErrorMessage(string.format("LL3: Invalid class: %d, Name: '%s'", class, pc:GetName()))
       return
    end
 
@@ -353,6 +382,12 @@ local function confirm_builder(page, conv)
    local t = {}
 
    local class = pc:GetLocalInt("LL_CLASS") - 1;
+   if class < 0 then
+      Log:error("LL3: Invalid class: %d, Name: '%s'", class, pc:GetName())
+      pc:ErrorMessage(string.format("LL3: Invalid class: %d, Name: '%s'", class, pc:GetName()))
+      return
+   end
+
 
    table.insert(t, "You will gain BAB, maximum hitpoints, as well as any saving throw bonuses.\n")
    table.insert(t, fmt("Class: %s", Rules.GetClassName(class)))
@@ -425,9 +460,10 @@ local function class_select(conv, it)
    local total = 0
    local cp = conv:GetCurrentPage()
 
+   Log:debug("LL3: Class Selected: %d", class)
    if class < 0 then
-      Log:debug("Invalid class: %d", class)
-      pc:ErrorMessage(string.format("Invalid class: %d", class))
+      Log:error("LL3: Invalid class: %d, Name: '%s'", class, pc:GetName())
+      pc:ErrorMessage(string.format("LL3: Invalid class: %d, Name: '%s'", class, pc:GetName()))
       return
    end
 
@@ -508,15 +544,12 @@ end
 
 function pl_ll3_conv(obj)
    local pc    = Game.GetItemActivator()
-   finish(pc)
    local item  = Game.GetItemActivated()
    local event = Game.GetUserDefinedItemEventNumber(obj)
    if event ~= ITEM_EVENT_ACTIVATE then return end
    local level = pc:GetHitDice()
    local xp = Rules.GetXPLevelRequirement(level + 1)
 
-   pc:ForceRest()
-   Game.ExportSingleCharacter(pc)
    if pc:GetHitDice() >= 60 then
       pc:ErrorMessage('You are unable to advance passed 60th level!')
       return
@@ -527,6 +560,9 @@ function pl_ll3_conv(obj)
       pc:ErrorMessage(fmt('You need %d more XP before you are able to level up.', xp - pc:GetXP()))
       return
    end
+   finish(pc)
+   pc:ForceRest()
+   Game.ExportSingleCharacter(pc)
 
    local c = D.new("pl_ll3_conv")
    c:SetFinishedHandler(finish)
