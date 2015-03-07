@@ -43,7 +43,7 @@ function Eff.SpellDamageBonus(school, amount)
    return Eff.CreateSimpleCustom(type, school, amt)
 end
 
-function Eff.MovementSpeed(rate)
+function Eff.MovementSpeedBonus(amount)
    local type, amt = determine_type_amount(CUSTOM_EFFECT_TYPE_MOVEMENT_BONUS,
                                            CUSTOM_EFFECT_TYPE_MOVEMENT_PENALTY,
                                            amount)
