@@ -899,7 +899,9 @@ end
 -- @param attacker Attacking creature.
 -- @param target Target object.
 local function ResolveDeathAttack(info, attacker, target)
-   if band(info.situational_flags, SITUATION_FLAG_DEATH_ATTACK) == 0 then
+   if band(info.situational_flags, SITUATION_FLAG_DEATH_ATTACK) == 0
+      or target.obj.cre_combat_state == 0
+   then
       return
    end
    local dc = attacker:GetLevelByClass(CLASS_TYPE_ASSASSIN)
@@ -998,6 +1000,9 @@ local function ResolvePostDamage(info, attacker, target, is_ranged)
 
    ResolveCoupDeGrace(info, attacker, target)
    ResolveDevCrit(info, attacker, target)
+   if not info.is_killing then
+      ResolveDeathAttack(info, attacker, target)
+   end
 
    -- No more posts apply to ranged.
    if is_ranged then return end
