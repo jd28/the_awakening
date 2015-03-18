@@ -501,17 +501,14 @@ local function ResolveAttackRoll(info, attacker, target)
 
    -- Determine if this is a critical hit.
    if random(100) <= GetCriticalHitRoll(info, attacker) then
-      local threat = random(20)
-      SetCriticalResult(info, threat, 1)
+      SetCriticalResult(info, roll, 1)
 
-      if threat + ab >= ac then
-         if not target:GetIsImmune(IMMUNITY_TYPE_CRITICAL_HIT) then
-            -- Is critical hit
-            SetResult(info, 3)
-         else
-            -- Send target immune to crits.
-            AddCCMessage(info, nil, { target.id }, { 126 })
-         end
+      if not target:GetIsImmune(IMMUNITY_TYPE_CRITICAL_HIT) then
+         -- Is critical hit
+         SetResult(info, 3)
+      else
+         -- Send target immune to crits.
+         AddCCMessage(info, nil, { target.id }, { 126 })
       end
    end
 end
