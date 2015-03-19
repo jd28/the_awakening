@@ -5,7 +5,7 @@ local function dmg_imm(item, obj, ip, slot, remove)
    if remove then amt = -amt end
    obj.ci.defense.immunity[ip.ip_subtype] = obj.ci.defense.immunity[ip.ip_subtype] + amt
 end
-NXItems.RegisterItempropHandler(dmg_imm, TA_ITEM_PROPERTY_IMMUNITY_DAMAGE_TYPE)
+--NXItems.RegisterItempropHandler(dmg_imm, TA_ITEM_PROPERTY_IMMUNITY_DAMAGE_TYPE)
 
 local lookup = {
    [1] = 5,
@@ -29,7 +29,7 @@ local function dmg_imm2(item, obj, ip, slot, remove)
    local idx = Rules.ConvertItempropConstantToDamageIndex(ip.ip_subtype)
    obj.ci.defense.immunity[idx] = obj.ci.defense.immunity[idx] + amt
 end
-NXItems.RegisterItempropHandler(dmg_imm2, ITEM_PROPERTY_IMMUNITY_DAMAGE_TYPE)
+--NXItems.RegisterItempropHandler(dmg_imm2, ITEM_PROPERTY_IMMUNITY_DAMAGE_TYPE)
 
 
 local function dmg_vuln(item, obj, ip, slot, remove)
@@ -37,7 +37,7 @@ local function dmg_vuln(item, obj, ip, slot, remove)
    if not remove then amt = -amt end
    obj.ci.defense.immunity[ip.ip_subtype] = obj.ci.defense.immunity[ip.ip_subtype] + amt
 end
-NXItems.RegisterItempropHandler(dmg_vuln, TA_ITEM_PROPERTY_DAMAGE_VULNERABILITY)
+--NXItems.RegisterItempropHandler(dmg_vuln, TA_ITEM_PROPERTY_DAMAGE_VULNERABILITY)
 
 local function dmg_vuln2(item, obj, ip, slot, remove)
    local amt = ip.ip_cost_value
@@ -51,4 +51,4 @@ local function dmg_vuln2(item, obj, ip, slot, remove)
    local idx = Rules.ConvertItempropConstantToDamageIndex(ip.ip_subtype)
    obj.ci.defense.immunity[idx] = obj.ci.defense.immunity[idx] + amt
 end
-NXItems.RegisterItempropHandler(dmg_vuln2, ITEM_PROPERTY_DAMAGE_VULNERABILITY)
+--NXItems.RegisterItempropHandler(dmg_vuln2, ITEM_PROPERTY_DAMAGE_VULNERABILITY)

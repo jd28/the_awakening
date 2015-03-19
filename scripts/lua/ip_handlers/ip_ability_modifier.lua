@@ -1,5 +1,5 @@
 local NXItems = require 'solstice.nwnx.items'
-
+--[[
 local function ability_bonus(item, obj, ip, slot, remove)
    local amt = ip.ip_cost_value
    if remove then amt = -amt end
@@ -17,3 +17,4 @@ end
 
 NXItems.RegisterItempropHandler(ability_penalty, TA_ITEM_PROPERTY_DECREASED_ABILITY_SCORE,
                                 ITEM_PROPERTY_DECREASED_ABILITY_SCORE)
+   --]]
