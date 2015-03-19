@@ -19,7 +19,6 @@ print(inih.parse('nwnx2.ini',
               if section == "LogDir" and name == 'logdir' then
                  log_dir = lfs.currentdir() .. '/' .. (log_dir or value:trim())
               end
-              print(section, name, value)
               return true
            end))
 
