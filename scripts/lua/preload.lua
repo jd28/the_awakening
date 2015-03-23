@@ -44,14 +44,12 @@ if OPT.DATABASE_TYPE
    and OPT.DATABASE_NAME
    and OPT.DATABASE_USER
 then
-   local DBI = require 'DBI'
    System.ConnectDatabase(OPT.DATABASE_TYPE,
                           OPT.DATABASE_NAME,
                           OPT.DATABASE_USER,
                           OPT.DATABASE_PASSWORD,
                           OPT.DATABASE_HOSTNAME,
                           OPT.DATABASE_PORT)
-
 end
 
 for f in lfs.dir("./"..script_dir..'/scripts/') do
