@@ -131,3 +131,8 @@ Rules.RegisterConstants("wpnproptypes", "ID")
 Rules.RegisterConstant("CHAT_SYMBOL_DM", 'dm_')
 Rules.RegisterConstant("CHAT_SYMBOL_ADMIN", 'admin_')
 Rules.RegisterConstant("CHAT_SYMBOL_GENERAL", '!')
+
+Rules.RegisterConstant('COLOR_CHANNEL_HAIR', 1)
+Rules.RegisterConstant('COLOR_CHANNEL_SKIN', 0)
+Rules.RegisterConstant('COLOR_CHANNEL_TATTOO_1', 2)
+Rules.RegisterConstant('COLOR_CHANNEL_TATTOO_2', 3)
