@@ -10,16 +10,16 @@ void main () {
     object pc = OBJECT_SELF;
     int nAge = GetAge(pc);
     SetLocalInt(pc, "pc_is_pc", TRUE);
+	SetLocalInt(pc, "pc_is_dm", GetIsDM(pc));
     SetLocalString(pc, "pc_player_name", GetPCPlayerName(pc));
 
     // Imagine a generic database call here, testing to see if the
-    // player has indicated that they have the Haks.  
+    // player has indicated that they have the Haks.
     int enhanced = GetPlayerInt(pc, "pc_enhanced", TRUE);
     nAge = SetIntegerDigit(nAge, 0, enhanced);
     SetAge(pc, nAge);
 
     // This will tell the plugin whether to send the haks or not.  if
-    // enhanced = 0 then none of the hidden haks will be sent. 
+    // enhanced = 0 then none of the hidden haks will be sent.
     SetPlayerEnhanced(pc, enhanced);
 }
-

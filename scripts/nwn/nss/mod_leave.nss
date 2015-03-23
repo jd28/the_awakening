@@ -44,13 +44,11 @@ void main(){
 
     if(sUID == "") return;
 
-
-
     // No windows on the rest.
     if(GetLocalInt(oMod, VAR_MOD_DEV) > 1) return;
 
 
-	if(GetIsPC(oPC) && !GetIsDM(oPC) && !GetIsDMPossessed(oPC)) {
+	if(GetLocalInt(oPC, "pc_is_pc") && !GetLocalInt(oPC, "pc_is_dm")) {
 		int nHP = (GetIsDead(oPC) ? -1 : ModifyCurrentHitPoints(oPC, 0));
 		if (nHP <= 0){ nHP = -1; }
 		SetDbInt(oPC, VAR_PC_HP, nHP, 7);
