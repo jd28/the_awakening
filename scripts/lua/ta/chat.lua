@@ -47,7 +47,7 @@ local info
 
 local function get_symbol(cmd)
    for i = 1, #_SYMBOLS, 2 do
-      sym, ver = _SYMBOLS[i], _SYMBOLS[i+1]
+      local sym, ver = _SYMBOLS[i], _SYMBOLS[i+1]
       if cmd:starts(sym) then
          return sym, ver
       end

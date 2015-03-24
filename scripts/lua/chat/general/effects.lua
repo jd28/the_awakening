@@ -5,7 +5,7 @@ local command = "effects"
 local desc = ''
 local fmt = string.format
 
-function action(info)
+local function action(info)
    local pc = info.speaker
    local act = info.param:split(' ')
    if not act then return end

@@ -6,7 +6,7 @@ local fmt = string.format
 local tinsert = table.insert
 local tconcat = table.concat
 
-function action(chat_info)
+local function action(chat_info)
    local act = chat_info.param:split(' ')
    if not act then return end
    local pc = chat_info.speaker

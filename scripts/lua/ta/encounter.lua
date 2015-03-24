@@ -28,7 +28,7 @@ end
 -- @param obj Object to determine distance from.
 -- @param[opt] stop_at The first spawn point greater than or equal to the
 -- distance `stop_at` is returned.
-function GetFurthestSpawnPoint(enc, obj, stop_at)
+local function GetFurthestSpawnPoint(enc, obj, stop_at)
    local idx, loc, dist, tdist
 
    for i=0, enc:GetSpawnPointCount() - 1 do
