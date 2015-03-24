@@ -29,8 +29,8 @@ package.path = package.path .. ";./"..script_dir.."/?.lua;"
 
 -- Bind servers default logger.
 local Sys = require 'solstice.system'
-local log = Sys.FileLogger(OPT.LOG_DIR .. '/' .. OPT.LOG_FILE, OPT.LOG_DATE_PATTERN)
-Sys.SetLogger(log)
+local Log = Sys.FileLogger(OPT.LOG_DIR .. '/' .. OPT.LOG_FILE, OPT.LOG_DATE_PATTERN)
+Sys.SetLogger(Log)
 
 --- Constants MUST be loaded before solstice.
 require(OPT.CONSTANTS)
@@ -52,13 +52,49 @@ then
                           OPT.DATABASE_PORT)
 end
 
-for f in lfs.dir("./"..script_dir..'/scripts/') do
-   if string.find(f:lower(), ".lua", -4) then
-      local file = fmt('%s/%s/%s', lfs.currentdir(), script_dir..'/scripts/', f)
-      log:info("Loading: " .. file)
-      Game.LoadScript(file)
+local function load_dir(subdir, name, act)
+   local dir = fmt('%s/%s/%s/', lfs.currentdir(), script_dir, subdir)
+   for f in lfs.dir(dir) do
+      if string.find(f:lower(), ".lua", -4)  then
+         local file = fmt('%s/%s', dir, f)
+         Log:info("Loading %s: %s", name, file)
+         local result, err = pcall(function() act(file) end)
+         if not result then
+            Log:error("ERROR Loading: %s : %s \n", file, err)
+         end
+      end
    end
 end
 
+load_dir('scripts', 'Script', Game.LoadScript)
+
 -- Lock the script environment so we can avoid undeclared variables.
 Game.LockScriptEnvironment()
+
+-- Encounters
+local E = require 'ta.encounter'
+load_dir('encounters', 'Encounter', E.Load)
+
+-- Loot
+E = require 'ta.loot'
+load_dir('loot', 'Loot Table', E.Load)
+
+-- Items
+local Item = require 'ta.item'
+load_dir('items', 'Item', Item.Load)
+
+-- Load IP Handlers.
+load_dir('ip_handlers', 'Itemprop Handler', dofile)
+
+-- Hooks
+load_dir('hooks', 'Hook', dofile)
+
+-- Creatures
+local Creature = require 'ta.creature'
+load_dir('creatures', 'Creature', Creature.Load)
+
+-- Subraces
+load_dir('subraces', 'Subrace', dofile)
+
+-- Chat
+safe_require 'ta_chat'
