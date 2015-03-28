@@ -1,4 +1,5 @@
 #include "mod_funcs_inc"
+#include "nw_i0_tool"
 
 void CreateFlame(string sFlame, location lFlame) {
     CreateObject(OBJECT_TYPE_PLACEABLE, sFlame, lFlame);
@@ -100,4 +101,53 @@ void PrisonWatch(string statue, string flame) {
 
     SetUseableFlag(OBJECT_SELF, FALSE);
     SetLocked(oKeeperDoor, FALSE);
+}
+
+void CraggyLight(string eye, string light) {
+	object oPC = GetLastClosedBy();
+	if (!GetIsPC(oPC)) return;
+	if (GetIsObjectValid(GetItemPossessedBy(OBJECT_SELF, eye)))
+		return;
+
+	DestroyObject(GetObjectByTag(light), 0.5);
+}
+
+void ActionCreate(string sCreature, location lLoc) {
+    object oMonster = CreateObject(OBJECT_TYPE_CREATURE, sCreature, lLoc);
+    SetLocalInt(oMonster, "Despawn", 1);
+}
+
+void SpawnBoss(string blood, string book, string eye, string wp, string creature) {
+	object oPC = GetLastClosedBy();
+	if (!GetIsPC(oPC)) return;
+
+	object oBlood = GetItemPossessedBy(OBJECT_SELF, blood);
+	if (!GetIsObjectValid(oBlood)) return;
+
+	object oBook =  GetItemPossessedBy(OBJECT_SELF, book);
+	if (!GetIsObjectValid(oBook)) return;
+
+	object oEye =  GetItemPossessedBy(OBJECT_SELF, eye);
+	if (!GetIsObjectValid(oEye)) return;
+
+	location lTarget = GetLocation(GetWaypointByTag(wp));
+
+	DelayCommand(1.0, ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_FNF_FIRESTORM), lTarget));
+	DelayCommand(3.0, ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_FNF_FIRESTORM), lTarget));
+	DelayCommand(5.0, ApplyEffectAtLocation(DURATION_TYPE_INSTANT, EffectVisualEffect(VFX_FNF_SUMMONDRAGON), lTarget));
+	DelayCommand(6.0, ActionCreate(creature, lTarget));
+
+	DestroyObject(oBlood);
+	DestroyObject(oBook);
+	DestroyObject(oEye);
+}
+
+void OpenSomeDoor(string tag) {
+	object oD1 = GetObjectByTag(tag);
+	ActionPlayAnimation(ANIMATION_PLACEABLE_DEACTIVATE);
+	SetLocked(oD1, FALSE);
+	AssignCommand(oD1, ActionOpenDoor(oD1));
+	DelayCommand(30.0, ActionPlayAnimation(ANIMATION_PLACEABLE_ACTIVATE));
+	DelayCommand(30.0, AssignCommand(oD1, ActionCloseDoor(oD1)));
+	DelayCommand(30.0, AssignCommand(oD1, SetLocked(oD1, TRUE)));
 }

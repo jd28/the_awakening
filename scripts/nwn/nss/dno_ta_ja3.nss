@@ -5,12 +5,6 @@
 /////////////////////////////
 //: K9-69 ;o)
 /////////////
-int StartingConditional()
-{
-object oPC = GetPCSpeaker();
-
-if (GetItemPossessedBy(oPC, "dno_BT") == OBJECT_INVALID) return FALSE;
-
-return TRUE;
+int StartingConditional() {
+	return GetItemPossessedBy(GetPCSpeaker(), "dno_BT") != OBJECT_INVALID;
 }
-
