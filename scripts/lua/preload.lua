@@ -11,7 +11,7 @@ local log_dir = "logs.0"
 require "solstice.util"
 
 -- Read pertinent settings from nwnx2.ini
-print(inih.parse('nwnx2.ini',
+local res = inih.parse('nwnx2.ini',
            function(section, name, value)
               if section == "SOLSTICE" and name == "script_dir" then
                  script_dir = (script_dir or value:trim())
@@ -20,7 +20,8 @@ print(inih.parse('nwnx2.ini',
                  log_dir = lfs.currentdir() .. '/' .. (log_dir or value:trim())
               end
               return true
-           end))
+           end)
+
 
 OPT = runfile(fmt('./%s/settings.lua', script_dir))
 OPT.LOG_DIR = log_dir
