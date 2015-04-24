@@ -6,5 +6,5 @@ MASK="$1*.nss"
 MOD="c:/Users/josh/software/NWN/modules/temp0"
 
 rm $NCS
-make
+./NWNScriptCompiler -b ncs -i "nss;include;bioware" -cego1 "nss/*.nss"
 cp $MOVE $MOD
