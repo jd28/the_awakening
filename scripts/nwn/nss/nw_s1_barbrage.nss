@@ -59,6 +59,12 @@ void main(){
         eDmg = EffectDamageIncrease(DAMAGE_BONUS_4, DAMAGE_TYPE_BLUDGEONING);
     }
 
+	if (nLevel >= 45) {
+		eLink = EffectLinkEffects(eLink, EffectDamageImmunityIncrease(DAMAGE_TYPE_BLUDGEONING, 5));
+		eLink = EffectLinkEffects(eLink, EffectDamageImmunityIncrease(DAMAGE_TYPE_SLASHING, 5));
+		eLink = EffectLinkEffects(eLink, EffectDamageImmunityIncrease(DAMAGE_TYPE_PIERCING, 5));
+	}
+
     switch(d6()){
         case 1: PlayVoiceChat(VOICE_CHAT_BATTLECRY1); break;
         case 2: PlayVoiceChat(VOICE_CHAT_BATTLECRY2); break;

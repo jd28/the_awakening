@@ -14,7 +14,7 @@ void main()
 
     if (!GetIsPC(oPC)) return;
 
-    if (GetLocalInt(oPC, "NW_JOURNAL_ENTRYdno_assassin") != 4){
+    if (GetLocalInt(oPC, "NW_JOURNAL_ENTRYdno_assassin") != 4) {
         //SendMessageToPC(oPC, "Wrong Quest Number");
         return;
     }

@@ -263,6 +263,11 @@ void DoDelevel(struct pl_chat_command pcc){
         return;
     }
 
+	if(GetLocalInt(pcc.oPC, "LL_CLASS")) {
+        ErrorMessage(pcc.oPC, "You are not able to delevel while taking Legendary Levels!");
+        return;
+    }
+
     Delevel(pcc.oPC, StringToInt(pcc.sCommand));
 }
 void DoDieRoll(struct pl_chat_command pcc){

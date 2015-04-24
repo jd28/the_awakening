@@ -1,11 +1,7 @@
-local lfs = require 'lfs'
 local ffi = require 'ffi'
 local C = ffi.C
 
 local E = require 'ta.encounter'
-local Log = System.GetLogger()
-
-local dir = "lua/encounters/"
 
 function ta_enc_enter(enc)
    if enc:GetIsValid()
@@ -19,12 +15,4 @@ end
 
 function ta_enc_exhaust(enc)
    enc:SetLocalInt("ssp_spawned", 0)
-end
-
-for f in lfs.dir(dir) do
-   if string.find(f:lower(), ".lua", -4)  then
-      local file = lfs.currentdir() .. "/" .. dir .. f
-      Log:info("Loading Encounter: %s", file)
-      local tag = E.Load(file)
-   end
 end

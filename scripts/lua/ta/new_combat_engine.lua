@@ -501,17 +501,14 @@ local function ResolveAttackRoll(info, attacker, target)
 
    -- Determine if this is a critical hit.
    if random(100) <= GetCriticalHitRoll(info, attacker) then
-      local threat = random(20)
-      SetCriticalResult(info, threat, 1)
+      SetCriticalResult(info, roll, 1)
 
-      if threat + ab >= ac then
-         if not target:GetIsImmune(IMMUNITY_TYPE_CRITICAL_HIT) then
-            -- Is critical hit
-            SetResult(info, 3)
-         else
-            -- Send target immune to crits.
-            AddCCMessage(info, nil, { target.id }, { 126 })
-         end
+      if not target:GetIsImmune(IMMUNITY_TYPE_CRITICAL_HIT) then
+         -- Is critical hit
+         SetResult(info, 3)
+      else
+         -- Send target immune to crits.
+         AddCCMessage(info, nil, { target.id }, { 126 })
       end
    end
 end
@@ -899,7 +896,9 @@ end
 -- @param attacker Attacking creature.
 -- @param target Target object.
 local function ResolveDeathAttack(info, attacker, target)
-   if band(info.situational_flags, SITUATION_FLAG_DEATH_ATTACK) == 0 then
+   if band(info.situational_flags, SITUATION_FLAG_DEATH_ATTACK) == 0
+      or target.obj.cre_combat_state == 0
+   then
       return
    end
    local dc = attacker:GetLevelByClass(CLASS_TYPE_ASSASSIN)
@@ -909,6 +908,7 @@ local function ResolveDeathAttack(info, attacker, target)
       C.nwn_ApplyOnHitDeathAttack(attacker.obj, target.obj.obj, random(6) + attacker:GetHitDice())
    end
 end
+jit.off(ResolveDeathAttack)
 
 --- Resolves Quivering Palm
 -- @param info Attack ctype.
@@ -997,6 +997,9 @@ local function ResolvePostDamage(info, attacker, target, is_ranged)
 
    ResolveCoupDeGrace(info, attacker, target)
    ResolveDevCrit(info, attacker, target)
+   if not info.is_killing then
+      ResolveDeathAttack(info, attacker, target)
+   end
 
    -- No more posts apply to ranged.
    if is_ranged then return end

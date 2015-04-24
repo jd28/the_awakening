@@ -14,7 +14,7 @@ local desc = [[Debugging Information:
               |    soak - Debug damage reduction.
               |    immunities - Debug immunities]]
 
-function action(info)
+local function action(info)
    local pc  = info.speaker
    local act = info.param:split(' ')
    if not act then return end

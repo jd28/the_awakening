@@ -82,4 +82,12 @@ function M.Test(resref, max)
    return table.concat(res, '\n')
 end
 
+function M.List()
+   local t = {}
+   for k, _ in pairs(_ITEMS) do
+      table.insert(t, k)
+   end
+   return table.concat(t, '\n')
+end
+
 return M

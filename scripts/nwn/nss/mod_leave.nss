@@ -44,28 +44,26 @@ void main(){
 
     if(sUID == "") return;
 
-
-
     // No windows on the rest.
     if(GetLocalInt(oMod, VAR_MOD_DEV) > 1) return;
 
-    int nHP = (GetIsDead(oPC) ? -1 : ModifyCurrentHitPoints(oPC, 0));
-    if (nHP <= 0){
-        nHP = -1;
-        // Persist?
-    }
-    SetDbInt(oPC, VAR_PC_HP, nHP, 7);
 
-    int nBanked = GetLocalInt(oPC, VAR_PC_XP_BANK);
-    SetDbInt(oPC, VAR_PC_XP_BANK, nBanked, 0, TRUE);
-    Logger(oPC, VAR_DEBUG_LOGS, LOGLEVEL_DEBUG,
-        "Attempting to set  XP Bank to %sXP in %s's bank.",
-        IntToString(nBanked), GetPCPlayerName(oPC));
+	if(GetLocalInt(oPC, "pc_is_pc") && !GetLocalInt(oPC, "pc_is_dm")) {
+		int nHP = (GetIsDead(oPC) ? -1 : ModifyCurrentHitPoints(oPC, 0));
+		if (nHP <= 0){ nHP = -1; }
+		SetDbInt(oPC, VAR_PC_HP, nHP, 7);
 
-	ExecuteScript("ta_update_kills", oPC);
+		int nBanked = GetLocalInt(oPC, VAR_PC_XP_BANK);
+		SetDbInt(oPC, VAR_PC_XP_BANK, nBanked, 0, TRUE);
+		Logger(oPC, VAR_DEBUG_LOGS, LOGLEVEL_DEBUG,
+			   "Attempting to set  XP Bank to %sXP in %s's bank.",
+			   IntToString(nBanked), GetPCPlayerName(oPC));
 
-    if(GetLocalInt(GetArea(oPC), "area_dmg") == 13)
-        SetLocalInt(oMod, "WATER_LOG_" + sUID, TRUE);
+		ExecuteScript("ta_update_kills", oPC);
+
+		if(GetLocalInt(GetArea(oPC), "area_dmg") == 13)
+			SetLocalInt(oMod, "WATER_LOG_" + sUID, TRUE);
+	}
 
     // -------------------------------------------------------------------------
     // SIMTools Stuff
