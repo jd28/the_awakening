@@ -1259,11 +1259,6 @@ OBJECT_INVALID are not listed below as they are represented by internal types.
 * CEPVFX_IMP_HEALING_X_YELLOW = 1124
 * CEPVFX_IMP_LOK_AFK = 751
 
-#### CHAT_SYMBOL_*
-* CHAT_SYMBOL_ADMIN = admin_
-* CHAT_SYMBOL_DM = dm_
-* CHAT_SYMBOL_GENERAL = !
-
 #### CLASS_TYPE_*
 
 * CLASS_TYPE_ABERRATION = 11

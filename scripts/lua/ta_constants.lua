@@ -11,3 +11,7 @@ for l in c:lines() do
 end
 
 c:close()
+
+Rules.RegisterConstant("CHAT_SYMBOL_ADMIN", "admin_")
+Rules.RegisterConstant("CHAT_SYMBOL_DM", "dm_")
+Rules.RegisterConstant("CHAT_SYMBOL_GENERAL", "!")
