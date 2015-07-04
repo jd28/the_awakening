@@ -134,11 +134,11 @@ local function RegisterSymbol(symbol, dir, verify)
    end
 
    if type(symbol) ~= "string" then
-      error "Chat symbols must be strings!"
+      error("Chat symbols must be strings!", 2)
    end
 
    if verify ~= nil and type(verify) ~= "function" then
-      error "The symbol verifier if passed must be a function!"
+      error("The symbol verifier if passed must be a function!", 2)
    end
 
    table.insert(_SYMBOLS, symbol)
@@ -162,7 +162,7 @@ end
 local function RegisterCommand(symbol, name, func, desc)
    desc = desc or ''
    if not IsRegisteredSymbol(symbol) then
-      error(fmt("Symbol %s has not been registered!", symbol))
+      error(fmt("Symbol %s has not been registered!", symbol), 2)
    end
    _COMMANDS[symbol] = _COMMANDS[symbol] or {}
    _COMMANDS[symbol][name] = {func = func, description = desc }
@@ -174,7 +174,7 @@ end
 -- @param desc
 local function RegisterExternalCommand(symbol, name, desc)
    if not IsRegisteredSymbol(symbol) then
-      error(fmt("Symbol %s has not been registered!", symbol))
+      error(fmt("Symbol %s has not been registered!", symbol), 2)
    end
    _COMMANDS[symbol] = _COMMANDS[symbol] or {}
    _COMMANDS[symbol][name] = { description = desc or "" }
