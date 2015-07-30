@@ -1,4 +1,5 @@
-local Dynconvo = require 'ta.dynconvo'
+local DynConvo = require 'ta.dynconvo'
+local NWNXEv = require 'solstice.nwnx.events'
 
 function dnyc_dlg_prompt()
    local obj = Game.GetPCSpeaker()
