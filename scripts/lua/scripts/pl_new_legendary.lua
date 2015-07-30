@@ -1,8 +1,6 @@
 local D     = require 'ta.dynconvo'
 local fmt   = string.format
 local Color = require 'solstice.color'
-local TDA   = require 'solstice.2da'
-local TLK   = require 'solstice.tlk'
 local NWNXLevels = require 'solstice.nwnx.levels'
 local Log = System.GetLogger()
 
@@ -131,11 +129,11 @@ local function GetFeatTable()
    local ms_inserted = {}
    local t = {}
    local mt = {}
-   local twoda = TDA.GetCached2da("feat")
-   local size = TDA.GetRowCount(twoda) - 1
+   local twoda = Game.GetCached2da("feat")
+   local size = Game.Get2daRowCount(twoda) - 1
    for i = 0, size do
       local master = -1
-      local msfeat = TDA.GetString('feat', 'MASTERFEAT', i)
+      local msfeat = Game.Get2daString('feat', 'MASTERFEAT', i)
       if #msfeat > 0 then
          master = tonumber(msfeat)
          if not ms_inserted[master] then
@@ -487,8 +485,8 @@ local function class_select(conv, it)
       if class == CLASS_TYPE_BARD then
          for i=0, 6 do
             if cha - i >= 0 then
-               old = TDA.GetInt("cls_spkn_bard", "SpellLevel"..tostring(i), cls_level - 1);
-               new = TDA.GetInt("cls_spkn_bard", "SpellLevel"..tostring(i), cls_level);
+               old = Game.Get2daInt("cls_spkn_bard", "SpellLevel"..tostring(i), cls_level - 1);
+               new = Game.Get2daInt("cls_spkn_bard", "SpellLevel"..tostring(i), cls_level);
 
                pc:SetLocalInt("LL_SPKN_"..tostring(i), new - old);
                total = total + new - old;
@@ -497,8 +495,8 @@ local function class_select(conv, it)
       elseif class == CLASS_TYPE_SORCERER then
          for i=0, 9 do
             if cha - i >= 0 then
-               old = TDA.GetInt("cls_spkn_sorc", "SpellLevel"..tostring(i), cls_level - 1);
-               new = TDA.GetInt("cls_spkn_sorc", "SpellLevel"..tostring(i), cls_level);
+               old = Game.Get2daInt("cls_spkn_sorc", "SpellLevel"..tostring(i), cls_level - 1);
+               new = Game.Get2daInt("cls_spkn_sorc", "SpellLevel"..tostring(i), cls_level);
                pc:SetLocalInt("LL_SPKN_"..tostring(i), new - old);
                total = total + new - old;
             end
