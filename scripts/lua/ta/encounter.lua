@@ -1,6 +1,5 @@
 local M = {}
 local ffi = require 'ffi'
-local Obj = require 'solstice.object'
 local encenv = require 'ta.encounter_env'
 local Dyn = require 'ta.dynamo'
 

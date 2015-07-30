@@ -5,8 +5,6 @@ local C = ffi.C
 local lfs = require 'lfs'
 local Log = System.GetLogger()
 
-local GetIsValid = require('solstice.object').Object.GetIsValid
-
 local _COMMANDS = {}
 local _SYMBOLS = {}
 
@@ -220,7 +218,7 @@ end
 local function ChatHandler(channel, speaker, msg, to)
    -- Speaker must be a valid PC and the msg must start with
    -- a command.
-   if not GetIsValid(speaker) or
+   if not speaker:GetIsValid() or
       speaker.type ~= OBJECT_TRUETYPE_CREATURE or
       not speaker:GetIsPC() or
       not get_symbol(msg)
