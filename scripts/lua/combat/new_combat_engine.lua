@@ -106,8 +106,8 @@ end
 -- @param info AttackInfo.
 -- @param attacker Attacking creature.
 local function GetCriticalHitRoll(info, attacker)
-   return (attacker.ci.equips[info.weapon].crit_range * 5)
-      + attacker.ci.offense.crit_chance_modifier
+   return (info.attacker_ci.equips[info.weapon].crit_range * 5)
+      + info.attacker_ci.offense.crit_chance_modifier
 end
 
 --- Get current weapon.
@@ -116,7 +116,7 @@ end
 local function GetCurrentWeapon(info, attacker)
    local n = info.weapon
    if n >= 0 and n <= 5 then
-      local id = attacker.ci.equips[n].id
+      local id = info.attacker_ci.equips[n].id
       return GetObjectByID(id)
    end
    return OBJECT_INVALID
@@ -221,7 +221,7 @@ local function GetIterationPenalty(info, attacker)
       end
       attacker.obj.cre_combat_round.cr_extra_taken = attacker.obj.cre_combat_round.cr_extra_taken + 1
    elseif spec_att ~= 65002 and spec_att ~= 6 and spec_att ~= 391 then
-      iter_pen = attacker.obj.cre_combat_round.cr_current_attack * attacker.ci.equips[info.weapon].iter
+      iter_pen = attacker.obj.cre_combat_round.cr_current_attack * info.attacker_ci.equips[info.weapon].iter
    end
 
    return iter_pen
@@ -539,21 +539,21 @@ end
 -- @param mult crit multiplier
 -- @param ki_strike Is WM Ki Strike.
 local function ResolveDamageResult(info, attacker, mult, ki_strike)
-   for i = 0, attacker.ci.equips[info.weapon].damage_len - 1 do
-      AddDamageToResult(info, attacker.ci.equips[info.weapon].damage[i], mult)
+   for i = 0, info.attacker_ci.equips[info.weapon].damage_len - 1 do
+      AddDamageToResult(info, info.attacker_ci.equips[info.weapon].damage[i], mult)
    end
 
-   for i = 0, attacker.ci.offense.damage_len - 1 do
-      AddDamageToResult(info, attacker.ci.offense.damage[i], mult)
+   for i = 0, info.attacker_ci.offense.damage_len - 1 do
+      AddDamageToResult(info, info.attacker_ci.offense.damage[i], mult)
    end
 
    info.dmg_result.damages[12] = info.dmg_result.damages[12]
-      + DoRoll(attacker.ci.equips[info.weapon].base_dmg_roll, mult)
+      + DoRoll(info.attacker_ci.equips[info.weapon].base_dmg_roll, mult)
 
    info.dmg_result.damages[12] = info.dmg_result.damages[12]
-      + (attacker.ci.equips[info.weapon].dmg_ability * mult)
+      + (info.attacker_ci.equips[info.weapon].dmg_ability * mult)
 
-   AddDamageToResult(info, attacker.ci.mod_mode.dmg, mult)
+   AddDamageToResult(info, info.attacker_ci.mod_mode.dmg, mult)
 end
 
 --- Resolve damage modifications.
@@ -579,7 +579,7 @@ local function ResolveDamageModifications(info, attacker, target)
       start = target.obj.cre_stats.cs_first_dmgresist_eff
    end
 
-   eff, start = target:GetBestDamageResistEffect(attacker.ci.equips[info.weapon].base_dmg_flags, start)
+   eff, start = target:GetBestDamageResistEffect(info.attacker_ci.equips[info.weapon].base_dmg_flags, start)
    local amt, adj, removed = target:DoDamageResistance(info.dmg_result.damages[12], eff, 12)
    info.dmg_result.damages[12] = amt
 
@@ -609,7 +609,7 @@ local function ResolveDamageModifications(info, attacker, target)
       if info.dmg_result.damages[i] > 0 then
          local idx = i
          if i == 12 then
-            idx = attacker.ci.equips[info.weapon].base_dmg_flags
+            idx = info.attacker_ci.equips[info.weapon].base_dmg_flags
          end
          local amt, adj = target:DoDamageImmunity(info.dmg_result.damages[i], idx)
          info.dmg_result.damages[i] = amt
@@ -625,11 +625,11 @@ local function ResolveDamageModifications(info, attacker, target)
       start = nil
    end
 
-   eff = target:GetBestDamageReductionEffect(attacker.ci.equips[info.weapon].power, start)
+   eff = target:GetBestDamageReductionEffect(info.attacker_ci.equips[info.weapon].power, start)
 
    amt, adj, removed = target:DoDamageReduction(info.dmg_result.damages[12],
                                                 eff,
-                                                attacker.ci.equips[info.weapon].power)
+                                                info.attacker_ci.equips[info.weapon].power)
    info.dmg_result.damages[12] = amt
    if adj > 0 then
       info.dmg_result.reduction = adj
@@ -734,28 +734,28 @@ local function ResolveDamage(info, attacker, target)
    local mult = 1
    local modifier = 0
    if GetIsCriticalHit(info) then
-      modifier = attacker.ci.equips[info.weapon].crit_mult * 100
-      modifier = modifier + attacker.ci.offense.crit_dmg_modifier
+      modifier = info.attacker_ci.equips[info.weapon].crit_mult * 100
+      modifier = modifier + info.attacker_ci.offense.crit_dmg_modifier
    end
 
    ResolveDamageResult(info, attacker, mult, ki_strike)
    -- Modes
    for i = 0, COMBAT_MOD_SKILL do
-      if RollValid(attacker.ci.mods[i].dmg.roll) then
-         AddDamageToResult(info, attacker.ci.mods[i].dmg, mult)
+      if RollValid(info.attacker_ci.mods[i].dmg.roll) then
+         AddDamageToResult(info, info.attacker_ci.mods[i].dmg, mult)
       end
    end
 
    if attacker:GetHasTrainingVs(target)
-      and RollValid(attacker.ci.mods[COMBAT_MOD_TRAINING_VS].dmg.roll)
+      and RollValid(info.attacker_ci.mods[COMBAT_MOD_TRAINING_VS].dmg.roll)
    then
-      AddDamageToResult(info, attacker.ci.mods[COMBAT_MOD_TRAINING_VS].dmg, mult)
+      AddDamageToResult(info, info.attacker_ci.mods[COMBAT_MOD_TRAINING_VS].dmg, mult)
    end
 
    if attacker:GetIsFavoredEnemy(target)
-      and RollValid(attacker.ci.mods[COMBAT_MOD_FAVORED_ENEMY].dmg.roll)
+      and RollValid(info.attacker_ci.mods[COMBAT_MOD_FAVORED_ENEMY].dmg.roll)
    then
-      AddDamageToResult(info, attacker.ci.mods[COMBAT_MOD_FAVORED_ENEMY].dmg, mult)
+      AddDamageToResult(info, info.attacker_ci.mods[COMBAT_MOD_FAVORED_ENEMY].dmg, mult)
    end
 
    -- Special attacks
@@ -779,8 +779,8 @@ local function ResolveDamage(info, attacker, target)
    for i = 0, SITUATION_NUM - 1 do
       if band(lshift(1, i), info.situational_flags) ~= 0 then
          -- Don't multiply situational damage.
-         if RollValid(attacker.ci.mod_situ[i].dmg.roll) then
-            AddDamageToResult(info, attacker.ci.mod_situ[i].dmg, 1)
+         if RollValid(info.attacker_ci.mod_situ[i].dmg.roll) then
+            AddDamageToResult(info, info.attacker_ci.mod_situ[i].dmg, 1)
          end
       end
    end
@@ -1041,8 +1041,8 @@ local function ResolveSituations(info, attacker, target)
 
    -- In order for a sneak attack situation to be possiblle the attacker must
    -- be able to do some amount of sneak damage.
-   local death = RollValid(attacker.ci.mod_situ[SITUATION_DEATH_ATTACK].dmg.roll)
-   local sneak = RollValid(attacker.ci.mod_situ[SITUATION_SNEAK_ATTACK].dmg.roll)
+   local death = RollValid(info.attacker_ci.mod_situ[SITUATION_DEATH_ATTACK].dmg.roll)
+   local sneak = RollValid(info.attacker_ci.mod_situ[SITUATION_SNEAK_ATTACK].dmg.roll)
 
    -- Sneak Attack & Death Attack
    if (sneak or death) and
