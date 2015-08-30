@@ -10,7 +10,7 @@ NWNXEffects.RegisterEffectHandler(
          if target:GetIsDead() or target.type ~= OBJECT_TRUETYPE_CREATURE then
             return true
          end
-         target:SetMovementRate(eff:GetInt(1))
+         target:SetMovementRate(eff:GetInt(0))
       else
          target:SetMovementRate(0)
       end
@@ -24,10 +24,10 @@ NWNXEffects.RegisterEffectHandler(
          if target:GetIsDead() then return true end
       end
       local dc = target:GetLocalInt("gsp_mod_dc")
-      local amt = eff:GetInt(1)
-      if eff:GetInt(0) == CUSTOM_EFFECT_TYPE_SPELL_DC_INCREASE then
+      local amt = eff:GetInt(0)
+      if eff:GetType() == CUSTOM_EFFECT_TYPE_SPELL_DC_INCREASE then
          amt = is_remove and -amt or amt
-      elseif eff:GetInt(0) == CUSTOM_EFFECT_TYPE_SPELL_DC_DECREASE then
+      elseif eff:GetType() == CUSTOM_EFFECT_TYPE_SPELL_DC_DECREASE then
          amt = is_remove and amt or -amt
       end
 
@@ -38,10 +38,10 @@ NWNXEffects.RegisterEffectHandler(
 
 NWNXEffects.RegisterEffectHandler(
    function (eff, target, is_remove)
-      local amt = eff:GetInt(1)
-      if eff:GetInt(0) == CUSTOM_EFFECT_TYPE_DAMAGE_IMMUNITY_ALL then
+      local amt = eff:GetInt(0)
+      if eff:GetType() == CUSTOM_EFFECT_TYPE_DAMAGE_IMMUNITY_ALL then
          if is_remove then amt = -amt end
-      elseif eff:GetInt(0) == CUSTOM_EFFECT_TYPE_DAMAGE_VULNERABILITY_ALL then
+      elseif eff:GetType() == CUSTOM_EFFECT_TYPE_DAMAGE_VULNERABILITY_ALL then
          if not is_remove then amt = -amt end
       else
          return

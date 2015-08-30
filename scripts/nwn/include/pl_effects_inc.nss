@@ -3,15 +3,31 @@
 #include "nwnx_structs"
 #include "nwnx_effects"
 
-const int CUSTOM_EFFECT_TYPE_ADDITIONAL_ATTACKS = 0;
-const int CUSTOM_EFFECT_TYPE_IMMUNITY_DECREASE = 1;
-const int CUSTOM_EFFECT_TYPE_HITPOINTS = 2;
-const int CUSTOM_EFFECT_TYPE_MOVEMENT_RATE = 3;
-const int CUSTOM_EFFECT_TYPE_SPELL_DC_INCREASE = 4;
-const int CUSTOM_EFFECT_TYPE_SPELL_DC_DECREASE = 5;
-const int CUSTOM_EFFECT_TYPE_RECURRING = 6;
-const int CUSTOM_EFFECT_TYPE_DAMAGE_IMMUNITY_ALL = 7;
-const int CUSTOM_EFFECT_TYPE_DAMAGE_VULNERABILITY_ALL = 8;
+const int CUSTOM_EFFECT_TYPE_CRIT_DMG_BONUS            = 98;
+const int CUSTOM_EFFECT_TYPE_CRIT_DMG_PENALTY          = 99;
+const int CUSTOM_EFFECT_TYPE_CRIT_THREAT_BONUS         = 100;
+const int CUSTOM_EFFECT_TYPE_CRIT_THREAT_PENALTY       = 101;
+const int CUSTOM_EFFECT_TYPE_DAMAGE_IMMUNITY_ALL       = 102;
+const int CUSTOM_EFFECT_TYPE_DAMAGE_VULNERABILITY_ALL  = 103;
+const int CUSTOM_EFFECT_TYPE_DMG_PERCENT_BONUS         = 104;
+const int CUSTOM_EFFECT_TYPE_DMG_PERCENT_PENALTY       = 105;
+const int CUSTOM_EFFECT_TYPE_GOLD_BONUS                = 106;
+const int CUSTOM_EFFECT_TYPE_GOLD_PENALTY              = 107;
+const int CUSTOM_EFFECT_TYPE_HITPOINTS                 = 108;
+const int CUSTOM_EFFECT_TYPE_IMMUNITY_DECREASE         = 109;
+const int CUSTOM_EFFECT_TYPE_MOVEMENT_BONUS            = 110;
+const int CUSTOM_EFFECT_TYPE_MOVEMENT_PENALTY          = 111;
+const int CUSTOM_EFFECT_TYPE_MOVEMENT_RATE             = 112;
+const int CUSTOM_EFFECT_TYPE_RECURRING                 = 113;
+const int CUSTOM_EFFECT_TYPE_SPELL_DAMAGE_BONUS        = 114;
+const int CUSTOM_EFFECT_TYPE_SPELL_DAMAGE_PENALTY      = 115;
+const int CUSTOM_EFFECT_TYPE_SPELL_DC_DECREASE         = 116;
+const int CUSTOM_EFFECT_TYPE_SPELL_DC_INCREASE         = 117;
+const int CUSTOM_EFFECT_TYPE_STACKING_DMG_REDUCTION    = 118;
+const int CUSTOM_EFFECT_TYPE_STACKING_DMG_RESISTANCE   = 119;
+const int CUSTOM_EFFECT_TYPE_XP_BONUS                  = 120;
+const int CUSTOM_EFFECT_TYPE_XP_PENALTY                = 121;
+
 
 effect EffectAdditionalAttacks(int nAmount);
 effect EffectBonusFeat (int nFeat);
@@ -51,51 +67,42 @@ effect EffectWounding (int nAmount) {
 }
 
 effect EffectAdditionalAttacks(int nAmount) {
-	effect eEff = EffectVisualEffect(0);
-    SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
-	SetEffectInteger(eEff, 0, CUSTOM_EFFECT_TYPE_ADDITIONAL_ATTACKS);
-	SetEffectInteger(eEff, 1, nAmount);
-    return eEff;
+	return EffectModifyAttacks(nAmount);
 }
 
 effect EffectDCIncrease(int nAmount){
     effect eEff = EffectVisualEffect(0);
-    SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
-	SetEffectInteger(eEff, 0, CUSTOM_EFFECT_TYPE_SPELL_DC_DECREASE);
-	SetEffectInteger(eEff, 1, nAmount);
+    SetEffectTrueType(eEff, CUSTOM_EFFECT_TYPE_SPELL_DC_DECREASE);
+	SetEffectInteger(eEff, 0, nAmount);
     return eEff;
 }
 
 effect EffectDCDecrease(int nAmount){
     effect eEff = EffectVisualEffect(0);
-    SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
-	SetEffectInteger(eEff, 0, CUSTOM_EFFECT_TYPE_SPELL_DC_INCREASE);
-	SetEffectInteger(eEff, 1, nAmount);
+    SetEffectTrueType(eEff, CUSTOM_EFFECT_TYPE_SPELL_DC_INCREASE);
+	SetEffectInteger(eEff, 0, nAmount);
     return eEff;
 }
 
 effect EffectImmunityDecrease (int nImmunity, int nVuln) {
     effect eEff = EffectVisualEffect(0);
-    SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
-	SetEffectInteger(eEff, 0, CUSTOM_EFFECT_TYPE_IMMUNITY_DECREASE);
-	SetEffectInteger(eEff, 1, nImmunity);
-	SetEffectInteger(eEff, 2, nVuln);
+    SetEffectTrueType(eEff, CUSTOM_EFFECT_TYPE_IMMUNITY_DECREASE);
+	SetEffectInteger(eEff, 0, nImmunity);
+	SetEffectInteger(eEff, 1, nVuln);
     return eEff;
 }
 
 effect EffectPermenantHitpoints(int nHitpoints){
     effect eEff = EffectVisualEffect(0);
-    SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
-	SetEffectInteger(eEff, 0, CUSTOM_EFFECT_TYPE_HITPOINTS);
-	SetEffectInteger(eEff, 1, nHitpoints);
+    SetEffectTrueType(eEff, CUSTOM_EFFECT_TYPE_HITPOINTS);
+	SetEffectInteger(eEff, 0, nHitpoints);
     return eEff;
 }
 
 effect EffectMovementRate(int nRate){
     effect eEff = EffectVisualEffect(0);
-    SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
-	SetEffectInteger(eEff, 0, CUSTOM_EFFECT_TYPE_MOVEMENT_RATE);
-	SetEffectInteger(eEff, 1, nRate);
+    SetEffectTrueType(eEff, CUSTOM_EFFECT_TYPE_MOVEMENT_RATE);
+	SetEffectInteger(eEff, 0, nRate);
     return eEff;
 }
 
@@ -111,17 +118,15 @@ effect ExpandedEffectDamageIncrease(int nBonus, int nDamageType, int bCritical, 
 
 effect EffectDamageImmunityAll(int amount) {
     effect eEff = EffectVisualEffect(0);
-    SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
-	SetEffectInteger(eEff, 0, CUSTOM_EFFECT_TYPE_DAMAGE_IMMUNITY_ALL);
-	SetEffectInteger(eEff, 1, amount);
+    SetEffectTrueType(eEff, CUSTOM_EFFECT_TYPE_DAMAGE_IMMUNITY_ALL);
+	SetEffectInteger(eEff, 0, amount);
     return eEff;
 }
 
 effect EffectDamageVulnerabilityAll(int amount) {
     effect eEff = EffectVisualEffect(0);
-    SetEffectTrueType(eEff, EFFECT_TRUETYPE_MODIFYNUMATTACKS);
-	SetEffectInteger(eEff, 0, CUSTOM_EFFECT_TYPE_DAMAGE_VULNERABILITY_ALL);
-	SetEffectInteger(eEff, 1, amount);
+    SetEffectTrueType(eEff, CUSTOM_EFFECT_TYPE_DAMAGE_VULNERABILITY_ALL);
+	SetEffectInteger(eEff, 0, amount);
     return eEff;
 }
 
