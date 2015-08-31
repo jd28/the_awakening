@@ -46,14 +46,14 @@ void ModEnter(object oPC){
         SetLocalInt(oPC, "boot", TRUE);
     }
     if(!GetIsPCNameValid(oPC)){
-        sMsg = Logger(oPC, VAR_DEBUG_LOGS, LOGLEVEL_NOTICE, "Invalid Name: Login: s%, Name: %s, IP: %s, CDKey: %s",
+        sMsg = Logger(oPC, VAR_DEBUG_LOGS, LOGLEVEL_NOTICE, "Invalid Name: Login: %s, Name: %s, IP: %s, CDKey: %s",
                       GetPCPlayerName(oPC), GetName(oPC), GetPCIPAddress(oPC), GetPCPublicCDKey(oPC));
         SendMessageToAllDMs(sMsg);
         SetLocalInt(oPC, "InvalidName", TRUE);
         SetLocalInt(oPC, "boot", TRUE);
     }
     else if(!GetIsBicFileValid(oPC)){
-        sMsg = Logger(oPC, VAR_DEBUG_LOGS, LOGLEVEL_NOTICE, "Dupe Name: Login: s%, Name: %s, IP: %s, CDKey: %s",
+        sMsg = Logger(oPC, VAR_DEBUG_LOGS, LOGLEVEL_NOTICE, "Dupe Name: Login: %s, Name: %s, IP: %s, CDKey: %s",
                       GetPCPlayerName(oPC), GetName(oPC), GetPCIPAddress(oPC), GetPCPublicCDKey(oPC));
         SendMessageToAllDMs(sMsg);
 
