@@ -139,66 +139,21 @@ int VerifyPlayernameAgainstCDKey(object oPlayer) {
     string sPlayer = SQLEncodeSpecialChars(sUnencoded);
     string sKey = GetPCPublicCDKey(oPlayer);
     string sStoredKey, sAddingKey;
-    string sSQL = "SELECT cdkey FROM cdkeys WHERE player='" + sPlayer + "'";
-
-    //SendMessageToPC(oPlayer, "Attempting to Verify CDKey");
+    string sSQL = "SELECT cdkeys FROM nwn.players WHERE account='" + sPlayer + "'";
 
     SQLExecDirect(sSQL);
 
-    /* there's at least one key stored already */
+    // No keys on file, so they can't be invalid...
+    if (SQLFetch() != SQL_SUCCESS) { return FALSE; }
 
-    if (SQLFetch() == SQL_SUCCESS) {
-        sStoredKey = SQLGetData(1);
-        //sAddingKey = SQLGetData(2);
-
-        /* they indicated that they wanted to add a key this login */
-
-        if (GetDbInt(oPlayer, "pc_add_key", TRUE)) {
-            DeleteDbVariable(oPlayer, "pc_add_key", TRUE);
-
-            /* their current key is not in the key string, add it unless at 7 keys already */
-            if (FindSubString(sStoredKey, sKey) == -1) {
-                int nKeyLength = GetStringLength(sStoredKey);
-
-                /* allow 7 keys max key-key-key-key-key-key-key    6 spacers + 7x8 keys = 62 */
-                if (nKeyLength > 61) {
-                    nBoot = TRUE;
-
-                    /* add the key to the string */
-                } else {
-                    sSQL =
-                        "UPDATE cdkeys SET cdkey='" + sStoredKey + "-" + sKey + "' WHERE player='" + sPlayer +
-                        "'";
-                    SQLExecDirect(sSQL);
-                    DelayCommand(25.0, FloatingTextStringOnCreature("New CD Key Successfully Added!", oPlayer, FALSE));
-                }
-
-
-                /* let them know they already had this key in their string */
-            } else {
-                DelayCommand(25.0,
-                    FloatingTextStringOnCreature("CD Key Addition Failed! This key already listed for this account!", oPlayer,
-                        FALSE));
-            }
-
-
-            /* they are not adding, and the cd key doesnt match those listed - boot and log */
-        } else if (FindSubString(sStoredKey, sKey) == -1) {
-            string sReport = "INCORRECT CD KEY DETECTED! ID: " + sUnencoded + "; Name: " +
-                GetName(oPlayer) + "; CD Key: " + sKey + "; IP: " + GetPCIPAddress(oPlayer) ;
-
-            WriteTimestampedLogEntry(sReport);
-            SendMessageToAllDMs(sReport);
-
-            nBoot = TRUE;
-        }
-
-
-        /* new account, add the key */
-    } else {
-        sSQL = "INSERT INTO cdkeys (cdkey,player) VALUES" + "('" + sKey + "','" + sPlayer + "')";
-        //SendMessageToPC(oPlayer, sSQL);
-        SQLExecDirect(sSQL);
+    sStoredKey = SQLGetData(1);
+    /* they are not adding, and the cd key doesnt match those listed - boot and log */
+    if (FindSubString(sStoredKey, sKey) == -1) {
+      string sReport = "INCORRECT CD KEY DETECTED! ID: " + sUnencoded + "; Name: " +
+          GetName(oPlayer) + "; CD Key: " + sKey + "; IP: " + GetPCIPAddress(oPlayer) ;
+      WriteTimestampedLogEntry(sReport);
+      SendMessageToAllDMs(sReport);
+      nBoot = TRUE;
     }
 
     return nBoot;

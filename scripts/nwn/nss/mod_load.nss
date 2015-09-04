@@ -85,7 +85,7 @@ void main(){
     // Set Boot time
     int nBootTime;
 
-    SQLExecDirect("SELECT UNIX_TIMESTAMP()");
+    SQLExecDirect("SELECT extract(epoch from now());");
     if (SQLFetch() == SQL_SUCCESS){
         nBootTime = StringToInt(SQLGetData(1));
         SetLocalInt(GetModule(), "BootTime", nBootTime);
@@ -96,7 +96,7 @@ void main(){
         WriteTimestampedLogEntry("ERROR : mod_load : Failed get boot time.");
     }
 
-    SQLExecDirect("SELECT cdkey, status FROM admin_dm");
+    SQLExecDirect("SELECT cdkeys, admin FROM nwn.players where admin > 0");
     while (SQLFetch() == SQL_SUCCESS){
        string key = SQLGetData(1);
        string val = SQLGetData(2);
