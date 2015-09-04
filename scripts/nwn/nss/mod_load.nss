@@ -135,9 +135,7 @@ void main(){
 	object way = GetObjectByTag("wp_sp_pos_1", d4() - 1);
 	if (GetIsObjectValid(way)) {
 		location loc = GetLocation(way);
-		object wander = CreateObject(OBJECT_TYPE_CREATURE,
-									 "pl_wander_spirit",
-									 loc);
+		object wander = CreateObject(OBJECT_TYPE_CREATURE, "pl_wander_spirit", loc);
 		if (GetIsObjectValid(wander)) {
 			WriteTimestampedLogEntry("NOTICE : Wandering Spirit Spawned");
 		}
@@ -158,7 +156,7 @@ void InfoHashInit(){
     else{
         for(i = 0; i < MAX_FEAT_NUM; i++){
             sValue = Get2DAString("featnames", "FEAT", i);
-            if(sValue == "****") nValue = -1;
+            if(sValue == "") nValue = -1;
             else nValue = StringToInt(sValue);
 
             SetHashString(OBJECT_SELF, VAR_HASH_FEAT_NAME, IntToString(i), GetStringByStrRef(nValue));

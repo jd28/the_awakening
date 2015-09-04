@@ -57,13 +57,7 @@ void main(){
     int nPerm2 = GetDbInt(GetModule(), "FKY_CHT_BANPLAYER" + sCDKey);
 
     if (nPerm) SetLocalInt(oPC, "FKY_CHT_BANSHOUT", TRUE);
-    if (nPerm2 || GetLocalInt(oPC, "FKY_CHT_BANPLAYER")) BootPlayer(oPC);//Boot them if Valid Object
-    else if (SRV_SERVERVAULT != "")
-    {
-        string Script = GetLocalString(oPC, "LetoScript");
-        if( Script != "" ) SetLocalString(oPC, "LetoScript", "");
-    }
-
+    if (nPerm2 || GetLocalInt(oPC, "FKY_CHT_BANPLAYER")) BootPlayer(oPC);
 
     string sString = Logger(oPC, "DebugLogs", LOGLEVEL_NOTICE, "CLIENT ENTER : " +
         "Login: %s, Name: %s, CDKey: %s, IP Address: %s:%s", GetPCPlayerName(oPC),
@@ -108,8 +102,7 @@ void main(){
 //  FUNCTIONS - Loading move...
 // -----------------------------------------------------------------------------
 void PCLoadPlayer(object oPC){
-    object oSkin, oMod = GetModule();
-    string sUID = GetTag(oPC);
+    object oMod = GetModule();
 
     // -------------------------------------------------------------------------
     // Create variables.
