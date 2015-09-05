@@ -111,16 +111,6 @@ void DoAlias(struct pl_chat_command pcc){ // !alias <alias> <command>
     FloatingTextStringOnCreature(C_GREEN+"You have aliased " + sCommand + " as " + sAlias+C_END, pcc.oPC, FALSE);
 }
 
-void DoUnalias(struct pl_chat_command pcc){ //!unalias <alias>
-    pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 8);
-    if(pcc.sCommand ==  "") return;
-
-    DeleteDbVariable(pcc.oPC, "chat_alias_"+pcc.sCommand, TRUE, "db_alias");
-    DeleteLocalString(pcc.oPC, "chat_alias_"+pcc.sCommand);
-    SendMessageToPC(pcc.oPC, C_RED+"Alias "+pcc.sCommand+" removed!"+C_END);
-}
-
-
 void DoAnon(struct pl_chat_command pcc){
     SetLocalInt(pcc.oPC, "FKY_CHAT_ANON", 1);
     SendMessageToPC(pcc.oPC, C_RED+ANON+C_END);
@@ -195,10 +185,8 @@ void DoDelete(struct pl_chat_command pcc){
             {
                 ExportSingleCharacter(pcc.oTarget);//export needed to ensure this .bic is the most recently edited
                 SetLocalInt(pcc.oTarget, VAR_PC_DELETED, 1);
-                DeleteAllDbVariables(pcc.oTarget, FALSE, "pwdata");
-                DeleteAllDbVariables(pcc.oTarget, FALSE, "qsstatus");
-                //DeleteAllDbVariables(pcc.oTarget, FALSE, "db_alias");
-                //DeleteAllDbVariables(pcc.oPC, "pwobjdata");
+                string sql = "DELETE from nwn.characters WHERE id = "+GetCharacterId(pcc.oTarget);
+                SQLExecDirect(sql);
 
                 int nCurrentXP = GetXP(pcc.oTarget) - 3000;
                 if(nCurrentXP < 0)
@@ -552,7 +540,7 @@ void DoUnnickname(struct pl_chat_command pcc){ //!unnickname <nickname>
     pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 11);
     if(pcc.sCommand == "") return;
 
-    DeleteDbVariable(pcc.oPC, "chat_nick_"+pcc.sCommand, TRUE, "db_alias");
+    //DeleteDbVariable(pcc.oPC, "chat_nick_"+pcc.sCommand, TRUE, "db_alias");
     DeleteLocalString(pcc.oPC, "chat_nick_"+pcc.sCommand);
     SendMessageToPC(pcc.oPC, C_RED+"Nickname "+pcc.sCommand+" removed!"+C_END);
 }
@@ -1228,7 +1216,9 @@ void DoXPBank(struct pl_chat_command pcc){ // !xpbank
             if(nBalance >= nWithdraw){
                 nBalance -= nWithdraw;
                 SetLocalInt(pcc.oPC, VAR_PC_XP_BANK, nBalance);
-                SetDbInt(pcc.oPC, VAR_PC_XP_BANK, nBalance, 0, TRUE);
+                string sql = "UPDATE nwn.players SET xp = "+ IntToString(nBalance)
+                    +" WHERE id="+GetPlayerId(pcc.oPC);
+                SQLExecDirect(sql);
 
                 if(GetIsObjectValid(oToken)){
                     DestroyObject(oToken);
@@ -1393,7 +1383,6 @@ void main(){
                 if (pcc.sCommand ==  "unignore") DoUnignore(pcc);
                 else if (GetStringLeft(pcc.sCommand, 3) == "uni") CommandRedirect(pcc.oPC, 8);
                 else if (pcc.sCommand ==  "unafk") DoUnafk(pcc);
-                else if (GetStringLeft(pcc.sCommand, 8) == "unalias ") DoUnalias(pcc);
                 else if (pcc.sCommand ==  "unanon") DoUnanon(pcc);
                 else if (GetStringLeft(pcc.sCommand, 11) == "unnickname ") DoUnnickname(pcc);
                 else if (GetStringLeft(pcc.sCommand, 3) == "una") CommandRedirect(pcc.oPC, 2);

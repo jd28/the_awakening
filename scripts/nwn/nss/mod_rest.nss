@@ -33,7 +33,8 @@ void main()
 
     if(GetIsPC(oPC) && !GetIsDM(oPC) && !GetIsDMPossessed(oPC)){
         int nBanked = GetLocalInt(oPC, VAR_PC_XP_BANK);
-        SetDbInt(oPC, VAR_PC_XP_BANK, nBanked, 0, TRUE);
+        // TODO persist vars.
+        //SetDbInt(oPC, VAR_PC_XP_BANK, nBanked, 0, TRUE);
         Logger(oPC, VAR_DEBUG_LOGS, LOGLEVEL_DEBUG,
                "XPBANK : MOD_REST : Attempting to set  XP Bank to %sXP in %s's bank.",
                IntToString(nBanked), GetPCPlayerName(oPC));

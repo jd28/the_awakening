@@ -47,8 +47,8 @@ void main(){
     string sCDKey = GetPCPublicCDKey(oPC);
     Speech_OnClientEnter(oPC);
 
-    int nPerm = StringToInt(GET("ban:shout:"+GetRedisID(oPC)));
-    int nPerm2 = StringToInt(GET("ban:player:"+GetRedisID(oPC)));
+    int nPerm = StringToInt(GET("ban:shout:"+sCDKey));
+    int nPerm2 = StringToInt(GET("ban:player:"+sCDKey));
 
     if (nPerm) SetLocalInt(oPC, "FKY_CHT_BANSHOUT", TRUE);
     if (nPerm2 || GetLocalInt(oPC, "FKY_CHT_BANPLAYER")) BootPlayer(oPC);

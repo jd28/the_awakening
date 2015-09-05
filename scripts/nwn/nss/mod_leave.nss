@@ -51,10 +51,11 @@ void main(){
 	if(GetLocalInt(oPC, "pc_is_pc") && !GetLocalInt(oPC, "pc_is_dm")) {
 		int nHP = (GetIsDead(oPC) ? -1 : ModifyCurrentHitPoints(oPC, 0));
 		if (nHP <= 0){ nHP = -1; }
-		SetDbInt(oPC, VAR_PC_HP, nHP, 7);
+        SET("hp:"+GetRedisID(oPC), IntToString(nHP));
 
 		int nBanked = GetLocalInt(oPC, VAR_PC_XP_BANK);
-		SetDbInt(oPC, VAR_PC_XP_BANK, nBanked, 0, TRUE);
+        // TODO - Update all DB variables.
+		//SetDbInt(oPC, VAR_PC_XP_BANK, nBanked, 0, TRUE);
 		Logger(oPC, VAR_DEBUG_LOGS, LOGLEVEL_DEBUG,
 			   "Attempting to set  XP Bank to %sXP in %s's bank.",
 			   IntToString(nBanked), GetPCPlayerName(oPC));

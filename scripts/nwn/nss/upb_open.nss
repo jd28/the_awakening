@@ -9,9 +9,10 @@
 
 #include "upb_config"
 
-
+// TODO - Redo completely.
 void main()
 {
+  /*
     // Vars
     object oPC = GetLastOpenedBy();
     object oChest = OBJECT_SELF;
@@ -43,7 +44,7 @@ void main()
 
     string sSQL = "DELETE FROM pwobjdata WHERE tag='" + SQLEncodeSpecialChars(GetLocalString(oPC, "pc_player_name")) + "'";
     SQLExecDirect(sSQL);
-/*
+
     // Get the player's storer NPC from the database
     object oStorer = OBJECT_INVALID; //GetPersistentObject(oPC, DATABASE_ITEM, oPC, CHARACTER_SHARING);
     DeletePersistentVariable(oPC, DATABASE_ITEM, CHARACTER_SHARING);

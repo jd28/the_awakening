@@ -24,6 +24,7 @@
 #include "srv_funcs_inc"
 #include "info_inc"
 #include "area_inc"
+#include "nwnx_redis"
 
 const string sSpeech_SpeechList = "SpeechList_";
 const string sSpeech_PlayerID = "SpeechPlayerID_";
@@ -1101,29 +1102,28 @@ object VerifyTarget(struct pl_chat_command pcc, string sCommandType = OBJECT_TAR
     return oReturn;
 }
 
-void ShoutBlock(object oSBPC, int nSBChannel)
+void ShoutBlock(object oPC, int nSBChannel)
 {
-    if (nSBChannel == 2) SetLocalString(oSBPC, "NWNX!CHAT!SUPRESS", "1");//suppress emote speech no matter what, helps avoid circumvention of shout bans
-    FloatingTextStringOnCreature(C_RED+BADEMOTE+C_END, oSBPC, FALSE);//no match
-    if (USING_LINUX && (!GetLocalInt(oSBPC, "FKY_CHAT_EMOTETOGGLE")))
+    if (nSBChannel == 2) SetLocalString(oPC, "NWNX!CHAT!SUPRESS", "1");//suppress emote speech no matter what, helps avoid circumvention of shout bans
+    FloatingTextStringOnCreature(C_RED+BADEMOTE+C_END, oPC, FALSE);//no match
+    if (USING_LINUX && (!GetLocalInt(oPC, "FKY_CHAT_EMOTETOGGLE")))
     {
-        SetLocalInt(oSBPC, "FKY_CHAT_CONVONUMBER", 80);
-        AssignCommand(oSBPC, ClearAllActions(TRUE));
-        AssignCommand(oSBPC, ActionStartConversation(oSBPC, "chat_emote", TRUE, FALSE));
+        SetLocalInt(oPC, "FKY_CHAT_CONVONUMBER", 80);
+        AssignCommand(oPC, ClearAllActions(TRUE));
+        AssignCommand(oPC, ActionStartConversation(oPC, "chat_emote", TRUE, FALSE));
     }
 }
 
-void DoSpamBan(object oSBPC, string sSBText)
+void DoSpamBan(object oPC, string sSBText)
 {
-    string sKey = GetPCPublicCDKey(oSBPC);
-    SetLocalString(oSBPC, "NWNX!CHAT!SUPRESS", "1");//mute em
-    SetLocalInt(oSBPC, "FKY_CHT_BANSHOUT", TRUE);//temp ban em
-    if (GetLocalString(oSBPC, "FKY_CHT_BANREASON") == "") SetLocalString(oSBPC, "FKY_CHT_BANREASON", sSBText);
+    string sKey = GetPCPublicCDKey(oPC);
+    SetLocalString(oPC, "NWNX!CHAT!SUPRESS", "1");//mute em
+    SetLocalInt(oPC, "FKY_CHT_BANSHOUT", TRUE);//temp ban em
+    if (GetLocalString(oPC, "FKY_CHT_BANREASON") == "") SetLocalString(oPC, "FKY_CHT_BANREASON", sSBText);
     //capture the first message that got them busted so that that can't overwrite with something
     //benign to show the dms to get unbanned so they can try again
-    if (USING_NWNX_DB) SetDbInt(GetModule(), "FKY_CHT_BANSHOUT"+ sKey, TRUE);//permaban em
-    else SetCampaignInt("FKY_CHT", "FKY_CHT_BANSHOUT" + sKey, TRUE);                //
-    SendMessageToPC(oSBPC, C_RED+PERMBANSHT1+C_END);//tell em
+    SET("ban:shout:"+GetRedisID(oPC), "1");
+    SendMessageToPC(oPC, C_RED+PERMBANSHT1+C_END);//tell em
 }
 
 void HandlePartySpeak(string sText, object oPC)

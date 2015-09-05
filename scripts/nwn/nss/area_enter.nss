@@ -65,7 +65,7 @@ void main(){
             }
 
             if (GetLocalInt(oArea, "area_delete_location")){
-                DeleteDbVariable(oPC, VAR_PC_SAVED_LOCATION);
+                DeletePersistentLocation(oPC);
             }
 
             // Save location on enter.

@@ -5,7 +5,7 @@
 void main(){
 
     object oPC = GetPCSpeaker();
-    location lWaypoint = GetDbLocation(oPC, VAR_PC_SAVED_LOCATION);
+    location lWaypoint = GetPersistantLocation(oPC);
 
     SetLocalInt(oPC, VAR_PC_ENTERED, TRUE);
 

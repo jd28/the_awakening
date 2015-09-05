@@ -796,6 +796,25 @@ void Raise(object oPlayer){
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVisual, oPlayer);
 }
 
+// TODO - Ensure these are loaded at entry.
+string GetPlayerId(object oPC) {
+    return GetLocalString(oPC, "pc_player_id");
+}
+
+// TODO - Ensure these are loaded at entry.
+string GetCharacterId(object oPC) {
+    return GetLocalString(oPC, "pc_character_id");
+}
+
+location GetPersistantLocation(object oPC) {
+    string loc = GET("loc:"+GetRedisID(oPC));
+    return APSStringToLocation(loc);
+}
+
+void DeletePersistentLocation(object oPC) {
+    DEL("loc:"+GetRedisID(oPC));
+}
+
 void SavePersistentLocation(object oPC){
     object oArea = GetArea(oPC);
     int type = GetLocalInt(oArea, VAR_AREA_LOC_SAVE);
@@ -804,13 +823,13 @@ void SavePersistentLocation(object oPC){
         case 2:
             SendPCMessage(oPC, C_RED+"You have reached a point of no return.  In order to save your location " +
                 "you must return to the previous area (if you can).  Your previous saved location has been deleted." + C_END);
-            DeleteDbVariable(oPC, VAR_PC_SAVED_LOCATION);
+            DeletePersistentLocation(oPC);
             // No break;
         case 1:
             SendPCMessage(oPC, C_RED+"Your location cannot be saved in this area."+C_END);
         break;
         default:
-            SetDbLocation(oPC, VAR_PC_SAVED_LOCATION, GetLocation(oPC), 6);
+            SET("loc:"+GetRedisID(oPC), APSLocationToString(GetLocation(oPC)));
             SendPCMessage(oPC, C_GREEN+"Your location has been saved."+C_END);
     }
 }
