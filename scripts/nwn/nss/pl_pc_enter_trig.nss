@@ -60,9 +60,7 @@ void ModEnter(object oPC){
         SetLocalInt(oPC, "DupeName", TRUE);
         SetLocalInt(oPC, "boot", TRUE);
     }
-
-    else if(GetTag(oPC) == "" || (GetTag(oPC) != "" && GetDbString(oPC, VAR_PC_PLAYER_NAME) == "" )){
-        //PCSetupNewChar(oPC);
+    else if(GetTag(oPC) == ""){
         SetLocalInt(oPC, "NewChar", TRUE);
     }
 
