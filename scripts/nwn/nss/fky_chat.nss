@@ -48,7 +48,8 @@ void main()
 
         //SpeakString(GetName(oAlias)+" "+sNickname+" "+sText);
 
-        if(GetPlayerString(oPC, "chat_nick_"+sNickname) != ""){
+        // TODO - Delete this??
+        if(GetLocalString(oPC, "chat_nick_"+sNickname) != ""){
             // Player has an alias for this person...
             if(oAlias != OBJECT_INVALID){
             // Player is logged in... switch targets and change channel to tell.
@@ -62,7 +63,7 @@ void main()
             }
             else{
             //Player is not logged in...ERROR Message...return.
-                ErrorMessage(oPC, GetPlayerString(oPC, "chat_nick_"+sNickname)+" is not currently logged on!");
+                ErrorMessage(oPC, GetLocalString(oPC, "chat_nick_"+sNickname)+" is not currently logged on!");
                 return;
             }
         }
@@ -81,8 +82,8 @@ void main()
 
         //SpeakString(sAlias+"_"+IntToString(nAlias + 1)+"_"+IntToString(nEnd)+"_"+sText);
 
-        if(GetPlayerString(oPC, "chat_alias_"+sAlias) != ""){
-            sText = ReplaceSubString(sText, GetPlayerString(oPC, "chat_alias_"+sAlias), "#"+sAlias);
+        if(GetLocalString(oPC, "chat_alias_"+sAlias) != ""){
+            sText = ReplaceSubString(sText, GetLocalString(oPC, "chat_alias_"+sAlias), "#"+sAlias);
             sType = GetSubString(sText, 0, 1);//this is the primary sorting string, the leftmost letter of the text
 
             //SpeakString(sText);

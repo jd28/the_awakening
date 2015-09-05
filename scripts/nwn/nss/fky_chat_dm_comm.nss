@@ -506,7 +506,8 @@ void DoDMGuild(struct pl_chat_command pcc){ //dm_guild X
     pcc.oTarget = VerifyTarget(pcc, OBJECT_TARGET);
     if (!GetIsObjectValid(pcc.oTarget)) return;
 
-    SetPlayerInt(pcc.oTarget, VAR_PC_GUILD, nGuild, TRUE);
+    // TODO -- Add to database.
+    SetLocalInt(pcc.oTarget, VAR_PC_GUILD, nGuild);
 
     string sMsg = C_GREEN+"Guild Affiliation Set: ";
     sMsg += GetGuildName(nGuild);

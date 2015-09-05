@@ -183,19 +183,22 @@ void main()
         // Dragon Shape - Red Blue and Green Dragons
         //-----------------------------------------------------------------------
         case 707: // Ancient Red Dragon
-            if(GetPlayerInt(OBJECT_SELF, "pc_dragshape")) // kin
+            // TODO - Ensure this is loaded from somewhere or convert to redis.
+            if(GetLocalInt(OBJECT_SELF, "pc_dragshape")) // kin
                 nPoly = 153;
             else
                 nPoly = 72;
         break;
         case 708:  // Ancient Blue  Dragon
-            if(GetPlayerInt(OBJECT_SELF, "pc_dragshape")) // kin
+            // TODO - Ensure this is loaded from somewhere or convert to redis.
+            if(GetLocalInt(OBJECT_SELF, "pc_dragshape")) // kin
                 nPoly = 152;
             else
                 nPoly = 71;
         break;
         case 709: // Ancient Green Dragon
-            if(GetPlayerInt(OBJECT_SELF, "pc_dragshape")) // kin
+            // TODO - Ensure this is loaded from somewhere or convert to redis.
+            if(GetLocalInt(OBJECT_SELF, "pc_dragshape")) // kin
                 nPoly = 154;
             else
                 nPoly = 73;

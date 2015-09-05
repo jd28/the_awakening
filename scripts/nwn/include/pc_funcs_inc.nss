@@ -4,6 +4,7 @@
 #include "info_inc"
 #include "pl_effects_inc"
 #include "ws_inc_shifter"
+#include "nwnx_redis"
 
 // Apply Respawn Penalty to PC
 void ApplyRespawnPenalty(object oPC);
@@ -72,12 +73,6 @@ int GetLevelByClassIncludingLL(int nClassType, object oPC);
 
 // Returns level based on total experience
 int GetLevelByXP(object oPC);
-
-// get plot variable 'sVarName' on player oPlayer
-string GetPlayerString(object oPlayer, string sVarName, int bGlobal = FALSE, string sDBTable = "pwdata");
-
-// get plot variable 'sVarName' on player oPlayer
-int GetPlayerInt(object oPlayer, string sVarName, int bGlobal = FALSE, string sDBTable = "pwdata");
 
 // Returns Experience min for level given it.
 int GetXPByLevel(int iLevel);
@@ -154,15 +149,6 @@ void SendServerMessage(object oSender, string sMessage);
 
 //Send sMessage on "Server" channel to oRecipient.
 void SendSystemMessage(object oRecipient, string sMessage, object oSender = OBJECT_INVALID);
-
-// set plot variable 'sVarName' on player oPlayer
-void SetPlayerString(object oPlayer, string sVarName, string sValue, int bGlobal = FALSE, string sDBTable = "pwdata");
-
-// set plot variable 'sVarName' on player oPlayer
-void SetPlayerInt(object oPlayer, string sVarName, int nValue, int bGlobal = FALSE, string sDBTable = "pwdata");
-
-// set plot variable 'sVarName' on player oPlayer
-void SetPlayerLocation(object oPlayer, string sVarName, location lLoc, string sDBTable = "pwdata");
 
 // Take Item from oPC with the Tag sTag.  If nAmount = 0, all items with sTag
 // will be taken, if nAmount > 0 that number of items will be taken.
@@ -398,8 +384,18 @@ int GetIsPCShifted(object oPC){
     return FALSE;
 }
 
+string GetRedisID(object oPC, int global = FALSE);
+string GetRedisID(object oPC, int global = FALSE) {
+    if(global) {
+        return GetLocalString(oPC, VAR_PC_PLAYER_NAME);
+    }
+    else {
+        return GetLocalString(oPC, VAR_PC_PLAYER_NAME)+":"+GetName(oPC);
+    }
+}
+
 int GetIsRelevelable(object oPC){
-    if(GetLootable(oPC) > 40 || GetPlayerInt(oPC, VAR_PC_NO_RELEVEL))
+    if(GetLocalInt(oPC, VAR_PC_NO_RELEVEL))
         return FALSE;
 
     if(!GetIsTestCharacter(oPC)
@@ -441,24 +437,6 @@ int GetLevelByXP(object oPC){
     if(nLevel == 0) nLevel = 1;
 
     return nLevel;
-}
-
-int GetPlayerInt(object oPlayer, string sVarName, int bGlobal = FALSE, string sDBTable = "pwdata"){
-    int iRet = GetLocalInt(oPlayer,sVarName);
-    if (iRet == 0) {
-        iRet = GetDbInt(oPlayer, sVarName, bGlobal, sDBTable);
-        SetLocalInt(oPlayer, sVarName, iRet);
-    }
-    return(iRet);
-}
-
-string GetPlayerString(object oPlayer, string sVarName, int bGlobal = FALSE, string sDBTable = "pwdata"){
-    string sRet = GetLocalString(oPlayer,sVarName);
-    if (sRet == "") {
-        sRet = GetDbString(oPlayer, sVarName, bGlobal, sDBTable);
-        SetLocalString(oPlayer, sVarName, sRet);
-    }
-    return(sRet);
 }
 
 int GetXPByLevel(int nLevel){
@@ -895,16 +873,6 @@ void SendSystemMessage(object oRecipient, string sMessage, object oSender = OBJE
     if (FindSubString(sMessage, "¬")!=-1) return;
 
     SetLocalString(oSender, "NWNX!CHAT!SPEAK", ObjectToString(oSender)+"¬"+ObjectToString(oRecipient)+"¬5¬"+sMessage);
-}
-
-void SetPlayerInt(object oPlayer, string sVarName, int nValue, int bGlobal = FALSE, string sDBTable = "pwdata"){
-    SetLocalInt(oPlayer, sVarName, nValue);
-    SetDbInt(oPlayer, sVarName, nValue, 0, bGlobal, sDBTable);
-}
-
-void SetPlayerString(object oPlayer, string sVarName, string sValue, int bGlobal = FALSE, string sDBTable = "pwdata"){
-    SetLocalString(oPlayer, sVarName, sValue);
-    SetDbString(oPlayer, sVarName, sValue, 0, bGlobal, sDBTable);
 }
 
 int TakeItemByTag(object oPC, string sTag, int nAmount = 0){

@@ -62,7 +62,7 @@ void main(){
         if(VerifyAdminKey(oSource) || VerifyDMKey(oSource)){
             string tag = GetLocalString(oItem, VAR_ILR_TAGGED);
             if(tag != "" && GetIsDM(oSource)){
-                SetPlayerInt(oPC, tag, TRUE);
+                SET("killtag:"+tag+":"+GetRedisID(oPC), "1");
                 SendMessageToPC(oPC, C_GREEN+"You have received the necessary kill to use "
                                 + GetName(oItem));
                 SendMessageToPC(oSource, C_GREEN+GetName(oPC)+" has received the necessary kill to use "

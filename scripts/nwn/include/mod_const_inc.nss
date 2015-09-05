@@ -1439,11 +1439,11 @@ const int STYLE_MONK_SUN_FIST         = 7;
 const int STYLE_MONK_TIGER_FANG       = 8;
 const int STYLE_ASSASSIN_NINJA        = 9;
 
-const int STYLE_DRAGON_RED            = 0;
-const int STYLE_DRAGON_BLUE           = 1;
-const int STYLE_DRAGON_BRASS          = 2;
-const int STYLE_DRAGON_GOLD           = 3;
-const int STYLE_DRAGON_GREEN          = 4;
+const int STYLE_DRAGON_RED            = 10;
+const int STYLE_DRAGON_BLUE           = 11;
+const int STYLE_DRAGON_BRASS          = 12;
+const int STYLE_DRAGON_GOLD           = 13;
+const int STYLE_DRAGON_GREEN          = 14;
 
 const int PHENOTYPE_KENSEI            = 15;
 const int PHENOTYPE_NINJA             = 16;

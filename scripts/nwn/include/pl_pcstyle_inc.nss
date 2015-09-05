@@ -86,12 +86,14 @@ int CheckStyleItemRequirement(object oPC, object oItem){
 }
 
 int GetDragonDiscipleStyle(object oPC){
-    return GetPlayerInt(oPC, "pc_style_dragon");
+    // TODO - Make sure this is loaded at character entry.
+    return GetLocalInt(oPC, "pc_style");
 }
 
 int GetFightingStyle(object oPC){
     // Contains all info for fighter, monk, ninja.
-    return GetPlayerInt(oPC, "pc_style_fighting");
+    // TODO - Make sure this is loaded at character entry.
+    return GetLocalInt(oPC, "pc_style");
 }
 
 int GetMeetsStyleRequirement(object oPC, int nStyle){
@@ -131,7 +133,8 @@ int GetMeetsStyleRequirement(object oPC, int nStyle){
 }
 
 int GetUndeadStyle(object oPC){
-    return GetPlayerInt(oPC, "pc_style_undead");
+    // TODO - Make sure this is loaded at character entry.
+    return GetLocalInt(oPC, "pc_style");
 }
 
 int GetUndeadStyleAppearance(int nIndex){
@@ -173,7 +176,8 @@ void SetDragonDiscipleStyle(object oPC, int nStyle){
     nAge += nBefore;
     SetAge(oPC, nAge);
 
-    SetPlayerInt(oPC, "pc_style_dragon", nColor);
+    // TODO - Add to database.
+    SetLocalInt(oPC, "pc_style", nColor);
 }
 
 void SetFightingStyle(object oPC, int nStyle){
@@ -181,9 +185,11 @@ void SetFightingStyle(object oPC, int nStyle){
     int  nAge = GetAge(oPC);
     nAge = SetIntegerDigit(nAge, 2, nStyle);
     SetAge(oPC, nAge);
-    SetPlayerInt(oPC, "pc_style_fighting", nStyle);
+    // TODO - Add to database.
+    SetLocalInt(oPC, "pc_style", nStyle);
 }
 
 void SetUndeadStyle(object oPC, int nStyle){
-    SetPlayerInt(oPC, "pc_style_undead", nStyle);
+    // TODO - Add to database.
+    SetLocalInt(oPC, "pc_style", nStyle);
 }

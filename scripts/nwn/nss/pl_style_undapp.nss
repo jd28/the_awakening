@@ -7,7 +7,7 @@ void main(){
     int bItem    = GetLocalInt(oPC, "CON_ITEM");
     int nCurrent = GetLocalInt(oPC, "CON_CYCLE_CURRENT");
     int nCode    = GetUndeadStyleAppearance(nCurrent);
-    
+
     SendMessageToPC(oPC, "Current: "+IntToString(nCurrent)+"Appearance: "+IntToString(nCode));
 
     if(nCode >= 0)

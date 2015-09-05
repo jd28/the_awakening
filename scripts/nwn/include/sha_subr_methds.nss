@@ -3563,7 +3563,7 @@ string Subrace_TimeToString(int iTime)
 
 void ChangePCAppearance(object oPC, string SubraceStorage)
 {
-    if(GetPlayerInt(oPC, "pc_no_appear_change"))
+    if(GetLocalInt(oPC, "pc_no_appear_change"))
         return;
          
    int App = GetLocalGroupFlagValue(oStorer, SubraceStorage + "_" + APPEARANCE_TO_CHANGE, (GetGender(oPC)==GENDER_MALE?APPEARANCE_CHANGE_MALE_FLAG:APPEARANCE_CHANGE_FEMALE_FLAG) );
@@ -3606,7 +3606,7 @@ void ChangePCAppearance(object oPC, string SubraceStorage)
 void ChangeToPCDefaultAppearance(object oPC)
 {
 
-    if(GetPlayerInt(oPC, "pc_no_appear_change"))
+    if(GetLocalInt(oPC, "pc_no_appear_change"))
         return;
 
    int App = GetRacialType(oPC);
@@ -3644,7 +3644,7 @@ void ChangeToPCDefaultAppearance(object oPC)
 
 void ApplyPermanentSubraceAppearance(int ID, object oPC)
 {
-    if(GetPlayerInt(oPC, "pc_no_appear_change"))
+    if(GetLocalInt(oPC, "pc_no_appear_change"))
         return;
 
     string SubraceStorage = GetSubraceStorageLocationByID(ID);
@@ -3666,7 +3666,7 @@ void ApplyPermanentSubraceAppearance(int ID, object oPC)
 void ApplyTemporarySubraceAppearance(string SubraceStorage, object oPC, int iCurrentTime)
 {
 
-    if(GetPlayerInt(oPC, "pc_no_appear_change"))
+    if(GetLocalInt(oPC, "pc_no_appear_change"))
         return;
 
    int Level = GetPlayerLevel(oPC);

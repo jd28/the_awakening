@@ -9,5 +9,5 @@ void main(){
         return;
     }
     TakeGoldFromCreature(nGold, oPC, TRUE);
-    SetPlayerInt(oPC, "HavenNhrive", TRUE);
+    SET("port:HavenNhrive:"+GetRedisID(GetPCSpeaker()), "1");
 }

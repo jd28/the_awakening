@@ -90,6 +90,7 @@ void DoAFK(struct pl_chat_command pcc){ // afk <message>
     SendServerMessage(pcc.oPC, "[AFK] " + GetName(pcc.oPC) + " is AFK: " + pcc.sCommand);
 }
 
+// TODO - delete
 void DoAlias(struct pl_chat_command pcc){ // !alias <alias> <command>
     pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 6);
 
@@ -106,8 +107,7 @@ void DoAlias(struct pl_chat_command pcc){ // !alias <alias> <command>
 
     string sAlias = GetStringLeft(pcc.sCommand, nNth);
     string sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - nNth - 1);
-
-    SetPlayerString(pcc.oPC, "chat_alias_" + sAlias, sCommand, TRUE, "db_alias");
+    //SetPlayerString(pcc.oPC, "chat_alias_" + sAlias, sCommand, TRUE, "db_alias");
     FloatingTextStringOnCreature(C_GREEN+"You have aliased " + sCommand + " as " + sAlias+C_END, pcc.oPC, FALSE);
 }
 
@@ -153,7 +153,8 @@ void DoConvertFeat(struct pl_chat_command pcc) { // !convert <feat> <to>
         {
             RemoveKnownFeat(pcc.oPC, FEAT_EPIC_PROWESS);
             ModifyAbilityScore(pcc.oPC, ABILITY_STRENGTH, 1);
-            SetPlayerInt(pcc.oPC, VAR_PC_NO_RELEVEL, 1);
+            // TODO - Persist to DB and saved levels.
+            SetLocalInt(pcc.oPC, VAR_PC_NO_RELEVEL, 1);
             SendChatLogMessage(pcc.oPC, C_GREEN+"Epic Prowess has been converted to strength!"+C_END + "\n", pcc.oPC, 5);
         }
         else if(ss.first == "dex" && GetKnowsFeat (FEAT_LUCK_OF_HEROES, pcc.oPC)
@@ -161,7 +162,8 @@ void DoConvertFeat(struct pl_chat_command pcc) { // !convert <feat> <to>
         {
             RemoveKnownFeat(pcc.oPC, FEAT_EPIC_PROWESS);
             ModifyAbilityScore(pcc.oPC, ABILITY_DEXTERITY, 1);
-            SetPlayerInt(pcc.oPC, VAR_PC_NO_RELEVEL, 1);
+            // TODO - Persist to DB and saved levels.
+            SetLocalInt(pcc.oPC, VAR_PC_NO_RELEVEL, 1);
             SendChatLogMessage(pcc.oPC, C_GREEN+"Epic Prowess has been converted to Dexterity!"+C_END + "\n", pcc.oPC, 5);
         }
         else if(ss.first == "con" && GetKnowsFeat (FEAT_BLOODED, pcc.oPC)
@@ -169,7 +171,8 @@ void DoConvertFeat(struct pl_chat_command pcc) { // !convert <feat> <to>
         {
             RemoveKnownFeat(pcc.oPC, FEAT_EPIC_PROWESS);
             ModifyAbilityScore(pcc.oPC, ABILITY_CONSTITUTION, 1);
-            SetPlayerInt(pcc.oPC, VAR_PC_NO_RELEVEL, 1);
+            // TODO - Persist to DB and saved levels.
+            SetLocalInt(pcc.oPC, VAR_PC_NO_RELEVEL, 1);
             SendChatLogMessage(pcc.oPC, C_GREEN+"Epic Prowess has been converted to Constitution!"+C_END + "\n", pcc.oPC, 5);
         }
         else
@@ -526,6 +529,7 @@ void DoMode(struct pl_chat_command pcc){ // "mode <mode>"
     }
 }
 
+// TODO - Delete???
 void DoNickname(struct pl_chat_command pcc){ // !nickname <nickname>
     pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 9);
     if(pcc.sCommand == "") return;
@@ -538,7 +542,7 @@ void DoNickname(struct pl_chat_command pcc){ // !nickname <nickname>
     if (!GetIsObjectValid(pcc.oTarget)) return;
 
     if (GetIsPC(pcc.oTarget)){
-        SetPlayerString(pcc.oPC, "chat_nick_" + pcc.sCommand, GetPCPlayerName(pcc.oTarget), TRUE, "db_alias");
+        //SetPlayerString(pcc.oPC, "chat_nick_" + pcc.sCommand, GetPCPlayerName(pcc.oTarget), TRUE, "db_alias");
         FloatingTextStringOnCreature(C_GREEN+"You have nicknamed " + GetPCPlayerName(pcc.oTarget) + " as " + pcc.sCommand+C_END, pcc.oPC, FALSE);
     }
     else FloatingTextStringOnCreature(C_RED+PC_ONLY+C_END, pcc.oPC, FALSE);
@@ -1353,14 +1357,6 @@ void main(){
                 else if (pcc.sCommand == "playerlist") DoPlayerList(pcc.oPC);
                 else if (GetStringLeft(pcc.sCommand, 2) == "pl") CommandRedirect(pcc.oPC, 2);
                 else if (GetStringLeft(pcc.sCommand, 7) == "pmshape") DoPMShape(pcc);
-                else if (pcc.sCommand == "pvp on"){
-                    SetPlayerInt(pcc.oPC, "pc_pvp", TRUE, TRUE);
-                    FloatingTextStringOnCreature(C_GREEN+"PVP on."+C_END, pcc.oPC, FALSE);
-                }
-                else if (pcc.sCommand == "pvp off"){
-                    SetPlayerInt(pcc.oPC, "pc_pvp", 0, TRUE);
-                    FloatingTextStringOnCreature(C_GREEN+"PVP off."+C_END, pcc.oPC, FALSE);
-                }
                 else CommandRedirect(pcc.oPC, 1);
                 break;
     /*q*/   case 16:

@@ -20,6 +20,7 @@
 #include "msg_func_inc"
 #include "pl_pcstyle_inc"
 #include "x0_i0_match"
+#include "nwnx_redis"
 
 // -----------------------------------------------------------------------------
 //  PROTOTYPES - Loading
@@ -27,13 +28,6 @@
 void LoadDM(object oPC);
 void PCLoadPlayer(object oPC);
 void PCUpdateVersion(object oPC){
-    int nVersion = GetPlayerInt(oPC, "pc_version");
-
-    switch(nVersion){
-        case 0:
-            SetAge(oPC, 0);
-            SetPlayerInt(oPC, "pc_version", TA_CURRENT_PC_VERSION);
-    }
 }
 
 
@@ -46,15 +40,15 @@ void main(){
 
     object oPC = GetEnteringObject();
 
-    GetPlayerInt(oPC, "NWNX_HELM_HIDDEN");
+    SetLocalInt(oPC, "NWNX_HELM_HIDDEN", StringToInt(GET("helm:"+GetRedisID(oPC))));
 // -----------------------------------------------------------------------------
 // SIMTools Stuff
 // -----------------------------------------------------------------------------
     string sCDKey = GetPCPublicCDKey(oPC);
     Speech_OnClientEnter(oPC);
 
-    int nPerm = GetDbInt(GetModule(), "FKY_CHT_BANSHOUT" + sCDKey);
-    int nPerm2 = GetDbInt(GetModule(), "FKY_CHT_BANPLAYER" + sCDKey);
+    int nPerm = StringToInt(GET("ban:shout:"+GetRedisID(oPC)));
+    int nPerm2 = StringToInt(GET("ban:player:"+GetRedisID(oPC)));
 
     if (nPerm) SetLocalInt(oPC, "FKY_CHT_BANSHOUT", TRUE);
     if (nPerm2 || GetLocalInt(oPC, "FKY_CHT_BANPLAYER")) BootPlayer(oPC);
@@ -72,7 +66,7 @@ void main(){
 
     //DumpSpells(oPC);
 	if(!GetHasEffect(EFFECT_TYPE_CUTSCENEGHOST, oPC)
-	   && GetPlayerInt(oPC, "pc_block")) {
+	   && StringToInt(GET("block:"+GetRedisID(oPC)))) {
 		ApplyEffectToObject(4, EffectCutsceneGhost(), oPC);
 	}
 
@@ -120,6 +114,11 @@ void PCLoadPlayer(object oPC){
     // Deal with first entry.
     // -------------------------------------------------------------------------
     if(!GetLocalInt(oPC, VAR_PC_ENTERED)){
+        // -------------------------------------------------------------------------
+        // Add Journal entries with various information about the server.
+        // -------------------------------------------------------------------------
+        AddJournalQuestEntry("srv_info",     1, oPC, FALSE, FALSE);
+
         PCUpdateVersion(oPC);
 
         if(GetFightingStyle(oPC) != STYLE_ASSASSIN_NINJA
@@ -129,28 +128,22 @@ void PCLoadPlayer(object oPC){
             SetFightingStyle(oPC, STYLE_ASSASSIN_NINJA);
         }
 
-        // -------------------------------------------------------------------------
-        // Add Journal entries with various information about the server.
-        // -------------------------------------------------------------------------
-        AddJournalQuestEntry("srv_info",     1, oPC, FALSE, FALSE);
 
         if(GetTag(oPC) != ""){
             RebuildJournalQuestEntries(oPC);
             DeliverMail(oPC);
         }
 
-		int enhanced = GetPlayerInt(oPC, "pc_enhanced", TRUE);
+		// TODO - Ensure these are loaded from the database.
+        int enhanced = GetLocalInt(oPC, "pc_enhanced");
         if(enhanced == 0){
             DelayCommand(15.0f, SendChatLogMessage(oPC, C_RED+"It is highly suggested that you go to the forums at theawakening1.freeforums.org and download " +
                 "the server HAKs and TLK and use one of the !opt enhanced commands.  This is a small 3MB download.  You can play for awhile without it, " +
 				"but leveling without it will likely negatively impact your character!  Please be aware!"+C_END, oPC, 4));
         }
 
-		int hak_version = GetPlayerInt(oPC, "pc_hak_version", TRUE);
-		if( hak_version == 0) {
-			SetPlayerInt(oPC, "pc_hak_version", enhanced, TRUE);
-		}
-
+		// TODO - Ensure these are loaded from the database.
+        int hak_version = GetLocalInt(oPC, "pc_hak_version");
 		if ( hak_version < GetLocalInt(GetModule(), "HAK_VERSION") ) {
 			DelayCommand(15.0f, SendChatLogMessage(oPC,
 												   C_RED +
@@ -161,10 +154,10 @@ void PCLoadPlayer(object oPC){
 		}
 
 
-        int nHP = GetDbInt(oPC, VAR_PC_HP);
+        int nHP = StringToInt(GET("hp:"+GetRedisID(oPC)));
         if (nHP < 0){
-            DeleteDbVariable(oPC, VAR_PC_HP);
-            DeleteDbVariable(oPC, VAR_PC_SAVED_LOCATION);
+            DEL("hp:"+GetRedisID(oPC));
+            DEL("loc:"+GetRedisID(oPC));
             ErrorMessage(oPC, "Respawn Penalty: Logged dead.");
             ApplyRespawnPenalty(oPC);
         }
@@ -188,7 +181,7 @@ void PCLoadPlayer(object oPC){
         if(!GetKnowsFeat(FEAT_PLAYER_TOOL_01, oPC))
             AddKnownFeat(oPC, FEAT_PLAYER_TOOL_01);
 
-        int nHP = GetDbInt(oPC, VAR_PC_HP);
+        int nHP = StringToInt(GET("hp:"+GetRedisID(oPC)));
         if (nHP <= 0)
             ApplyEffectToObject(DURATION_TYPE_INSTANT, SupernaturalEffect(EffectDeath()), oPC);
         else
@@ -199,7 +192,8 @@ void PCLoadPlayer(object oPC){
     }
 
     //XP Banked
-    int nXP = GetDbInt(oPC, VAR_PC_XP_BANK, TRUE);
+    // TODO - Ensure this is loaded from the DB.
+    int nXP = GetLocalInt(oPC, VAR_PC_XP_BANK);
     SetLocalInt(oPC, VAR_PC_XP_BANK, nXP);
     Logger(oPC, VAR_DEBUG_LOGS, LOGLEVEL_DEBUG, "Player: %s, Name: %s, XP Bank: %s",
         GetPCPlayerName(oPC), GetName(oPC), IntToString(nXP));

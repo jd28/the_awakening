@@ -25,7 +25,8 @@ void main(){
 
     FadeFromBlack(oPC, FADE_SPEED_FAST);
 
-    int nGuild = GetPlayerInt(oPC, VAR_PC_GUILD, TRUE);
+    // TODO - Ensure loaded from DB.
+    int nGuild = GetLocalInt(oPC, VAR_PC_GUILD);
     string sWay;
     if(nGuild > 0){
         sWay = "wp_guildenter_"+IntToString(nGuild);

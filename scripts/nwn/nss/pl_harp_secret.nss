@@ -2,7 +2,8 @@
 #include "info_inc"
 
 void main(){
-
+    // TODO - Something about this??
+/*
     object oPC      = GetPCSpeaker();
     object oConv    = GetLocalObject(oPC, "ITEM_TALK_TO");
     string sTag     = GetTag(oConv);
@@ -60,5 +61,6 @@ void main(){
     AssignCommand(oConv, SetIsDestroyable(TRUE));
     DestroyObject(oConv, 0.2);
     DestroyObject(oConv);
+*/
 }
 

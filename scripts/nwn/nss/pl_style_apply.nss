@@ -10,7 +10,7 @@ void main(){
     string sStyle   = "";
     int nCode       = GetLocalInt(oPC, "MODCODE");
     int bSuccess    = FALSE;
-    int bEnhanced   = GetPlayerInt(oPC, "pc_enhanced");
+    int bEnhanced   = GetLocalInt(oPC, "pc_enhanced");
     int bAppear     = FALSE;
     DeleteLocalObject(oPC, "PL_CONV_WITH");
     DeleteLocalInt(oPC, "MODCODE");
@@ -82,7 +82,7 @@ void main(){
     else if(sTag == "pl_style_undead"){
         nCode = GetLocalInt(oPC, "CON_CYCLE_CURRENT");
         nCode = GetUndeadStyleAppearance(nCode);
-    
+
         if(nCode >= 0){
             SetCreatureAppearanceType(oPC, nCode);
             bSuccess = TRUE;
@@ -94,7 +94,7 @@ void main(){
             ErrorMessage(oPC, "You do not meet the requirements for this style.");
             return;
         }
-            
+
         sStyle = "follower of the Way of the Ninja";
         SetFightingStyle(oPC, STYLE_ASSASSIN_NINJA);
         if(bEnhanced)
@@ -111,7 +111,7 @@ void main(){
                 bSuccess = TRUE;
                 bAppear  = TRUE;
             break;
-            case 100:   // Cold - Blue 
+            case 100:   // Cold - Blue
                 sStyle = "Blue Dragon Disciple";
                 SetCreatureAppearanceType(oPC, 1037);
                 SetCreatureWingType(35, oPC);
@@ -155,8 +155,10 @@ void main(){
         if(bEnhanced){
             sMsg += "  Remember you are able to turn of the new animations with the command !opt anims off.  Or in the case of appearances !opt appear off.";
         }
-        if(bAppear)
-            SetPlayerInt(oPC, "pc_no_appear_change", bAppear);
+        if(bAppear) {
+            SetLocalInt(oPC, "pc_no_appear_change", bAppear);
+            // TODO - Ensure this is persisted.
+        }
 
         SuccessMessage(oPC, sMsg);
         SetPlotFlag(oConv, FALSE);

@@ -1,5 +1,5 @@
 #include "pc_funcs_inc"
-
+#include "nwnx_redis"
 int StartingConditional(){
-    return GetPlayerInt(GetPCSpeaker(), "Freeport");
+    return StringToInt(GET("port:Freeport:"+GetRedisID(GetPCSpeaker())));
 }

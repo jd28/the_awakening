@@ -1,5 +1,5 @@
 #include "pc_funcs_inc"
 
 int StartingConditional(){
-    return GetPlayerInt(GetPCSpeaker(), "DrowOutskirts");
+    return StringToInt(GET("port:DrowOutskirts:"+GetRedisID(GetPCSpeaker())));
 }

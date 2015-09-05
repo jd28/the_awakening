@@ -917,7 +917,7 @@ void ShowInfo(object oPlayer, object oGetInfoFrom)
     string sPlayername = GetPCPlayerName(oGetInfoFrom);
     string sKey = GetPCPublicCDKey(oGetInfoFrom);
     string sIP = GetPCIPAddress(oGetInfoFrom);
-    int nGuild = GetPlayerInt(oGetInfoFrom, VAR_PC_GUILD, TRUE);
+    int nGuild = GetLocalInt(oGetInfoFrom, VAR_PC_GUILD);
 
 
     int nClass1 = GetClassByPosition(1, oGetInfoFrom);
@@ -1164,8 +1164,10 @@ void HandleShoutSpeak(string sText, object oPC)
 */
 }
 
+// TODO - Delete this.
 object GetNicknameTarget(string sAlias, object oPC){
-    string sPlayerName = GetPlayerString(oPC, "chat_nick_"+sAlias);
+    string sPlayerName = GetLocalString(oPC, "chat_nick_"+sAlias);
+    if(GetStringLength(sPlayerName) == 0) { return OBJECT_INVALID; }
     object oTarget = GetFirstPC();
     while(oTarget != OBJECT_INVALID){
         if(sPlayerName == GetPCPlayerName(oTarget)){
@@ -1191,10 +1193,11 @@ void HandleAFK(object oSpeaker, object oTarget){
     }
 }
 
+// TODO - Probably rework this?
 void HandleAlias(string sText, string sAlias, object oPC){
     int nChannel = 4, bFound;
     sText = GetStringRight(sText, (GetStringLength(sText) - GetStringLength(sAlias)) - 1);
-    string sPlayerName = GetPlayerString(oPC, "chat_alias_"+sAlias);
+    string sPlayerName = GetLocalString(oPC, "chat_alias_"+sAlias);
 
     object oTarget = GetFirstPC();
     while(oTarget != OBJECT_INVALID){

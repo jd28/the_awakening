@@ -9,5 +9,5 @@ void main(){
         return;
     }
     TakeGoldFromCreature(nGold, oPC, TRUE);
-    SetPlayerInt(oPC, "Freeport", TRUE);
+    SET("port:Freeport:"+GetRedisID(GetPCSpeaker()), "1");
 }
