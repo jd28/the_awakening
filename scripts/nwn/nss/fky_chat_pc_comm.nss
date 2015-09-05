@@ -1,6 +1,5 @@
 #include "fky_chat_inc"
 #include "pl_sub_inc"
-//#include "leto_inc"
 #include "x3_inc_string"
 #include "pl_pcstyle_inc"
 #include "nwnx_redis"
@@ -88,27 +87,6 @@ void DoAFK(struct pl_chat_command pcc){ // afk <message>
     SetLocalInt(pcc.oPC, "FKY_CHAT_AFK", 1);
     SetLocalString(pcc.oPC, "FKY_CHAT_AFK_MSG", pcc.sCommand);
     SendServerMessage(pcc.oPC, "[AFK] " + GetName(pcc.oPC) + " is AFK: " + pcc.sCommand);
-}
-
-// TODO - delete
-void DoAlias(struct pl_chat_command pcc){ // !alias <alias> <command>
-    pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 6);
-
-    int nNth = FindSubString(pcc.sCommand, " ");
-    if(nNth == -1){
-        ErrorMessage(pcc.oPC, "You must alias a command!");
-        return;
-    }
-
-    if(!GetIsStringLegal(pcc.sCommand)){
-        FloatingTextStringOnCreature(C_RED+"Aliases cannot contain '<', '>', '/', '~', or quotation marks"+C_END, pcc.oPC, FALSE);
-        return;
-    }
-
-    string sAlias = GetStringLeft(pcc.sCommand, nNth);
-    string sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - nNth - 1);
-    //SetPlayerString(pcc.oPC, "chat_alias_" + sAlias, sCommand, TRUE, "db_alias");
-    FloatingTextStringOnCreature(C_GREEN+"You have aliased " + sCommand + " as " + sAlias+C_END, pcc.oPC, FALSE);
 }
 
 void DoAnon(struct pl_chat_command pcc){
@@ -515,34 +493,6 @@ void DoMode(struct pl_chat_command pcc){ // "mode <mode>"
     else{
         SendChatLogMessage(pcc.oPC, C_RED+"Invalid mode!"+C_END + "\n", pcc.oPC, 5);
     }
-}
-
-// TODO - Delete???
-void DoNickname(struct pl_chat_command pcc){ // !nickname <nickname>
-    pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 9);
-    if(pcc.sCommand == "") return;
-
-    if(!GetIsStringLegal(pcc.sCommand)){
-        FloatingTextStringOnCreature(C_RED+"Nicnames cannot contain '<', '>', '/', '~', or quotation marks"+C_END, pcc.oPC, FALSE);
-        return;
-    }
-    pcc.oTarget = VerifyTarget(pcc, OBJECT_TARGET, COMMAND_SYMBOL);
-    if (!GetIsObjectValid(pcc.oTarget)) return;
-
-    if (GetIsPC(pcc.oTarget)){
-        //SetPlayerString(pcc.oPC, "chat_nick_" + pcc.sCommand, GetPCPlayerName(pcc.oTarget), TRUE, "db_alias");
-        FloatingTextStringOnCreature(C_GREEN+"You have nicknamed " + GetPCPlayerName(pcc.oTarget) + " as " + pcc.sCommand+C_END, pcc.oPC, FALSE);
-    }
-    else FloatingTextStringOnCreature(C_RED+PC_ONLY+C_END, pcc.oPC, FALSE);
-}
-
-void DoUnnickname(struct pl_chat_command pcc){ //!unnickname <nickname>
-    pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 11);
-    if(pcc.sCommand == "") return;
-
-    //DeleteDbVariable(pcc.oPC, "chat_nick_"+pcc.sCommand, TRUE, "db_alias");
-    DeleteLocalString(pcc.oPC, "chat_nick_"+pcc.sCommand);
-    SendMessageToPC(pcc.oPC, C_RED+"Nickname "+pcc.sCommand+" removed!"+C_END);
 }
 
 void DoPartyFix(object oPC){
@@ -1276,7 +1226,6 @@ void main(){
             case -1: CommandRedirect(pcc.oPC, 1); break;
     /*a*/   case 0:
                 if (GetStringLeft(pcc.sCommand, 3) == "afk") DoAFK(pcc);
-                else if (GetStringLeft(pcc.sCommand, 5) == "alias") DoAlias(pcc);
                 else if (pcc.sCommand == "anon") DoAnon(pcc);
                 else CommandRedirect(pcc.oPC, 1);
             break;
@@ -1332,8 +1281,7 @@ void main(){
                 else CommandRedirect(pcc.oPC, 1);
                 break;
     /*n*/   case 13:
-                if (GetStringLeft(pcc.sCommand, 9) == "nickname ") DoNickname(pcc);
-                else CommandRedirect(pcc.oPC, 1);
+              CommandRedirect(pcc.oPC, 1);
             break;
     /*o*/   case 14:
             break;
@@ -1384,7 +1332,6 @@ void main(){
                 else if (GetStringLeft(pcc.sCommand, 3) == "uni") CommandRedirect(pcc.oPC, 8);
                 else if (pcc.sCommand ==  "unafk") DoUnafk(pcc);
                 else if (pcc.sCommand ==  "unanon") DoUnanon(pcc);
-                else if (GetStringLeft(pcc.sCommand, 11) == "unnickname ") DoUnnickname(pcc);
                 else if (GetStringLeft(pcc.sCommand, 3) == "una") CommandRedirect(pcc.oPC, 2);
                 else CommandRedirect(pcc.oPC, 1);
                 break;

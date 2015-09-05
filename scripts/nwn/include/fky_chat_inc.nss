@@ -1164,21 +1164,6 @@ void HandleShoutSpeak(string sText, object oPC)
 */
 }
 
-// TODO - Delete this.
-object GetNicknameTarget(string sAlias, object oPC){
-    string sPlayerName = GetLocalString(oPC, "chat_nick_"+sAlias);
-    if(GetStringLength(sPlayerName) == 0) { return OBJECT_INVALID; }
-    object oTarget = GetFirstPC();
-    while(oTarget != OBJECT_INVALID){
-        if(sPlayerName == GetPCPlayerName(oTarget)){
-            return oTarget;
-        }
-        oTarget = GetNextPC();
-    }
-
-    return OBJECT_INVALID;
-}
-
 void HandleAFK(object oSpeaker, object oTarget){
     if(GetLocalInt(oTarget, "FKY_CHAT_AFK")){
         string msg = GetName(oTarget) + " is AFK";
@@ -1190,52 +1175,6 @@ void HandleAFK(object oSpeaker, object oTarget){
 
         SendMessageToPC(oSpeaker, C_RED+msg+C_END);//tell em
         SendMessageToPC(oTarget, C_RED+msg+C_END);//tell em
-    }
-}
-
-// TODO - Probably rework this?
-void HandleAlias(string sText, string sAlias, object oPC){
-    int nChannel = 4, bFound;
-    sText = GetStringRight(sText, (GetStringLength(sText) - GetStringLength(sAlias)) - 1);
-    string sPlayerName = GetLocalString(oPC, "chat_alias_"+sAlias);
-
-    object oTarget = GetFirstPC();
-    while(oTarget != OBJECT_INVALID){
-        if(sPlayerName == GetPCPlayerName(oTarget)){
-            bFound = TRUE;
-            break;
-        }
-        oTarget = GetNextPC();
-    }
-    if(!bFound){
-        return;
-    }
-
-    string sType = GetSubString(sText, 0, 1);//this is the primary sorting string, the leftmost letter of the text
-    if (sType == EMOTE_SYMBOL){
-        SetLocalString(oPC, "FKY_CHAT_PCSHUNT_TEXT", sText);
-        SetLocalInt(oPC, "FKY_CHAT_PCSHUNT_CHANNEL", nChannel);
-        //HandleEmotes(oPC, sText, nChannel);//emotes - taken from Emote-Wand V1000 UpDate Scripted By: Butch (with edits)
-        ExecuteScript("fky_chat_emote", oPC);
-    }
-    else if (sType == COMMAND_SYMBOL){
-        SetLocalObject(oPC, "FKY_CHAT_PCSHUNT_TARGET", oTarget);//these locals pass the needed values to the new script
-        SetLocalString(oPC, "FKY_CHAT_PCSHUNT_TEXT", sText);
-        SetLocalInt(oPC, "FKY_CHAT_PCSHUNT_CHANNEL", nChannel);
-        //HandleCommands(oPC, oTarget, sText, nChannel);//commands
-        ExecuteScript("fky_chat_pc_comm", oPC);
-    }
-    else if ((GetStringLowerCase(GetStringLeft(sText, 3)) == "dm_") && (VerifyDMKey(oPC) || VerifyAdminKey(oPC)))
-    {
-        //HandleDMTraffic(oPC, oTarget, sText);//this has been moved to a new script to allow compiler to digest it
-        SetLocalObject(oPC, "FKY_CHAT_DMSHUNT_TARGET", oTarget);//these locals pass the needed values to the new script
-        SetLocalString(oPC, "FKY_CHAT_DMSHUNT_TEXT", sText);
-        ExecuteScript("fky_chat_dm_comm", oPC);
-    }
-    else{
-        HandleAFK(oPC, oTarget);
-        SendChatLogMessage(oTarget, sText, oPC);
-        return;
     }
 }
 

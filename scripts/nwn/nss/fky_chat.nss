@@ -40,57 +40,7 @@ void main()
 
     sType = GetSubString(sText, 0, 1);//this is the primary sorting string, the leftmost letter of the text
 
-    //Nicknames...
-    if (sType == "@"){
-        sText = GetStringRight(sText, GetStringLength(sText) - 1); // Remove @
-        string sNickname = GetStringLeft(sText, FindSubString(sText, " "));
-        object oAlias = GetNicknameTarget(sNickname, oPC);
-
-        //SpeakString(GetName(oAlias)+" "+sNickname+" "+sText);
-
-        // TODO - Delete this??
-        if(GetLocalString(oPC, "chat_nick_"+sNickname) != ""){
-            // Player has an alias for this person...
-            if(oAlias != OBJECT_INVALID){
-            // Player is logged in... switch targets and change channel to tell.
-                sText = GetStringRight(sText, GetStringLength(sText) - GetStringLength(sNickname) - 1);
-                oTarget = oAlias;
-                bAlias = TRUE;
-                nChannel = 4; // Must be a tell!
-                sType = GetSubString(sText, 0, 1);//this is the primary sorting string, the leftmost letter of the text
-
-                //SpeakString(GetName(oTarget)+"_"+sText);
-            }
-            else{
-            //Player is not logged in...ERROR Message...return.
-                ErrorMessage(oPC, GetLocalString(oPC, "chat_nick_"+sNickname)+" is not currently logged on!");
-                return;
-            }
-        }
-    }
-
-    //Alias
-    int nAlias = FindSubString(sText, "#");
-    if(nAlias != -1){
-        int nEnd = FindSubString(sText, " ", nAlias);
-        if(nEnd == -1)
-            nEnd = GetStringLength(sText) - nAlias;
-        else
-            nEnd -= 1;
-
-        string sAlias = GetSubString(sText, nAlias + 1, nEnd);
-
-        //SpeakString(sAlias+"_"+IntToString(nAlias + 1)+"_"+IntToString(nEnd)+"_"+sText);
-
-        if(GetLocalString(oPC, "chat_alias_"+sAlias) != ""){
-            sText = ReplaceSubString(sText, GetLocalString(oPC, "chat_alias_"+sAlias), "#"+sAlias);
-            sType = GetSubString(sText, 0, 1);//this is the primary sorting string, the leftmost letter of the text
-
-            //SpeakString(sText);
-        }
-    }
-
-    if (sType == EMOTE_SYMBOL){
+     if (sType == EMOTE_SYMBOL){
         SetLocalString(oPC, "FKY_CHAT_PCSHUNT_TEXT", sText);
         SetLocalInt(oPC, "FKY_CHAT_PCSHUNT_CHANNEL", nChannel);
         //HandleEmotes(oPC, sText, nChannel);//emotes - taken from Emote-Wand V1000 UpDate Scripted By: Butch (with edits)
