@@ -1,6 +1,5 @@
 #include "mod_const_inc"
 #include "pc_funcs_inc"
-#include "sha_subr_methds"
 
 void main(){
 
@@ -9,9 +8,6 @@ void main(){
     location lLoc = GetLocation(GetWaypointByTag("wp_ta_start"));
 
     SetLocalInt(oPC, VAR_PC_ENTERED, TRUE);
-
-    //SSE
-    SubraceOnClientEnter(oPC);
 
     //ApplyFeatSuperNaturalEffects
     DelayCommand(3.0f, ApplyFeatSuperNaturalEffects(oPC));

@@ -17,7 +17,6 @@ below, so please read this fully!
 
 #include "fky_chat_inc"
 #include "pc_funcs_inc"
-#include "sha_subr_methds"
 #include "quest_func_inc"
 #include "pl_artifact_inc"
 #include "pl_sub_inc"
@@ -162,10 +161,6 @@ void main(){
         Delevel(oPC, 1);
         ErrorMessage(oPC, "You cannot have that level combination as a Paragon.");
         return;
-    }
-    //SSE
-    else if(!GetIsPCShifted(oPC) && !GetIsNormalRace(oPC)){
-        SubraceOnPlayerLevelUp();
     }
 
     //Artifacts

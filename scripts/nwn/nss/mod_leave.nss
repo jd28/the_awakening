@@ -1,6 +1,4 @@
 #include "fky_chat_inc"
-//#include "leto_inc"
-#include "sha_subr_methds"
 #include "pl_pvp_inc"
 #include "nwnx_solstice"
 
@@ -13,9 +11,6 @@ void main(){
     string sCDKey       = GetLocalString(oPC, VAR_PC_CDKEY);
     string sUID         = GetTag(oPC);
     string sLog;
-
-    //SSE
-    SubraceOnClientLeave();
 
     object oShade = GetLocalObject(oPC, "X0_L_MYSHADE");
     if(GetIsObjectValid(oShade)){

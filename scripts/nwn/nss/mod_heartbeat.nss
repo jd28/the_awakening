@@ -1,5 +1,4 @@
 #include "srv_funcs_inc"
-#include "sha_subr_methds"
 
 void main(){
     object oMod = GetModule();
@@ -16,14 +15,6 @@ void main(){
     int nMemory             = GetProcessMemoryUsage();
 
     SetTime(iHour, iMinute, iSecond, iMillisecond);
-
-    // Subrace Heartbeat
-    object oPC = GetFirstPC();
-    while(oPC != OBJECT_INVALID){
-        if(!GetIsNormalRace(oPC))
-            DelayCommand(0.5f, SubraceHeartbeat(oPC));
-        oPC = GetNextPC();
-    }
 
     // HG
     int nUptime, nRealTime, timekeeper;

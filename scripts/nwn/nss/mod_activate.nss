@@ -8,7 +8,6 @@
 //:: Created On: 2003-07-16
 //:://////////////////////////////////////////////
 
-#include "sha_subr_methds"
 #include "x2_inc_switches"
 void main()
 {
@@ -19,9 +18,6 @@ void main()
      // * it will execute a script that has the same name as the item's tag
      // * inside this script you can manage scripts for all events by checking against
      // * GetUserDefinedItemEventNumber(). See x2_it_example.nss
-
-    //Shayan SSE
-    SubraceOnItemActivated();
 
      if (GetModuleSwitchValue(MODULE_SWITCH_ENABLE_TAGBASED_SCRIPTS) == TRUE)
      {

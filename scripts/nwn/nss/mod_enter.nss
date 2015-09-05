@@ -16,7 +16,6 @@
 #include "srv_funcs_inc"
 #include "pc_funcs_inc"
 #include "quest_func_inc"
-#include "sha_subr_methds"
 #include "msg_func_inc"
 #include "pl_pcstyle_inc"
 #include "x0_i0_match"
@@ -187,8 +186,6 @@ void PCLoadPlayer(object oPC){
         else
             SetCurrentHitPoints(oPC, nHP);
 
-        //SSE
-        SubraceOnClientEnter(oPC);
     }
 
     //XP Banked

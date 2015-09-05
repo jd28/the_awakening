@@ -21,7 +21,6 @@
 #include "pl_pcinvo_inc"
 #include "info_inc"
 #include "x0_i0_spells"
-#include "sha_subr_methds"
 #include "nwnx_inc"
 
 // -----------------------------------------------------------------------------
@@ -91,7 +90,4 @@ void main(){
 
     // 3.0.6.3 - Added fix by MetaPhaze
     if(!GetHasEffect(EFFECT_TYPE_POLYMORPH, GetPCItemLastEquippedBy())) return;
-
-    // SSE
-    SubraceOnPlayerEquipItem();
 }
