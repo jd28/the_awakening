@@ -3,6 +3,7 @@
 //#include "leto_inc"
 #include "x3_inc_string"
 #include "pl_pcstyle_inc"
+#include "nwnx_redis"
 
 void RollDie(object oPlayer, int nDie)
 {
@@ -130,8 +131,8 @@ void DoCDKey(struct pl_chat_command pcc){ // !cdkey <action>
         return;
 
     if(pcc.sCommand == "add"){
-        SetDbInt(pcc.oPC, "pc_add_key", TRUE, 1, TRUE);
-        SendChatLogMessage(pcc.oPC, C_GREEN+"Please relog using the CDKEY that you would like to add to this login name!"+C_END + "\n", pcc.oPC, 5);
+        SET("cdkey:add:"+GetPCPlayerName(pcc.oPC), "1", 24*60*60);
+        SendChatLogMessage(pcc.oPC, C_GREEN+"Please relog using the CDKEY that you would like to add to this login name!  You have 24 hours before this expires."+C_END + "\n", pcc.oPC, 5);
     }
     else if(pcc.sCommand == "delete"){
         ErrorMessage(pcc.oPC, "Unimplemented!");
