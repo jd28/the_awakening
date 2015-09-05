@@ -117,9 +117,6 @@ void PCOnAcquireSave(object oPC);
 // Respawn PC and sends them to respawn location if valid.
 void PCRespawn(object oPC);
 
-// Sets up new player
-void PCSetupNewChar(object oPC);
-
 // Changes oFlyer to flying phenotype
 void pl_Fly(object oFlyer);
 
@@ -697,49 +694,6 @@ void PCRespawn(object oPC){
     JumpSafeToWaypoint(sWay, oPC);
 }
 
-void PCSetupNewChar(object oPC){
-    object oItem;
-    string sUID = PCGenerateUID(oPC, PC_UID_LENGTH);
-    string sBic = GetPCFileName(oPC);
-
-    SetTag(oPC, sUID); // UID is stored in the PCs Tag.
-    // Mark Player as having logged in before.
-    SetDbString(oPC, VAR_PC_BIC_FILE, sBic);
-    SetDbString(oPC, VAR_PC_PLAYER_NAME, GetPCPlayerName(oPC));
-
-    Logger(oPC, VAR_DEBUG_LOGS, LOGLEVEL_MINIMUM, "NEW PLAYER: Name: %s, Account: %s, " +
-           "CDKey: %s, UID: %s, Bic: %s", GetName(oPC), GetPCPlayerName(oPC), GetPCPublicCDKey(oPC),
-           sUID, sBic);
-
-
-    int nGold, nXP;
-    if(GetIsTestCharacter(oPC)){
-        nGold = 100000000;
-        nXP = 4800010;
-    }
-    else{
-        nGold = 10000;
-        nXP = 3000;
-    }
-
-    SetAge(oPC, 0);
-
-    SetPlayerInt(oPC, "pc_version", TA_CURRENT_PC_VERSION);
-
-    // Starting Gold
-    AssignCommand(oPC, GiveGoldToCreature(oPC, nGold));
-    // Starting XP
-    SetXP(oPC, nXP);
-
-    // Give Player Items...
-    oItem = CreateItemOnObject("nw_cloth022", oPC); // << Commoner Outfit.
-    AssignCommand(oPC, ActionEquipItem(oItem, INVENTORY_SLOT_CHEST));
-    AssignCommand(oPC, ActionDoCommand(SetCommandable(TRUE)));
-    AssignCommand(oPC, SetCommandable(FALSE));
-    CreateItemOnObject("chatcommands", oPC); // << SIMTools Chat Commands
-
-}
-
 void pl_Fly(object oFlyer){
     if (GetIsObjectValid(oFlyer)==FALSE) {return;}
     if (GetObjectType(oFlyer)!=OBJECT_TYPE_CREATURE){return;}
@@ -923,11 +877,7 @@ void SendPartyMessage(object oRecipient, string sMessage, float fDelay = 0.0){
 }
 
 void SendPCMessage(object oRecipient, string sMessage, float fDelay = 0.0){
-    switch (GetPlayerInt(oRecipient, VAR_PC_MSGFILTER, TRUE)) {
-        case 0: DelayCommand(fDelay, SendSystemMessage(oRecipient, sMessage));                   break;
-        case 1: DelayCommand(fDelay, SendMessageToPC(oRecipient, sMessage));                     break;
-        case 2: DelayCommand(fDelay, FloatingTextStringOnCreature(sMessage, oRecipient, FALSE)); break;
-    }
+    DelayCommand(fDelay, SendSystemMessage(oRecipient, sMessage));
 }
 
 void SendServerMessage(object oSender, string sMessage){
