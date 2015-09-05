@@ -103,9 +103,6 @@ void JumpSafeToObject(object oObj, object oPC = OBJECT_SELF);
 // Sets oPC uncommandable to ensure jump success
 void JumpSafeToWaypoint(string sWaypoint, object oPC = OBJECT_SELF);
 
-// Generates a random unique ID of nSize
-string PCGenerateUID(object oPC, int nSize);
-
 //Exports oPC
 void PCOnAcquireSave(object oPC);
 
@@ -153,6 +150,9 @@ void SendSystemMessage(object oRecipient, string sMessage, object oSender = OBJE
 // Take Item from oPC with the Tag sTag.  If nAmount = 0, all items with sTag
 // will be taken, if nAmount > 0 that number of items will be taken.
 int TakeItemByTag(object oPC, string sTag, int nAmount = 0);
+
+void SavePersistentState(object pc);
+void LoadPersistentState(object pc);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -611,27 +611,6 @@ int GetIsUIDUnique(string sUID){
     return FALSE;
 }
 
-string PCGenerateUID(object oPC, int nSize){
-    object oMod = GetModule();
-    string sUID;
-    int i,j;
-
-    //TODO: MAKE SURE IS UNIQUE!!
-    while(sUID == ""){
-        for(i = 0; i < nSize; i++){
-            sUID += RandomLetter();
-        }
-
-        if(GetIsUIDUnique(sUID))
-            return sUID;
-
-        // Reset UID since this one must have been taken
-        sUID = "";
-    }
-    return sUID;
-}
-
-
 void RePoly(object oPC) {
 	int is_poly = ScanForPolymorphEffect(oPC) != -2;
 	if (is_poly) {
@@ -646,6 +625,7 @@ void PCOnAcquireSave(object oPC){
     DeleteLocalInt(oPC, VAR_PC_ACQUIRE_SAVE);
 	RePoly(oPC);
     ExportSingleCharacter(oPC);
+    SavePersistentState(oPC);
 	ExecuteScript("ta_update_kills", oPC);
     SendPCMessage(oPC, C_GREEN+"Your character has been saved."+C_END);
 }
@@ -796,12 +776,10 @@ void Raise(object oPlayer){
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVisual, oPlayer);
 }
 
-// TODO - Ensure these are loaded at entry.
 string GetPlayerId(object oPC) {
     return GetLocalString(oPC, "pc_player_id");
 }
 
-// TODO - Ensure these are loaded at entry.
 string GetCharacterId(object oPC) {
     return GetLocalString(oPC, "pc_character_id");
 }
@@ -1296,4 +1274,72 @@ int Delevel(object oPC, int nLevels){
     }
 
     return GetHitDice(oPC);
+}
+
+void SavePersistentState(object pc) {
+    string pid = GetLocalString(pc, "pc_player_id");
+    string cid = GetLocalString(pc, "pc_character_id");
+
+    string sql;
+
+    sql = "UPDATE nwn.players SET "
+        + "gold = " +  GetLocalString(pc, "pc_gold") + ", "
+        + "xp = " + IntToString(GetLocalInt(pc, VAR_PC_XP_BANK)) + ", "
+        + "bosskills = " + IntToString(GetLocalInt(pc, "pc_boss_kills_g")) + ", "
+        + "guild = " + IntToString(GetLocalInt(pc, VAR_PC_GUILD)) + ", "
+        + "enhanced = " + IntToString(GetLocalInt(pc, "pc_enhanced")) + ", "
+        + "hak = " + IntToString(GetLocalInt(pc, VAR_PC_GUILD)) + ", "
+        + "kills = " + IntToString(GetLocalInt(pc, "pc_kills_g")) + " "
+        + "WHERE id="+pid;
+    SQLExecDirect(sql);
+
+    sql = "UPDATE nwn.characters SET "
+        + "version = " + IntToString(GetLocalInt(pc, "pc_version")) + ", "
+        + "bosskills = " + IntToString(GetLocalInt(pc, "pc_boss_kills")) + ", "
+        + "fighting_style = " + IntToString(GetLocalInt(pc, "pc_style")) + ", "
+        + "kills = " + IntToString(GetLocalInt(pc, "pc_kills")) + ", "
+        + "no_relevel = '" + IntToString(GetLocalInt(pc, VAR_PC_NO_RELEVEL)) + "'' "
+        + "WHERE id="+cid;
+    SQLExecDirect(sql);
+
+}
+
+void LoadPersistentState(object pc) {
+    string tag = GetTag(pc);
+    int len = GetStringLength(tag);
+    if (len == 0) { return; }
+    int us = FindSubString(tag, "_");
+    if (us == -1) { return; }
+
+    string pid = GetSubString(tag, 0, us);
+    string cid = GetSubString(tag, us+1, len);
+
+    SetLocalString(pc, "pc_player_id", pid);
+    SetLocalString(pc, "pc_character_id", cid);
+
+    string sql;
+
+    sql = "SELECT bic, version, bosskills, fighting_style, kills, no_relevel FROM nwn.characters WHERE id = " + cid;
+    SQLExecDirect(sql);
+    if(SQLFetch() == SQL_SUCCESS) {
+        SetLocalString(pc, VAR_PC_BIC_FILE, SQLGetData(1));
+        SetLocalInt(pc, "pc_version", StringToInt(SQLGetData(2)));
+        SetLocalInt(pc, "pc_boss_kills", StringToInt(SQLGetData(3)));
+        SetLocalInt(pc, "pc_style", StringToInt(SQLGetData(4)));
+        SetLocalInt(pc, "pc_kills", StringToInt(SQLGetData(5)));
+        SetLocalInt(pc, VAR_PC_NO_RELEVEL, StringToInt(SQLGetData(6)));
+    }
+
+    sql = "SELECT gold, xp, bosskills, kills, guild, enhanced, hak FROM nwn.players WHERE id = " + pid;
+    SQLExecDirect(sql);
+    if(SQLFetch() == SQL_SUCCESS) {
+        SetLocalString(pc, "pc_gold", SQLGetData(1));
+        SetLocalInt(pc, VAR_PC_XP_BANK, StringToInt(SQLGetData(2)));
+        SetLocalInt(pc, "pc_boss_kills_g", StringToInt(SQLGetData(3)));
+        SetLocalInt(pc, "pc_kills_g", StringToInt(SQLGetData(4)));
+        SetLocalInt(pc, VAR_PC_GUILD, StringToInt(SQLGetData(5)));
+        SetLocalInt(pc, "pc_enhanced", StringToInt(SQLGetData(6)));
+        SetLocalInt(pc, "pc_hak_version", StringToInt(SQLGetData(7)));
+    }
+
 }

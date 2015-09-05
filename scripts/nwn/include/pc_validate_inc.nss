@@ -342,7 +342,7 @@ void SE_Debug(string sMessage)
 }
 
 int GetIsBicFileValid(object oPC){
-    string sDBBic = GetDbString(oPC, VAR_PC_BIC_FILE);
+    string sDBBic = GetLocalString(oPC, VAR_PC_BIC_FILE);
     string sCurrentBic = GetPCFileName(oPC);
 
     if(sDBBic == "" || sDBBic == sCurrentBic){

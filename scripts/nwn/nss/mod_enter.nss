@@ -104,6 +104,7 @@ void PCLoadPlayer(object oPC){
     SetLocalString(oPC, VAR_PC_IP_ADDRESS, GetPCIPAddress(oPC));
     SetLocalString(oPC, VAR_PC_CDKEY, GetPCPublicCDKey(oPC));
     SetLocalInt(oPC, VAR_PC_IS_PC, TRUE);
+    LoadPersistentState(oPC);
 
     // Load Favored Enemies.
     if(GetLevelByClass(CLASS_TYPE_RANGER, oPC) > 0)
@@ -133,7 +134,6 @@ void PCLoadPlayer(object oPC){
             DeliverMail(oPC);
         }
 
-		// TODO - Ensure these are loaded from the database.
         int enhanced = GetLocalInt(oPC, "pc_enhanced");
         if(enhanced == 0){
             DelayCommand(15.0f, SendChatLogMessage(oPC, C_RED+"It is highly suggested that you go to the forums at theawakening1.freeforums.org and download " +
@@ -141,7 +141,6 @@ void PCLoadPlayer(object oPC){
 				"but leveling without it will likely negatively impact your character!  Please be aware!"+C_END, oPC, 4));
         }
 
-		// TODO - Ensure these are loaded from the database.
         int hak_version = GetLocalInt(oPC, "pc_hak_version");
 		if ( hak_version < GetLocalInt(GetModule(), "HAK_VERSION") ) {
 			DelayCommand(15.0f, SendChatLogMessage(oPC,
@@ -188,12 +187,8 @@ void PCLoadPlayer(object oPC){
 
     }
 
-    //XP Banked
-    // TODO - Ensure this is loaded from the DB.
-    int nXP = GetLocalInt(oPC, VAR_PC_XP_BANK);
-    SetLocalInt(oPC, VAR_PC_XP_BANK, nXP);
     Logger(oPC, VAR_DEBUG_LOGS, LOGLEVEL_DEBUG, "Player: %s, Name: %s, XP Bank: %s",
-        GetPCPlayerName(oPC), GetName(oPC), IntToString(nXP));
+        GetPCPlayerName(oPC), GetName(oPC), IntToString(GetLocalInt(oPC, VAR_PC_XP_BANK)));
 
 	ExecuteScript("ta_load_kills", oPC);
 }

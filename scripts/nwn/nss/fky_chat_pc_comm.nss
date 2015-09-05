@@ -121,7 +121,6 @@ void DoConvertFeat(struct pl_chat_command pcc) { // !convert <feat> <to>
         {
             RemoveKnownFeat(pcc.oPC, FEAT_EPIC_PROWESS);
             ModifyAbilityScore(pcc.oPC, ABILITY_STRENGTH, 1);
-            // TODO - Persist to DB and saved levels.
             SetLocalInt(pcc.oPC, VAR_PC_NO_RELEVEL, 1);
             SendChatLogMessage(pcc.oPC, C_GREEN+"Epic Prowess has been converted to strength!"+C_END + "\n", pcc.oPC, 5);
         }
@@ -130,7 +129,6 @@ void DoConvertFeat(struct pl_chat_command pcc) { // !convert <feat> <to>
         {
             RemoveKnownFeat(pcc.oPC, FEAT_EPIC_PROWESS);
             ModifyAbilityScore(pcc.oPC, ABILITY_DEXTERITY, 1);
-            // TODO - Persist to DB and saved levels.
             SetLocalInt(pcc.oPC, VAR_PC_NO_RELEVEL, 1);
             SendChatLogMessage(pcc.oPC, C_GREEN+"Epic Prowess has been converted to Dexterity!"+C_END + "\n", pcc.oPC, 5);
         }
@@ -139,7 +137,6 @@ void DoConvertFeat(struct pl_chat_command pcc) { // !convert <feat> <to>
         {
             RemoveKnownFeat(pcc.oPC, FEAT_EPIC_PROWESS);
             ModifyAbilityScore(pcc.oPC, ABILITY_CONSTITUTION, 1);
-            // TODO - Persist to DB and saved levels.
             SetLocalInt(pcc.oPC, VAR_PC_NO_RELEVEL, 1);
             SendChatLogMessage(pcc.oPC, C_GREEN+"Epic Prowess has been converted to Constitution!"+C_END + "\n", pcc.oPC, 5);
         }

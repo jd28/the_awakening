@@ -48,13 +48,7 @@ void main(){
 		if (nHP <= 0){ nHP = -1; }
         SET("hp:"+GetRedisID(oPC), IntToString(nHP));
 
-		int nBanked = GetLocalInt(oPC, VAR_PC_XP_BANK);
-        // TODO - Update all DB variables.
-		//SetDbInt(oPC, VAR_PC_XP_BANK, nBanked, 0, TRUE);
-		Logger(oPC, VAR_DEBUG_LOGS, LOGLEVEL_DEBUG,
-			   "Attempting to set  XP Bank to %sXP in %s's bank.",
-			   IntToString(nBanked), GetPCPlayerName(oPC));
-
+        SavePersistentState(oPC);
 		ExecuteScript("ta_update_kills", oPC);
 
 		if(GetLocalInt(GetArea(oPC), "area_dmg") == 13)
