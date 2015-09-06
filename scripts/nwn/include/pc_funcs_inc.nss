@@ -390,7 +390,7 @@ string GetRedisID(object oPC, int global = FALSE) {
         return GetLocalString(oPC, VAR_PC_PLAYER_NAME);
     }
     else {
-        return GetLocalString(oPC, VAR_PC_PLAYER_NAME)+":"+GetName(oPC);
+        return GetLocalString(oPC, VAR_PC_PLAYER_NAME)+":"+GetLocalString(oPC, VAR_PC_BIC_FILE);
     }
 }
 
