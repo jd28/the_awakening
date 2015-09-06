@@ -202,7 +202,7 @@ string CLUSTER_ADDSLOTS(
  * Return the number of failure reports active for a given node
  *
  * Time complexity: O(N) where N is the number of failure reports
- * Annotated return value: 
+ * Annotated return value:
  */
 string CLUSTER_COUNT_FAILURE_REPORTS(
 	string node_id
@@ -366,7 +366,7 @@ string CLUSTER_SAVECONFIG();
  * Set the configuration epoch in a new node
  *
  * Time complexity: O(1)
- * Annotated return value: 
+ * Annotated return value:
  */
 string CLUSTER_SET_CONFIG_EPOCH(
 	// Redis type: integer
@@ -397,7 +397,7 @@ string CLUSTER_SETSLOT(
  * List slave nodes of the specified master node
  *
  * Time complexity: O(1)
- * Annotated return value: 
+ * Annotated return value:
  */
 string CLUSTER_SLAVES(
 	string node_id
@@ -600,7 +600,7 @@ string ECHO(
  * Execute a Lua script server side
  *
  * Time complexity: Depends on the script that is executed.
- * Annotated return value: 
+ * Annotated return value:
  */
 string EVAL(
 	string script,
@@ -616,7 +616,7 @@ string EVAL(
  * Execute a Lua script server side
  *
  * Time complexity: Depends on the script that is executed.
- * Annotated return value: 
+ * Annotated return value:
  */
 string EVALSHA(
 	string sha1,
@@ -803,7 +803,7 @@ int GEORADIUS(
  * - Valid values for withdist: "WITHDIST"
 
  * - Valid values for withhash: "WITHHASH"
- * Annotated return value: 
+ * Annotated return value:
  */
 string GEORADIUSBYMEMBER(
 	string key,
@@ -1331,7 +1331,7 @@ string MIGRATE(
  * MONITOR
  *
  * Listen for all requests received by the server in real time
- * Annotated return value: 
+ * Annotated return value:
  */
 string MONITOR();
 
@@ -1389,7 +1389,7 @@ string MULTI();
  * Inspect the internals of Redis objects
  *
  * Time complexity: O(1) for all the currently implemented subcommands.
- * Annotated return value: 
+ * Annotated return value:
  */
 string OBJECT(
 	string subcommand,
@@ -1492,7 +1492,7 @@ string PING();
  * Set the value and expiration in milliseconds of a key
  *
  * Time complexity: O(1)
- * Annotated return value: 
+ * Annotated return value:
  */
 string PSETEX(
 	string key,
@@ -1943,7 +1943,7 @@ string SLAVEOF(
  * SLOWLOG
  *
  * Manages the Redis slow queries log
- * Annotated return value: 
+ * Annotated return value:
  */
 string SLOWLOG(
 	string subcommand,
@@ -2093,7 +2093,7 @@ int SUNIONSTORE(
  * SYNC
  *
  * Internal command used for replication
- * Annotated return value: 
+ * Annotated return value:
  */
 string SYNC();
 
@@ -2544,7 +2544,7 @@ int ZUNIONSTORE(
  * Time complexity: O(1) for every call. O(N) for a complete iteration, including enough command
  * calls for the cursor to return back to 0. N is the number of elements inside
  * the collection..
- * Annotated return value: 
+ * Annotated return value:
  */
 string SCAN(
 	// Redis type: integer
@@ -2562,7 +2562,7 @@ string SCAN(
  * Time complexity: O(1) for every call. O(N) for a complete iteration, including enough command
  * calls for the cursor to return back to 0. N is the number of elements inside
  * the collection..
- * Annotated return value: 
+ * Annotated return value:
  */
 string SSCAN(
 	string key,
@@ -2581,7 +2581,7 @@ string SSCAN(
  * Time complexity: O(1) for every call. O(N) for a complete iteration, including enough command
  * calls for the cursor to return back to 0. N is the number of elements inside
  * the collection..
- * Annotated return value: 
+ * Annotated return value:
  */
 string HSCAN(
 	string key,
@@ -2600,7 +2600,7 @@ string HSCAN(
  * Time complexity: O(1) for every call. O(N) for a complete iteration, including enough command
  * calls for the cursor to return back to 0. N is the number of elements inside
  * the collection..
- * Annotated return value: 
+ * Annotated return value:
  */
 string ZSCAN(
 	string key,
@@ -3923,9 +3923,17 @@ string SET(
   redisPushBinarySafe("SET");
   redisPushBinarySafe(key);
   redisPushBinarySafe(value);
-  redisPushBinarySafe(IntToString(seconds));
-  redisPushBinarySafe(IntToString(milliseconds));
-  redisPushBinarySafe(condition);
+  if(seconds > 0) {
+  	redisPushBinarySafe("EX");
+  	redisPushBinarySafe(IntToString(seconds));
+  }
+  if(milliseconds > 0) {
+  	redisPushBinarySafe("PX");
+  	redisPushBinarySafe(IntToString(milliseconds));
+  }
+  if(GetStringLength(condition) > 0) {
+  	redisPushBinarySafe(condition);
+  }
   return redisCommand();
 }
 
