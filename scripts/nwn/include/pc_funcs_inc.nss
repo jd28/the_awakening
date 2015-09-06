@@ -1317,9 +1317,6 @@ void LoadPersistentState(object pc) {
 
     string pid = GetSubString(tag, 0, us);
     string cid = GetSubString(tag, us+1, len);
-    SendMessageToPC(pc, "PID: "+pid);
-    SendMessageToPC(pc, "CID: "+cid);
-    SendMessageToPC(pc, "TAG: "+tag);
 
     SetLocalString(pc, "pc_player_id", pid);
     SetLocalString(pc, "pc_character_id", cid);
