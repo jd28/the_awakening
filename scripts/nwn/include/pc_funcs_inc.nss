@@ -602,15 +602,6 @@ void JumpSafeToWaypoint(string sWaypoint, object oPC = OBJECT_SELF){
     AssignCommand(oPC, SetCommandable(FALSE));
 }
 
-int GetIsUIDUnique(string sUID){
-    string sSQL = "SELECT val FROM pwdata WHERE tag='" + sUID + "' AND name='" + VAR_PC_PLAYER_NAME + "'";
-    SQLExecDirect(sSQL);
-    if (SQLFetch() == SQL_ERROR)
-        return TRUE;
-
-    return FALSE;
-}
-
 void RePoly(object oPC) {
 	int is_poly = ScanForPolymorphEffect(oPC) != -2;
 	if (is_poly) {

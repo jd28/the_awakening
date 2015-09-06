@@ -384,29 +384,6 @@ void DoList(struct pl_chat_command pcc){
     else CommandRedirect(pcc.oPC, 6);
 }
 
-
-void DoMappin(struct pl_chat_command pcc){ // !mappin
-    pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 7);
-
-    if(GetStringLeft(pcc.sCommand, 4) == "set "){
-        pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 4);
-        if(GetStringLength(pcc.sCommand) > 140)
-            pcc.sCommand = GetStringLeft(pcc.sCommand, 140);
-
-        AreaAddMapPin(pcc.oPC, GetArea(pcc.oPC), pcc.sCommand);
-        SendChatLogMessage(pcc.oPC, C_GREEN+"Map pin set.  Note you will have to exit the area to see the pin."+C_END + "\n", pcc.oPC, 5);
-    }
-    else if(pcc.sCommand == "clear area"){
-        AreaClearAreaMappins(pcc.oPC, GetArea(pcc.oPC));
-        SendChatLogMessage(pcc.oPC, C_RED+"All area map pins have been removed.  Note you will have to exit the area to see the changes."+C_END + "\n", pcc.oPC, 5);
-    }
-    else if(pcc.sCommand == "clear all"){
-        AreaClearAllMappins(pcc.oPC);
-        SendChatLogMessage(pcc.oPC, C_RED+"All map pins have been removed.  Note you will have to exit the area to see the changes."+C_END + "\n", pcc.oPC, 5);
-    }
-    else CommandRedirect(pcc.oPC, 6);
-}
-
 void DoMode(struct pl_chat_command pcc){ // "mode <mode>"
     pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 5);
 
@@ -1272,9 +1249,7 @@ void main(){
                 break;
 
     /*m*/   case 12://metachannels
-                if (GetStringLeft(pcc.sCommand, 6) == "mappin") DoMappin(pcc);
-                else if (GetStringLeft(pcc.sCommand, 2) == "me") CommandRedirect(pcc.oPC, 7);
-                else if (GetStringLeft(pcc.sCommand, 4) == "mode") DoMode(pcc);
+                if (GetStringLeft(pcc.sCommand, 4) == "mode") DoMode(pcc);
                 else CommandRedirect(pcc.oPC, 1);
                 break;
     /*n*/   case 13:

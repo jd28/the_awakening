@@ -16,7 +16,6 @@
 #include "srv_funcs_inc"
 #include "pc_funcs_inc"
 #include "quest_func_inc"
-#include "msg_func_inc"
 #include "pl_pcstyle_inc"
 #include "x0_i0_match"
 #include "nwnx_redis"
@@ -131,7 +130,6 @@ void PCLoadPlayer(object oPC){
 
         if(GetTag(oPC) != ""){
             RebuildJournalQuestEntries(oPC);
-            DeliverMail(oPC);
         }
 
         int enhanced = GetLocalInt(oPC, "pc_enhanced");
