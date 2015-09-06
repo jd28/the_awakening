@@ -35,8 +35,16 @@ void PCUpdateVersion(object oPC){
 void GiveNewDMItems(object oPC);
 
 void main(){
-
     object oPC = GetEnteringObject();
+    // -------------------------------------------------------------------------
+    // Create variables.
+    // -------------------------------------------------------------------------
+    SetLocalString(oPC, VAR_PC_PLAYER_NAME, GetPCPlayerName(oPC));
+    SetLocalString(oPC, VAR_PC_IP_ADDRESS, GetPCIPAddress(oPC));
+    SetLocalString(oPC, VAR_PC_CDKEY, GetPCPublicCDKey(oPC));
+    SetLocalInt(oPC, VAR_PC_IS_PC, TRUE);
+
+
     LoadPersistentState(oPC);
 
     SetLocalInt(oPC, "NWNX_HELM_HIDDEN", StringToInt(GET("helm:"+GetRedisID(oPC))));
@@ -81,7 +89,7 @@ void main(){
         SetLocalInt(oPC, "DebugSpells",      1);
     }
 
-    if(GetLootable(oPC) > 40 && !GetKnowsFeat(TA_FEAT_LEGENDARY_CHARACTER, oPC))
+    if(GetHitDice(oPC) > 40 && !GetKnowsFeat(TA_FEAT_LEGENDARY_CHARACTER, oPC))
         AddKnownFeat(oPC, TA_FEAT_LEGENDARY_CHARACTER, 0);
 
     SetMovementRate (oPC, MOVEMENT_RATE_PC);
@@ -96,14 +104,6 @@ void main(){
 // -----------------------------------------------------------------------------
 void PCLoadPlayer(object oPC){
     object oMod = GetModule();
-
-    // -------------------------------------------------------------------------
-    // Create variables.
-    // -------------------------------------------------------------------------
-    SetLocalString(oPC, VAR_PC_PLAYER_NAME, GetPCPlayerName(oPC));
-    SetLocalString(oPC, VAR_PC_IP_ADDRESS, GetPCIPAddress(oPC));
-    SetLocalString(oPC, VAR_PC_CDKEY, GetPCPublicCDKey(oPC));
-    SetLocalInt(oPC, VAR_PC_IS_PC, TRUE);
 
     // Load Favored Enemies.
     if(GetLevelByClass(CLASS_TYPE_RANGER, oPC) > 0)

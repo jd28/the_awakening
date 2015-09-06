@@ -93,6 +93,11 @@ function pl_setup_pc(pc)
            name, account, cdkey, player_id, char_id, bic)
 
   SetTag(pc, string.format("%d_%d", player_id, char_id))
+end
+
+function pl_enter_newpc()
+  local pc = Game.GetPCSpeaker()
+  pl_setup_pc(pc)
 
   local gold, xp;
   if GetIsTestCharacter(pc) then
@@ -109,9 +114,4 @@ function pl_setup_pc(pc)
   local item = pc:GiveItem("nw_cloth022")
   pc:ForceEquip{ [INVENTORY_SLOT_CHEST] = item }
   pc:GiveItem("chatcommands")
-end
-
-function pl_enter_newpc()
-  local pc = Game.GetPCSpeaker()
-  pl_setup_pc(pc)
 end

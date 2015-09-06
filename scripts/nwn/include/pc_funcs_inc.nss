@@ -800,7 +800,6 @@ void SavePersistentLocation(object oPC){
         default:
             key = "loc:"+GetRedisID(oPC);
             loc = APSLocationToString(GetLocation(oPC));
-            SendPCMessage(oPC, "SET " + key + " " + loc);
             SET(key, loc);
             SendPCMessage(oPC, C_GREEN+"Your location has been saved."+C_END);
     }
@@ -1320,6 +1319,8 @@ void LoadPersistentState(object pc) {
 
     SetLocalString(pc, "pc_player_id", pid);
     SetLocalString(pc, "pc_character_id", cid);
+    SetLocalInt(pc, "pc_is_pc", GetIsPC(pc));
+    SetLocalInt(pc, "pc_is_dm", GetIsDM(pc));
 
     string sql;
 
