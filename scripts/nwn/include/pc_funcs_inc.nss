@@ -796,7 +796,7 @@ void DeletePersistentLocation(object oPC) {
 void SavePersistentLocation(object oPC){
     object oArea = GetArea(oPC);
     int type = GetLocalInt(oArea, VAR_AREA_LOC_SAVE);
-
+    string key, loc;
     switch(type){
         case 2:
             SendPCMessage(oPC, C_RED+"You have reached a point of no return.  In order to save your location " +
@@ -807,7 +807,10 @@ void SavePersistentLocation(object oPC){
             SendPCMessage(oPC, C_RED+"Your location cannot be saved in this area."+C_END);
         break;
         default:
-            SET("loc:"+GetRedisID(oPC), APSLocationToString(GetLocation(oPC)));
+            key = "loc:"+GetRedisID(oPC);
+            loc = APSLocationToString(GetLocation(oPC));
+            SendPCMessage(oPC, "SET " + key + " " + loc);
+            SET(key, loc);
             SendPCMessage(oPC, C_GREEN+"Your location has been saved."+C_END);
     }
 }
@@ -1280,10 +1283,15 @@ void SavePersistentState(object pc) {
     string pid = GetLocalString(pc, "pc_player_id");
     string cid = GetLocalString(pc, "pc_character_id");
 
-    string sql;
+    if (GetStringLength(pid) == 0 || GetStringLength(cid) == 0 ) {
+        return;
+    }
 
+    string sql;
+    string gold = GetLocalString(pc, "pc_gold");
+    if (GetStringLength(gold) == 0) { gold = "0"; }
     sql = "UPDATE nwn.players SET "
-        + "gold = " +  GetLocalString(pc, "pc_gold") + ", "
+        + "gold = " +  gold + ", "
         + "xp = " + IntToString(GetLocalInt(pc, VAR_PC_XP_BANK)) + ", "
         + "bosskills = " + IntToString(GetLocalInt(pc, "pc_boss_kills_g")) + ", "
         + "guild = " + IntToString(GetLocalInt(pc, VAR_PC_GUILD)) + ", "
@@ -1298,7 +1306,7 @@ void SavePersistentState(object pc) {
         + "bosskills = " + IntToString(GetLocalInt(pc, "pc_boss_kills")) + ", "
         + "fighting_style = " + IntToString(GetLocalInt(pc, "pc_style")) + ", "
         + "kills = " + IntToString(GetLocalInt(pc, "pc_kills")) + ", "
-        + "no_relevel = '" + IntToString(GetLocalInt(pc, VAR_PC_NO_RELEVEL)) + "'' "
+        + "no_relevel = '" + IntToString(GetLocalInt(pc, VAR_PC_NO_RELEVEL)) + "' "
         + "WHERE id="+cid;
     SQLExecDirect(sql);
 
@@ -1307,12 +1315,20 @@ void SavePersistentState(object pc) {
 void LoadPersistentState(object pc) {
     string tag = GetTag(pc);
     int len = GetStringLength(tag);
-    if (len == 0) { return; }
+    if (len == 0) {
+        SetLocalInt(pc, "NewChar", TRUE);
+        ExecuteScript("pl_setup_pc", pc);
+        tag = GetTag(pc);
+        len = GetStringLength(tag);
+    }
     int us = FindSubString(tag, "_");
     if (us == -1) { return; }
 
     string pid = GetSubString(tag, 0, us);
     string cid = GetSubString(tag, us+1, len);
+    SendMessageToPC(pc, "PID: "+pid);
+    SendMessageToPC(pc, "CID: "+cid);
+    SendMessageToPC(pc, "TAG: "+tag);
 
     SetLocalString(pc, "pc_player_id", pid);
     SetLocalString(pc, "pc_character_id", cid);

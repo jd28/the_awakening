@@ -38,6 +38,7 @@ void GiveNewDMItems(object oPC);
 void main(){
 
     object oPC = GetEnteringObject();
+    LoadPersistentState(oPC);
 
     SetLocalInt(oPC, "NWNX_HELM_HIDDEN", StringToInt(GET("helm:"+GetRedisID(oPC))));
 // -----------------------------------------------------------------------------
@@ -104,7 +105,6 @@ void PCLoadPlayer(object oPC){
     SetLocalString(oPC, VAR_PC_IP_ADDRESS, GetPCIPAddress(oPC));
     SetLocalString(oPC, VAR_PC_CDKEY, GetPCPublicCDKey(oPC));
     SetLocalInt(oPC, VAR_PC_IS_PC, TRUE);
-    LoadPersistentState(oPC);
 
     // Load Favored Enemies.
     if(GetLevelByClass(CLASS_TYPE_RANGER, oPC) > 0)

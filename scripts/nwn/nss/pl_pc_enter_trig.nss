@@ -60,9 +60,6 @@ void ModEnter(object oPC){
         SetLocalInt(oPC, "DupeName", TRUE);
         SetLocalInt(oPC, "boot", TRUE);
     }
-    else if(GetTag(oPC) == ""){
-        SetLocalInt(oPC, "NewChar", TRUE);
-    }
 
     effect eNoMove = EffectCutsceneImmobilize();
     ApplyEffectToObject(DURATION_TYPE_PERMANENT, eNoMove, oPC);

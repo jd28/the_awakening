@@ -28,9 +28,9 @@ local INSERT_CHAR = [[
   INSERT INTO nwn.characters (name, owner, bic, version) VALUES (?, ?, ?, ?) RETURNING id;
 ]]
 
+function pl_setup_pc(pc)
+  if #pc:GetTag() > 0 then return end
 
-function pl_enter_newpc()
-  local pc = Game.GetPCSpeaker()
   local bic = pc:GetBICFileName()
   local account = pc:GetPCPlayerName()
   local sanitized = SQLEncodeSpecialChars(account)
@@ -109,4 +109,9 @@ function pl_enter_newpc()
   local item = pc:GiveItem("nw_cloth022")
   pc:ForceEquip{ [INVENTORY_SLOT_CHEST] = item }
   pc:GiveItem("chatcommands")
+end
+
+function pl_enter_newpc()
+  local pc = Game.GetPCSpeaker()
+  pl_setup_pc(pc)
 end
