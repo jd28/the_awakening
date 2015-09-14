@@ -1116,14 +1116,16 @@ local function DoMeleeAttack()
          -- or nil.
          local success, eff = Rules.GetSpecialAttackEffect(GetSpecialAttack(info), info, attacker, target)
          if success then
-            -- Check to makes sure an effect was returned.
+            -- Add any effects to the onhit effect list so that it can
+            -- be applied when damage is signaled.
             if eff then
-               -- Set effect to direct so that Lua will not delete the
-               -- effect.  It will be deleted by the combat engine.
-               eff.direct = true
-               -- Add the effect to the onhit effect list so that it can
-               -- be applied when damage is signaled.
-               AddEffect(info, attacker, eff)
+               if type(eff) = 'table' then
+                  for i=1, #eff do
+                     AddEffect(info, attacker, eff[i])
+                  end
+               else
+                  AddEffect(info, attacker, eff)
+               end
             end
          else
             -- If the special attack failed because it wasn't
@@ -1170,14 +1172,16 @@ local function DoRangedAttack()
          -- or nil.
          local success, eff = Rules.GetSpecialAttackEffect(GetSpecialAttack(info), info, attacker, target)
          if success then
-            -- Check to makes sure an effect was returned.
+            -- Add any effects to the onhit effect list so that it can
+            -- be applied when damage is signaled.
             if eff then
-               -- Set effect to direct so that Lua will not delete the
-               -- effect.  It will be deleted by the combat engine.
-               eff.direct = true
-               -- Add the effect to the onhit effect list so that it can
-               -- be applied when damage is signaled.
-               AddEffect(info, attacker, eff)
+               if type(eff) = 'table' then
+                  for i=1, #eff do
+                     AddEffect(info, attacker, eff[i])
+                  end
+               else
+                  AddEffect(info, attacker, eff)
+               end
             end
          else
             -- If the special attack failed because it wasn't
