@@ -1114,12 +1114,12 @@ local function DoMeleeAttack()
 
          -- The resolution of Special Attacks will return an effect to be applied
          -- or nil.
-         local success, eff = Rules.GetSpecialAttackEffect(GetSpecialAttack(info), info, attacker, target)
+         local success, eff = Rules.GetSpecialAttackImpact(GetSpecialAttack(info), info, attacker, target)
          if success then
             -- Add any effects to the onhit effect list so that it can
             -- be applied when damage is signaled.
             if eff then
-               if type(eff) = 'table' then
+               if type(eff) == 'table' then
                   for i=1, #eff do
                      AddEffect(info, attacker, eff[i])
                   end
@@ -1170,12 +1170,12 @@ local function DoRangedAttack()
 
          -- The resolution of Special Attacks will return an effect to be applied
          -- or nil.
-         local success, eff = Rules.GetSpecialAttackEffect(GetSpecialAttack(info), info, attacker, target)
+         local success, eff = Rules.GetSpecialAttackImpact(GetSpecialAttack(info), info, attacker, target)
          if success then
             -- Add any effects to the onhit effect list so that it can
             -- be applied when damage is signaled.
             if eff then
-               if type(eff) = 'table' then
+               if type(eff) == 'table' then
                   for i=1, #eff do
                      AddEffect(info, attacker, eff[i])
                   end
