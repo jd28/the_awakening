@@ -87,6 +87,9 @@ load_dir('items', 'Item', Item.Load)
 -- Load IP Handlers.
 load_dir('ip_handlers', 'Itemprop Handler', dofile)
 
+-- Load IP Handlers.
+load_dir('effect_handlers', 'Effect Handler', dofile)
+
 -- Hooks
 load_dir('hooks', 'Hook', dofile)
 
