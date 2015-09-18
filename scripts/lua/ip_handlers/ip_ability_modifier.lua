@@ -1,4 +1,4 @@
-local NXItems = require 'solstice.nwnx.items'
+local NWNXEffects = require 'solstice.nwnx.effects'
 --[[
 local function ability_bonus(item, obj, ip, slot, remove)
    local amt = ip.ip_cost_value

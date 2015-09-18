@@ -1,4 +1,4 @@
-local NXItems = require 'solstice.nwnx.items'
+local NWNXEffects = require 'solstice.nwnx.effects'
 
 local function immunity_chance(item, obj, ip, slot, remove)
    local amt = ip.ip_cost_value
@@ -13,5 +13,5 @@ local function immunity_chance(item, obj, ip, slot, remove)
    obj.ci.defense.immunity_misc[ip.ip_subtype] = obj.ci.defense.immunity_misc[ip.ip_subtype] + amt
 end
 
-NXItems.RegisterItempropHandler(immunity_chance, TA_ITEM_PROPERTY_IMMUNITY_MISC_BONUS,
+NWNXEffects.RegisterItempropHandler(immunity_chance, TA_ITEM_PROPERTY_IMMUNITY_MISC_BONUS,
                                 TA_ITEM_PROPERTY_IMMUNITY_MISC_PENALTY)

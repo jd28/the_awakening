@@ -1,4 +1,4 @@
-local NXItems = require 'solstice.nwnx.items'
+local NWNXEffects = require 'solstice.nwnx.effects'
 
 local function crit_dmg(item, obj, ip, slot, remove)
    local amt = ip.ip_cost_value
@@ -13,5 +13,5 @@ local function crit_dmg(item, obj, ip, slot, remove)
    obj:SetProperty("TA_CRIT_DMG_BONUS", amt + cur)
 end
 
-NXItems.RegisterItempropHandler(crit_dmg, TA_ITEM_PROPERTY_CRIT_DMG_BONUS,
+NWNXEffects.RegisterItempropHandler(crit_dmg, TA_ITEM_PROPERTY_CRIT_DMG_BONUS,
                                 TA_ITEM_PROPERTY_CRIT_DMG_PENALTY)

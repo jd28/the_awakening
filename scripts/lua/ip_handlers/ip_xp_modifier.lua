@@ -1,4 +1,4 @@
-local NXItems = require 'solstice.nwnx.items'
+local NWNXEffects = require 'solstice.nwnx.effects'
 
 local function xp_mod(item, obj, ip, slot, remove)
    local amt = ip.ip_cost_value
@@ -13,5 +13,5 @@ local function xp_mod(item, obj, ip, slot, remove)
    obj:SetProperty("TA_XP_BONUS", amt + cur)
 end
 
-NXItems.RegisterItempropHandler(xp_mod, TA_ITEM_PROPERTY_XP_BONUS,
-                                TA_ITEM_PROPERTY_XP_PENALTY)
+NWNXEffects.RegisterItempropHandler(xp_mod, TA_ITEM_PROPERTY_XP_BONUS,
+                                    TA_ITEM_PROPERTY_XP_PENALTY)

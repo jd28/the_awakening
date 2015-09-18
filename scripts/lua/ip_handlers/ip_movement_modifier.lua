@@ -1,4 +1,4 @@
-local NXItems = require 'solstice.nwnx.items'
+local NWNXEffects = require 'solstice.nwnx.effects'
 
 local function movement(item, obj, ip, slot, remove)
    local amt = ip.ip_cost_value
@@ -11,5 +11,5 @@ local function movement(item, obj, ip, slot, remove)
    obj:SetProperty("TA_MOVE_SPEED", amt + cur)
 end
 
-NXItems.RegisterItempropHandler(movement, TA_ITEM_PROPERTY_MOVEMENT_BONUS,
+NWNXEffects.RegisterItempropHandler(movement, TA_ITEM_PROPERTY_MOVEMENT_BONUS,
                                 TA_ITEM_PROPERTY_MOVEMENT_PENALTY)
