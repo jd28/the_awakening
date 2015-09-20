@@ -1,5 +1,3 @@
-local NWNXEv = require 'solstice.nwnx.events'
-
 local DYNCONV_NEXT_NODE     = 7
 local DYNCONV_PREVIOUS_NODE = 8
 local DYNCONV_UNDO_NODE     = 9
@@ -239,7 +237,7 @@ function DynConvo:Select(entry)
 end
 
 function DynConvo:SetCurrentNodeText()
-   local node = NWNXEv.GetCurrentNodeID()
+   local node = Game.GetCurrentNodeID()
 
    if node >= DYNCONV_NEXT_NODE then
       if node == DYNCONV_NEXT_NODE and self:HasNext() then
@@ -267,13 +265,13 @@ function DynConvo:SetCurrentNodeText()
       str = it[1](it, self)
    end
 
-   NWNXEv.SetCurrentNodeText(str, 0, 0)
+   Game.SetCurrentNodeText(str, 0, 0)
 
    return true
 end
 
 function DynConvo:SetCurrentPrompt()
-   NWNXEv.SetCurrentNodeText(self.current_page.prompt, 0, 0)
+   Game.SetCurrentNodeText(self.current_page.prompt, 0, 0)
    return true
 end
 
