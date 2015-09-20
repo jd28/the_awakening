@@ -17,7 +17,7 @@ local function Hook_GetMovementRateFactor(obj)
          ba = 0.1
       end
       if mo == 0 then
-         ta = (cre:GetProperty("TA_MOVE_SPEED") or 0) / 100
+         ta = (cre.ta_move_speed or 0) / 100
       end
       local mr = obj.cre_move_rate
       if mo == 0 and mr > 1.5 then
@@ -29,9 +29,9 @@ local function Hook_GetMovementRateFactor(obj)
 end
 
 Orig_GetMovementRateFactor = Hook.hook {
+   name = "GetMovementRateFactor",
    func = Hook_GetMovementRateFactor,
    length = 5,
    address = 0x08123FD8,
    type = 'double (*)(CNWSCreature *)',
-   flags = bit.bor(Hook.HOOK_DIRECT, Hook.HOOK_RETCODE)
 }
