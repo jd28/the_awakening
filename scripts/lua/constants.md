@@ -5761,6 +5761,17 @@ OBJECT_INVALID are not listed below as they are represented by internal types.
 * TA_ITEM_PROPERTY_IMMUNITY_SPECIFIC_SPELL = 227
 * TA_ITEM_PROPERTY_IMMUNITY_SPELL_SCHOOL = 228
 
+#### LANGUAGE_*
+* LANGUAGE_ENGLISH             = 0
+* LANGUAGE_FRENCH              = 1
+* LANGUAGE_GERMAN              = 2
+* LANGUAGE_ITALIAN             = 3
+* LANGUAGE_SPANISH             = 4
+* LANGUAGE_POLISH              = 5
+* LANGUAGE_KOREAN              = 128
+* LANGUAGE_CHINESE_TRADITIONAL = 129
+* LANGUAGE_CHINESE_SIMPLIFIED  = 130
+* LANGUAGE_JAPANESE            = 131
 
 #### MASTERFEAT_*
 
@@ -5822,6 +5833,11 @@ OBJECT_INVALID are not listed below as they are represented by internal types.
 * MOVEMENT_RATE_SLOW = 3
 * MOVEMENT_RATE_VERY_FAST = 6
 * MOVEMENT_RATE_VERY_SLOW = 2
+
+#### NODE_TYPE_*
+* NODE_TYPE_STARTING_NODE      = 0
+* NODE_TYPE_ENTRY_NODE         = 1
+* NODE_TYPE_REPLY_NODE         = 2
 
 #### OBJECT_TRUETYPE_*
 * OBJECT_TRUETYPE_AREA = 4
