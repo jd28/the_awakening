@@ -256,8 +256,10 @@ local function CCMessageHandler(msg)
    return false
 end
 
-Game.SetChatHandler(ChatHandler)
-Game.SetCombatMessageHandler(CCMessageHandler)
+local NWNXChat = require 'solstice.nwnx.chat'
+
+NWNXChat.SetChatHandler(ChatHandler)
+NWNXChat.SetCombatMessageHandler(CCMessageHandler)
 
 local M = {}
 M.IsRegisteredSymbol = IsRegisteredSymbol

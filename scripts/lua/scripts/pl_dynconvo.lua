@@ -1,5 +1,5 @@
 local DynConvo = require 'ta.dynconvo'
-local NWNXEv = require 'solstice.nwnx.events'
+local NWNXEvents = require 'solstice.nwnx.events'
 
 function dnyc_dlg_prompt()
    local obj = Game.GetPCSpeaker()
@@ -22,7 +22,7 @@ end
 function dync_dlg_do()
    local obj  = Game.GetPCSpeaker()
    local conv = DynConvo.GetActiveConversation(obj)
-   local node = NWNXEv.GetSelectedNodeID()
+   local node = NWNXEvents.GetSelectedNodeID()
    conv:Select(node)
 end
 
