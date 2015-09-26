@@ -35,11 +35,11 @@ local function action(info)
    elseif act[1] == 'skills' then
       pc:SendMessage(to:DebugSkills())
    elseif act[1] == 'immunities' then
-      pc:SendMessage(to:DebugDamageImmunities())
+      pc:SendMessage(Rules.DebugEffectImmunities(to))
    elseif act[1] == 'ac' then
-      pc:SendMessage(to:DebugArmorClass())
+      pc:SendMessage(Rules.DebugArmorClass(to))
    elseif act[1] == 'ab' then
-      pc:SendMessage(to:DebugAttackBonus())
+      pc:SendMessage(Rules.DebugAttackBonus(to))
    end
 end
 
