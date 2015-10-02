@@ -31,7 +31,7 @@ local function action(info)
    elseif act[1] == "soak" then
       pc:SendMessage(to:DebugDamageReduction())
    elseif act[1] == 'abilities' then
-      pc:SendMessage(to:DebugAbilities())
+      pc:SendMessage(Rules.DebugAbilities(to))
    elseif act[1] == 'skills' then
       pc:SendMessage(to:DebugSkills())
    elseif act[1] == 'immunities' then
