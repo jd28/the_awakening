@@ -37,7 +37,7 @@ Sys.SetLogger(Log)
 require(OPT.CONSTANTS)
 require('solstice.preload')
 
-require 'combat.new_combat_engine'
+require 'plugins.combat.new_combat_engine'
 
 if OPT.DATABASE_TYPE
    and OPT.DATABASE_HOSTNAME

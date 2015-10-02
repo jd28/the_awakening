@@ -1,6 +1,8 @@
 --- Attack module
 --
 
+require 'plugins.combat.ctypes'
+
 local ffi = require 'ffi'
 local C = ffi.C
 local random = math.random
@@ -1024,19 +1026,21 @@ local function DoRangedAttack()
    end
 end
 
-local function UpdateCombatInformation(cre)
-   cre.ci.offense.crit_chance_modifier = cre:GetProperty("TA_CRIT_THREAT_BONUS") or 0
-   cre.ci.offense.crit_dmg_modifier = cre:GetProperty("TA_CRIT_DMG_BONUS") or 0
-   cre.ci.offense.damge_bonus_modifier = cre:GetProperty("TA_DMG_BONUS") or 0
+local function OnLoad(interface)
+  Rules.RegisterCombatEngine(interface)
 end
 
-local M = {
-   DoRangedAttack = DoRangedAttack,
-   DoMeleeAttack  = DoMeleeAttack,
-   DoPreAttack = ResolvePreAttack,
-   UpdateCombatInformation = UpdateCombatInformation,
-}
+local function OnUnload(interface)
+  Rules.RegisterCombatEngine(nil)
+end
 
-Rules.RegisterCombatEngine(M)
+require 'plugins.combat.update'
+require 'plugins.combat.clear_cache'
 
-return M
+Game.LoadPlugin(
+  Game.PLUGIN_COMBAT_ENGINE,
+  { DoRangedAttack = DoRangedAttack,
+    DoMeleeAttack  = DoMeleeAttack,
+    DoPreAttack = ResolvePreAttack,
+    OnLoad = OnLoad,
+    OnUnload = OnUnload })
