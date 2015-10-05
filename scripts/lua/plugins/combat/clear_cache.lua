@@ -1,4 +1,6 @@
-local function clear_cache()
+local ffi = require 'ffi'
+
+local function clear_cache(obj)
   ffi.fill(obj.ci.dr.immunity, 4 * DAMAGE_INDEX_NUM)
   ffi.fill(obj.ci.defense.immunity_misc, 4 * IMMUNITY_TYPE_NUM)
   obj.ci.hp_eff = 0
@@ -8,4 +10,6 @@ local function clear_cache()
   end
 end
 
-Game.OnClearCreatureCache:register(nil, clear_cache)
+return {
+  ClearCacheData = clear_cache
+}

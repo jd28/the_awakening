@@ -307,4 +307,6 @@ end
 
 --Game.OnUpdateEffect:register(nil, UpdateEffect)
 
-Game.OnUpdateCombatInfo:register(nil, UpdateCombatInfo)
+return {
+  UpdateCombatInfo = UpdateCombatInfo
+}

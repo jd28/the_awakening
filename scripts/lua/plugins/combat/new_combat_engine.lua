@@ -164,7 +164,7 @@ end
 -- @param attacker Attacker
 -- @param target Target
 local function ResolveArmorClass(info, attacker, target)
-   return target:GetACVersus(attacker, false, info, GetIsRangedAttack(info), info.target_state)
+   return Rules.GetACVersus(target, attacker, false, info, GetIsRangedAttack(info), info.target_state)
 end
 
 --- Resolves that attack bonus of the creature.
@@ -172,7 +172,7 @@ end
 -- @param attacker Attacking creature.
 -- @param target Target object.
 local function ResolveAttackModifier(info, attacker, target)
-   return attacker:GetAttackBonusVs(target, info.weapon)
+   return Rules.GetAttackBonusVs(attacker, target, info.weapon)
 end
 
 --- Determine miss chance / concealment.
@@ -1026,21 +1026,8 @@ local function DoRangedAttack()
    end
 end
 
-local function OnLoad(interface)
-  Rules.RegisterCombatEngine(interface)
-end
-
-local function OnUnload(interface)
-  Rules.RegisterCombatEngine(nil)
-end
-
-require 'plugins.combat.update'
-require 'plugins.combat.clear_cache'
-
-Game.LoadPlugin(
-  Game.PLUGIN_COMBAT_ENGINE,
-  { DoRangedAttack = DoRangedAttack,
-    DoMeleeAttack  = DoMeleeAttack,
-    DoPreAttack = ResolvePreAttack,
-    OnLoad = OnLoad,
-    OnUnload = OnUnload })
+return {
+   DoRangedAttack = DoRangedAttack,
+   DoMeleeAttack = DoMeleeAttack,
+   ResolvePreAttack = ResolvePreAttack,
+}
