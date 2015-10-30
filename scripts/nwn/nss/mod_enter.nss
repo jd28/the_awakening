@@ -47,7 +47,7 @@ void main(){
 
     LoadPersistentState(oPC);
 
-    SetLocalInt(oPC, "NWNX_HELM_HIDDEN", StringToInt(GET("helm:"+GetRedisID(oPC))));
+    SetLocalInt(oPC, "NWNX_HELM_HIDDEN", StringToInt(GET("pc:helm:"+GetRedisID(oPC))));
 // -----------------------------------------------------------------------------
 // SIMTools Stuff
 // -----------------------------------------------------------------------------

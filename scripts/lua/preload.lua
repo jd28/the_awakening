@@ -3,7 +3,6 @@ local ffi = require 'ffi'
 local C = ffi.C
 local fmt = string.format
 local inih = require 'inih'
-
 -- Some sane defaults, can be overwritten in nwnx2.ini.
 local script_dir = 'lua'
 local log_dir = "logs.0"
@@ -28,6 +27,9 @@ OPT.LOG_DIR = log_dir
 OPT.SCRIPT_DIR = script_dir
 package.path = package.path .. ";./"..script_dir.."/?.lua;"
 
+-- Need to do this because redis lib defines a global...
+local redis = require 'ta.redis'
+
 -- Bind servers default logger.
 local Sys = require 'solstice.system'
 local Log = Sys.FileLogger(OPT.LOG_DIR .. '/' .. OPT.LOG_FILE, OPT.LOG_DATE_PATTERN)
@@ -36,6 +38,9 @@ Sys.SetLogger(Log)
 --- Constants MUST be loaded before solstice.
 require(OPT.CONSTANTS)
 require('solstice.preload')
+
+-- Extensions
+require 'extensions.creature'
 
 require 'plugins.combat.load'
 

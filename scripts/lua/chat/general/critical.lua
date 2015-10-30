@@ -17,7 +17,7 @@ local function action(info)
    local act = info.param:split(' ')
    if not act then return end
 
-   if pc:GetPlayerInt("pc_set_crit", true) == 0 then
+   if pc:GetPlayerInt("pc:set_crit", true) == 0 then
       pc:ErrorMessage("You've not done what is necessary to use this command!")
       return
    end

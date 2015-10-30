@@ -1,5 +1,4 @@
 local chat = require 'ta.chat'
-local NWNXDb = require 'solstice.nwnx.database'
 local fmt = string.format
 
 local command = "wallet"
@@ -20,7 +19,7 @@ local function action(info)
    end
 
    if act[1] == "balance" then
-      pc:SendServerMessage(fmt("Your current balance is %d", NWNXDb.GetInt(pc, "UPB_GOLD", true)))
+      pc:SendServerMessage(fmt("Your current balance is %d", pc:GetPlayerInt("pc:gold", true)))
    elseif act[1] == "deposit" then
       local amt = tonumber(act[2])
       if not amt then
@@ -33,10 +32,9 @@ local function action(info)
          return
       end
 
-
-      local bal = NWNXDb.GetInt(pc, "UPB_GOLD", true) + amt
+      local bal = pc:GetPlayerInt("pc:gold", true) + amt
       pc:TakeGold(amt, false)
-      NWNXDb.SetInt(pc, "UPB_GOLD", bal, 0, true)
+      pc:SetPlayerInt("pc:gold", bal, true)
       pc:SendServerMessage(fmt("Your current balance is %d", bal))
    elseif act[1] == "withdraw" then
       local amt = tonumber(act[2])
@@ -44,13 +42,13 @@ local function action(info)
          pc:SendMessage("Invalid Amount!")
          return
       end
-      local bal = NWNXDb.GetInt(pc, "UPB_GOLD", true)
+      local bal = pc:GetPlayerInt("pc:gold", true) + amt
       if bal < amt then
          pc:SendServerMessage(fmt("You only have %d in your wallet!", bal))
          return
       end
       bal = bal - amt
-      NWNXDb.SetInt(pc, "UPB_GOLD", bal, 0, true)
+      pc:SetPlayerInt("pc:gold", bal, true)
       pc:SendServerMessage(fmt("Your current balance is %d", bal))
       pc:GiveGold(amt, false)
    end
