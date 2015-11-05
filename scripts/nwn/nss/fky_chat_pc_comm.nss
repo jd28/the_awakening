@@ -2,7 +2,6 @@
 #include "pl_sub_inc"
 #include "x3_inc_string"
 #include "pl_pcstyle_inc"
-#include "nwnx_redis"
 
 void RollDie(object oPlayer, int nDie)
 {

@@ -1,4 +1,5 @@
 #include "pc_funcs_inc"
+#include "pc_persist"
 
 void main(){
     int nGold = GetLocalInt(OBJECT_SELF, "con_gold");
@@ -9,5 +10,5 @@ void main(){
         return;
     }
     TakeGoldFromCreature(nGold, oPC, TRUE);
-    SET("port:DrowOutskirts:"+GetRedisID(GetPCSpeaker()), "1");
+    SetPersistantInt(GetPCSpeaker(), "port:DrowOutskirts", 1);
 }

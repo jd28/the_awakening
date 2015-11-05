@@ -18,6 +18,7 @@
 #include "pc_funcs_inc"
 #include "pl_pcinvo_inc"
 #include "srv_funcs_inc"
+#include "pc_persist"
 
 void SetReturning(){
     SetIsDestroyable(FALSE);
@@ -62,7 +63,7 @@ void main(){
         if(VerifyAdminKey(oSource) || VerifyDMKey(oSource)){
             string tag = GetLocalString(oItem, VAR_ILR_TAGGED);
             if(tag != "" && GetIsDM(oSource)){
-                SET("killtag:"+tag+":"+GetRedisID(oPC), "1");
+                SetPersistantInt(oPC, "killtag:"+tag, 1);
                 SendMessageToPC(oPC, C_GREEN+"You have received the necessary kill to use "
                                 + GetName(oItem));
                 SendMessageToPC(oSource, C_GREEN+GetName(oPC)+" has received the necessary kill to use "

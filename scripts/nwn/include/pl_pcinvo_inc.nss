@@ -1,7 +1,7 @@
 #include "item_func_inc"
 #include "pc_funcs_inc"
 #include "gsp_spinfo_inc"
-#include "nwnx_redis"
+#include "pc_persist"
 
 struct EquippedWeapons {
     object oOnHand, oOffHand;
@@ -212,7 +212,7 @@ int CheckILR(object oPC, object oItem){
         bUnequip = TRUE;
     }
 
-    int tag = StringToInt(GET("killtag:"+sTagged+":"+GetRedisID(oPC)));
+    int tag = GetPersistantInt(oPC, "killtag:"+sTagged);
     if(sTagged != "" && !tag){
         sMsg = Logger(oPC, VAR_DEBUG_LOGS, LOGLEVEL_DEBUG, "Tagged Restricion: %s", sTagged);
 

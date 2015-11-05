@@ -24,7 +24,7 @@
 #include "srv_funcs_inc"
 #include "info_inc"
 #include "area_inc"
-#include "nwnx_redis"
+#include "pc_persist"
 
 const string sSpeech_SpeechList = "SpeechList_";
 const string sSpeech_PlayerID = "SpeechPlayerID_";
@@ -1122,7 +1122,7 @@ void DoSpamBan(object oPC, string sSBText)
     if (GetLocalString(oPC, "FKY_CHT_BANREASON") == "") SetLocalString(oPC, "FKY_CHT_BANREASON", sSBText);
     //capture the first message that got them busted so that that can't overwrite with something
     //benign to show the dms to get unbanned so they can try again
-    SET("ban:shout:"+GetRedisID(oPC), "1");
+    SetPersistantInt(oPC, "ban:shout", 1);
     SendMessageToPC(oPC, C_RED+PERMBANSHT1+C_END);//tell em
 }
 

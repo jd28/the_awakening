@@ -1,6 +1,6 @@
 #include "pc_funcs_inc"
-#include "nwnx_redis"
+#include "pc_persist"
 
 int StartingConditional(){
-    return StringToInt(GET("port:Blackwell:"+GetRedisID(GetPCSpeaker())));
+  return GetPersistantInt(GetPCSpeaker(), "port:Blackwell");
 }

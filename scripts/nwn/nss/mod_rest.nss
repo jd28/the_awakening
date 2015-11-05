@@ -15,6 +15,7 @@ The generic wandering monster system
 
 #include "x2_inc_switches"
 #include "pc_funcs_inc"
+#include "pc_persist"
 #include "vfx_inc"
 
 void main()
