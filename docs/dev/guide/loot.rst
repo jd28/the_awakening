@@ -1,0 +1,4 @@
+.. highlight:: lua
+
+Loot
+====

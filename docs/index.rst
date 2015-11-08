@@ -18,26 +18,29 @@ Welcome to The Awakening v2!
   :caption: Features
   :maxdepth: 2
 
-  legendary-levels
-  simtools
+  features/legendary-levels
+  features/simtools
 
 .. toctree::
   :caption: Customizations
   :maxdepth: 2
 
-  abilities
-  classes
-  feats
-  items
-  saves
-  skills
-  spells
+  customizations/classes
+  customizations/combat
+  customizations/feats
+  customizations/saves
+  customizations/skills
+  customizations/spells
+  customizations/weapons
 
 .. toctree::
   :caption: Development
   :maxdepth: 2
 
-  aip
+  dev/guide
+  dev/aip
+  dev/differences
+  dev/goals
 
 .. toctree::
   :caption: Community Contribuitions
