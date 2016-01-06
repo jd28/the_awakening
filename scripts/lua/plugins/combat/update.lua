@@ -137,12 +137,12 @@ local function UpdateCombatWeaponInfo(self)
     weap = GetObjectByID(self.ci.equips[i].id)
     if weap:GetIsValid() or i == EQUIP_TYPE_UNARMED then
 
-      self.ci.equips[i].ab_mod      = Rules.GetWeaponAttackBonus(self, weap)
-      self.ci.equips[i].ab_ability    = Rules.GetWeaponAttackAbility(self, weap)
-      self.ci.equips[i].dmg_ability   = Rules.GetWeaponDamageAbility(self, weap)
-      self.ci.equips[i].iter        = Rules.GetWeaponIteration(self, weap)
+      self.ci.equips[i].ab_mod         = Rules.GetWeaponAttackBonus(self, weap)
+      self.ci.equips[i].ab_ability     = Rules.GetWeaponAttackAbility(self, weap)
+      self.ci.equips[i].dmg_ability    = Rules.GetWeaponDamageAbility(self, weap)
+      self.ci.equips[i].iter           = Rules.GetWeaponIteration(self, weap)
       self.ci.equips[i].base_dmg_flags = Rules.GetWeaponBaseDamageType(weap)
-      self.ci.equips[i].power       = Rules.GetWeaponPower(self, weap)
+      self.ci.equips[i].power          = Rules.GetWeaponPower(self, weap)
       if i == EQUIP_TYPE_UNARMED then
         self.ci.equips[i].base_dmg_roll.dice,
         self.ci.equips[i].base_dmg_roll.sides,
@@ -199,6 +199,38 @@ local function UpdateAmmoDamage(self)
     end
   end
 
+end
+
+local function UpdateCombatModifiers(self)
+  for i=0, COMBAT_MOD_NUM - 1 do
+    self.ci.mods.ab[i] = Rules.GetCombatModifier(i, ATTACK_MODIFIER_AB, self) or 0
+  end
+  for i=0, COMBAT_MOD_NUM - 1 do
+    self.ci.mods.ac[i] = Rules.GetCombatModifier(i, ATTACK_MODIFIER_AC, self) or 0
+  end
+  for i=0, COMBAT_MOD_NUM - 1 do
+    self.ci.mods.hp[i] = Rules.GetCombatModifier(i, ATTACK_MODIFIER_HP, self) or 0
+  end
+  for i=0, COMBAT_MOD_NUM - 1 do
+    local t = Rules.GetCombatModifier(i, ATTACK_MODIFIER_DAMAGE, self)
+    if t then self.ci.mods.dmg[i] = t end
+  end
+end
+
+local function UpdateSituationModifiers(self)
+  for i=0, SITUATION_NUM - 1 do
+    self.ci.situ.ab[i] = Rules.GetSituationModifier(i, ATTACK_MODIFIER_AB, self) or 0
+  end
+  for i=0, SITUATION_NUM - 1 do
+    self.ci.situ.ac[i] = Rules.GetSituationModifier(i, ATTACK_MODIFIER_AC, self) or 0
+  end
+  for i=0, SITUATION_NUM - 1 do
+    self.ci.situ.hp[i] = Rules.GetSituationModifier(i, ATTACK_MODIFIER_HP, self) or 0
+  end
+  for i=0, SITUATION_NUM - 1 do
+    local t = Rules.GetSituationModifier(i, ATTACK_MODIFIER_DAMAGE, self)
+    if t then self.ci.situ.dmg[i] = t end
+  end
 end
 
 local function UpdateDamage(self)
@@ -282,16 +314,18 @@ local function UpdateCombatInfo(cre)
   UpdateAttacks(cre)
   UpdateDamage(cre)
   if cre.ci.offense.ranged_type > 0 then
-   UpdateAmmoDamage(cre)
+    UpdateAmmoDamage(cre)
   end
   for i = 0, EQUIP_TYPE_NUM - 1 do
-   local weap = GetObjectByID(cre.ci.equips[i].id)
-   UpdateCriticalDamage(cre, i, weap)
+    local weap = GetObjectByID(cre.ci.equips[i].id)
+    UpdateCriticalDamage(cre, i, weap)
   end
   UpdateAttackBonus(cre)
   UpdateDamageReduction(cre)
   UpdateDamageResistance(cre)
   UpdateDamageImmunity(cre)
+  UpdateCombatModifiers(cre)
+  UpdateSituationModifiers(cre)
   cre.ci.offense.crit_chance_modifier = cre["TA_CRIT_THREAT_BONUS"] or 0
   cre.ci.offense.crit_dmg_modifier = cre["TA_CRIT_DMG_BONUS"] or 0
   cre.ci.offense.damge_bonus_modifier = cre["TA_DMG_BONUS"] or 0
@@ -299,9 +333,9 @@ end
 
 local function UpdateEffect(cre, eff)
   if EFFECT_TYPE_DAMAGE_DECREASE == eff:GetType()
-   or EFFECT_TYPE_DAMAGE_INCREASE == eff:GetType()
+    or EFFECT_TYPE_DAMAGE_INCREASE == eff:GetType()
   then
-   print(cre, eff)
+    print(cre, eff)
   end
 end
 

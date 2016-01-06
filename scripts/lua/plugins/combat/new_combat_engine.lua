@@ -573,21 +573,21 @@ local function ResolveDamage(info, attacker, target)
    ResolveDamageResult(info, attacker, mult, ki_strike)
    -- Modes
    for i = 0, COMBAT_MOD_SKILL do
-      if RollValid(attacker_ci.mods[i].dmg.roll) then
-         AddDamageToResult(info, attacker_ci.mods[i].dmg, mult)
+      if RollValid(attacker_ci.mods.dmg[i].roll) then
+         AddDamageToResult(info, attacker_ci.mods.dmg[i], mult)
       end
    end
 
    if attacker:GetHasTrainingVs(target)
-      and RollValid(attacker_ci.mods[COMBAT_MOD_TRAINING_VS].dmg.roll)
+      and RollValid(attacker_ci.mods.dmg[COMBAT_MOD_TRAINING_VS].roll)
    then
-      AddDamageToResult(info, attacker_ci.mods[COMBAT_MOD_TRAINING_VS].dmg, mult)
+      AddDamageToResult(info, attacker_ci.mods.dmg[COMBAT_MOD_TRAINING_VS], mult)
    end
 
    if attacker:GetIsFavoredEnemy(target)
-      and RollValid(attacker_ci.mods[COMBAT_MOD_FAVORED_ENEMY].dmg.roll)
+      and RollValid(attacker_ci.mods.dmg[COMBAT_MOD_FAVORED_ENEMY].roll)
    then
-      AddDamageToResult(info, attacker_ci.mods[COMBAT_MOD_FAVORED_ENEMY].dmg, mult)
+      AddDamageToResult(info, attacker_ci.mods.dmg[COMBAT_MOD_FAVORED_ENEMY], mult)
    end
 
    -- Special attacks
@@ -611,7 +611,7 @@ local function ResolveDamage(info, attacker, target)
    for i = 0, SITUATION_NUM - 1 do
       if band(lshift(1, i), info.situational_flags) ~= 0 then
          -- Don't multiply situational damage.
-         if RollValid(attacker_ci.mod_situ[i].dmg.roll) then
+         if RollValid(attacker_ci.mod_situ.dmg[i].roll) then
             AddDamageToResult(info, attacker_ci.mod_situ[i].dmg, 1)
          end
       end
@@ -873,8 +873,8 @@ local function ResolveSituations(info, attacker, target)
 
    -- In order for a sneak attack situation to be possiblle the attacker must
    -- be able to do some amount of sneak damage.
-   local death = RollValid(attacker_ci.mod_situ[SITUATION_DEATH_ATTACK].dmg.roll)
-   local sneak = RollValid(attacker_ci.mod_situ[SITUATION_SNEAK_ATTACK].dmg.roll)
+   local death = RollValid(attacker_ci.situ.dmg[SITUATION_DEATH_ATTACK].roll)
+   local sneak = RollValid(attacker_ci.situ.dmg[SITUATION_SNEAK_ATTACK].roll)
 
    -- Sneak Attack & Death Attack
    if (sneak or death) and

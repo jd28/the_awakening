@@ -66,12 +66,26 @@ local ffi = require 'ffi'
 -- @field damage [50] From effects, weapons, etc. [TODO] Reconsider the size.
 -- @field damage_len Number of damages used in the above array.
 
+local function create_modifiers(name, size)
+  ffi.cdef(string.interp([[
+    typedef struct {
+        int32_t    ab[${SIZE}];
+        int32_t    ac[${SIZE}];
+        int32_t    hp[${SIZE}];
+        DamageRoll dmg[${SIZE}];
+    } ${NAME};
+  ]], {SIZE = size, NAME = name}))
+end
+
+create_modifiers("CombatModifiers", COMBAT_MOD_NUM)
+create_modifiers("SituationModifiers", SITUATION_NUM)
+
 ffi.cdef(string.interp([[
-typedef struct CombatMod {
-    int32_t ab;
-    int32_t ac;
-    DamageRoll dmg;
-    int32_t hp;
+typedef struct {
+  int32_t    ab;
+  int32_t    ac;
+  int32_t    hp;
+  DamageRoll dmg;
 } CombatMod;
 
 typedef struct {
@@ -121,17 +135,17 @@ typedef struct {
 } DamageReduction;
 
 typedef struct {
-    int32_t         hp_max;
-    int32_t         hp_eff;
-    Offense         offense;
-    CombatWeapon    equips[${EQUIP_TYPE_NUM}];
-    Defense         defense;
-    DamageReduction dr;
-    CombatMod       mods[${COMBAT_MOD_NUM}];
-    CombatMod       mod_situ[${SITUATION_NUM}];
-    CombatMod       mod_mode;
-    uint32_t        fe_mask;
-    uint32_t        training_vs_mask;
+    int32_t              hp_max;
+    int32_t              hp_eff;
+    Offense              offense;
+    CombatWeapon         equips[${EQUIP_TYPE_NUM}];
+    Defense              defense;
+    DamageReduction      dr;
+    CombatModifiers      mods;
+    SituationModifiers   situ;
+    CombatMod            mod_mode;
+    uint32_t             fe_mask;
+    uint32_t             training_vs_mask;
 } CombatInfo;
 ]], Rules.GetConstantTable()))
 
