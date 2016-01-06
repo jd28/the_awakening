@@ -9,21 +9,31 @@ Champions of different Deities.
 
 -------------------------------------------------------------------------------
 
-**Class Customizations**
+Class Customizations
+--------------------
 
-* **Level 15:** Greater Smiting
-* **Level 20:** Divine Wrath 2 uses per day.
-* **Level 25:** Greater Smiting
-* **Level 30:** Divine Wrath 3 uses per day.
-* **Level 35:** Smite becomes effective vs all alignments.
-* **Level 40:** Divine Wrath 4 uses per day.
-* **Level 45:** Greater Smiting
+Level 15
+  Greater Smiting
+Level 20
+  Divine Wrath 2 uses per day.
+Level 25
+  Greater Smiting
+Level 30
+  Divine Wrath 3 uses per day.
+Level 35
+  Smite becomes effective vs all alignments.
+Level 40
+  Divine Wrath 4 uses per day.
+Level 45
+  Greater Smiting
 
 -------------------------------------------------------------------------------
 
-**Feat Customizations**
+Feat Customizations
+-------------------
 
 Divine Wrath
+
   * Duration: Charisma Modifier + 1 per 10 CoT Levels in rounds.
   * Attack Bonus: 3 + 2 per 5 COT Levels after 5.
   * Damage Bonus: 3 + 2 per 5 COT Levels after 5 of Positive Damage.

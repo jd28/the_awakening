@@ -20,6 +20,7 @@ Welcome to The Awakening v2!
 
   features/legendary-levels
   features/simtools
+  features/subraces
 
 .. toctree::
   :caption: Customizations

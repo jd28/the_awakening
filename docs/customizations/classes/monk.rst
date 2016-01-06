@@ -3,32 +3,28 @@ Monk
 
 nwnwiki: http://nwn.wikia.com/wiki/Monk
 
-----
-
 Class Customizations
 --------------------
 
 Level 45
-~~~~~~~~
+  At level 45 monks are able to choose an optional Fighting Style.  The requirements and benefits listed below, and also special combat animations (with the custom hak).  This choice is one-time only and permanent.  The animations may be turned on or off.  These are UNARMED styles only.  They would work in two cases: unarmed monks and unarmed shifted shapes.
 
-At level 45 monks are able to choose an optional Fighting Style.  The requirements and benefits listed below, and also special combat animations (with the custom hak).  This choice is one-time only and permanent.  The animations may be turned on or off.  These are UNARMED styles only.  They would work in two cases: unarmed monks and unarmed shifted shapes.
+  * **Tiger Fang**:
 
-* **Tiger Fang**:
+    * **Bonus**: An additional +1 per six Monk levels toward unarmed damage bonus.
+    * **Note**: You may have to requip you gaunts to get the benefits of these style.
 
-  * **Bonus**: An additional +1 per six Monk levels toward unarmed damage bonus.
-  * **Note**: You may have to requip you gaunts to get the benefits of these style.
+  * **Sun Fist**:
 
-* **Sun Fist**:
+    * **Bonus**: +1 non-full attack when unarmed.
 
-  * **Bonus**: +1 non-full attack when unarmed.
+  * **Dragon Palm**:
 
-* **Dragon Palm**:
+    * **Bonus**: An additional +1 ac per six Monk levels.
 
-  * **Bonus**: An additional +1 ac per six Monk levels.
+  * **Bear Claw**:
 
-* **Bear Claw**:
-
-  * **Bonus**: a 50% chance of their critical multiplier being increased on any critical hit.
+    * **Bonus**: a 50% chance of their critical multiplier being increased on any critical  hit.
 
 -------------------------------------------------------------------------------
 
@@ -36,9 +32,7 @@ Feat Customizations
 -------------------
 
 Circle Kick
-~~~~~~~~~~~
-
-The original feat has been replaced.  This feat now grants one additional attack to unarmed monks.
+  The original feat has been replaced.  This feat now grants one additional attack to unarmed monks.
 
 Empty Body
   * Duration: 2 Rounds per Monk Level.

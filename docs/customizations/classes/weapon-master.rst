@@ -3,7 +3,8 @@ Weapon Master
 
 nwnwiki: http://nwn.wikia.com/wiki/Weapon_master
 
-**Feat Customizations**
+Feats
+-----
 
 Weapon of Choice (unarmed)
   This feat is available with the custom hak and thus unarmed WM monks are possible.

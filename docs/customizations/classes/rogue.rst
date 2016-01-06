@@ -8,12 +8,16 @@ nwnwiki: http://nwn.wikia.com/wiki/Rogue
 
 ---
 
-**Class Customizations:**
-* **Level 45:** At level 45 Rogues are able to use stealth twice per day which casts a Sanctuary effect on themselves.  DC: 10 + Hide Skill / 2 (Max 70).  Duration: Hide Skill / 3 in Seconds (Max: 40 Seconds).  If the Rogues does not have Hide in Plain Sight, they will be unable to use this ability when in the visibility of enemies.
+General
+-------
+
+Level 45
+  At level 45 Rogues are able to use stealth twice per day which casts a Sanctuary effect on themselves.  DC: 10 + Hide Skill / 2 (Max 70).  Duration: Hide Skill / 3 in Seconds (Max: 40 Seconds).  If the Rogues does not have Hide in Plain Sight, they will be unable to use this ability when in the visibility of enemies.
 
 ---
 
-**Feat Customizations**
+Feats
+-----
 
 Crippling Strike
   At 30 levels of Rogue crit range is increased by 1. At 35 levels of rogue also gains +1 to their critical hit multiplier.  To use this the rogue must be using a simple weapon.
@@ -35,7 +39,10 @@ Self Concealment
 
 ---
 
-**Spell Scroll Customizations**
+Spell Scrolls
+-------------
 
-* **Find Traps**
-* **Knock**
+Find Traps
+  ???
+Knock
+  ???

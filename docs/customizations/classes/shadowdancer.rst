@@ -3,19 +3,28 @@ Shadowdancer
 
 nwnwiki: http://nwn.wikia.com/wiki/Shadowdancer
 
-**Class Customization**
+General
+-------
 
-* **Level 15:** Shadowdancer receives Skill Mastery.
-* **Level 20:** Darkness: Shadowdancers are able to cast the spell Darkness once per day.  The ability used to calculate the DC is Dexterity.
-* **Level 25:** Shadow Strike.  +1 point of negative damage per 5 Shadowdancer levels.  This damage is applied to the weapons the Shadowdancer is wielding.  Duration: 1 round per Shadowdancer level.
-* **Level 30:** Shadowdancers receive Defensive Awareness II.
-* **Level 35:** At level 35 Shadowdancers are able to use stealth twice per day which casts a Sanctuary effect on themselves.  DC: 10 + Hide Skill / 2 (Max 70).  Duration: Hide Skill / 3 in Seconds (Max: 40 Seconds).  The area will become flagged and a percentage of the areas encounters will have to be exhausted (i.e. monsters spawned and killed) to proceed.
-* **Level 40:** Shadowdancers are able animate not only their own shadows, but also the Shadows of their friends.  The duration of the Shadow is reduced by half for Shadows of friends.
-* **Level 45:** Shadow Strike usable 2 times per day.
+Level 15
+  Shadowdancer receives Skill Mastery.
+Level 20
+  Darkness: Shadowdancers are able to cast the spell Darkness once per day.  The ability used to calculate the DC is Dexterity.
+Level 25
+  Shadow Strike.  +1 point of negative damage per 5 Shadowdancer levels.  This damage is applied to the weapons the Shadowdancer is wielding.  Duration: 1 round per Shadowdancer level.
+Level 30
+  Shadowdancers receive Defensive Awareness II.
+Level 35
+  At level 35 Shadowdancers are able to use stealth twice per day which casts a Sanctuary effect on themselves.  DC: 10 + Hide Skill / 2 (Max 70).  Duration: Hide Skill / 3 in Seconds (Max: 40 Seconds).  The area will become flagged and a percentage of the areas encounters will have to be exhausted (i.e. monsters spawned and killed) to proceed.
+Level 40
+  Shadowdancers are able animate not only their own shadows, but also the Shadows of their friends.  The duration of the Shadow is reduced by half for Shadows of friends.
+Level 45
+  Shadow Strike usable 2 times per day.
 
 ---
 
-**Feat Customizations**
+Feats
+-----
 
 Shadow Daze
   1d6 + 1 per 2 Shadowdancer levels of negative damage, target must make a Will Save against a DC of 10 + Shadowdancer Level or be dazed for 2 rounds.

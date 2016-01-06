@@ -3,27 +3,37 @@ Blackguard
 
 nwnwiki: http://nwn.wikia.com/wiki/Blackguard
 
-**Class Customization**
+Class Customization
+-------------------
 
-* **Level 7:** Blackguards receive Rogue Sneak Attack 1 at level 7.
+Level 7
+  Blackguards receive Rogue Sneak Attack 1 at level 7.
 
-* **Level 15:** Contagion: Note: this feat has been moved from level 7 to level 15.
+Level 15
+  Contagion: Note: this feat has been moved from level 7 to level 15.
 
-* **Level 20:** Divine Feats double in Duration, Hellfire (1d10)
+Level 20
+  Divine Feats double in Duration, Hellfire (1d10)
 
-* **Level 25:** Greater Smiting
+Level 25
+  Greater Smiting
 
-* **Level 30:** Divine Feats triple in Duration, Hellfire (2d10)
+Level 30
+  Divine Feats triple in Duration, Hellfire (2d10)
 
-* **Level 35:** Smite becomes effective vs all alignments.
+Level 35
+  Smite becomes effective vs all alignments.
 
-* **Level 40:** Hellfire (3d10)
+Level 40
+  Hellfire (3d10)
 
-* **Level 45:** Greater Smiting
+Level 45
+  Greater Smiting
 
 -------------------------------------------------------------------------------
 
-**Feat Customizations**
+Feat Customizations
+-------------------
 
 Bull's Strength
   In addition to strength buff, caster receives +1ab per 6 Blackguard levels to a maximum of +8.
