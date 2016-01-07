@@ -2,6 +2,9 @@
 local M = {}
 local ffi = require 'ffi'
 local random = math.random
+local max = math.max
+local min = math.min
+local floor = math.floor
 
 ffi.cdef [[
 typedef struct {
@@ -31,22 +34,21 @@ local DYNAMO_OR      = 7
 local DYNAMO_WEIGHT  = 8
 
 local function GetPlayerTable(tbl, num_players)
-   if not tbl.Players then return tbl end
    local place
    local minimum = 1000000
-   for x, y in pairs(tbl.Players) do
+   for x, y in pairs(tbl) do
       if type(x) == 'number' then
          place = place or x
-         minimum = math.min(minimum, x)
+         minimum = min(minimum, x)
          if x >= num_players and x <= place then
             place = x
          end
       end
    end
    if minimum > num_players then
-      return tbl.Players[minimum]
+      return tbl[minimum]
    end
-   return tbl.Players[place]
+   return tbl[place]
 end
 
 local function set_base(tbl)
@@ -54,7 +56,7 @@ local function set_base(tbl)
 end
 
 local function Capture(table, key)
-   local is_const = string.match(key, '^%u[%u_]')
+   local is_const = string.match(key, '^%u[%u_]+')
    if is_const and not _CONSTS[key] then
       error(string.format("Invalid constant: %s!", key))
    end
@@ -78,7 +80,7 @@ end
 local function extract(tbl, obj)
    local result = tbl
 
-   if tbl.chance and tbl.chance < math.random(100) then
+   if tbl.chance and tbl.chance < random(100) then
       return nil
    end
 
@@ -97,7 +99,7 @@ local function extract(tbl, obj)
          tbl.rotate = tbl.rotate + 1
       end
    elseif tbl._dynamo_type == DYNAMO_PERCENT then
-      local r = math.random(100)
+      local r = random(100)
       local tot = 0
       for i=1, #tbl, 2 do
          tot = tot + tbl[i]
@@ -107,7 +109,7 @@ local function extract(tbl, obj)
          end
       end
    elseif tbl._dynamo_type == DYNAMO_WEIGHT then
-      local r = math.random(tbl._weight_sum)
+      local r = random(tbl._weight_sum)
       local tot = 0
       for i=1, #tbl, 2 do
          tot = tot + tbl[i]
@@ -117,7 +119,7 @@ local function extract(tbl, obj)
          end
       end
    elseif tbl._dynamo_type == DYNAMO_RANDOM then
-      result = tbl[math.random(#tbl)]
+      result = tbl[random(#tbl)]
    elseif tbl._dynamo_type == DYNAMO_EVERY then
       if tbl[tbl.every] then
          result = tbl[tbl.every]
@@ -209,7 +211,7 @@ local function GetValue(value, use_max, players)
       res = nres
    end
 
-   return math.floor(res)
+   return floor(res)
 end
 
 local function Chance(chance, tbl)
@@ -229,7 +231,7 @@ local function Every(t)
    res._dynamo_type = DYNAMO_EVERY
    res._dynamo_every_max = -1
    for i = 1, #t, 2 do
-      res._dynamo_every_max = math.max(res._dynamo_every_max, t[i])
+      res._dynamo_every_max = max(res._dynamo_every_max, t[i])
       res[t[i]] = t[i+1]
    end
    return res
