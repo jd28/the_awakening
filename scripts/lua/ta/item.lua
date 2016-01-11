@@ -9,12 +9,19 @@ local env_mt = { __index = Dyn.Capture }
 
 local M = {}
 
+function env_mt.Item(tbl)
+   _ITEMS[assert(tbl.resref)] = tbl
+   return tbl
+end
+
+
 --- Load item file.
 -- @param file Item file to load.
 function M.Load(file)
-   local t   = setmetatable({}, env_mt)
+   local t   = setmetatable({
+         Item = env_mt.Item
+      }, env_mt)
    local res = runfile(file, t)
-   _ITEMS[assert(res.resref)] = res
 end
 
 --- Generate item
