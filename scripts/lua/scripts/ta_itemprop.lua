@@ -153,3 +153,13 @@ function IP.UseLimitAbilityLevel(ability, level)
    eff:SetValues(TA_ITEM_PROPERTY_USE_LIMITATION_ABILITY, ability, 36, level)
    return eff
 end
+
+--- Creates a damage bonus itemproperty.
+-- @param damage_type DAMAGE_INDEX_*
+-- @param start
+-- @param stop
+function IP.DamageRange(damage_type, start, stop)
+   local eff = IP.CreateItempropEffect()
+   eff:SetValues(TA_ITEM_PROPERTY_DAMAGE_RANGE, damage_type, 33, start, 12, stop)
+   return eff
+end
