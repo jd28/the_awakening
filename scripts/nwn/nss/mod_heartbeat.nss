@@ -19,7 +19,7 @@ void main(){
     // HG
     int nUptime, nRealTime, timekeeper;
     string sBootTime = IntToString(GetLocalInt(oMod, "BootTime"));
-    SQLExecDirect("SELECT extract(epoch from now()) - " + sBootTime + ", extract(epoch from now())");
+    SQLExecDirect("SELECT UNIX_TIMESTAMP() - " + sBootTime + ", UNIX_TIMESTAMP()");
     if (SQLFetch() == SQL_SUCCESS) {
         nUptime = StringToInt(SQLGetData(1));
         SetLocalInt(oMod, "uptime", nUptime);

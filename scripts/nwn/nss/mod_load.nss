@@ -85,7 +85,7 @@ void main(){
     // Set Boot time
     int nBootTime;
 
-    SQLExecDirect("SELECT extract(epoch from now());");
+    SQLExecDirect("SELECT UNIX_TIMESTAMP();");
     if (SQLFetch() == SQL_SUCCESS){
         nBootTime = StringToInt(SQLGetData(1));
         SetLocalInt(GetModule(), "BootTime", nBootTime);
