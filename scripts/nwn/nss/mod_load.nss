@@ -96,13 +96,7 @@ void main(){
         WriteTimestampedLogEntry("ERROR : mod_load : Failed get boot time.");
     }
 
-    SQLExecDirect("SELECT cdkeys, admin FROM nwn.players where admin > 0");
-    while (SQLFetch() == SQL_SUCCESS){
-       string key = SQLGetData(1);
-       string val = SQLGetData(2);
-       WriteTimestampedLogEntry("LOG : mod_load : Adding key: " + key + " : " + val);
-       SetLocalInt(GetModule(), key, StringToInt(val));
-    }
+    ExecuteScript("ta_mod_load", OBJECT_SELF);
 
     // -------------------------------------------------------------------------
     // SIMTools -- Init placeholders for chat gateway
