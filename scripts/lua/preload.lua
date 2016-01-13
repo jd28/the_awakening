@@ -41,6 +41,7 @@ require('solstice.preload')
 
 -- Extensions
 require 'extensions.creature'
+require 'extensions.rules'
 
 require 'plugins.combat.load'
 
