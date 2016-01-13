@@ -25,8 +25,8 @@ Item {
     Regeneration(6),
 
     SkillModifier(SKILL_TAUNT, 8),
-    SkillModifier(SKILL_PARRY, 8),
+    SkillModifier(SKILL_FORTIFICATION, 8),
     SkillModifier(SKILL_INTIMIDATE, 12),
-    SkillModifier(SKILL_CRAFT_WEAPON, 12),
+    SkillModifier(SKILL_WEAPON_PROF, 12),
   }
 }

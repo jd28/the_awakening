@@ -19,8 +19,8 @@ Item {
     BonusLevelSpell(CLASS_TYPE_DRUID, 9),
     BonusLevelSpell(CLASS_TYPE_DRUID, 9),
 
-    SkillModifier(SKILL_CRAFT_ARMOR, 4),
-    SkillModifier(SKILL_CRAFT_WEAPON, 4),
+    SkillModifier(SKILL_ARMOR_PROF, 4),
+    SkillModifier(SKILL_WEAPON_PROF, 4),
     SkillModifier(SKILL_CONCENTRATION, 6),
     SkillModifier(SKILL_ANIMAL_EMPATHY, 6),
     SkillModifier(SKILL_SPELLCRAFT, 6),
