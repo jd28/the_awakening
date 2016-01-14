@@ -6190,6 +6190,7 @@ OBJECT_INVALID are not listed below as they are represented by internal types.
 * SKILL_DISABLE_TRAP = 2
 * SKILL_DISCIPLINE = 3
 * SKILL_FORTIFICATION = 10
+* SKILL_GOLD_FIND = 20
 * SKILL_HEAL = 4
 * SKILL_HIDE = 5
 * SKILL_INTIMIDATE = 24

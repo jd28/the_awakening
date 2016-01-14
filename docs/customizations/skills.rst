@@ -3,7 +3,7 @@ Skills
 
 .. warning::
 
-  Appraise, Bluff, Persuade and Ride have been disabled.  Selecting them at character creation is not a valuable use of your skill points.
+  Bluff, Persuade and Ride have been disabled.  Selecting them at character creation is not a valuable use of your skill points.  Other skills, as noted below, have been renamed.
 
 Armor Proficiency
   Ability: Intelligence.
@@ -26,6 +26,21 @@ Fortification
   Note: this skill was previously the Parry skill.
 
   Use: Automatic.
+
+Gold Find
+  Ability: Intelligence.
+  Requires Training: No.
+  Classes: All.
+
+  For every 12 ranks of Gold Find the chance of getting a Legendary drop [1]_ is increased by 1% to a maximum of 10%.  Note that while playing in a party your Gold Find is averaged among other players, so it is possible that your Gold Find is diminished.
+
+  This skill also increase the amount of gold that drops from monsters.
+
+  Note: This skill was previoiusly the Appraise skill.
+
+  Use: Automatic.
+
+  .. [1] Set items, spirit shards, etc.
 
 Tumble
   Ability: Dexterity.
