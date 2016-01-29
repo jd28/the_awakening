@@ -4885,6 +4885,11 @@ OBJECT_INVALID are not listed below as they are represented by internal types.
 * VFX_PER_WALLWIND = 6
 * VFX_PER_WEB = 8
 
+#### VISION_MASK_*
+* VISION_MASK_SEE_INVIS = 1
+* VISION_MASK_ULTRAVISION = 2
+* VISION_MASK_TRUE_SEEING = 4
+
 #### VOLUME_*
 * VOLUME_PARTY = 5
 * VOLUME_SHOUT = 2
