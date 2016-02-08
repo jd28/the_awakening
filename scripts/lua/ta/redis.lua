@@ -1,5 +1,9 @@
 local redis = require 'redis'
-local client = redis.connect('127.0.0.1', 6379)
+local client = redis.connect(OPT.REDIS_SOCKET)
+
+if #OPT.REDIS_PASSWORD > 0 then
+  client:auth(OPT.REDIS_PASSWORD)
+end
 
 local function GetClient()
   return client
