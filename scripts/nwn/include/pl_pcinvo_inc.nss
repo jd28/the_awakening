@@ -1,10 +1,11 @@
 #include "item_func_inc"
 #include "pc_funcs_inc"
 #include "gsp_spinfo_inc"
+#include "nwnx_redis"
 
 struct EquippedWeapons {
     object oOnHand, oOffHand;
-};    
+};
 
 void AddACBonusToArmor(object oArmor, float fDuration, int nAmount);
 void AddDmgBonusToEquippedWeapons(struct EquippedWeapons ew, float fDuration, int nDmgBonus, int nDamType, int nDmgVsRace = -1);
@@ -211,7 +212,8 @@ int CheckILR(object oPC, object oItem){
         bUnequip = TRUE;
     }
 
-    if(sTagged != "" && !GetPlayerInt(oPC, sTagged)){
+    int tag = StringToInt(GET("killtag:"+sTagged+":"+GetRedisID(oPC)));
+    if(sTagged != "" && !tag){
         sMsg = Logger(oPC, VAR_DEBUG_LOGS, LOGLEVEL_DEBUG, "Tagged Restricion: %s", sTagged);
 
         sText = "You have not done what is necessary to use this item.  Please see its description.";
@@ -364,7 +366,7 @@ struct EquippedWeapons GetTargetedOrEquippedWeapon(object oTarget, int bDual = F
 
     if(GetIsObjectValid(oTarget) && GetObjectType(oTarget) == OBJECT_TYPE_ITEM)  {
         if (GetIsMeleeWeapon(oTarget) || (bBow && GetIsRangedWeapon2(oTarget))){
-            ew.oOnHand = oTarget;   
+            ew.oOnHand = oTarget;
             return ew;
         }
     }
@@ -403,7 +405,7 @@ int GetIsWeaponTwoHanded(object oPC, object oItem){
     int nSize = StringToInt(Get2DAString("baseitems", "WeaponSize", GetBaseItemType(oItem)));
 
     if(nSize > nCreSize)
-        return TRUE; 
+        return TRUE;
 
     return FALSE;
 }

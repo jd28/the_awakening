@@ -1,10 +1,7 @@
 #include "srv_funcs_inc"
-#include "sha_subr_methds"
 
 void main(){
     object oMod = GetModule();
-    string UTCTime;
-
 
     //:: Written By: Shayan.
     //:: Contact: mail_shayan@yahoo.com
@@ -19,25 +16,15 @@ void main(){
 
     SetTime(iHour, iMinute, iSecond, iMillisecond);
 
-    // Subrace Heartbeat
-    object oPC = GetFirstPC();
-    while(oPC != OBJECT_INVALID){
-        if(!GetIsNormalRace(oPC))
-            DelayCommand(0.5f, SubraceHeartbeat(oPC));
-        oPC = GetNextPC();
-    }
-
     // HG
     int nUptime, nRealTime, timekeeper;
     string sBootTime = IntToString(GetLocalInt(oMod, "BootTime"));
-    SQLExecDirect("SELECT UNIX_TIMESTAMP() - " + sBootTime + ", UTC_TIMESTAMP(), UNIX_TIMESTAMP()");
+    SQLExecDirect("SELECT extract(epoch from now()) - " + sBootTime + ", extract(epoch from now())");
     if (SQLFetch() == SQL_SUCCESS) {
         nUptime = StringToInt(SQLGetData(1));
         SetLocalInt(oMod, "uptime", nUptime);
-        nRealTime = StringToInt(SQLGetData(3));
+        nRealTime = StringToInt(SQLGetData(2));
         SetLocalInt(oMod, "realtime", nRealTime);
-        UTCTime = SQLGetData(2);
-        SetLocalString(oMod, "utctime", SQLGetData(2));
     }
 
     /* check for auto-reset */
@@ -55,7 +42,6 @@ void main(){
         string sMsg = "LOG : mod_heartbeat : ";
         sMsg += "Up Time: " + IntToString(nUptime);
         sMsg += " : Real Time: " + IntToString(nUptime);
-        sMsg += " : UTC Time: " + UTCTime;
         sMsg += " : Timer: " + IntToString(timekeeper);
         sMsg += " : CPU Usage, User: " + FloatToString(cpu.user);
         sMsg += " : CPU Usage, System: " + FloatToString(cpu.sys);

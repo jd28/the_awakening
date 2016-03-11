@@ -1,8 +1,8 @@
 #include "fky_chat_inc"
 #include "pl_sub_inc"
-//#include "leto_inc"
 #include "x3_inc_string"
 #include "pl_pcstyle_inc"
+#include "nwnx_redis"
 
 void RollDie(object oPlayer, int nDie)
 {
@@ -89,37 +89,6 @@ void DoAFK(struct pl_chat_command pcc){ // afk <message>
     SendServerMessage(pcc.oPC, "[AFK] " + GetName(pcc.oPC) + " is AFK: " + pcc.sCommand);
 }
 
-void DoAlias(struct pl_chat_command pcc){ // !alias <alias> <command>
-    pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 6);
-
-    int nNth = FindSubString(pcc.sCommand, " ");
-    if(nNth == -1){
-        ErrorMessage(pcc.oPC, "You must alias a command!");
-        return;
-    }
-
-    if(!GetIsStringLegal(pcc.sCommand)){
-        FloatingTextStringOnCreature(C_RED+"Aliases cannot contain '<', '>', '/', '~', or quotation marks"+C_END, pcc.oPC, FALSE);
-        return;
-    }
-
-    string sAlias = GetStringLeft(pcc.sCommand, nNth);
-    string sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - nNth - 1);
-
-    SetPlayerString(pcc.oPC, "chat_alias_" + sAlias, sCommand, TRUE, "db_alias");
-    FloatingTextStringOnCreature(C_GREEN+"You have aliased " + sCommand + " as " + sAlias+C_END, pcc.oPC, FALSE);
-}
-
-void DoUnalias(struct pl_chat_command pcc){ //!unalias <alias>
-    pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 8);
-    if(pcc.sCommand ==  "") return;
-
-    DeleteDbVariable(pcc.oPC, "chat_alias_"+pcc.sCommand, TRUE, "db_alias");
-    DeleteLocalString(pcc.oPC, "chat_alias_"+pcc.sCommand);
-    SendMessageToPC(pcc.oPC, C_RED+"Alias "+pcc.sCommand+" removed!"+C_END);
-}
-
-
 void DoAnon(struct pl_chat_command pcc){
     SetLocalInt(pcc.oPC, "FKY_CHAT_ANON", 1);
     SendMessageToPC(pcc.oPC, C_RED+ANON+C_END);
@@ -130,8 +99,8 @@ void DoCDKey(struct pl_chat_command pcc){ // !cdkey <action>
         return;
 
     if(pcc.sCommand == "add"){
-        SetDbInt(pcc.oPC, "pc_add_key", TRUE, 1, TRUE);
-        SendChatLogMessage(pcc.oPC, C_GREEN+"Please relog using the CDKEY that you would like to add to this login name!"+C_END + "\n", pcc.oPC, 5);
+        SET("cdkey:add:"+GetPCPlayerName(pcc.oPC), "1", 24*60*60);
+        SendChatLogMessage(pcc.oPC, C_GREEN+"Please relog using the CDKEY that you would like to add to this login name!  You have 24 hours before this expires."+C_END + "\n", pcc.oPC, 5);
     }
     else if(pcc.sCommand == "delete"){
         ErrorMessage(pcc.oPC, "Unimplemented!");
@@ -152,7 +121,7 @@ void DoConvertFeat(struct pl_chat_command pcc) { // !convert <feat> <to>
         {
             RemoveKnownFeat(pcc.oPC, FEAT_EPIC_PROWESS);
             ModifyAbilityScore(pcc.oPC, ABILITY_STRENGTH, 1);
-            SetPlayerInt(pcc.oPC, VAR_PC_NO_RELEVEL, 1);
+            SetLocalInt(pcc.oPC, VAR_PC_NO_RELEVEL, 1);
             SendChatLogMessage(pcc.oPC, C_GREEN+"Epic Prowess has been converted to strength!"+C_END + "\n", pcc.oPC, 5);
         }
         else if(ss.first == "dex" && GetKnowsFeat (FEAT_LUCK_OF_HEROES, pcc.oPC)
@@ -160,7 +129,7 @@ void DoConvertFeat(struct pl_chat_command pcc) { // !convert <feat> <to>
         {
             RemoveKnownFeat(pcc.oPC, FEAT_EPIC_PROWESS);
             ModifyAbilityScore(pcc.oPC, ABILITY_DEXTERITY, 1);
-            SetPlayerInt(pcc.oPC, VAR_PC_NO_RELEVEL, 1);
+            SetLocalInt(pcc.oPC, VAR_PC_NO_RELEVEL, 1);
             SendChatLogMessage(pcc.oPC, C_GREEN+"Epic Prowess has been converted to Dexterity!"+C_END + "\n", pcc.oPC, 5);
         }
         else if(ss.first == "con" && GetKnowsFeat (FEAT_BLOODED, pcc.oPC)
@@ -168,7 +137,7 @@ void DoConvertFeat(struct pl_chat_command pcc) { // !convert <feat> <to>
         {
             RemoveKnownFeat(pcc.oPC, FEAT_EPIC_PROWESS);
             ModifyAbilityScore(pcc.oPC, ABILITY_CONSTITUTION, 1);
-            SetPlayerInt(pcc.oPC, VAR_PC_NO_RELEVEL, 1);
+            SetLocalInt(pcc.oPC, VAR_PC_NO_RELEVEL, 1);
             SendChatLogMessage(pcc.oPC, C_GREEN+"Epic Prowess has been converted to Constitution!"+C_END + "\n", pcc.oPC, 5);
         }
         else
@@ -191,10 +160,8 @@ void DoDelete(struct pl_chat_command pcc){
             {
                 ExportSingleCharacter(pcc.oTarget);//export needed to ensure this .bic is the most recently edited
                 SetLocalInt(pcc.oTarget, VAR_PC_DELETED, 1);
-                DeleteAllDbVariables(pcc.oTarget, FALSE, "pwdata");
-                DeleteAllDbVariables(pcc.oTarget, FALSE, "qsstatus");
-                //DeleteAllDbVariables(pcc.oTarget, FALSE, "db_alias");
-                //DeleteAllDbVariables(pcc.oPC, "pwobjdata");
+                string sql = "DELETE from nwn.characters WHERE id = "+GetCharacterId(pcc.oTarget);
+                SQLExecDirect(sql);
 
                 int nCurrentXP = GetXP(pcc.oTarget) - 3000;
                 if(nCurrentXP < 0)
@@ -417,29 +384,6 @@ void DoList(struct pl_chat_command pcc){
     else CommandRedirect(pcc.oPC, 6);
 }
 
-
-void DoMappin(struct pl_chat_command pcc){ // !mappin
-    pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 7);
-
-    if(GetStringLeft(pcc.sCommand, 4) == "set "){
-        pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 4);
-        if(GetStringLength(pcc.sCommand) > 140)
-            pcc.sCommand = GetStringLeft(pcc.sCommand, 140);
-
-        AreaAddMapPin(pcc.oPC, GetArea(pcc.oPC), pcc.sCommand);
-        SendChatLogMessage(pcc.oPC, C_GREEN+"Map pin set.  Note you will have to exit the area to see the pin."+C_END + "\n", pcc.oPC, 5);
-    }
-    else if(pcc.sCommand == "clear area"){
-        AreaClearAreaMappins(pcc.oPC, GetArea(pcc.oPC));
-        SendChatLogMessage(pcc.oPC, C_RED+"All area map pins have been removed.  Note you will have to exit the area to see the changes."+C_END + "\n", pcc.oPC, 5);
-    }
-    else if(pcc.sCommand == "clear all"){
-        AreaClearAllMappins(pcc.oPC);
-        SendChatLogMessage(pcc.oPC, C_RED+"All map pins have been removed.  Note you will have to exit the area to see the changes."+C_END + "\n", pcc.oPC, 5);
-    }
-    else CommandRedirect(pcc.oPC, 6);
-}
-
 void DoMode(struct pl_chat_command pcc){ // "mode <mode>"
     pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 5);
 
@@ -523,33 +467,6 @@ void DoMode(struct pl_chat_command pcc){ // "mode <mode>"
     else{
         SendChatLogMessage(pcc.oPC, C_RED+"Invalid mode!"+C_END + "\n", pcc.oPC, 5);
     }
-}
-
-void DoNickname(struct pl_chat_command pcc){ // !nickname <nickname>
-    pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 9);
-    if(pcc.sCommand == "") return;
-
-    if(!GetIsStringLegal(pcc.sCommand)){
-        FloatingTextStringOnCreature(C_RED+"Nicnames cannot contain '<', '>', '/', '~', or quotation marks"+C_END, pcc.oPC, FALSE);
-        return;
-    }
-    pcc.oTarget = VerifyTarget(pcc, OBJECT_TARGET, COMMAND_SYMBOL);
-    if (!GetIsObjectValid(pcc.oTarget)) return;
-
-    if (GetIsPC(pcc.oTarget)){
-        SetPlayerString(pcc.oPC, "chat_nick_" + pcc.sCommand, GetPCPlayerName(pcc.oTarget), TRUE, "db_alias");
-        FloatingTextStringOnCreature(C_GREEN+"You have nicknamed " + GetPCPlayerName(pcc.oTarget) + " as " + pcc.sCommand+C_END, pcc.oPC, FALSE);
-    }
-    else FloatingTextStringOnCreature(C_RED+PC_ONLY+C_END, pcc.oPC, FALSE);
-}
-
-void DoUnnickname(struct pl_chat_command pcc){ //!unnickname <nickname>
-    pcc.sCommand = GetStringRight(pcc.sCommand, GetStringLength(pcc.sCommand) - 11);
-    if(pcc.sCommand == "") return;
-
-    DeleteDbVariable(pcc.oPC, "chat_nick_"+pcc.sCommand, TRUE, "db_alias");
-    DeleteLocalString(pcc.oPC, "chat_nick_"+pcc.sCommand);
-    SendMessageToPC(pcc.oPC, C_RED+"Nickname "+pcc.sCommand+" removed!"+C_END);
 }
 
 void DoPartyFix(object oPC){
@@ -1223,7 +1140,9 @@ void DoXPBank(struct pl_chat_command pcc){ // !xpbank
             if(nBalance >= nWithdraw){
                 nBalance -= nWithdraw;
                 SetLocalInt(pcc.oPC, VAR_PC_XP_BANK, nBalance);
-                SetDbInt(pcc.oPC, VAR_PC_XP_BANK, nBalance, 0, TRUE);
+                string sql = "UPDATE nwn.players SET xp = "+ IntToString(nBalance)
+                    +" WHERE id="+GetPlayerId(pcc.oPC);
+                SQLExecDirect(sql);
 
                 if(GetIsObjectValid(oToken)){
                     DestroyObject(oToken);
@@ -1281,7 +1200,6 @@ void main(){
             case -1: CommandRedirect(pcc.oPC, 1); break;
     /*a*/   case 0:
                 if (GetStringLeft(pcc.sCommand, 3) == "afk") DoAFK(pcc);
-                else if (GetStringLeft(pcc.sCommand, 5) == "alias") DoAlias(pcc);
                 else if (pcc.sCommand == "anon") DoAnon(pcc);
                 else CommandRedirect(pcc.oPC, 1);
             break;
@@ -1331,14 +1249,11 @@ void main(){
                 break;
 
     /*m*/   case 12://metachannels
-                if (GetStringLeft(pcc.sCommand, 6) == "mappin") DoMappin(pcc);
-                else if (GetStringLeft(pcc.sCommand, 2) == "me") CommandRedirect(pcc.oPC, 7);
-                else if (GetStringLeft(pcc.sCommand, 4) == "mode") DoMode(pcc);
+                if (GetStringLeft(pcc.sCommand, 4) == "mode") DoMode(pcc);
                 else CommandRedirect(pcc.oPC, 1);
                 break;
     /*n*/   case 13:
-                if (GetStringLeft(pcc.sCommand, 9) == "nickname ") DoNickname(pcc);
-                else CommandRedirect(pcc.oPC, 1);
+              CommandRedirect(pcc.oPC, 1);
             break;
     /*o*/   case 14:
             break;
@@ -1352,14 +1267,6 @@ void main(){
                 else if (pcc.sCommand == "playerlist") DoPlayerList(pcc.oPC);
                 else if (GetStringLeft(pcc.sCommand, 2) == "pl") CommandRedirect(pcc.oPC, 2);
                 else if (GetStringLeft(pcc.sCommand, 7) == "pmshape") DoPMShape(pcc);
-                else if (pcc.sCommand == "pvp on"){
-                    SetPlayerInt(pcc.oPC, "pc_pvp", TRUE, TRUE);
-                    FloatingTextStringOnCreature(C_GREEN+"PVP on."+C_END, pcc.oPC, FALSE);
-                }
-                else if (pcc.sCommand == "pvp off"){
-                    SetPlayerInt(pcc.oPC, "pc_pvp", 0, TRUE);
-                    FloatingTextStringOnCreature(C_GREEN+"PVP off."+C_END, pcc.oPC, FALSE);
-                }
                 else CommandRedirect(pcc.oPC, 1);
                 break;
     /*q*/   case 16:
@@ -1396,9 +1303,7 @@ void main(){
                 if (pcc.sCommand ==  "unignore") DoUnignore(pcc);
                 else if (GetStringLeft(pcc.sCommand, 3) == "uni") CommandRedirect(pcc.oPC, 8);
                 else if (pcc.sCommand ==  "unafk") DoUnafk(pcc);
-                else if (GetStringLeft(pcc.sCommand, 8) == "unalias ") DoUnalias(pcc);
                 else if (pcc.sCommand ==  "unanon") DoUnanon(pcc);
-                else if (GetStringLeft(pcc.sCommand, 11) == "unnickname ") DoUnnickname(pcc);
                 else if (GetStringLeft(pcc.sCommand, 3) == "una") CommandRedirect(pcc.oPC, 2);
                 else CommandRedirect(pcc.oPC, 1);
                 break;

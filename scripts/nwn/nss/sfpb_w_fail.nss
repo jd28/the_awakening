@@ -14,7 +14,7 @@ int StartingConditional()
     object oPC = GetLastSpeaker();
     //string sID = SF_GetPlayerID(oPC);
     int nGold = StringToInt(GetLocalString(OBJECT_SELF, "GOLD"));
-    int nBanked = GetDbInt(oPC, DATABASE_GOLD, TRUE);
+    int nBanked = GetLocalInt(oPC, DATABASE_GOLD);
     //int nBanked = GetCampaignInt(GetName(GetModule()), "SFPB_GOLD_" + sID);
 
     // Check if the player has enough to withdraw

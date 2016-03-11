@@ -31,15 +31,6 @@ void main()
 
     SetLocalInt(oPC, "Rests", GetLocalInt(oPC, "Rests")+1);
 
-    if(GetIsPC(oPC) && !GetIsDM(oPC) && !GetIsDMPossessed(oPC)){
-        int nBanked = GetLocalInt(oPC, VAR_PC_XP_BANK);
-        SetDbInt(oPC, VAR_PC_XP_BANK, nBanked, 0, TRUE);
-        Logger(oPC, VAR_DEBUG_LOGS, LOGLEVEL_DEBUG,
-               "XPBANK : MOD_REST : Attempting to set  XP Bank to %sXP in %s's bank.",
-               IntToString(nBanked), GetPCPlayerName(oPC));
-        SetMovementRate(oPC, MOVEMENT_RATE_PC);
-    }
-
     // -------------------------------------------------------------------------
     // Handle rest events
     // -------------------------------------------------------------------------
@@ -71,6 +62,8 @@ void main()
                 ExportSingleCharacter(oPC);
                 SavePersistentLocation(oPC);
 				ExecuteScript("ta_update_kills", oPC);
+                SavePersistentState(oPC);
+                SetMovementRate(oPC, MOVEMENT_RATE_PC);
             }
         }
         break;

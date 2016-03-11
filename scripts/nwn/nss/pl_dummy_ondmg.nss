@@ -5,7 +5,7 @@
 
 #include "mod_funcs_inc"
 #include "pc_funcs_inc"
-#include "nwnx_inc"
+#include "nwnx_redis"
 
 void DummyMain(object oPC, object oDummy){
 
@@ -128,24 +128,24 @@ void DummyEndSession(object oDummy = OBJECT_SELF){
         bGood = TRUE;
     }
 
-    struct SubString ssAllTime = GetFirstSubString(GetDbString(oLeader, "PLC_INTERACT_HITCOUNT"));
+    struct SubString ssAllTime = GetFirstSubString(GET("faire:leaderboard:hits"));
     if(nHitCount > StringToInt(ssAllTime.first)){
-        SetDbString(oLeader, "PLC_INTERACT_HITCOUNT", IntToString(nHitCount)+ " by " + sPlayer);
+        SET("faire:leaderboard:hits", IntToString(nHitCount)+ " by " + sPlayer);
         bGood = TRUE;
     }
-    ssAllTime = GetFirstSubString(GetDbString(oLeader, "PLC_INTERACT_TOTAL"));
+    ssAllTime = GetFirstSubString(GET("faire:leaderboard:total"));
     if(nTotalDamage > StringToInt(ssAllTime.first)){
-        SetDbString(oLeader, "PLC_INTERACT_TOTAL", IntToString(nTotalDamage)+ " by " + sPlayer);
+        SET("faire:leaderboard:total", IntToString(nTotalDamage)+ " by " + sPlayer);
         bGood = TRUE;
     }
-    ssAllTime = GetFirstSubString(GetDbString(oLeader, "PLC_INTERACT_HIGHEST"));
+    ssAllTime = GetFirstSubString(GET("faire:leaderboard:highest"));
     if(nHighest > StringToInt(ssAllTime.first)){
-        SetDbString(oLeader, "PLC_INTERACT_HIGHEST", IntToString(nHighest)+ " by " + sPlayer);
+        SET("faire:leaderboard:highest", IntToString(nHighest)+ " by " + sPlayer);
         bGood = TRUE;
     }
-    ssAllTime = GetFirstSubString(GetDbString(oLeader, "PLC_INTERACT_AVERAGE"));
+    ssAllTime = GetFirstSubString(GET("faire:leaderboard:avg"));
     if(nAvgDamage > StringToInt(ssAllTime.first)){
-        SetDbString(oLeader, "PLC_INTERACT_AVERAGE", IntToString(nAvgDamage)+ " by " + sPlayer);
+        SET("faire:leaderboard:avg", IntToString(nAvgDamage)+ " by " + sPlayer);
         bGood = TRUE;
     }
     object oStrongMan = GetNearestObjectByTag("pl_strongman");

@@ -1,5 +1,5 @@
 #include "pc_funcs_inc"
 
 int StartingConditional(){
-    return GetPlayerInt(GetPCSpeaker(), "Nhrive");
+    return StringToInt(GET("port:Nhrive:"+GetRedisID(GetPCSpeaker())));
 }

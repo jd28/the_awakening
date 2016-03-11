@@ -12,6 +12,7 @@
 //#include "mod_const_inc"
 #include "mod_funcs_inc"
 #include "pc_funcs_inc"
+#include "nwnx_redis"
 
 // Declare the functions
 int GetMaxXP(object oPC);
@@ -167,7 +168,8 @@ void GiveXP(object oKiller, int nXPToGive, int nBossXP, float fKillerBonus, int 
                         SetLocalInt(oParty, GetTag(OBJECT_SELF), TRUE);
 					}
                     else if(GetLocalInt(OBJECT_SELF, "xp_set_persist_var")) {
-                        SetPlayerInt(oParty, GetTag(OBJECT_SELF), TRUE);
+                        SetLocalInt(oParty, GetTag(OBJECT_SELF), TRUE);
+                        SET("killtag:"+GetTag(OBJECT_SELF)+":"+GetRedisID(oParty), "1");
 					}
                 }
 

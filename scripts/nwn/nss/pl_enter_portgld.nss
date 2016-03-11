@@ -1,15 +1,11 @@
 #include "mod_const_inc"
 #include "pc_funcs_inc"
-#include "sha_subr_methds"
 
 void main(){
 
     object oPC = GetPCSpeaker();
 
     SetLocalInt(oPC, VAR_PC_ENTERED, TRUE);
-
-    //SSE
-    SubraceOnClientEnter(oPC);
 
     //ApplyFeatSuperNaturalEffects
     DelayCommand(3.0f, ApplyFeatSuperNaturalEffects(oPC));
@@ -25,7 +21,7 @@ void main(){
 
     FadeFromBlack(oPC, FADE_SPEED_FAST);
 
-    int nGuild = GetPlayerInt(oPC, VAR_PC_GUILD, TRUE);
+    int nGuild = GetLocalInt(oPC, VAR_PC_GUILD);
     string sWay;
     if(nGuild > 0){
         sWay = "wp_guildenter_"+IntToString(nGuild);

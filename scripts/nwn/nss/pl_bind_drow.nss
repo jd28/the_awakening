@@ -9,5 +9,5 @@ void main(){
         return;
     }
     TakeGoldFromCreature(nGold, oPC, TRUE);
-    SetPlayerInt(oPC, "DrowOutskirts", TRUE);
+    SET("port:DrowOutskirts:"+GetRedisID(GetPCSpeaker()), "1");
 }

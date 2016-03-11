@@ -1,4 +1,4 @@
-local NXItems = require 'solstice.nwnx.items'
+local NWNXEffects = require 'solstice.nwnx.effects'
 
 local function gold(item, obj, ip, slot, remove)
    local amt = ip.ip_cost_value
@@ -13,5 +13,5 @@ local function gold(item, obj, ip, slot, remove)
    obj:SetProperty("TA_GOLD_BONUS", amt + cur)
 end
 
-NXItems.RegisterItempropHandler(gold, TA_ITEM_PROPERTY_GOLD_BONUS,
+NWNXEffects.RegisterItempropHandler(gold, TA_ITEM_PROPERTY_GOLD_BONUS,
                                 TA_ITEM_PROPERTY_GOLD_PENALTY)

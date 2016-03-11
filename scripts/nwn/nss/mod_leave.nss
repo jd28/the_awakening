@@ -1,6 +1,4 @@
 #include "fky_chat_inc"
-//#include "leto_inc"
-#include "sha_subr_methds"
 #include "pl_pvp_inc"
 #include "nwnx_solstice"
 
@@ -13,9 +11,6 @@ void main(){
     string sCDKey       = GetLocalString(oPC, VAR_PC_CDKEY);
     string sUID         = GetTag(oPC);
     string sLog;
-
-    //SSE
-    SubraceOnClientLeave();
 
     object oShade = GetLocalObject(oPC, "X0_L_MYSHADE");
     if(GetIsObjectValid(oShade)){
@@ -47,18 +42,12 @@ void main(){
     // No windows on the rest.
     if(GetLocalInt(oMod, VAR_MOD_DEV) > 1) return;
 
-
 	if(GetLocalInt(oPC, "pc_is_pc") && !GetLocalInt(oPC, "pc_is_dm")) {
 		int nHP = (GetIsDead(oPC) ? -1 : ModifyCurrentHitPoints(oPC, 0));
 		if (nHP <= 0){ nHP = -1; }
-		SetDbInt(oPC, VAR_PC_HP, nHP, 7);
+        SET("hp:"+GetRedisID(oPC), IntToString(nHP));
 
-		int nBanked = GetLocalInt(oPC, VAR_PC_XP_BANK);
-		SetDbInt(oPC, VAR_PC_XP_BANK, nBanked, 0, TRUE);
-		Logger(oPC, VAR_DEBUG_LOGS, LOGLEVEL_DEBUG,
-			   "Attempting to set  XP Bank to %sXP in %s's bank.",
-			   IntToString(nBanked), GetPCPlayerName(oPC));
-
+        SavePersistentState(oPC);
 		ExecuteScript("ta_update_kills", oPC);
 
 		if(GetLocalInt(GetArea(oPC), "area_dmg") == 13)

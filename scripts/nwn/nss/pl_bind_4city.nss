@@ -9,5 +9,5 @@ void main(){
         return;
     }
     TakeGoldFromCreature(nGold, oPC, TRUE);
-    SetPlayerInt(oPC, "Blackwell", TRUE);
+    SET("port:Blackwell:"+GetRedisID(GetPCSpeaker()), "1");
 }

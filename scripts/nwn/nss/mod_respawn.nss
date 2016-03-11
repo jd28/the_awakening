@@ -1,5 +1,4 @@
 #include "pc_funcs_inc"
-#include "sha_subr_methds"
 #include "pl_pvp_inc"
 
 void main(){
@@ -19,7 +18,4 @@ void main(){
 
     // Reapply SuperNatural Effects, in case.
     ApplyFeatSuperNaturalEffects(oPC);
-
-    // SSE
-    SubraceOnPlayerRespawn();
 }

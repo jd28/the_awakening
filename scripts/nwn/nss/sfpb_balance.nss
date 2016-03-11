@@ -12,9 +12,8 @@ void main()
 {
     // Vars
     object oPC = GetLastSpeaker();
-    //string sID = SF_GetPlayerID(oPC);
-    //int nBanked = GetCampaignInt(GetName(GetModule()), DATABASE_GOLD + sID);
-    int nBanked = GetDbInt(oPC, DATABASE_GOLD, TRUE);
+    // TODO - Fix
+    int nBanked = GetLocalInt(oPC, DATABASE_GOLD);
 
     // Set custom token for the account balance
     SetCustomToken(1000, IntToString(nBanked));

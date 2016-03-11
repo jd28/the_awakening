@@ -56,125 +56,60 @@ int RetrieveQuestState(string szPlotID, object oCreature);
 // -----------------------------------------------------------------------------
 
 void RebuildJournalQuestEntries(object oCreature){
+    if (!GetIsPC(oCreature)) { return; }
+
     string sQuest, sMessage = "Attempting to rebuild quests:\n";
     int nStatus;
-    if(GetIsPC(oCreature)){
-        string sSQLName = GetTag(oCreature);
-        string sSQLDB = "SELECT name, val FROM qsstatus WHERE tag = '"+sSQLName+"'";
-        SQLExecDirect(sSQLDB);
-        while(SQLFetch() != SQL_ERROR){
-            sQuest = SQLDecodeSpecialChars(SQLGetData(1));
-            nStatus = StringToInt(SQLDecodeSpecialChars(SQLGetData(2)));
-            sMessage += "Quest: " + sQuest + ", Status: " + IntToString(nStatus) + "\n";
+    string sSQLDB = "SELECT name, status FROM nwn.qsstatus WHERE character = "+GetCharacterId(oCreature);
+    SQLExecDirect(sSQLDB);
+    while(SQLFetch() != SQL_ERROR) {
+        sQuest = SQLDecodeSpecialChars(SQLGetData(1));
+        nStatus = StringToInt(SQLGetData(2));
+        sMessage += "Quest: " + sQuest + ", Status: " + IntToString(nStatus) + "\n";
 
-            AddJournalQuestEntry(sQuest, nStatus, oCreature, FALSE, FALSE, TRUE);
-
-            //SetLocalInt(oPC, SQLDecodeSpecialChars(SQLGetData(1)), StringToInt(SQLDecodeSpecialChars(SQLGetData(2))));
-        }
-
-        Logger(oCreature, "DebugQuest", LOGLEVEL_NONE, C_WHITE+sMessage+C_END);
-
-    /*
-    string sEntries = GetCampaignString(PQJ_DATABASE,PQJ_PLAYER_VARNAME,oCreature);
-    int i, nCount = GetStringLength(sEntries) / 44;
-
-    string sQuest;
-    for(i=0;i < nCount;i++)
-    {
-      // get quest
-      sQuest = GetSubString(sEntries,(i*44),32);
-      // remove padding
-      sQuest = GetStringLeft(sQuest, FindSubString(sQuest, " "));
-      // add journal entry
-      AddJournalQuestEntry(sQuest, StringToInt(GetSubString(sEntries,(i*44) + 33,8)), oCreature, FALSE, FALSE, TRUE);
+        AddJournalQuestEntry(sQuest, nStatus, oCreature, FALSE, FALSE, TRUE);
     }
-    */
-  }
+    Logger(oCreature, "DebugQuest", LOGLEVEL_NONE, C_WHITE+sMessage+C_END);
 }
 
 int RetrieveQuestState(string szPlotID, object oCreature){
-
-    return GetDbInt(oCreature, szPlotID, FALSE, "qsstatus");
-/*
-  // retrieve all quest entries
-  string sEntries = GetCampaignString(PQJ_DATABASE,PQJ_PLAYER_VARNAME,oCreature);
-  // get quest we search for and add padding
-  string sQuest = (GetStringLength(szPlotID) < 32) ? szPlotID + GetStringLeft("                              ",32 - GetStringLength(szPlotID)) : GetStringLeft(szPlotID,32);
-
-  // find target quest
-  int nPos = FindSubString(sEntries, sQuest + ">");
-
-  if( nPos != -1) // success ?? get & return value
-    return StringToInt(GetStringLeft(GetStringRight(sEntries,GetStringLength(sEntries)-nPos-GetStringLength(sQuest)-1),10));
-
-  // quest not started yet
-  return 0;
-*/
+    string sSQLDB = "SELECT status FROM nwn.qsstatus WHERE character = "
+        +GetCharacterId(oCreature) + " AND name = '"+szPlotID+"'";
+    SQLExecDirect(sSQLDB);
+    if(SQLFetch() != SQL_ERROR) {
+        return StringToInt(SQLGetData(1));
+    }
+    return 0;
 }
 
 void StoreQuestEntry(string szPlotID, int nState, object oCreature, int bAllowOverrideHigher=FALSE){
+    string sSQLDB = "SELECT status FROM nwn.qsstatus WHERE character = "
+        +GetCharacterId(oCreature) + " AND name = '"+szPlotID+"'";
+    SQLExecDirect(sSQLDB);
+    if(SQLFetch() != SQL_ERROR) {
+        // Update
+        int current = StringToInt(SQLGetData(1));
+        if(!bAllowOverrideHigher && (current > nState))
+            return;
 
-    int nCurrentState = GetDbInt(oCreature, szPlotID, FALSE, "qsstatus");
-
-    if(!bAllowOverrideHigher && (nCurrentState > nState))
-        return;
-
-    SetDbInt(oCreature, szPlotID, nState, 0, FALSE, "qsstatus");
-/*
-  // retrieve all quest entries
-  string sEntries = GetCampaignString(PQJ_DATABASE,PQJ_PLAYER_VARNAME,oCreature);
-
-  // pad quest
-  string sQuest = (GetStringLength(szPlotID) < 32) ? szPlotID + GetStringLeft("                              ",32 - GetStringLength(szPlotID)) : GetStringLeft(szPlotID,32);
-  // pad state
-  string sState = IntToString(nState);
-  sState = (GetStringLength(sState) < 10) ? sState + GetStringLeft("          ",10 - GetStringLength(sState)) : GetStringLeft(sState,10);
-
-  // find target quest
-  int nPos = FindSubString(sEntries, sQuest + ">");
-
-  if( nPos != -1) // success ?
-  {
-
-    // check for override flag
-    if(!bAllowOverrideHigher) // new state < old state ? return
-      if(nState < StringToInt(GetStringRight(sEntries,GetStringLength(sEntries)-nPos-GetStringLength(sQuest)-1)))
-        return;
-
-    // replace old quest state with new one
-    string sL = GetStringLeft(sEntries, nPos + GetStringLength(sQuest) + 1);
-    sEntries = sL + sState + GetStringRight(sEntries, GetStringLength(sEntries) - GetStringLength(sL) - 10);
-  }
-  else // add quest
-    sEntries += sQuest + ">" + sState + "|";
-
-  // store quest entries
-  SetCampaignString(PQJ_DATABASE,PQJ_PLAYER_VARNAME,sEntries,oCreature);
-*/
+        sSQLDB = "UPDATE nwn.qsstatus SET status = "+IntToString(nState)+" WHERE character = "
+            +GetCharacterId(oCreature) + " AND name = '"+szPlotID+"'";
+        SQLExecDirect(sSQLDB);
+    }
+    else {
+        sSQLDB = "INSERT INTO nwn.qsstatus (character, name, status) VALUES ("
+            + GetCharacterId(oCreature) + ", "
+            + "'"+szPlotID+"', "
+            + IntToString(nState)
+            + ")";
+        SQLExecDirect(sSQLDB);
+    }
 }
 
 void DeleteQuestEntry(string szPlotID, object oCreature){
-
-    DeleteDbVariable(oCreature, szPlotID, FALSE, "qsstatus");
-/*
-  // retrieve all quest entries
-  string sEntries = GetCampaignString(PQJ_DATABASE,PQJ_PLAYER_VARNAME,oCreature);
-  // pad quest
-  string sQuest = (GetStringLength(szPlotID) < 32) ? szPlotID + GetStringLeft("                              ",32 - GetStringLength(szPlotID)) : GetStringLeft(szPlotID,32);
-  // find target quest
-  int nPos = FindSubString(sEntries, sQuest + ">");
-
-  if( nPos != -1) // success ?
-  {
-
-    // replace old quest state with new one
-    string sL = GetStringLeft(sEntries, nPos);
-    sEntries = sL + GetStringRight(sEntries, GetStringLength(sEntries) - GetStringLength(sL) - 44);
-
-    // store quest entries
-    SetCampaignString(PQJ_DATABASE,PQJ_PLAYER_VARNAME,sEntries,oCreature);
-  }
-*/
+    string sSQLDB = "DELETE FROM nwn.qsstatus WHERE character = "
+        +GetCharacterId(oCreature) + " AND name = '"+szPlotID+"'";
+    SQLExecDirect(sSQLDB);
 }
 
 void RemovePersistentJournalQuestEntry(string szPlotID, object oCreature, int bAllPartyMembers=TRUE, int bAllPlayers=FALSE){

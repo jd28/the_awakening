@@ -81,9 +81,9 @@ void DoDMBan(struct pl_chat_command pcc){
     }
     else if (pcc.sCommand == "ban player perm"){
         sKey = GetPCPublicCDKey(pcc.oTarget);
-        SetLocalInt(pcc.oTarget, "FKY_CHT_BANPLAYER", TRUE);//temp ban em
-        if (USING_NWNX_DB) SetDbInt(GetModule(), "FKY_CHT_BANPLAYER"+ sKey, TRUE);//permaban em
-        else SetCampaignInt("FKY_CHT", "FKY_CHT_BANPLAYER" + sKey, TRUE);                //
+        SetLocalInt(pcc.oTarget, "FKY_CHT_BANPLAYER", TRUE);
+        SET("ban:player:"+sKey, "1");
+
         FloatingTextStringOnCreature(C_RED+PERMABAN1+C_END, pcc.oTarget);//tell em
         AssignCommand(GetModule(), DelayCommand(6.0, BootPlayer(pcc.oTarget)));//boot em
         SendMessageToPC(pcc.oPC, C_RED+PERMABANGEN+ GetName(pcc.oTarget) +PERMABAN2+C_END);
@@ -104,9 +104,8 @@ void DoDMBan(struct pl_chat_command pcc){
         sKey = GetPCPublicCDKey(pcc.oTarget);
         SetLocalInt(pcc.oTarget, "FKY_CHT_BANSHOUT", TRUE);//temp ban em
         if (GetLocalString(pcc.oTarget, "FKY_CHT_BANREASON") == "") SetLocalString(pcc.oTarget, "FKY_CHT_BANREASON", BANNEDBY + GetName(pcc.oPC));
-        //capture the reason they were banned and by whom
-        if (USING_NWNX_DB) SetDbInt(GetModule(), "FKY_CHT_BANSHOUT"+ sKey, TRUE);//permaban em
-        else SetCampaignInt("FKY_CHT", "FKY_CHT_BANSHOUT" + sKey, TRUE);                //
+
+        SET("ban:shout:"+sKey, "1");
         SendMessageToPC(pcc.oTarget, C_RED+PERMBANSHT1+C_END);//tell em
         SendMessageToPC(pcc.oPC, C_RED+PERMABANGEN+ GetName(pcc.oTarget) +PERMBANSHT2+C_END);
     }
@@ -131,8 +130,8 @@ void DoDMUnban(struct pl_chat_command pcc){
         sKey = GetPCPublicCDKey(pcc.oTarget);
         DeleteLocalInt(pcc.oTarget, "FKY_CHT_BANSHOUT");
         DeleteLocalString(pcc.oTarget, "FKY_CHT_BANREASON");//delete the reason they were banned and by whom
-        if (USING_NWNX_DB) DeleteDbVariable(GetModule(), "FKY_CHT_BANSHOUT"+ sKey);
-        else DeleteCampaignVariable("FKY_CHT", "FKY_CHT_BANSHOUT" + sKey);
+
+        DEL("ban:shout:"+sKey);
         SendMessageToPC(pcc.oTarget, C_RED+UNBAN3+C_END);
         SendMessageToPC(pcc.oPC, C_RED+UNBANGEN+ GetName(pcc.oTarget) +UNBAN4+C_END);
     }
@@ -199,7 +198,7 @@ void DoDMChange(struct pl_chat_command pcc){//dm_change <thing> <value>
             {
                 nAppear = GetAppearanceType(pcc.oTarget);
                 SetLocalInt(pcc.oTarget, "FKY_CHAT_TRUEAPPEAR", nAppear);
-                SetDbInt(pcc.oTarget, "FKY_CHAT_TRUEAPPEAR", nAppear);
+                SET("appear:"+GetRedisID(pcc.oTarget), IntToString(nAppear));
             }
         }
 
@@ -312,7 +311,7 @@ void DoDMChangeAppear(struct pl_chat_command pcc){//dm_change
         {
             nAppear = GetAppearanceType(pcc.oTarget);
             SetLocalInt(pcc.oTarget, "FKY_CHAT_TRUEAPPEAR", nAppear);
-            SetDbInt(pcc.oTarget, "FKY_CHAT_TRUEAPPEAR", nAppear);
+            SET("appear:"+GetRedisID(pcc.oTarget), IntToString(nAppear));
         }
     }
     if ((VerifyDMKey(pcc.oTarget) || VerifyAdminKey(pcc.oTarget))&& (pcc.oTarget != pcc.oPC))
@@ -506,7 +505,7 @@ void DoDMGuild(struct pl_chat_command pcc){ //dm_guild X
     pcc.oTarget = VerifyTarget(pcc, OBJECT_TARGET);
     if (!GetIsObjectValid(pcc.oTarget)) return;
 
-    SetPlayerInt(pcc.oTarget, VAR_PC_GUILD, nGuild, TRUE);
+    SetLocalInt(pcc.oTarget, VAR_PC_GUILD, nGuild);
 
     string sMsg = C_GREEN+"Guild Affiliation Set: ";
     sMsg += GetGuildName(nGuild);

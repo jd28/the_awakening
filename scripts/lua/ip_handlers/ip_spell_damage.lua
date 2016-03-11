@@ -1,4 +1,4 @@
-local NXItems = require 'solstice.nwnx.items'
+local NWNXEffects = require 'solstice.nwnx.effects'
 local fmt = string.format
 
 local function spell_dmg_mod(item, obj, ip, slot, remove)
@@ -16,5 +16,5 @@ local function spell_dmg_mod(item, obj, ip, slot, remove)
    obj:SetProperty(p, amt + cur)
 end
 
-NXItems.RegisterItempropHandler(spell_dmg_mod, TA_ITEM_PROPERTY_SPELL_DAMAGE_BONUS,
+NWNXEffects.RegisterItempropHandler(spell_dmg_mod, TA_ITEM_PROPERTY_SPELL_DAMAGE_BONUS,
                                 TA_ITEM_PROPERTY_SPELL_DAMAGE_PENALTY)

@@ -5,7 +5,7 @@ int StartingConditional(){
     if(GetIsTestCharacter(oPC))
         return FALSE;
 
-    int nGuild = GetPlayerInt(oPC, "pc_guild", TRUE);
+    int nGuild = GetLocalInt(oPC, "pc_guild");
     if(nGuild <= 0)
         return FALSE;
 

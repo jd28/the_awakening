@@ -10,9 +10,12 @@
 #include "upb_config"
 //#include "mod_funcs_inc"
 
+// TODO - Redo completely.
+
 void main()
 {
     // Vars
+    /*
     object oPC = GetLastClosedBy();
     object oChest = OBJECT_SELF;
     location lLoc = GetLocation(oPC);
@@ -59,7 +62,6 @@ void main()
     SendChatLogMessage(oPC, C_GREEN+IntToString(nCount) + " items have been stored in your persistent chest."+C_END + "\n", oPC, 5);
     //SpeakString(C_GREEN+IntToString(nCount) + " items have been stored in your persistent chest."+C_END);
 
-/*
     // Spawn in the NPC storer
     object oStorer = CreateObject(OBJECT_TYPE_CREATURE, "sfpb_storage", lLoc, FALSE, sUserID);
 
@@ -99,10 +101,12 @@ void main()
     //SetPersistentObject(GetModule(), DATABASE_ITEM, oStorer, CHARACTER_SHARING);
     // Destroy NPC storer
     DestroyObject(oStorer);
-*/
+
     // Delete the local CD Key
     DeleteLocalString(oChest, "USER_ID");
 
     // Unlock Chest
     DelayCommand(5.0, SetLocked(oChest, FALSE));
+
+*/
 }

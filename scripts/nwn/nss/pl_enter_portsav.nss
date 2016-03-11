@@ -1,16 +1,12 @@
 #include "mod_funcs_inc"
 #include "pc_funcs_inc"
-#include "sha_subr_methds"
 
 void main(){
 
     object oPC = GetPCSpeaker();
-    location lWaypoint = GetDbLocation(oPC, VAR_PC_SAVED_LOCATION);
+    location lWaypoint = GetPersistantLocation(oPC);
 
     SetLocalInt(oPC, VAR_PC_ENTERED, TRUE);
-
-    //SSE
-    SubraceOnClientEnter(oPC);
 
     //ApplyFeatSuperNaturalEffects
     DelayCommand(3.0f, ApplyFeatSuperNaturalEffects(oPC));

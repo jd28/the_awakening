@@ -2,6 +2,8 @@ local insert = table.insert
 local fmt = string.format
 local db = System.GetDatabase()
 
+-- TODO - Fix
+--[=[
 function ta_update_kills(pc)
    if string.find(pc:GetName(), '%[TEST%]') then return end
    local s = [[INSERT INTO pwdata (tag, name, val)
@@ -30,3 +32,4 @@ function ta_load_kills(pc)
    end
    sth:close()
 end
+]=]

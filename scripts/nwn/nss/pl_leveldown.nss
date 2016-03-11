@@ -25,7 +25,8 @@ void main(){
         if(level == 40 && GetUndeadStyle(oPC)){
             SetUndeadStyle(oPC, STYLE_INVALID);
             SetCreatureAppearanceType(oPC, GetDefaultAppearance(GetRacialType(oPC)));
-            SetPlayerInt(oPC, "pc_no_appear_change", 0);
+            SetLocalInt(oPC, "pc_no_appear_change", 0);
+            // TODO - Ensure this is stored somewhere.
         }
     }
     else

@@ -2,7 +2,7 @@ local function infinite() return 100 end
 local function one() return 1 end
 local function none() return 0 end
 
-Rules.RegisterFeatUses(
+Rules.SetMaximumFeatUsesOverride(
    function (feat, cre)
       return 3 + math.floor(cre:GetLevelByClass(CLASS_TYPE_BARBARIAN) / 6)
    end,
@@ -20,14 +20,14 @@ local function bard_song(feat, cre)
    return uses
 end
 
-Rules.RegisterFeatUses(bard_song, 257)
+Rules.SetMaximumFeatUsesOverride(bard_song, 257)
 -- This is because Bioware decided to make a bunch of (pointless)
 -- extra bard song feats.
 for i = 355, 373 do
-   Rules.RegisterFeatUses(bard_song, i)
+   Rules.SetMaximumFeatUsesOverride(bard_song, i)
 end
 
-Rules.RegisterFeatUses(
+Rules.SetMaximumFeatUsesOverride(
    function(feat, cre)
       if cre:GetLevelByClass(CLASS_TYPE_BLACKGUARD) >= 45 or
          cre:GetLevelByClass(CLASS_TYPE_ASSASSIN) >= 45
@@ -37,7 +37,7 @@ Rules.RegisterFeatUses(
    end,
    FEAT_CONTAGION)
 
-Rules.RegisterFeatUses(
+Rules.SetMaximumFeatUsesOverride(
    function(feat, cre)
       local uses = 1
       local l = cre:GetLevelByClass(CLASS_TYPE_DIVINE_CHAMPION)
@@ -52,22 +52,22 @@ Rules.RegisterFeatUses(
    end,
    FEAT_DIVINE_WRATH)
 
-Rules.RegisterFeatUses(
+Rules.SetMaximumFeatUsesOverride(
    function(feat, cre)
       return 3 + (cre:GetLevelByClass(CLASS_TYPE_DRAGON_DISCIPLE) / 10)
    end,
    FEAT_DRAGON_DIS_BREATH)
 
-Rules.RegisterFeatUses(
+Rules.SetMaximumFeatUsesOverride(
    function(feat, cre)
       local uses = math.floor(cre:GetLevelByClass(CLASS_TYPE_DWARVEN_DEFENDER) / 2)
       return 1 + uses
    end,
    FEAT_DWARVEN_DEFENDER_DEFENSIVE_STANCE)
 
-Rules.RegisterFeatUses(none, FEAT_KI_DAMAGE)
+Rules.SetMaximumFeatUsesOverride(none, FEAT_KI_DAMAGE)
 
-Rules.RegisterFeatUses(one,
+Rules.SetMaximumFeatUsesOverride(one,
                        FEAT_HARPER_CATS_GRACE,
                        FEAT_HARPER_EAGLES_SPLENDOR,
                        FEAT_HARPER_SLEEP)
@@ -83,11 +83,11 @@ local function harper(feat, cre)
    return uses
 end
 
-Rules.RegisterFeatUses(harper,
+Rules.SetMaximumFeatUsesOverride(harper,
                        FEAT_DENEIRS_EYE,
                        2097)
 
-Rules.RegisterFeatUses(
+Rules.SetMaximumFeatUsesOverride(
    function (feat, cre)
       local level = cre:GetLevelByClass(CLASS_TYPE_ASSASSIN)
       local uses  = 1
@@ -102,19 +102,19 @@ Rules.RegisterFeatUses(
    end,
    FEAT_PRESTIGE_DARKNESS)
 
-Rules.RegisterFeatUses(
+Rules.SetMaximumFeatUsesOverride(
    function (feat, cre)
       return 2
    end,
    FEAT_UNDEAD_GRAFT_1)
 
-Rules.RegisterFeatUses(
+Rules.SetMaximumFeatUsesOverride(
    function (feat, cre)
       return 3
    end,
    FEAT_UNDEAD_GRAFT_2)
 
-Rules.RegisterFeatUses(
+Rules.SetMaximumFeatUsesOverride(
    function (feat, cre)
       local uses = 1
       local level = cre:GetLevelByClass(CLASS_TYPE_SHADOWDANCER)
@@ -125,7 +125,7 @@ Rules.RegisterFeatUses(
    end,
    2089)
 
-Rules.RegisterFeatUses(
+Rules.SetMaximumFeatUsesOverride(
    function (feat, cre)
       local level = cre:GetLevelByClass(CLASS_TYPE_MONK)
       local uses = 1 + (level / 4)
@@ -136,7 +136,7 @@ Rules.RegisterFeatUses(
    end,
    FEAT_STUNNING_FIST)
 
-Rules.RegisterFeatUses(
+Rules.SetMaximumFeatUsesOverride(
    function (feat, cre)
       local uses = 3 + cre:GetAbilityModifier(ABILITY_CHARISMA)
       if cre:GetHasFeat(FEAT_EXTRA_TURNING) then
@@ -154,7 +154,7 @@ local function smite(feat, cre)
    return 1
 end
 
-Rules.RegisterFeatUses(smite,
+Rules.SetMaximumFeatUsesOverride(smite,
                        FEAT_SMITE_EVIL,
                        FEAT_SMITE_GOOD)
 
@@ -181,16 +181,16 @@ local function epic_spell(feat, cre)
    return 1
 end
 
-Rules.RegisterFeatUses(epic_spell,
+Rules.SetMaximumFeatUsesOverride(epic_spell,
                        FEAT_EPIC_SPELL_RUIN,
                        FEAT_EPIC_SPELL_HELLBALL)
 
-Rules.RegisterFeatUses(infinite,
+Rules.SetMaximumFeatUsesOverride(infinite,
                        FEAT_EPIC_SHIFTER_INFINITE_HUMANOID_SHAPE,
                        FEAT_EPIC_DRUID_INFINITE_WILDSHAPE,
                        FEAT_EPIC_DRUID_INFINITE_ELEMENTAL_SHAPE)
 
-Rules.RegisterFeatUses(
+Rules.SetMaximumFeatUsesOverride(
    function(feat, cre)
       if cre:GetHasFeat(FEAT_EPIC_DRUID_INFINITE_ELEMENTAL_SHAPE) then
          return 100
@@ -201,7 +201,7 @@ Rules.RegisterFeatUses(
    end,
    304, 340, 341, 342)
 
-Rules.RegisterFeatUses(
+Rules.SetMaximumFeatUsesOverride(
    function(feat, cre)
       if cre:GetHasFeat(FEAT_EPIC_DRUID_INFINITE_WILDSHAPE) then
          return 100
@@ -212,7 +212,7 @@ Rules.RegisterFeatUses(
    end,
    305, 335, 336, 337, 338, 339)
 
-Rules.RegisterFeatUses(
+Rules.SetMaximumFeatUsesOverride(
    function(feat, cre)
       local tda = Game.Get2daString("feat", "USESPERDAY", feat)
       local aa  = cre:GetLevelByClass(CLASS_TYPE_ARCANE_ARCHER) - 10

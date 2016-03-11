@@ -23,10 +23,10 @@ void main()
         // Take the deposited amount from the player and store in the database
         TakeGoldFromCreature(nAmount, oPC, TRUE);
         //int nBanked = GetCampaignInt(GetName(GetModule()), DATABASE_GOLD + sID);
-        int nBanked = GetDbInt(oPC, DATABASE_GOLD, TRUE);
+        int nBanked = GetLocalInt(oPC, DATABASE_GOLD);
         nTotal = nAmount + nBanked;
-        //SetCampaignInt(GetName(GetModule()), DATABASE_GOLD + sID, nTotal);
-        SetDbInt(oPC, DATABASE_GOLD, nTotal, 0, TRUE);
+        // TODO - Fix
+        SetLocalInt(oPC, DATABASE_GOLD, nTotal);
     }
     else // Set Anti-Cheat Variable
         SetLocalInt(oBanker, "ANTI_CHEAT", TRUE);

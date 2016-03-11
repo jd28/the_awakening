@@ -56,16 +56,13 @@ void main(){
             IncrementLocalInt(oArea, VAR_AREA_OCCUPIED);
             //SetLocalInt(oArea, VAR_AREA_OCCUPIED, GetLocalInt(oArea, VAR_AREA_OCCUPIED) + 1);
 
-            // Do map pins
-            AreaUpdateMapPins(oPC, oArea);
-
             // Reveal area for player
             if (GetLocalInt(oArea, VAR_AREA_REVEAL)){
                 ExploreAreaForPlayer(oArea, oPC);
             }
 
             if (GetLocalInt(oArea, "area_delete_location")){
-                DeleteDbVariable(oPC, VAR_PC_SAVED_LOCATION);
+                DeletePersistentLocation(oPC);
             }
 
             // Save location on enter.

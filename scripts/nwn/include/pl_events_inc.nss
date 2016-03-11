@@ -1,7 +1,7 @@
 #include "pc_funcs_inc"
 #include "vfx_inc"
 #include "gsp_func_inc"
-
+#include "nwnx_redis"
 
 void DoTaunt(object oPC, object oTarget);
 void ShowFaireLeaderboard(object oPC, object oTarget);
@@ -39,7 +39,7 @@ void EventDoStealth(object oPC) {
         ErrorMessage(oPC, "Stealth is not available yet.");
         return;
     }
-    
+
     SetLocalInt(GetArea(oPC), "PL_LAST_STEALTH", GetLocalInt(GetModule(), "uptime"));
 
 
@@ -75,10 +75,10 @@ void DoTaunt(object oPC, object oTarget){
 void ShowFaireLeaderboard(object oPC, object oTarget){
     // All time
     string sMsg = "All Time:\n";
-    sMsg += "Total Damge: " + GetDbString(oTarget, "PLC_INTERACT_TOTAL") + "\n";;
-    sMsg += "Most Hits: " + GetDbString(oTarget, "PLC_INTERACT_HITCOUNT") + "\n";;
-    sMsg += "Highest Avg. Damage: " + GetDbString(oTarget, "PLC_INTERACT_AVERAGE") + "\n";;
-    sMsg += "Hardest Hit: " + GetDbString(oTarget, "PLC_INTERACT_HIGHEST") + "\n";;
+    sMsg += "Total Damge: " + GET("faire:leaderboard:total") + "\n";
+    sMsg += "Most Hits: " + GET("faire:leaderboard:hits") + "\n";
+    sMsg += "Highest Avg. Damage: " + GET("faire:leaderboard:avg") + "\n";
+    sMsg += "Hardest Hit: " + GET("faire:leaderboard:highest") + "\n";
     sMsg += "\n";
     // Today
     sMsg += "Today:\n";

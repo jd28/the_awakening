@@ -85,7 +85,7 @@ void main(){
     // Set Boot time
     int nBootTime;
 
-    SQLExecDirect("SELECT UNIX_TIMESTAMP()");
+    SQLExecDirect("SELECT extract(epoch from now());");
     if (SQLFetch() == SQL_SUCCESS){
         nBootTime = StringToInt(SQLGetData(1));
         SetLocalInt(GetModule(), "BootTime", nBootTime);
@@ -96,7 +96,7 @@ void main(){
         WriteTimestampedLogEntry("ERROR : mod_load : Failed get boot time.");
     }
 
-    SQLExecDirect("SELECT cdkey, status FROM admin_dm");
+    SQLExecDirect("SELECT cdkeys, admin FROM nwn.players where admin > 0");
     while (SQLFetch() == SQL_SUCCESS){
        string key = SQLGetData(1);
        string val = SQLGetData(2);
@@ -135,9 +135,7 @@ void main(){
 	object way = GetObjectByTag("wp_sp_pos_1", d4() - 1);
 	if (GetIsObjectValid(way)) {
 		location loc = GetLocation(way);
-		object wander = CreateObject(OBJECT_TYPE_CREATURE,
-									 "pl_wander_spirit",
-									 loc);
+		object wander = CreateObject(OBJECT_TYPE_CREATURE, "pl_wander_spirit", loc);
 		if (GetIsObjectValid(wander)) {
 			WriteTimestampedLogEntry("NOTICE : Wandering Spirit Spawned");
 		}
@@ -158,7 +156,7 @@ void InfoHashInit(){
     else{
         for(i = 0; i < MAX_FEAT_NUM; i++){
             sValue = Get2DAString("featnames", "FEAT", i);
-            if(sValue == "****") nValue = -1;
+            if(sValue == "") nValue = -1;
             else nValue = StringToInt(sValue);
 
             SetHashString(OBJECT_SELF, VAR_HASH_FEAT_NAME, IntToString(i), GetStringByStrRef(nValue));

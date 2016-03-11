@@ -39,7 +39,7 @@ void main(){
     int nDamage = d12(nLevel);
     int nDamageType;
 
-    switch(GetPlayerInt(si.caster, "pc_style_dragon")){
+    switch(GetLocalInt(si.caster, "pc_style")){
         case STYLE_DRAGON_BLUE:
             nDamageType = DAMAGE_TYPE_COLD;
         break;

@@ -6,10 +6,11 @@
     Written By Scarface
 */
 //////////////////////////////////////////////////
-
+// TODO - Redo completely.
 #include "upb_config"
 void main()
 {
+  /*
     // Vars
     object oPC = GetLastUsedBy();
     object oChest = OBJECT_SELF;
@@ -32,4 +33,5 @@ void main()
                                            "chest that is already in use.");
         DelayCommand(5.0, SetCutsceneMode(oPC, FALSE));
     }
+    */
 }

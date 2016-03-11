@@ -7,7 +7,7 @@ void main(){
         return;
 
     object oPC = GetItemActivator();
-    int nGuild = GetPlayerInt(oPC, VAR_PC_GUILD, TRUE);
+    int nGuild = GetLocalInt(oPC, VAR_PC_GUILD);
     if(nGuild <= 0){
         ErrorMessage(oPC, "You have no guild affiliation set!  Pleast contact a DM, if there has been a mistake");
         return;

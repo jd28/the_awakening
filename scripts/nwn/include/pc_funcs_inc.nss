@@ -4,6 +4,7 @@
 #include "info_inc"
 #include "pl_effects_inc"
 #include "ws_inc_shifter"
+#include "nwnx_redis"
 
 // Apply Respawn Penalty to PC
 void ApplyRespawnPenalty(object oPC);
@@ -73,12 +74,6 @@ int GetLevelByClassIncludingLL(int nClassType, object oPC);
 // Returns level based on total experience
 int GetLevelByXP(object oPC);
 
-// get plot variable 'sVarName' on player oPlayer
-string GetPlayerString(object oPlayer, string sVarName, int bGlobal = FALSE, string sDBTable = "pwdata");
-
-// get plot variable 'sVarName' on player oPlayer
-int GetPlayerInt(object oPlayer, string sVarName, int bGlobal = FALSE, string sDBTable = "pwdata");
-
 // Returns Experience min for level given it.
 int GetXPByLevel(int iLevel);
 
@@ -108,17 +103,11 @@ void JumpSafeToObject(object oObj, object oPC = OBJECT_SELF);
 // Sets oPC uncommandable to ensure jump success
 void JumpSafeToWaypoint(string sWaypoint, object oPC = OBJECT_SELF);
 
-// Generates a random unique ID of nSize
-string PCGenerateUID(object oPC, int nSize);
-
 //Exports oPC
 void PCOnAcquireSave(object oPC);
 
 // Respawn PC and sends them to respawn location if valid.
 void PCRespawn(object oPC);
-
-// Sets up new player
-void PCSetupNewChar(object oPC);
 
 // Changes oFlyer to flying phenotype
 void pl_Fly(object oFlyer);
@@ -158,18 +147,12 @@ void SendServerMessage(object oSender, string sMessage);
 //Send sMessage on "Server" channel to oRecipient.
 void SendSystemMessage(object oRecipient, string sMessage, object oSender = OBJECT_INVALID);
 
-// set plot variable 'sVarName' on player oPlayer
-void SetPlayerString(object oPlayer, string sVarName, string sValue, int bGlobal = FALSE, string sDBTable = "pwdata");
-
-// set plot variable 'sVarName' on player oPlayer
-void SetPlayerInt(object oPlayer, string sVarName, int nValue, int bGlobal = FALSE, string sDBTable = "pwdata");
-
-// set plot variable 'sVarName' on player oPlayer
-void SetPlayerLocation(object oPlayer, string sVarName, location lLoc, string sDBTable = "pwdata");
-
 // Take Item from oPC with the Tag sTag.  If nAmount = 0, all items with sTag
 // will be taken, if nAmount > 0 that number of items will be taken.
 int TakeItemByTag(object oPC, string sTag, int nAmount = 0);
+
+void SavePersistentState(object pc);
+void LoadPersistentState(object pc);
 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -401,8 +384,18 @@ int GetIsPCShifted(object oPC){
     return FALSE;
 }
 
+string GetRedisID(object oPC, int global = FALSE);
+string GetRedisID(object oPC, int global = FALSE) {
+    if(global) {
+        return GetLocalString(oPC, VAR_PC_PLAYER_NAME);
+    }
+    else {
+        return GetLocalString(oPC, VAR_PC_PLAYER_NAME)+":"+GetLocalString(oPC, VAR_PC_BIC_FILE);
+    }
+}
+
 int GetIsRelevelable(object oPC){
-    if(GetLootable(oPC) > 40 || GetPlayerInt(oPC, VAR_PC_NO_RELEVEL))
+    if(GetLocalInt(oPC, VAR_PC_NO_RELEVEL))
         return FALSE;
 
     if(!GetIsTestCharacter(oPC)
@@ -444,24 +437,6 @@ int GetLevelByXP(object oPC){
     if(nLevel == 0) nLevel = 1;
 
     return nLevel;
-}
-
-int GetPlayerInt(object oPlayer, string sVarName, int bGlobal = FALSE, string sDBTable = "pwdata"){
-    int iRet = GetLocalInt(oPlayer,sVarName);
-    if (iRet == 0) {
-        iRet = GetDbInt(oPlayer, sVarName, bGlobal, sDBTable);
-        SetLocalInt(oPlayer, sVarName, iRet);
-    }
-    return(iRet);
-}
-
-string GetPlayerString(object oPlayer, string sVarName, int bGlobal = FALSE, string sDBTable = "pwdata"){
-    string sRet = GetLocalString(oPlayer,sVarName);
-    if (sRet == "") {
-        sRet = GetDbString(oPlayer, sVarName, bGlobal, sDBTable);
-        SetLocalString(oPlayer, sVarName, sRet);
-    }
-    return(sRet);
 }
 
 int GetXPByLevel(int nLevel){
@@ -627,36 +602,6 @@ void JumpSafeToWaypoint(string sWaypoint, object oPC = OBJECT_SELF){
     AssignCommand(oPC, SetCommandable(FALSE));
 }
 
-int GetIsUIDUnique(string sUID){
-    string sSQL = "SELECT val FROM pwdata WHERE tag='" + sUID + "' AND name='" + VAR_PC_PLAYER_NAME + "'";
-    SQLExecDirect(sSQL);
-    if (SQLFetch() == SQL_ERROR)
-        return TRUE;
-
-    return FALSE;
-}
-
-string PCGenerateUID(object oPC, int nSize){
-    object oMod = GetModule();
-    string sUID;
-    int i,j;
-
-    //TODO: MAKE SURE IS UNIQUE!!
-    while(sUID == ""){
-        for(i = 0; i < nSize; i++){
-            sUID += RandomLetter();
-        }
-
-        if(GetIsUIDUnique(sUID))
-            return sUID;
-
-        // Reset UID since this one must have been taken
-        sUID = "";
-    }
-    return sUID;
-}
-
-
 void RePoly(object oPC) {
 	int is_poly = ScanForPolymorphEffect(oPC) != -2;
 	if (is_poly) {
@@ -671,6 +616,7 @@ void PCOnAcquireSave(object oPC){
     DeleteLocalInt(oPC, VAR_PC_ACQUIRE_SAVE);
 	RePoly(oPC);
     ExportSingleCharacter(oPC);
+    SavePersistentState(oPC);
 	ExecuteScript("ta_update_kills", oPC);
     SendPCMessage(oPC, C_GREEN+"Your character has been saved."+C_END);
 }
@@ -695,49 +641,6 @@ void PCRespawn(object oPC){
     }
 
     JumpSafeToWaypoint(sWay, oPC);
-}
-
-void PCSetupNewChar(object oPC){
-    object oItem;
-    string sUID = PCGenerateUID(oPC, PC_UID_LENGTH);
-    string sBic = GetPCFileName(oPC);
-
-    SetTag(oPC, sUID); // UID is stored in the PCs Tag.
-    // Mark Player as having logged in before.
-    SetDbString(oPC, VAR_PC_BIC_FILE, sBic);
-    SetDbString(oPC, VAR_PC_PLAYER_NAME, GetPCPlayerName(oPC));
-
-    Logger(oPC, VAR_DEBUG_LOGS, LOGLEVEL_MINIMUM, "NEW PLAYER: Name: %s, Account: %s, " +
-           "CDKey: %s, UID: %s, Bic: %s", GetName(oPC), GetPCPlayerName(oPC), GetPCPublicCDKey(oPC),
-           sUID, sBic);
-
-
-    int nGold, nXP;
-    if(GetIsTestCharacter(oPC)){
-        nGold = 100000000;
-        nXP = 4800010;
-    }
-    else{
-        nGold = 10000;
-        nXP = 3000;
-    }
-
-    SetAge(oPC, 0);
-
-    SetPlayerInt(oPC, "pc_version", TA_CURRENT_PC_VERSION);
-
-    // Starting Gold
-    AssignCommand(oPC, GiveGoldToCreature(oPC, nGold));
-    // Starting XP
-    SetXP(oPC, nXP);
-
-    // Give Player Items...
-    oItem = CreateItemOnObject("nw_cloth022", oPC); // << Commoner Outfit.
-    AssignCommand(oPC, ActionEquipItem(oItem, INVENTORY_SLOT_CHEST));
-    AssignCommand(oPC, ActionDoCommand(SetCommandable(TRUE)));
-    AssignCommand(oPC, SetCommandable(FALSE));
-    CreateItemOnObject("chatcommands", oPC); // << SIMTools Chat Commands
-
 }
 
 void pl_Fly(object oFlyer){
@@ -864,21 +767,40 @@ void Raise(object oPlayer){
     ApplyEffectToObject(DURATION_TYPE_INSTANT, eVisual, oPlayer);
 }
 
+string GetPlayerId(object oPC) {
+    return GetLocalString(oPC, "pc_player_id");
+}
+
+string GetCharacterId(object oPC) {
+    return GetLocalString(oPC, "pc_character_id");
+}
+
+location GetPersistantLocation(object oPC) {
+    string loc = GET("loc:"+GetRedisID(oPC));
+    return APSStringToLocation(loc);
+}
+
+void DeletePersistentLocation(object oPC) {
+    DEL("loc:"+GetRedisID(oPC));
+}
+
 void SavePersistentLocation(object oPC){
     object oArea = GetArea(oPC);
     int type = GetLocalInt(oArea, VAR_AREA_LOC_SAVE);
-
+    string key, loc;
     switch(type){
         case 2:
             SendPCMessage(oPC, C_RED+"You have reached a point of no return.  In order to save your location " +
                 "you must return to the previous area (if you can).  Your previous saved location has been deleted." + C_END);
-            DeleteDbVariable(oPC, VAR_PC_SAVED_LOCATION);
+            DeletePersistentLocation(oPC);
             // No break;
         case 1:
             SendPCMessage(oPC, C_RED+"Your location cannot be saved in this area."+C_END);
         break;
         default:
-            SetDbLocation(oPC, VAR_PC_SAVED_LOCATION, GetLocation(oPC), 6);
+            key = "loc:"+GetRedisID(oPC);
+            loc = APSLocationToString(GetLocation(oPC));
+            SET(key, loc);
             SendPCMessage(oPC, C_GREEN+"Your location has been saved."+C_END);
     }
 }
@@ -923,11 +845,7 @@ void SendPartyMessage(object oRecipient, string sMessage, float fDelay = 0.0){
 }
 
 void SendPCMessage(object oRecipient, string sMessage, float fDelay = 0.0){
-    switch (GetPlayerInt(oRecipient, VAR_PC_MSGFILTER, TRUE)) {
-        case 0: DelayCommand(fDelay, SendSystemMessage(oRecipient, sMessage));                   break;
-        case 1: DelayCommand(fDelay, SendMessageToPC(oRecipient, sMessage));                     break;
-        case 2: DelayCommand(fDelay, FloatingTextStringOnCreature(sMessage, oRecipient, FALSE)); break;
-    }
+    DelayCommand(fDelay, SendSystemMessage(oRecipient, sMessage));
 }
 
 void SendServerMessage(object oSender, string sMessage){
@@ -945,16 +863,6 @@ void SendSystemMessage(object oRecipient, string sMessage, object oSender = OBJE
     if (FindSubString(sMessage, "¬")!=-1) return;
 
     SetLocalString(oSender, "NWNX!CHAT!SPEAK", ObjectToString(oSender)+"¬"+ObjectToString(oRecipient)+"¬5¬"+sMessage);
-}
-
-void SetPlayerInt(object oPlayer, string sVarName, int nValue, int bGlobal = FALSE, string sDBTable = "pwdata"){
-    SetLocalInt(oPlayer, sVarName, nValue);
-    SetDbInt(oPlayer, sVarName, nValue, 0, bGlobal, sDBTable);
-}
-
-void SetPlayerString(object oPlayer, string sVarName, string sValue, int bGlobal = FALSE, string sDBTable = "pwdata"){
-    SetLocalString(oPlayer, sVarName, sValue);
-    SetDbString(oPlayer, sVarName, sValue, 0, bGlobal, sDBTable);
 }
 
 int TakeItemByTag(object oPC, string sTag, int nAmount = 0){
@@ -1359,4 +1267,84 @@ int Delevel(object oPC, int nLevels){
     }
 
     return GetHitDice(oPC);
+}
+
+void SavePersistentState(object pc) {
+    string pid = GetLocalString(pc, "pc_player_id");
+    string cid = GetLocalString(pc, "pc_character_id");
+
+    if (GetStringLength(pid) == 0 || GetStringLength(cid) == 0 ) {
+        return;
+    }
+
+    string sql;
+    string gold = GetLocalString(pc, "pc_gold");
+    if (GetStringLength(gold) == 0) { gold = "0"; }
+    sql = "UPDATE nwn.players SET "
+        + "gold = " +  gold + ", "
+        + "xp = " + IntToString(GetLocalInt(pc, VAR_PC_XP_BANK)) + ", "
+        + "bosskills = " + IntToString(GetLocalInt(pc, "pc_boss_kills_g")) + ", "
+        + "guild = " + IntToString(GetLocalInt(pc, VAR_PC_GUILD)) + ", "
+        + "enhanced = " + IntToString(GetLocalInt(pc, "pc_enhanced")) + ", "
+        + "hak = " + IntToString(GetLocalInt(pc, VAR_PC_GUILD)) + ", "
+        + "kills = " + IntToString(GetLocalInt(pc, "pc_kills_g")) + " "
+        + "WHERE id="+pid;
+    SQLExecDirect(sql);
+
+    sql = "UPDATE nwn.characters SET "
+        + "version = " + IntToString(GetLocalInt(pc, "pc_version")) + ", "
+        + "bosskills = " + IntToString(GetLocalInt(pc, "pc_boss_kills")) + ", "
+        + "fighting_style = " + IntToString(GetLocalInt(pc, "pc_style")) + ", "
+        + "kills = " + IntToString(GetLocalInt(pc, "pc_kills")) + ", "
+        + "no_relevel = '" + IntToString(GetLocalInt(pc, VAR_PC_NO_RELEVEL)) + "' "
+        + "WHERE id="+cid;
+    SQLExecDirect(sql);
+
+}
+
+void LoadPersistentState(object pc) {
+    string tag = GetTag(pc);
+    int len = GetStringLength(tag);
+    if (len == 0) {
+        SetLocalInt(pc, "NewChar", TRUE);
+        ExecuteScript("pl_setup_pc", pc);
+        tag = GetTag(pc);
+        len = GetStringLength(tag);
+    }
+    int us = FindSubString(tag, "_");
+    if (us == -1) { return; }
+
+    string pid = GetSubString(tag, 0, us);
+    string cid = GetSubString(tag, us+1, len);
+
+    SetLocalString(pc, "pc_player_id", pid);
+    SetLocalString(pc, "pc_character_id", cid);
+    SetLocalInt(pc, "pc_is_pc", GetIsPC(pc));
+    SetLocalInt(pc, "pc_is_dm", GetIsDM(pc));
+
+    string sql;
+
+    sql = "SELECT bic, version, bosskills, fighting_style, kills, no_relevel FROM nwn.characters WHERE id = " + cid;
+    SQLExecDirect(sql);
+    if(SQLFetch() == SQL_SUCCESS) {
+        SetLocalString(pc, VAR_PC_BIC_FILE, SQLGetData(1));
+        SetLocalInt(pc, "pc_version", StringToInt(SQLGetData(2)));
+        SetLocalInt(pc, "pc_boss_kills", StringToInt(SQLGetData(3)));
+        SetLocalInt(pc, "pc_style", StringToInt(SQLGetData(4)));
+        SetLocalInt(pc, "pc_kills", StringToInt(SQLGetData(5)));
+        SetLocalInt(pc, VAR_PC_NO_RELEVEL, StringToInt(SQLGetData(6)));
+    }
+
+    sql = "SELECT gold, xp, bosskills, kills, guild, enhanced, hak FROM nwn.players WHERE id = " + pid;
+    SQLExecDirect(sql);
+    if(SQLFetch() == SQL_SUCCESS) {
+        SetLocalString(pc, "pc_gold", SQLGetData(1));
+        SetLocalInt(pc, VAR_PC_XP_BANK, StringToInt(SQLGetData(2)));
+        SetLocalInt(pc, "pc_boss_kills_g", StringToInt(SQLGetData(3)));
+        SetLocalInt(pc, "pc_kills_g", StringToInt(SQLGetData(4)));
+        SetLocalInt(pc, VAR_PC_GUILD, StringToInt(SQLGetData(5)));
+        SetLocalInt(pc, "pc_enhanced", StringToInt(SQLGetData(6)));
+        SetLocalInt(pc, "pc_hak_version", StringToInt(SQLGetData(7)));
+    }
+
 }

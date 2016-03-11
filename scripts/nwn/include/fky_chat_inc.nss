@@ -24,6 +24,7 @@
 #include "srv_funcs_inc"
 #include "info_inc"
 #include "area_inc"
+#include "nwnx_redis"
 
 const string sSpeech_SpeechList = "SpeechList_";
 const string sSpeech_PlayerID = "SpeechPlayerID_";
@@ -917,7 +918,7 @@ void ShowInfo(object oPlayer, object oGetInfoFrom)
     string sPlayername = GetPCPlayerName(oGetInfoFrom);
     string sKey = GetPCPublicCDKey(oGetInfoFrom);
     string sIP = GetPCIPAddress(oGetInfoFrom);
-    int nGuild = GetPlayerInt(oGetInfoFrom, VAR_PC_GUILD, TRUE);
+    int nGuild = GetLocalInt(oGetInfoFrom, VAR_PC_GUILD);
 
 
     int nClass1 = GetClassByPosition(1, oGetInfoFrom);
@@ -1101,29 +1102,28 @@ object VerifyTarget(struct pl_chat_command pcc, string sCommandType = OBJECT_TAR
     return oReturn;
 }
 
-void ShoutBlock(object oSBPC, int nSBChannel)
+void ShoutBlock(object oPC, int nSBChannel)
 {
-    if (nSBChannel == 2) SetLocalString(oSBPC, "NWNX!CHAT!SUPRESS", "1");//suppress emote speech no matter what, helps avoid circumvention of shout bans
-    FloatingTextStringOnCreature(C_RED+BADEMOTE+C_END, oSBPC, FALSE);//no match
-    if (USING_LINUX && (!GetLocalInt(oSBPC, "FKY_CHAT_EMOTETOGGLE")))
+    if (nSBChannel == 2) SetLocalString(oPC, "NWNX!CHAT!SUPRESS", "1");//suppress emote speech no matter what, helps avoid circumvention of shout bans
+    FloatingTextStringOnCreature(C_RED+BADEMOTE+C_END, oPC, FALSE);//no match
+    if (USING_LINUX && (!GetLocalInt(oPC, "FKY_CHAT_EMOTETOGGLE")))
     {
-        SetLocalInt(oSBPC, "FKY_CHAT_CONVONUMBER", 80);
-        AssignCommand(oSBPC, ClearAllActions(TRUE));
-        AssignCommand(oSBPC, ActionStartConversation(oSBPC, "chat_emote", TRUE, FALSE));
+        SetLocalInt(oPC, "FKY_CHAT_CONVONUMBER", 80);
+        AssignCommand(oPC, ClearAllActions(TRUE));
+        AssignCommand(oPC, ActionStartConversation(oPC, "chat_emote", TRUE, FALSE));
     }
 }
 
-void DoSpamBan(object oSBPC, string sSBText)
+void DoSpamBan(object oPC, string sSBText)
 {
-    string sKey = GetPCPublicCDKey(oSBPC);
-    SetLocalString(oSBPC, "NWNX!CHAT!SUPRESS", "1");//mute em
-    SetLocalInt(oSBPC, "FKY_CHT_BANSHOUT", TRUE);//temp ban em
-    if (GetLocalString(oSBPC, "FKY_CHT_BANREASON") == "") SetLocalString(oSBPC, "FKY_CHT_BANREASON", sSBText);
+    string sKey = GetPCPublicCDKey(oPC);
+    SetLocalString(oPC, "NWNX!CHAT!SUPRESS", "1");//mute em
+    SetLocalInt(oPC, "FKY_CHT_BANSHOUT", TRUE);//temp ban em
+    if (GetLocalString(oPC, "FKY_CHT_BANREASON") == "") SetLocalString(oPC, "FKY_CHT_BANREASON", sSBText);
     //capture the first message that got them busted so that that can't overwrite with something
     //benign to show the dms to get unbanned so they can try again
-    if (USING_NWNX_DB) SetDbInt(GetModule(), "FKY_CHT_BANSHOUT"+ sKey, TRUE);//permaban em
-    else SetCampaignInt("FKY_CHT", "FKY_CHT_BANSHOUT" + sKey, TRUE);                //
-    SendMessageToPC(oSBPC, C_RED+PERMBANSHT1+C_END);//tell em
+    SET("ban:shout:"+GetRedisID(oPC), "1");
+    SendMessageToPC(oPC, C_RED+PERMBANSHT1+C_END);//tell em
 }
 
 void HandlePartySpeak(string sText, object oPC)
@@ -1164,19 +1164,6 @@ void HandleShoutSpeak(string sText, object oPC)
 */
 }
 
-object GetNicknameTarget(string sAlias, object oPC){
-    string sPlayerName = GetPlayerString(oPC, "chat_nick_"+sAlias);
-    object oTarget = GetFirstPC();
-    while(oTarget != OBJECT_INVALID){
-        if(sPlayerName == GetPCPlayerName(oTarget)){
-            return oTarget;
-        }
-        oTarget = GetNextPC();
-    }
-
-    return OBJECT_INVALID;
-}
-
 void HandleAFK(object oSpeaker, object oTarget){
     if(GetLocalInt(oTarget, "FKY_CHAT_AFK")){
         string msg = GetName(oTarget) + " is AFK";
@@ -1188,51 +1175,6 @@ void HandleAFK(object oSpeaker, object oTarget){
 
         SendMessageToPC(oSpeaker, C_RED+msg+C_END);//tell em
         SendMessageToPC(oTarget, C_RED+msg+C_END);//tell em
-    }
-}
-
-void HandleAlias(string sText, string sAlias, object oPC){
-    int nChannel = 4, bFound;
-    sText = GetStringRight(sText, (GetStringLength(sText) - GetStringLength(sAlias)) - 1);
-    string sPlayerName = GetPlayerString(oPC, "chat_alias_"+sAlias);
-
-    object oTarget = GetFirstPC();
-    while(oTarget != OBJECT_INVALID){
-        if(sPlayerName == GetPCPlayerName(oTarget)){
-            bFound = TRUE;
-            break;
-        }
-        oTarget = GetNextPC();
-    }
-    if(!bFound){
-        return;
-    }
-
-    string sType = GetSubString(sText, 0, 1);//this is the primary sorting string, the leftmost letter of the text
-    if (sType == EMOTE_SYMBOL){
-        SetLocalString(oPC, "FKY_CHAT_PCSHUNT_TEXT", sText);
-        SetLocalInt(oPC, "FKY_CHAT_PCSHUNT_CHANNEL", nChannel);
-        //HandleEmotes(oPC, sText, nChannel);//emotes - taken from Emote-Wand V1000 UpDate Scripted By: Butch (with edits)
-        ExecuteScript("fky_chat_emote", oPC);
-    }
-    else if (sType == COMMAND_SYMBOL){
-        SetLocalObject(oPC, "FKY_CHAT_PCSHUNT_TARGET", oTarget);//these locals pass the needed values to the new script
-        SetLocalString(oPC, "FKY_CHAT_PCSHUNT_TEXT", sText);
-        SetLocalInt(oPC, "FKY_CHAT_PCSHUNT_CHANNEL", nChannel);
-        //HandleCommands(oPC, oTarget, sText, nChannel);//commands
-        ExecuteScript("fky_chat_pc_comm", oPC);
-    }
-    else if ((GetStringLowerCase(GetStringLeft(sText, 3)) == "dm_") && (VerifyDMKey(oPC) || VerifyAdminKey(oPC)))
-    {
-        //HandleDMTraffic(oPC, oTarget, sText);//this has been moved to a new script to allow compiler to digest it
-        SetLocalObject(oPC, "FKY_CHAT_DMSHUNT_TARGET", oTarget);//these locals pass the needed values to the new script
-        SetLocalString(oPC, "FKY_CHAT_DMSHUNT_TEXT", sText);
-        ExecuteScript("fky_chat_dm_comm", oPC);
-    }
-    else{
-        HandleAFK(oPC, oTarget);
-        SendChatLogMessage(oTarget, sText, oPC);
-        return;
     }
 }
 

@@ -14,100 +14,50 @@ local band   = bit.band
 local lshift = bit.lshift
 
 local Eff = require 'solstice.effect'
+local Attack = require 'solstice.attack'
+local AddCCMessage = Attack.AddCCMessage
+local AddDamageToResult = Attack.AddDamageToResult
+local AddEffect = Attack.AddEffect
+local AddVFX = Attack.AddVFX
+local ClearSpecialAttack = Attack.ClearSpecialAttack
+local AddCCMessage = Attack.AddCCMessage
+local AddEffect = Attack.AddEffect
+local AddVFX = Attack.AddVFX
+local ClearSpecialAttack = Attack.ClearSpecialAttack
+local CopyDamageToNWNAttackData = Attack.CopyDamageToNWNAttackData
+local GetResult = Attack.GetResult
+local GetIsRangedAttack = Attack.GetIsRangedAttack
+local GetIsSneakAttack = Attack.GetIsSneakAttack
+local GetIsSpecialAttack = Attack.GetIsSpecialAttack
+local GetSpecialAttack = Attack.GetSpecialAttack
+local SetSneakAttack = Attack.SetSneakAttack
+local GetType = Attack.GetType
+local GetAttackRoll = Attack.GetAttackRoll
+local GetIsCoupDeGrace = Attack.GetIsCoupDeGrace
+local GetIsCriticalHit = Attack.GetIsCriticalHit
+local GetIsDeathAttack = Attack.GetIsDeathAttack
+local GetIsHit = Attack.GetIsHit
+local SetAttackMod = Attack.SetAttackMod
+local SetAttackRoll = Attack.SetAttackRoll
+local SetConcealment = Attack.SetConcealment
+local SetCriticalResult = Attack.SetCriticalResult
+local SetMissedBy = Attack.SetMissedBy
+local SetResult = Attack.SetResult
 
 local Dice   = require 'solstice.dice'
 local DoRoll = Dice.DoRoll
 local RollValid = Dice.IsValid
 local GetIsRangedWeapon = Rules.GetIsRangedWeapon
 
---- Adds combat message to an attack.
-local function AddCCMessage(info, type, objs, ints, str)
-   C.nwn_AddCombatMessageData(info.attack, type or 0, #objs, objs[1] or 0, objs[2] or 0,
-                              #ints, ints[1] or 0, ints[2] or 0, ints[3] or 0, ints[4] or 0,
-                              str or "")
-end
-
---- Adds an onhit effect to an attack.
--- @param info Attack ctype.
--- @param attacker Attacking creature.
--- @param eff Effect ctype.
-local function AddEffect(info, attacker, eff)
-   eff.direct = true
-   eff:SetCreator(attacker.id)
-   C.nwn_AddOnHitEffect(attacker.obj, eff.eff)
-end
-
---- Adds an onhit visual effect to an attack.
--- @param info Attack ctype.
--- @param attacker Attacking creature.
--- @param vfx VFX_*
-local function AddVFX(info, attacker, vfx)
-   AddEffect(info, attacker, Eff.VisualEffect(vfx))
-end
-
---- Clear special attack.
--- @param info Attack ctype.
-local function ClearSpecialAttack(info)
-   info.attack.cad_special_attack = 0
-end
-
---- Copy damage to NWN Attack Data.
--- @param info Attack ctype.
--- @param attacker Attacking creature.
--- @param target Attack target.
-local function CopyDamageToNWNAttackData(info, attacker, target)
-   for i = 0, DAMAGE_INDEX_NUM - 1 do
-      if i < 13 then
-         if info.dmg_result.damages[i] <= 0 then
-            info.attack.cad_damage[i] = -1
-         else
-            info.attack.cad_damage[i] = info.dmg_result.damages[i]
-         end
-      else
-         if info.dmg_result.damages[i] > 0 then
-            local eff = Eff.Damage(i, info.dmg_result.damages[i])
-            -- Set effect to direct so that Lua will not delete the
-            -- effect.  It will be deleted by the combat engine.
-            eff.direct = true
-            -- Add the effect to the onhit effect list so that it can
-            -- be applied when damage is signaled.
-            AddEffect(info, attacker, eff)
-         end
-      end
-   end
-   local s = ffi.string(C.ns_GetCombatDamageString(
-                           attacker:GetName(),
-                           target:GetName(),
-                           info.dmg_result,
-                           false))
-
-   AddCCMessage(info, 11, {}, { 0xCC }, s)
-end
-
---- Returns attack result.
--- @param info AttackInfo
-local function GetResult(info)
-   return info.attack.cad_attack_result
-end
-
---- Returns the attack type.  See ATTACK_TYPE_*
--- @param info AttackInfo
-local function GetType(info)
-   return info.attack.cad_attack_type
-end
-
---- Gets the total attack roll.
--- @param info AttackInfo
-local function GetAttackRoll(info)
-   return info.attack.cad_attack_roll + info.attack.cad_attack_mod
-end
+-- Used to cache some combat info.
+local info, attacker, target, attacker_ci, target_ci
 
 --- Get critical hit roll
 -- @param info AttackInfo.
 -- @param attacker Attacking creature.
 local function GetCriticalHitRoll(info, attacker)
-   return (attacker.ci.equips[info.weapon].crit_range * 5)
-      + attacker.ci.offense.crit_chance_modifier
+   return (attacker_ci.equips[info.weapon].crit_range * 5)
+      + attacker_ci.offense.crit_chance_modifier
 end
 
 --- Get current weapon.
@@ -116,35 +66,10 @@ end
 local function GetCurrentWeapon(info, attacker)
    local n = info.weapon
    if n >= 0 and n <= 5 then
-      local id = attacker.ci.equips[n].id
+      local id = attacker_ci.equips[n].id
       return GetObjectByID(id)
    end
    return OBJECT_INVALID
-end
-
---- Determine if attack is a coup de grace.
--- @param info AttackInfo
-local function GetIsCoupDeGrace(info)
-   return info.attack.cad_coupdegrace ~= 0
-end
-
---- Determines if attack results in a critical hit
--- @param info AttackInfo
-local function GetIsCriticalHit(info)
-   return GetResult(info) == 3
-end
-
---- Determine if attack is a death attack.
--- @param info AttackInfo
-local function GetIsDeathAttack(info)
-   return info.attack.cad_death_attack == 1
-end
-
---- Determines if the attack results in a hit.
--- @param info AttackInfo
-local function GetIsHit(info)
-   local t = GetResult(info)
-   return t == 1 or t == 3 or t == 5 or t == 6 or t == 7 or t == 10
 end
 
 --- Determine if current attack is an offhand attack.
@@ -156,36 +81,6 @@ local function GetIsOffhandAttack(info, attacker)
       attacker.obj.cre_combat_round.cr_effect_atks
       + attacker.obj.cre_combat_round.cr_additional_atks
       + attacker.obj.cre_combat_round.cr_onhand_atks
-end
-
---- Determines if attack is ranged.
--- @param info AttackInfo
-local function GetIsRangedAttack(info)
-   return info.attack.cad_ranged_attack == 1
-end
-
---- Determine if attack is a sneak attack.
--- @param info AttackInfo
-local function GetIsSneakAttack(info)
-   return info.attack.cad_sneak_attack == 1
-end
-
-local function SetSneakAttack(info, sneak, death)
-   info.attack.cad_sneak_attack = sneak
-   info.attack.cad_death_attack = death
-end
-
-
---- Determines if attack is a special attack
--- @param info AttackInfo
-local function GetIsSpecialAttack(info)
-   return info.attack.cad_special_attack ~= 0
-end
-
---- Returns special attack
--- @param info AttackInfo
-local function GetSpecialAttack(info)
-   return info.attack.cad_special_attack
 end
 
 local function GetTotalAttacks(info, attacker)
@@ -221,7 +116,7 @@ local function GetIterationPenalty(info, attacker)
       end
       attacker.obj.cre_combat_round.cr_extra_taken = attacker.obj.cre_combat_round.cr_extra_taken + 1
    elseif spec_att ~= 65002 and spec_att ~= 6 and spec_att ~= 391 then
-      iter_pen = attacker.obj.cre_combat_round.cr_current_attack * attacker.ci.equips[info.weapon].iter
+      iter_pen = attacker.obj.cre_combat_round.cr_current_attack * attacker_ci.equips[info.weapon].iter
    end
 
    return iter_pen
@@ -236,51 +131,6 @@ local function GetDamageTotal(info)
    end
    return sum
 end
-
---- Sets attack modifier
--- @param info AttackInfo.
--- @param ab Attack modifier
-local function SetAttackMod(info, ab)
-   info.attack.cad_attack_mod = ab
-end
-
---- Sets attack roll
--- @param info AttackInfo.
--- @param roll The 1d20 attack roll.
-local function SetAttackRoll(info, roll)
-   info.attack.cad_attack_roll = roll
-end
-
---- Set concealment.
--- @param info AttackInfo.
--- @param conceal Concealment result.
-local function SetConcealment(info, conceal)
-   info.attack.cad_concealment = conceal
-end
-
---- Set Critical result.
--- @param info AttackInfo.
--- @param threat Set critical threat
--- @param result Set critical hit result.
-local function SetCriticalResult(info, threat, result)
-   info.attack.cad_threat_roll = threat
-   info.attack.cad_critical_hit = result
-end
-
---- Set missed by.
--- @param info AttackInfo.
--- @param roll How much creature missed by.
-local function SetMissedBy(info, roll)
-   info.attack.cad_missed = roll
-end
-
---- Sets the attack result.
--- @param info AttackInfo.
--- @param result See...
-local function SetResult(info, result)
-   info.attack.cad_attack_result = result
-end
-
 
 local function ResolveCachedSpecialAttacks(attacker)
    C.nwn_ResolveCachedSpecialAttacks(attacker.obj)
@@ -513,47 +363,27 @@ local function ResolveAttackRoll(info, attacker, target)
    end
 end
 
-local function AddDamageToResult(info, dmg, mult)
-   if mult > 1 and band(dmg.mask, 2) ~= 0 then
-      mult = 1
-   end
-
-   local roll = DoRoll(dmg.roll, mult)
-
-   -- penalty
-   if band(dmg.mask, 1) ~= 0 then
-      roll = -roll
-   end
-
-   if band(dmg.mask, 4) == 0 then
-      info.dmg_result.damages[dmg.type] = info.dmg_result.damages[dmg.type] + roll
-   else
-      info.dmg_result.damages_unblocked[dmg.type] = info.dmg_result.damages_unblocked[dmg.type] + roll
-   end
-
-end
-
 --- Resolve damage result.
 -- @param info Attack ctype.
 -- @param attacker Attacking creature.
 -- @param mult crit multiplier
 -- @param ki_strike Is WM Ki Strike.
 local function ResolveDamageResult(info, attacker, mult, ki_strike)
-   for i = 0, attacker.ci.equips[info.weapon].damage_len - 1 do
-      AddDamageToResult(info, attacker.ci.equips[info.weapon].damage[i], mult)
+   for i = 0, attacker_ci.equips[info.weapon].damage_len - 1 do
+      AddDamageToResult(info, attacker_ci.equips[info.weapon].damage[i], mult)
    end
 
-   for i = 0, attacker.ci.offense.damage_len - 1 do
-      AddDamageToResult(info, attacker.ci.offense.damage[i], mult)
+   for i = 0, attacker_ci.offense.damage_len - 1 do
+      AddDamageToResult(info, attacker_ci.offense.damage[i], mult)
    end
 
    info.dmg_result.damages[12] = info.dmg_result.damages[12]
-      + DoRoll(attacker.ci.equips[info.weapon].base_dmg_roll, mult)
+      + DoRoll(attacker_ci.equips[info.weapon].base_dmg_roll, mult)
 
    info.dmg_result.damages[12] = info.dmg_result.damages[12]
-      + (attacker.ci.equips[info.weapon].dmg_ability * mult)
+      + (attacker_ci.equips[info.weapon].dmg_ability * mult)
 
-   AddDamageToResult(info, attacker.ci.mod_mode.dmg, mult)
+   AddDamageToResult(info, attacker_ci.mod_mode.dmg, mult)
 end
 
 --- Resolve damage modifications.
@@ -579,7 +409,7 @@ local function ResolveDamageModifications(info, attacker, target)
       start = target.obj.cre_stats.cs_first_dmgresist_eff
    end
 
-   eff, start = target:GetBestDamageResistEffect(attacker.ci.equips[info.weapon].base_dmg_flags, start)
+   eff, start = target:GetBestDamageResistEffect(attacker_ci.equips[info.weapon].base_dmg_flags, start)
    local amt, adj, removed = target:DoDamageResistance(info.dmg_result.damages[12], eff, 12)
    info.dmg_result.damages[12] = amt
 
@@ -609,7 +439,7 @@ local function ResolveDamageModifications(info, attacker, target)
       if info.dmg_result.damages[i] > 0 then
          local idx = i
          if i == 12 then
-            idx = attacker.ci.equips[info.weapon].base_dmg_flags
+            idx = attacker_ci.equips[info.weapon].base_dmg_flags
          end
          local amt, adj = target:DoDamageImmunity(info.dmg_result.damages[i], idx)
          info.dmg_result.damages[i] = amt
@@ -625,11 +455,11 @@ local function ResolveDamageModifications(info, attacker, target)
       start = nil
    end
 
-   eff = target:GetBestDamageReductionEffect(attacker.ci.equips[info.weapon].power, start)
+   eff = target:GetBestDamageReductionEffect(attacker_ci.equips[info.weapon].power, start)
 
    amt, adj, removed = target:DoDamageReduction(info.dmg_result.damages[12],
                                                 eff,
-                                                attacker.ci.equips[info.weapon].power)
+                                                attacker_ci.equips[info.weapon].power)
    info.dmg_result.damages[12] = amt
    if adj > 0 then
       info.dmg_result.reduction = adj
@@ -734,28 +564,28 @@ local function ResolveDamage(info, attacker, target)
    local mult = 1
    local modifier = 0
    if GetIsCriticalHit(info) then
-      modifier = attacker.ci.equips[info.weapon].crit_mult * 100
-      modifier = modifier + attacker.ci.offense.crit_dmg_modifier
+      modifier = attacker_ci.equips[info.weapon].crit_mult * 100
+      modifier = modifier + attacker_ci.offense.crit_dmg_modifier
    end
 
    ResolveDamageResult(info, attacker, mult, ki_strike)
    -- Modes
    for i = 0, COMBAT_MOD_SKILL do
-      if RollValid(attacker.ci.mods[i].dmg.roll) then
-         AddDamageToResult(info, attacker.ci.mods[i].dmg, mult)
+      if RollValid(attacker_ci.mods[i].dmg.roll) then
+         AddDamageToResult(info, attacker_ci.mods[i].dmg, mult)
       end
    end
 
    if attacker:GetHasTrainingVs(target)
-      and RollValid(attacker.ci.mods[COMBAT_MOD_TRAINING_VS].dmg.roll)
+      and RollValid(attacker_ci.mods[COMBAT_MOD_TRAINING_VS].dmg.roll)
    then
-      AddDamageToResult(info, attacker.ci.mods[COMBAT_MOD_TRAINING_VS].dmg, mult)
+      AddDamageToResult(info, attacker_ci.mods[COMBAT_MOD_TRAINING_VS].dmg, mult)
    end
 
    if attacker:GetIsFavoredEnemy(target)
-      and RollValid(attacker.ci.mods[COMBAT_MOD_FAVORED_ENEMY].dmg.roll)
+      and RollValid(attacker_ci.mods[COMBAT_MOD_FAVORED_ENEMY].dmg.roll)
    then
-      AddDamageToResult(info, attacker.ci.mods[COMBAT_MOD_FAVORED_ENEMY].dmg, mult)
+      AddDamageToResult(info, attacker_ci.mods[COMBAT_MOD_FAVORED_ENEMY].dmg, mult)
    end
 
    -- Special attacks
@@ -779,8 +609,8 @@ local function ResolveDamage(info, attacker, target)
    for i = 0, SITUATION_NUM - 1 do
       if band(lshift(1, i), info.situational_flags) ~= 0 then
          -- Don't multiply situational damage.
-         if RollValid(attacker.ci.mod_situ[i].dmg.roll) then
-            AddDamageToResult(info, attacker.ci.mod_situ[i].dmg, 1)
+         if RollValid(attacker_ci.mod_situ[i].dmg.roll) then
+            AddDamageToResult(info, attacker_ci.mod_situ[i].dmg, 1)
          end
       end
    end
@@ -1041,8 +871,8 @@ local function ResolveSituations(info, attacker, target)
 
    -- In order for a sneak attack situation to be possiblle the attacker must
    -- be able to do some amount of sneak damage.
-   local death = RollValid(attacker.ci.mod_situ[SITUATION_DEATH_ATTACK].dmg.roll)
-   local sneak = RollValid(attacker.ci.mod_situ[SITUATION_SNEAK_ATTACK].dmg.roll)
+   local death = RollValid(attacker_ci.mod_situ[SITUATION_DEATH_ATTACK].dmg.roll)
+   local sneak = RollValid(attacker_ci.mod_situ[SITUATION_SNEAK_ATTACK].dmg.roll)
 
    -- Sneak Attack & Death Attack
    if (sneak or death) and
@@ -1066,13 +896,11 @@ local function ResolveSituations(info, attacker, target)
    return flags
 end
 
-local info, attacker, target
-
 local function ResolvePreAttack(attacker_, target_)
    info     = C.Local_GetAttack()
    attacker = attacker_
    target   = target_
-   info.attacker_ci = attacker.ci
+   attacker_ci = attacker.ci
    info.ranged_type = attacker.ci.offense.ranged_type
 
    -- If the target is a creature detirmine it's state and any situational modifiers that
@@ -1081,9 +909,9 @@ local function ResolvePreAttack(attacker_, target_)
    if target.type == OBJECT_TRUETYPE_CREATURE then
       info.target_state = attacker:GetTargetState(target)
       info.situational_flags = ResolveSituations(info, attacker, target)
-      info.target_ci = target.ci
+      target_ci = target.ci
    else
-      info.target_ci = nil
+      target_ci = nil
    end
 end
 
@@ -1114,16 +942,18 @@ local function DoMeleeAttack()
 
          -- The resolution of Special Attacks will return an effect to be applied
          -- or nil.
-         local success, eff = Rules.GetSpecialAttackEffect(GetSpecialAttack(info), info, attacker, target)
+         local success, eff = Rules.GetSpecialAttackImpact(GetSpecialAttack(info), info, attacker, target)
          if success then
-            -- Check to makes sure an effect was returned.
+            -- Add any effects to the onhit effect list so that it can
+            -- be applied when damage is signaled.
             if eff then
-               -- Set effect to direct so that Lua will not delete the
-               -- effect.  It will be deleted by the combat engine.
-               eff.direct = true
-               -- Add the effect to the onhit effect list so that it can
-               -- be applied when damage is signaled.
-               AddEffect(info, attacker, eff)
+               if type(eff) == 'table' then
+                  for i=1, #eff do
+                     AddEffect(info, attacker, eff[i])
+                  end
+               else
+                  AddEffect(info, attacker, eff)
+               end
             end
          else
             -- If the special attack failed because it wasn't
@@ -1168,16 +998,18 @@ local function DoRangedAttack()
 
          -- The resolution of Special Attacks will return an effect to be applied
          -- or nil.
-         local success, eff = Rules.GetSpecialAttackEffect(GetSpecialAttack(info), info, attacker, target)
+         local success, eff = Rules.GetSpecialAttackImpact(GetSpecialAttack(info), info, attacker, target)
          if success then
-            -- Check to makes sure an effect was returned.
+            -- Add any effects to the onhit effect list so that it can
+            -- be applied when damage is signaled.
             if eff then
-               -- Set effect to direct so that Lua will not delete the
-               -- effect.  It will be deleted by the combat engine.
-               eff.direct = true
-               -- Add the effect to the onhit effect list so that it can
-               -- be applied when damage is signaled.
-               AddEffect(info, attacker, eff)
+               if type(eff) == 'table' then
+                  for i=1, #eff do
+                     AddEffect(info, attacker, eff[i])
+                  end
+               else
+                  AddEffect(info, attacker, eff)
+               end
             end
          else
             -- If the special attack failed because it wasn't

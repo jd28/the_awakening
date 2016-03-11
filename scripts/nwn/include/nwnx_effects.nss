@@ -1,65 +1,137 @@
-#include "nwnx_structs"
+/**
+ * Creates a custom effect. This requires nwnx_structs.
+ *
+ * +truetype+ is a number meant to reflect further types beyond
+ * EFFECT_TRUETYPE_DEFENSIVESTANCE (truetype > 95).
+ *
+ * To actually define what your custom effect does, use nwnx_structs
+ * as usual to set it's integers. It is recommended to write your own
+ * EffectX() constructors.
+ *
+ * Your truetype effect IDs are mapped 1:1 to script IDs, so you can check for
+ * them with the usual suspects (GetHasEffect etc).
+ *
+ * Please see README.md for detailed usage instructions.
+ */
+effect EffectCustom(int truetype);
 
-// NWNX_EFFECT_ADDITIONAL_ATTACKS must be 0, it's hardcoded.
-const int NWNX_EFFECT_ADDITIONAL_ATTACKS = 0;
+/**
+ * Sets the native effect of EFFECT_TRUETYPE_x to trigger callbacks.
+ *
+ * This can be used to augment existing effect types.
+ *
+ * Best called in OnModuleLoad or similar.
+ */
+void SetNativeEffectCallsUs(int truetype);
+
+/**
+ * Returns the custom effect's truetype.
+ *
+ * This will only work inside nwnx_effect callback scripts. Returns -1 on error.
+ */
+int GetCustomEffectTrueType();
+
+/**
+ * Returns the custom effect's tickrate (>= 0).
+ *
+ * This will only work inside nwnx_effect callback scripts. Returns -1 on error.
+ */
+int GetCustomEffectTickRate();
+
+/**
+ * Sets the custom effect's tickrate (>= 0).
+ *
+ * This will only work inside nwnx_effect callback scripts.
+ */
+void SetCustomEffectTickRate(int value);
+
+/**
+ * Gets any of the custom parameters given to EffectCustom (arg0..19).
+ *
+ * This will only work inside nwnx_effect callback scripts.
+ *
+ * Returns -1 on error (unless your value is -1 ..).
+ */
+int GetCustomEffectInteger(int index);
+
+/**
+ * Sets any of the custom parameters given to EffectCustom (arg0..19).
+ *
+ * This will only work inside nwnx_effect callback scripts.
+ */
+void SetCustomEffectInteger(int index, int value);
+
+/**
+ * Stops the current apply from happening.
+ *
+ * This will only work inside the nwnx_effect apply callback.
+ */
+void SetCustomEffectFailed();
+
+/**
+ * Gets the effect creator (whatever was OBJECT_SELF when you called EffectCustom()).
+ *
+ * This will only work inside nwnx_effect callback scripts.
+ */
+object GetCustomEffectCreator();
 
 
-const int NWNX_EFFECTS_EVENT_APPLY        = 0;
-const int NWNX_EFFECTS_EVENT_REMOVE       = 1;
-
-// This is a replacement for EffectModifyAttacks.  It is handled in the
-// plugin.  If you use nwnx_effects you'd have to replace all occurances
-// of EffectModifyAttacks with EffectAdditionalAttacks
-// - nAmount: (0, 5]
-effect EffectAdditionalAttacks(int nAmount);
-
-// Returns whatever integer was identifies the effect being applied/removed.
-int GetCustomEffectType();
-
-// Returns NWNX_EFFECTS_EVENT_* depending on whether the effect is being
-// applied or removed.
-int GetCustomEffectEventType();
-
-// See nwnx_structs GetEffectInteger this function is identical save that it
-// can return integers only from the effect currently being applied/removed.
-int GetCustomEffectInteger(int nInteger);
-
-// Sets the Effect script handler
-// @return -1 signals an error that the handler was not set.
-int SetCustomEffectHandler(int nEffectType, string sScript);
-
-// This function only needs to be called when an effect fails, for whatever reason,
-// to be applied or applicable.  nwnx_effects assumes success.
-// NOTE: you'd only ever need to call this in a script applying an effect.
-// bSuccess : if FALSE signals to the plugin that the effect was not applied,
-//      if true that it was.
-void SetCustomEffectSuccess(int bSuccess = TRUE);
-
-int GetCustomEffectType(){
-    SetLocalString(GetModule(), "NWNX!EFFECTS!GETEFFECTTYPE", "     ");
-    return StringToInt(GetLocalString(GetModule(), "NWNX!EFFECTS!GETEFFECTTYPE"));
+int GetCustomEffectTrueType()
+{
+    SetLocalString(OBJECT_SELF, "NWNX!EFFECTS!GETTRUETYPE", " ");
+    return StringToInt(GetLocalString(OBJECT_SELF, "NWNX!EFFECTS!GETTRUETYPE"));
 }
 
-int GetCustomEffectEventType(){
-    SetLocalString(GetModule(), "NWNX!EFFECTS!GETEFFECTEVENTTYPE", "     ");
-    return StringToInt(GetLocalString(GetModule(), "NWNX!EFFECTS!GETEFFECTEVENTTYPE"));
+int GetCustomEffectTickRate()
+{
+    return GetCustomEffectInteger(20);
 }
 
-int GetCustomEffectInteger(int nInteger){
-    SetLocalString(GetModule(), "NWNX!EFFECTS!GETEFFECTINTEGER", IntToString(nInteger)+ "               ");
-    return StringToInt(GetLocalString(GetModule(), "NWNX!EFFECTS!GETEFFECTINTEGER"));
+void SetNativeEffectCallsUs(int truetype)
+{
+    SetLocalString(OBJECT_SELF, "NWNX!EFFECTS!SETEFFECTNATIVEHANDLED", IntToString(truetype) + " ");
 }
 
-int SetCustomEffectHandler(int nEffectType, string sScript){
-    // No point in setting the handler to an empty string.
-    if (sScript == "")
-        return -1;
-
-    string sParam = IntToString(nEffectType) + " " + sScript;
-    SetLocalString(GetModule(), "NWNX!EFFECTS!SETEFFECTHANDLER", sParam);
-    return StringToInt(GetLocalString(GetModule(), "NWNX!EFFECTS!SETEFFECTHANDLER"));
+void SetCustomEffectTickRate(int value)
+{
+    SetCustomEffectInteger(20, value);
 }
 
-void SetCustomEffectSuccess(int bSuccess = TRUE) {
-    SetLocalString(GetModule(), "NWNX!EFFECTS!SETEFFECTSUCCESS", IntToString(bSuccess));
+int GetCustomEffectInteger(int index)
+{
+    SetLocalString(OBJECT_SELF, "NWNX!EFFECTS!GETINT", IntToString(index) + " ");
+    return StringToInt(GetLocalString(OBJECT_SELF, "NWNX!EFFECTS!GETINT"));
+}
+
+void SetCustomEffectInteger(int index, int value)
+{
+    SetLocalString(OBJECT_SELF, "NWNX!EFFECTS!SETINT",
+                   IntToString(index) + "~" + IntToString(value));
+}
+
+void SetCustomEffectFailed()
+{
+    SetLocalString(OBJECT_SELF, "NWNX!EFFECTS!SETFAILED", "1");
+}
+
+object GetCustomEffectCreator()
+{
+    return GetLocalObject(OBJECT_SELF, "NWNX!EFFECTS!GETCREATOR");
+}
+
+effect EffectCustom(int truetype)
+{
+    effect ret;
+
+    if (truetype >= 96) {
+        // We're using effectModifyAttacks as a template because it only uses
+        // one int param.
+        ret = EffectModifyAttacks(0);
+        // We immediately set a custom truetype, so it never registers as such
+        // with nwserver. You're free to use all local CGameEffect
+        // ints/floats/object/strings for your own nefarious purposes.
+        SetEffectTrueType(ret, truetype);
+    }
+
+    return ret;
 }
