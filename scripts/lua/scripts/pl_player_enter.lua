@@ -18,14 +18,21 @@ local function SQLDecodeSpecialChars(text)
    return string.gsub(text, "~", "'")
 end
 
-local UPDATE = [[UPDATE nwn.players SET last_seen=now() WHERE account=? RETURNING id]]
-
 local INSERT = [[
-  INSERT INTO nwn.players (account, cdkeys) VALUES (?, ?) RETURNING id;
+  INSERT INTO nwn.players (account, cdkeys) VALUES (?, ?)
+    ON DUPLICATE KEY UPDATE last=CURRENT_TIMESTAMP();
+]]
+
+local LAST_PID = [[
+  SELECT id FROM nwn.players ORDER BY last DESC LIMIT 1;
+]]
+
+local LAST_CID = [[
+  SELECT id FROM nwn.players ORDER BY last DESC LIMIT 1;
 ]]
 
 local INSERT_CHAR = [[
-  INSERT INTO nwn.characters (name, owner, bic, version) VALUES (?, ?, ?, ?) RETURNING id;
+  INSERT INTO nwn.characters (name, owner, bic, version) VALUES (?, ?, ?, ?);
 ]]
 
 function pl_setup_pc(pc)
@@ -42,26 +49,24 @@ function pl_setup_pc(pc)
   local player_id
   local row
 
-  local usth = assert(db:prepare(UPDATE))
   local isth = assert(db:prepare(INSERT))
   local charsth = assert(db:prepare(INSERT_CHAR))
+  local lastpidsth = assert(db:prepare(LAST_PID))
+  local lastcidsth = assert(db:prepare(LAST_CID))
 
-  local suc, err = usth:execute(sanitized)
+  local suc, err = isth:execute(sanitized, cdkey)
   if not suc then
     Log:error(err)
     return
   end
+  isth:close()
 
-  if usth:affected() == 0 then
-    local suc, err = isth:execute(sanitized, cdkey)
-    if not suc then
-      Log:error(err)
-      return
-    end
-    row = isth:fetch(false)
-  else
-    row = usth:fetch(false)
+  suc, err = lastpidsth:execute()
+  if not suc then
+    Log:error("Last ID Statement: %s", err)
+    return
   end
+  row = lastpidsth:fetch(false)
 
   if not row then
     Log:error("Unable to fetch id for player %s (%s)", account, name)
@@ -69,16 +74,21 @@ function pl_setup_pc(pc)
   else
     player_id = row[1]
   end
-
-  isth:close()
-  usth:close()
+  lastpidsth:close()
 
   suc, err = charsth:execute(SQLEncodeSpecialChars(name), player_id, bic, pc_version)
   if not suc then
     Log:error(err)
     return
   end
-  row = charsth:fetch(false)
+  charsth:close()
+
+  suc, err = lastcidsth:execute()
+  if not suc then
+    Log:error("Last ID Statement: %s", err)
+    return
+  end
+  row = lastcidsth:fetch(false)
   local char_id
   if not row then
     Log:error("Unable to fetch id for character %s (%s)", account, name)
@@ -87,7 +97,7 @@ function pl_setup_pc(pc)
     char_id = row[1]
   end
 
-  charsth:close()
+  lastcidsth:close()
 
   Log:info("NEW PLAYER: Name: %s, Account: %s, CDKey: %s, pid: %d, cid: %d, Bic: %s",
            name, account, cdkey, player_id, char_id, bic)

@@ -1,0 +1,5381 @@
+{
+  "AreaProperties": {
+    "AmbientSndDay": {
+      "type": "int",
+      "value": 51
+    },
+    "AmbientSndDayVol": {
+      "type": "int",
+      "value": 32
+    },
+    "AmbientSndNight": {
+      "type": "int",
+      "value": 51
+    },
+    "AmbientSndNitVol": {
+      "type": "int",
+      "value": 32
+    },
+    "Comment": {
+      "type": "cexostr",
+      "value": ""
+    },
+    "EnvAudio": {
+      "type": "int",
+      "value": 89
+    },
+    "MusicBattle": {
+      "type": "int",
+      "value": 34
+    },
+    "MusicDay": {
+      "type": "int",
+      "value": 1
+    },
+    "MusicDelay": {
+      "type": "int",
+      "value": 89000
+    },
+    "MusicNight": {
+      "type": "int",
+      "value": 3
+    },
+    "__struct_id": 100
+  },
+  "Creature List": {
+    "type": "list",
+    "value": []
+  },
+  "Door List": {
+    "type": "list",
+    "value": []
+  },
+  "Encounter List": {
+    "type": "list",
+    "value": [
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 470
+              },
+              "CR": {
+                "type": "float",
+                "value": 26.0
+              },
+              "Comment": {
+                "type": "cexostr",
+                "value": ""
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "pl_gelat_cube"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 9
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 4
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "Comment": {
+                "type": "cexostr",
+                "value": ""
+              },
+              "X": {
+                "type": "float",
+                "value": -14.295741081237793
+              },
+              "Y": {
+                "type": "float",
+                "value": 5.885383605957031
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "Comment": {
+                "type": "cexostr",
+                "value": ""
+              },
+              "X": {
+                "type": "float",
+                "value": 8.30711555480957
+              },
+              "Y": {
+                "type": "float",
+                "value": -15.587323188781738
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "Comment": {
+                "type": "cexostr",
+                "value": ""
+              },
+              "X": {
+                "type": "float",
+                "value": 13.093667984008789
+              },
+              "Y": {
+                "type": "float",
+                "value": -5.640739440917969
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.021218085661530495
+              },
+              "__struct_id": 1
+            },
+            {
+              "Comment": {
+                "type": "cexostr",
+                "value": ""
+              },
+              "X": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Y": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "pl_gelat_cube"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 2
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 0
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 2
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 600
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Comment": {
+                "type": "cexostr",
+                "value": ""
+              },
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 52.8962516784668
+              },
+              "Y": {
+                "type": "float",
+                "value": 25.449926376342773
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.999999987376214e-07
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "pl_gelat_cube"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "pl_gelat_cube"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 24.73090934753418
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 24.73090934753418
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      },
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 470
+              },
+              "CR": {
+                "type": "float",
+                "value": 26.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "pl_gelat_cube"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 9
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 4
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "X": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Y": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 57.5113525390625
+              },
+              "Y": {
+                "type": "float",
+                "value": -9.45391845703125
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.0250005591660738
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 31.51306915283203
+              },
+              "Y": {
+                "type": "float",
+                "value": 15.59897232055664
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 1.73321533203125
+              },
+              "Y": {
+                "type": "float",
+                "value": 3.7815704345703125
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "pl_gelat_cube"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 2
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 0
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 2
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 600
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 50.54608154296875
+              },
+              "Y": {
+                "type": "float",
+                "value": 24.70536231994629
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.999999987376214e-07
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "pl_gelat_cube"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "pl_gelat_cube"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 37.64828872680664
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 47.38913345336914
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      },
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 470
+              },
+              "CR": {
+                "type": "float",
+                "value": 26.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "pl_gelat_cube"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 9
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 4
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "X": {
+                "type": "float",
+                "value": -18.90784454345703
+              },
+              "Y": {
+                "type": "float",
+                "value": 14.18087387084961
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Y": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.025000499561429024
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 48.37379455566406
+              },
+              "Y": {
+                "type": "float",
+                "value": 26.471206665039062
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02121802605688572
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 14.6539306640625
+              },
+              "Y": {
+                "type": "float",
+                "value": 54.045860290527344
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.021217966452240944
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "pl_gelat_cube"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 2
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 0
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 2
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 600
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 78.43514251708984
+              },
+              "Y": {
+                "type": "float",
+                "value": 69.29635620117188
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.999999987376214e-07
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "pl_gelat_cube"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "pl_gelat_cube"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 58.89704132080078
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 42.352684020996094
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      },
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 470
+              },
+              "CR": {
+                "type": "float",
+                "value": 26.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "pl_gelat_cube"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 9
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 4
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "X": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Y": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 10.456878662109375
+              },
+              "Y": {
+                "type": "float",
+                "value": -9.380435943603516
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 23.98932647705078
+              },
+              "Y": {
+                "type": "float",
+                "value": 3.6906700134277344
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 11.687110900878906
+              },
+              "Y": {
+                "type": "float",
+                "value": 12.763557434082031
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "pl_gelat_cube"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 2
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 0
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 2
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 600
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 107.05598449707031
+              },
+              "Y": {
+                "type": "float",
+                "value": 20.632898330688477
+              },
+              "Z": {
+                "type": "float",
+                "value": 2.6158141963605885e-07
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "pl_gelat_cube"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "pl_gelat_cube"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 78.60710906982422
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 37.85600280761719
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      },
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 470
+              },
+              "CR": {
+                "type": "float",
+                "value": 26.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "pl_gelat_cube"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 9
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 4
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "X": {
+                "type": "float",
+                "value": -10.153284072875977
+              },
+              "Y": {
+                "type": "float",
+                "value": 54.15390396118164
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.025000499561429024
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 7.333906173706055
+              },
+              "Y": {
+                "type": "float",
+                "value": 18.239360809326172
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.025000499561429024
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": -2.255838394165039
+              },
+              "Y": {
+                "type": "float",
+                "value": 3.3846473693847656
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Y": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02256002463400364
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 50.958099365234375
+              },
+              "Y": {
+                "type": "float",
+                "value": 32.90669631958008
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02121814526617527
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 43.81256103515625
+              },
+              "Y": {
+                "type": "float",
+                "value": 59.60690689086914
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500043995678425
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "pl_gelat_cube"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 2
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 0
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 2
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 600
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 27.84613800048828
+              },
+              "Y": {
+                "type": "float",
+                "value": 64.32479095458984
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.999999987376214e-07
+              },
+              "__struct_id": 2
+            },
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 65.26495361328125
+              },
+              "Y": {
+                "type": "float",
+                "value": 99.67523193359375
+              },
+              "Z": {
+                "type": "float",
+                "value": 9.768371000973275e-07
+              },
+              "__struct_id": 2
+            },
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 14.871776580810547
+              },
+              "Y": {
+                "type": "float",
+                "value": 109.82908630371094
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.4039535396223073e-07
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "pl_gelat_cube"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "pl_gelat_cube"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 19.76009178161621
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 57.55552291870117
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      },
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 1479
+              },
+              "CR": {
+                "type": "float",
+                "value": 30.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "pl_gelat_cube001"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 0
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 1
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "X": {
+                "type": "float",
+                "value": -16.473691940307617
+              },
+              "Y": {
+                "type": "float",
+                "value": 37.96236801147461
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Y": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02121802605688572
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 38.657928466796875
+              },
+              "Y": {
+                "type": "float",
+                "value": 30.08078384399414
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.1507549285888672
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "pl_ooze"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 0
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 600
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 37.43782043457031
+              },
+              "Y": {
+                "type": "float",
+                "value": 62.68597412109375
+              },
+              "Z": {
+                "type": "float",
+                "value": 1.4536742583004525e-06
+              },
+              "__struct_id": 2
+            },
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 54.986183166503906
+              },
+              "Y": {
+                "type": "float",
+                "value": 44.42135238647461
+              },
+              "Z": {
+                "type": "float",
+                "value": -1.4073486909182975e-06
+              },
+              "__struct_id": 2
+            },
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 84.17376708984375
+              },
+              "Y": {
+                "type": "float",
+                "value": 55.165245056152344
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.999999987376214e-07
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "pl_ooze"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "pl_ooze"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 48.00237274169922
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 33.49778366088867
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      },
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 1479
+              },
+              "CR": {
+                "type": "float",
+                "value": 30.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "pl_gelat_cube001"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 0
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 1
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "X": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Y": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.0255598071962595
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 18.622573852539062
+              },
+              "Y": {
+                "type": "float",
+                "value": -18.264751434326172
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500043995678425
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 41.36382293701172
+              },
+              "Y": {
+                "type": "float",
+                "value": 1.2533206939697266
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.0250005591660738
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 0.3579540252685547
+              },
+              "Y": {
+                "type": "float",
+                "value": 6.446203231811523
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "pl_ooze"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 0
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 600
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 21.68010902404785
+              },
+              "Y": {
+                "type": "float",
+                "value": 12.010605812072754
+              },
+              "Z": {
+                "type": "float",
+                "value": 2.3162840534496354e-08
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "pl_ooze"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "pl_ooze"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 9.324804306030273
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 19.710525512695312
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      },
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 1479
+              },
+              "CR": {
+                "type": "float",
+                "value": 30.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "pl_gelat_cube001"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 0
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 1
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "X": {
+                "type": "float",
+                "value": -1.4311795234680176
+              },
+              "Y": {
+                "type": "float",
+                "value": -34.917701721191406
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 10.386005401611328
+              },
+              "Y": {
+                "type": "float",
+                "value": -35.2765998840332
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02121802605688572
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 9.133651733398438
+              },
+              "Y": {
+                "type": "float",
+                "value": -25.24820327758789
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02499988116323948
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 20.056610107421875
+              },
+              "Y": {
+                "type": "float",
+                "value": 1.2534103393554688
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.025000499561429024
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Y": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02121802605688572
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "pl_ooze"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 0
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 600
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 9.145561218261719
+              },
+              "Y": {
+                "type": "float",
+                "value": 56.06057357788086
+              },
+              "Z": {
+                "type": "float",
+                "value": -5.7220458984375e-06
+              },
+              "__struct_id": 2
+            },
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 5.742517471313477
+              },
+              "Y": {
+                "type": "float",
+                "value": 32.24452590942383
+              },
+              "Z": {
+                "type": "float",
+                "value": -0.002439737319946289
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "pl_ooze"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "pl_ooze"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 1.8025612831115723
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 61.96976089477539
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      },
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 1479
+              },
+              "CR": {
+                "type": "float",
+                "value": 30.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "pl_gelat_cube001"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 0
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 1
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "X": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Y": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 8.774169921875
+              },
+              "Y": {
+                "type": "float",
+                "value": -5.730072975158691
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 32.58979797363281
+              },
+              "Y": {
+                "type": "float",
+                "value": 18.085556030273438
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.0250005591660738
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 14.683319091796875
+              },
+              "Y": {
+                "type": "float",
+                "value": 33.66420364379883
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "pl_ooze"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 0
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 600
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 93.30607604980469
+              },
+              "Y": {
+                "type": "float",
+                "value": 37.79594039916992
+              },
+              "Z": {
+                "type": "float",
+                "value": -5.222045729169622e-06
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "pl_ooze"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "pl_ooze"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 85.42723083496094
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 6.45958948135376
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      }
+    ]
+  },
+  "List": {
+    "type": "list",
+    "value": []
+  },
+  "Placeable List": {
+    "type": "list",
+    "value": [
+      {
+        "AnimationState": {
+          "type": "byte",
+          "value": 0
+        },
+        "Appearance": {
+          "type": "dword",
+          "value": 4225
+        },
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": 1.5707942247390747
+        },
+        "BodyBag": {
+          "type": "byte",
+          "value": 0
+        },
+        "CloseLockDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Conversation": {
+          "type": "resref",
+          "value": ""
+        },
+        "CurrentHP": {
+          "type": "short",
+          "value": 15
+        },
+        "Description": {
+          "str_ref": 16810951,
+          "type": "cexolocstr",
+          "value": {
+            "0": "A natural effect."
+          }
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 15
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Fort": {
+          "type": "byte",
+          "value": 16
+        },
+        "HP": {
+          "type": "short",
+          "value": 15
+        },
+        "Hardness": {
+          "type": "byte",
+          "value": 5
+        },
+        "HasInventory": {
+          "type": "byte",
+          "value": 0
+        },
+        "Interruptable": {
+          "type": "byte",
+          "value": 1
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "KeyRequired": {
+          "type": "byte",
+          "value": 0
+        },
+        "LocName": {
+          "str_ref": 16813480,
+          "type": "cexolocstr",
+          "value": {
+            "0": "TNO Water, green 4x4"
+          }
+        },
+        "Lockable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Locked": {
+          "type": "byte",
+          "value": 0
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnClosed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDamaged": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDeath": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnInvDisturbed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnLock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnMeleeAttacked": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnOpen": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnSpellCastAt": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUnlock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUsed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "OpenLockDC": {
+          "type": "byte",
+          "value": 18
+        },
+        "Plot": {
+          "type": "byte",
+          "value": 0
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "Ref": {
+          "type": "byte",
+          "value": 0
+        },
+        "Static": {
+          "type": "byte",
+          "value": 1
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ZEP_WATER_TNO_6"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "zep_water012"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "byte",
+          "value": 0
+        },
+        "Useable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Will": {
+          "type": "byte",
+          "value": 0
+        },
+        "X": {
+          "type": "float",
+          "value": 75.53410339355469
+        },
+        "Y": {
+          "type": "float",
+          "value": 24.687660217285156
+        },
+        "Z": {
+          "type": "float",
+          "value": -1.5
+        },
+        "__struct_id": 9
+      },
+      {
+        "AnimationState": {
+          "type": "byte",
+          "value": 0
+        },
+        "Appearance": {
+          "type": "dword",
+          "value": 4225
+        },
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": 1.5707942247390747
+        },
+        "BodyBag": {
+          "type": "byte",
+          "value": 0
+        },
+        "CloseLockDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Conversation": {
+          "type": "resref",
+          "value": ""
+        },
+        "CurrentHP": {
+          "type": "short",
+          "value": 15
+        },
+        "Description": {
+          "str_ref": 16810951,
+          "type": "cexolocstr",
+          "value": {
+            "0": "A natural effect."
+          }
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 15
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Fort": {
+          "type": "byte",
+          "value": 16
+        },
+        "HP": {
+          "type": "short",
+          "value": 15
+        },
+        "Hardness": {
+          "type": "byte",
+          "value": 5
+        },
+        "HasInventory": {
+          "type": "byte",
+          "value": 0
+        },
+        "Interruptable": {
+          "type": "byte",
+          "value": 1
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "KeyRequired": {
+          "type": "byte",
+          "value": 0
+        },
+        "LocName": {
+          "str_ref": 16813480,
+          "type": "cexolocstr",
+          "value": {
+            "0": "TNO Water, green 4x4"
+          }
+        },
+        "Lockable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Locked": {
+          "type": "byte",
+          "value": 0
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnClosed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDamaged": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDeath": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnInvDisturbed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnLock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnMeleeAttacked": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnOpen": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnSpellCastAt": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUnlock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUsed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "OpenLockDC": {
+          "type": "byte",
+          "value": 18
+        },
+        "Plot": {
+          "type": "byte",
+          "value": 0
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "Ref": {
+          "type": "byte",
+          "value": 0
+        },
+        "Static": {
+          "type": "byte",
+          "value": 1
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ZEP_WATER_TNO_6"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "zep_water012"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "byte",
+          "value": 0
+        },
+        "Useable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Will": {
+          "type": "byte",
+          "value": 0
+        },
+        "X": {
+          "type": "float",
+          "value": 94.66944885253906
+        },
+        "Y": {
+          "type": "float",
+          "value": 94.74437713623047
+        },
+        "Z": {
+          "type": "float",
+          "value": -1.5
+        },
+        "__struct_id": 9
+      },
+      {
+        "AnimationState": {
+          "type": "byte",
+          "value": 0
+        },
+        "Appearance": {
+          "type": "dword",
+          "value": 4225
+        },
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": 1.5707942247390747
+        },
+        "BodyBag": {
+          "type": "byte",
+          "value": 0
+        },
+        "CloseLockDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Conversation": {
+          "type": "resref",
+          "value": ""
+        },
+        "CurrentHP": {
+          "type": "short",
+          "value": 15
+        },
+        "Description": {
+          "str_ref": 16810951,
+          "type": "cexolocstr",
+          "value": {
+            "0": "A natural effect."
+          }
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 15
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Fort": {
+          "type": "byte",
+          "value": 16
+        },
+        "HP": {
+          "type": "short",
+          "value": 15
+        },
+        "Hardness": {
+          "type": "byte",
+          "value": 5
+        },
+        "HasInventory": {
+          "type": "byte",
+          "value": 0
+        },
+        "Interruptable": {
+          "type": "byte",
+          "value": 1
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "KeyRequired": {
+          "type": "byte",
+          "value": 0
+        },
+        "LocName": {
+          "str_ref": 16813480,
+          "type": "cexolocstr",
+          "value": {
+            "0": "TNO Water, green 4x4"
+          }
+        },
+        "Lockable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Locked": {
+          "type": "byte",
+          "value": 0
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnClosed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDamaged": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDeath": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnInvDisturbed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnLock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnMeleeAttacked": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnOpen": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnSpellCastAt": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUnlock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUsed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "OpenLockDC": {
+          "type": "byte",
+          "value": 18
+        },
+        "Plot": {
+          "type": "byte",
+          "value": 0
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "Ref": {
+          "type": "byte",
+          "value": 0
+        },
+        "Static": {
+          "type": "byte",
+          "value": 1
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ZEP_WATER_TNO_6"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "zep_water012"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "byte",
+          "value": 0
+        },
+        "Useable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Will": {
+          "type": "byte",
+          "value": 0
+        },
+        "X": {
+          "type": "float",
+          "value": 40.480003356933594
+        },
+        "Y": {
+          "type": "float",
+          "value": 95.1500015258789
+        },
+        "Z": {
+          "type": "float",
+          "value": -1.5
+        },
+        "__struct_id": 9
+      },
+      {
+        "AnimationState": {
+          "type": "byte",
+          "value": 0
+        },
+        "Appearance": {
+          "type": "dword",
+          "value": 4225
+        },
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": 1.5707942247390747
+        },
+        "BodyBag": {
+          "type": "byte",
+          "value": 0
+        },
+        "CloseLockDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Conversation": {
+          "type": "resref",
+          "value": ""
+        },
+        "CurrentHP": {
+          "type": "short",
+          "value": 15
+        },
+        "Description": {
+          "str_ref": 16810951,
+          "type": "cexolocstr",
+          "value": {
+            "0": "A natural effect."
+          }
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 15
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Fort": {
+          "type": "byte",
+          "value": 16
+        },
+        "HP": {
+          "type": "short",
+          "value": 15
+        },
+        "Hardness": {
+          "type": "byte",
+          "value": 5
+        },
+        "HasInventory": {
+          "type": "byte",
+          "value": 0
+        },
+        "Interruptable": {
+          "type": "byte",
+          "value": 1
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "KeyRequired": {
+          "type": "byte",
+          "value": 0
+        },
+        "LocName": {
+          "str_ref": 16813480,
+          "type": "cexolocstr",
+          "value": {
+            "0": "TNO Water, green 4x4"
+          }
+        },
+        "Lockable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Locked": {
+          "type": "byte",
+          "value": 0
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnClosed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDamaged": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDeath": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnInvDisturbed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnLock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnMeleeAttacked": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnOpen": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnSpellCastAt": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUnlock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUsed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "OpenLockDC": {
+          "type": "byte",
+          "value": 18
+        },
+        "Plot": {
+          "type": "byte",
+          "value": 0
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "Ref": {
+          "type": "byte",
+          "value": 0
+        },
+        "Static": {
+          "type": "byte",
+          "value": 1
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ZEP_WATER_TNO_6"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "zep_water012"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "byte",
+          "value": 0
+        },
+        "Useable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Will": {
+          "type": "byte",
+          "value": 0
+        },
+        "X": {
+          "type": "float",
+          "value": 27.39478302001953
+        },
+        "Y": {
+          "type": "float",
+          "value": 38.03438186645508
+        },
+        "Z": {
+          "type": "float",
+          "value": -1.5
+        },
+        "__struct_id": 9
+      },
+      {
+        "AnimationState": {
+          "type": "byte",
+          "value": 0
+        },
+        "Appearance": {
+          "type": "dword",
+          "value": 4224
+        },
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": 1.5707942247390747
+        },
+        "BodyBag": {
+          "type": "byte",
+          "value": 0
+        },
+        "CloseLockDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Conversation": {
+          "type": "resref",
+          "value": ""
+        },
+        "CurrentHP": {
+          "type": "short",
+          "value": 15
+        },
+        "Description": {
+          "str_ref": 16810951,
+          "type": "cexolocstr",
+          "value": {
+            "0": "A natural effect."
+          }
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 15
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Fort": {
+          "type": "byte",
+          "value": 16
+        },
+        "HP": {
+          "type": "short",
+          "value": 15
+        },
+        "Hardness": {
+          "type": "byte",
+          "value": 5
+        },
+        "HasInventory": {
+          "type": "byte",
+          "value": 0
+        },
+        "Interruptable": {
+          "type": "byte",
+          "value": 1
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "KeyRequired": {
+          "type": "byte",
+          "value": 0
+        },
+        "LocName": {
+          "str_ref": 16813480,
+          "type": "cexolocstr",
+          "value": {
+            "0": "TNO Water, green 2x2"
+          }
+        },
+        "Lockable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Locked": {
+          "type": "byte",
+          "value": 0
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnClosed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDamaged": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDeath": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnInvDisturbed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnLock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnMeleeAttacked": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnOpen": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnSpellCastAt": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUnlock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUsed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "OpenLockDC": {
+          "type": "byte",
+          "value": 18
+        },
+        "Plot": {
+          "type": "byte",
+          "value": 0
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "Ref": {
+          "type": "byte",
+          "value": 0
+        },
+        "Static": {
+          "type": "byte",
+          "value": 1
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ZEP_WATER_TNO_5"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "zep_water011"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "byte",
+          "value": 0
+        },
+        "Useable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Will": {
+          "type": "byte",
+          "value": 0
+        },
+        "X": {
+          "type": "float",
+          "value": 45.33068084716797
+        },
+        "Y": {
+          "type": "float",
+          "value": 10.363136291503906
+        },
+        "Z": {
+          "type": "float",
+          "value": -1.5
+        },
+        "__struct_id": 9
+      },
+      {
+        "AnimationState": {
+          "type": "byte",
+          "value": 0
+        },
+        "Appearance": {
+          "type": "dword",
+          "value": 4224
+        },
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": 1.5707942247390747
+        },
+        "BodyBag": {
+          "type": "byte",
+          "value": 0
+        },
+        "CloseLockDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Conversation": {
+          "type": "resref",
+          "value": ""
+        },
+        "CurrentHP": {
+          "type": "short",
+          "value": 15
+        },
+        "Description": {
+          "str_ref": 16810951,
+          "type": "cexolocstr",
+          "value": {
+            "0": "A natural effect."
+          }
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 15
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Fort": {
+          "type": "byte",
+          "value": 16
+        },
+        "HP": {
+          "type": "short",
+          "value": 15
+        },
+        "Hardness": {
+          "type": "byte",
+          "value": 5
+        },
+        "HasInventory": {
+          "type": "byte",
+          "value": 0
+        },
+        "Interruptable": {
+          "type": "byte",
+          "value": 1
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "KeyRequired": {
+          "type": "byte",
+          "value": 0
+        },
+        "LocName": {
+          "str_ref": 16813480,
+          "type": "cexolocstr",
+          "value": {
+            "0": "TNO Water, green 2x2"
+          }
+        },
+        "Lockable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Locked": {
+          "type": "byte",
+          "value": 0
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnClosed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDamaged": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDeath": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnInvDisturbed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnLock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnMeleeAttacked": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnOpen": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnSpellCastAt": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUnlock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUsed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "OpenLockDC": {
+          "type": "byte",
+          "value": 18
+        },
+        "Plot": {
+          "type": "byte",
+          "value": 0
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "Ref": {
+          "type": "byte",
+          "value": 0
+        },
+        "Static": {
+          "type": "byte",
+          "value": 1
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ZEP_WATER_TNO_5"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "zep_water011"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "byte",
+          "value": 0
+        },
+        "Useable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Will": {
+          "type": "byte",
+          "value": 0
+        },
+        "X": {
+          "type": "float",
+          "value": 10.18243408203125
+        },
+        "Y": {
+          "type": "float",
+          "value": 75.00284576416016
+        },
+        "Z": {
+          "type": "float",
+          "value": -1.5
+        },
+        "__struct_id": 9
+      },
+      {
+        "AnimationState": {
+          "type": "byte",
+          "value": 0
+        },
+        "Appearance": {
+          "type": "dword",
+          "value": 4224
+        },
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": 1.5707942247390747
+        },
+        "BodyBag": {
+          "type": "byte",
+          "value": 0
+        },
+        "CloseLockDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Conversation": {
+          "type": "resref",
+          "value": ""
+        },
+        "CurrentHP": {
+          "type": "short",
+          "value": 15
+        },
+        "Description": {
+          "str_ref": 16810951,
+          "type": "cexolocstr",
+          "value": {
+            "0": "A natural effect."
+          }
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 15
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Fort": {
+          "type": "byte",
+          "value": 16
+        },
+        "HP": {
+          "type": "short",
+          "value": 15
+        },
+        "Hardness": {
+          "type": "byte",
+          "value": 5
+        },
+        "HasInventory": {
+          "type": "byte",
+          "value": 0
+        },
+        "Interruptable": {
+          "type": "byte",
+          "value": 1
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "KeyRequired": {
+          "type": "byte",
+          "value": 0
+        },
+        "LocName": {
+          "str_ref": 16813480,
+          "type": "cexolocstr",
+          "value": {
+            "0": "TNO Water, green 2x2"
+          }
+        },
+        "Lockable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Locked": {
+          "type": "byte",
+          "value": 0
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnClosed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDamaged": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDeath": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnInvDisturbed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnLock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnMeleeAttacked": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnOpen": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnSpellCastAt": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUnlock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUsed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "OpenLockDC": {
+          "type": "byte",
+          "value": 18
+        },
+        "Plot": {
+          "type": "byte",
+          "value": 0
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "Ref": {
+          "type": "byte",
+          "value": 0
+        },
+        "Static": {
+          "type": "byte",
+          "value": 1
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ZEP_WATER_TNO_5"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "zep_water011"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "byte",
+          "value": 0
+        },
+        "Useable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Will": {
+          "type": "byte",
+          "value": 0
+        },
+        "X": {
+          "type": "float",
+          "value": 10.0
+        },
+        "Y": {
+          "type": "float",
+          "value": 95.0
+        },
+        "Z": {
+          "type": "float",
+          "value": -1.5
+        },
+        "__struct_id": 9
+      },
+      {
+        "AnimationState": {
+          "type": "byte",
+          "value": 0
+        },
+        "Appearance": {
+          "type": "dword",
+          "value": 4225
+        },
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": 1.5707942247390747
+        },
+        "BodyBag": {
+          "type": "byte",
+          "value": 0
+        },
+        "CloseLockDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Conversation": {
+          "type": "resref",
+          "value": ""
+        },
+        "CurrentHP": {
+          "type": "short",
+          "value": 15
+        },
+        "Description": {
+          "str_ref": 16810951,
+          "type": "cexolocstr",
+          "value": {
+            "0": "A natural effect."
+          }
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 15
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Fort": {
+          "type": "byte",
+          "value": 16
+        },
+        "HP": {
+          "type": "short",
+          "value": 15
+        },
+        "Hardness": {
+          "type": "byte",
+          "value": 5
+        },
+        "HasInventory": {
+          "type": "byte",
+          "value": 0
+        },
+        "Interruptable": {
+          "type": "byte",
+          "value": 1
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "KeyRequired": {
+          "type": "byte",
+          "value": 0
+        },
+        "LocName": {
+          "str_ref": 16813480,
+          "type": "cexolocstr",
+          "value": {
+            "0": "TNO Water, green 4x4"
+          }
+        },
+        "Lockable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Locked": {
+          "type": "byte",
+          "value": 0
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnClosed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDamaged": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDeath": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnInvDisturbed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnLock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnMeleeAttacked": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnOpen": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnSpellCastAt": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUnlock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUsed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "OpenLockDC": {
+          "type": "byte",
+          "value": 18
+        },
+        "Plot": {
+          "type": "byte",
+          "value": 0
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "Ref": {
+          "type": "byte",
+          "value": 0
+        },
+        "Static": {
+          "type": "byte",
+          "value": 1
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ZEP_WATER_TNO_6"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "zep_water012"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "byte",
+          "value": 0
+        },
+        "Useable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Will": {
+          "type": "byte",
+          "value": 0
+        },
+        "X": {
+          "type": "float",
+          "value": 100.53450012207031
+        },
+        "Y": {
+          "type": "float",
+          "value": 50.6364860534668
+        },
+        "Z": {
+          "type": "float",
+          "value": -1.5
+        },
+        "__struct_id": 9
+      },
+      {
+        "AnimationState": {
+          "type": "byte",
+          "value": 0
+        },
+        "Appearance": {
+          "type": "dword",
+          "value": 3931
+        },
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": 1.5707942247390747
+        },
+        "BodyBag": {
+          "type": "byte",
+          "value": 0
+        },
+        "CloseLockDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Conversation": {
+          "type": "resref",
+          "value": ""
+        },
+        "CurrentHP": {
+          "type": "short",
+          "value": 15
+        },
+        "Description": {
+          "str_ref": 16810951,
+          "type": "cexolocstr",
+          "value": {
+            "0": "A natural effect."
+          }
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 15
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Fort": {
+          "type": "byte",
+          "value": 16
+        },
+        "HP": {
+          "type": "short",
+          "value": 15
+        },
+        "Hardness": {
+          "type": "byte",
+          "value": 5
+        },
+        "HasInventory": {
+          "type": "byte",
+          "value": 0
+        },
+        "Interruptable": {
+          "type": "byte",
+          "value": 1
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "KeyRequired": {
+          "type": "byte",
+          "value": 0
+        },
+        "LocName": {
+          "str_ref": 16813480,
+          "type": "cexolocstr",
+          "value": {
+            "0": "TNO Water, green 1x1"
+          }
+        },
+        "Lockable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Locked": {
+          "type": "byte",
+          "value": 0
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnClosed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDamaged": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDeath": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnInvDisturbed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnLock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnMeleeAttacked": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnOpen": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnSpellCastAt": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUnlock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUsed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "OpenLockDC": {
+          "type": "byte",
+          "value": 18
+        },
+        "Plot": {
+          "type": "byte",
+          "value": 0
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "Ref": {
+          "type": "byte",
+          "value": 0
+        },
+        "Static": {
+          "type": "byte",
+          "value": 1
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ZEP_WATER_TNO_4"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "zep_water010"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "byte",
+          "value": 0
+        },
+        "Useable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Will": {
+          "type": "byte",
+          "value": 0
+        },
+        "X": {
+          "type": "float",
+          "value": 80.8699951171875
+        },
+        "Y": {
+          "type": "float",
+          "value": 115.12000274658203
+        },
+        "Z": {
+          "type": "float",
+          "value": -1.5
+        },
+        "__struct_id": 9
+      },
+      {
+        "AnimationState": {
+          "type": "byte",
+          "value": 0
+        },
+        "Appearance": {
+          "type": "dword",
+          "value": 3931
+        },
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": 1.5707942247390747
+        },
+        "BodyBag": {
+          "type": "byte",
+          "value": 0
+        },
+        "CloseLockDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Conversation": {
+          "type": "resref",
+          "value": ""
+        },
+        "CurrentHP": {
+          "type": "short",
+          "value": 15
+        },
+        "Description": {
+          "str_ref": 16810951,
+          "type": "cexolocstr",
+          "value": {
+            "0": "A natural effect."
+          }
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 15
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Fort": {
+          "type": "byte",
+          "value": 16
+        },
+        "HP": {
+          "type": "short",
+          "value": 15
+        },
+        "Hardness": {
+          "type": "byte",
+          "value": 5
+        },
+        "HasInventory": {
+          "type": "byte",
+          "value": 0
+        },
+        "Interruptable": {
+          "type": "byte",
+          "value": 1
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "KeyRequired": {
+          "type": "byte",
+          "value": 0
+        },
+        "LocName": {
+          "str_ref": 16813480,
+          "type": "cexolocstr",
+          "value": {
+            "0": "TNO Water, green 1x1"
+          }
+        },
+        "Lockable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Locked": {
+          "type": "byte",
+          "value": 0
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnClosed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDamaged": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDeath": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnInvDisturbed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnLock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnMeleeAttacked": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnOpen": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnSpellCastAt": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUnlock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUsed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "OpenLockDC": {
+          "type": "byte",
+          "value": 18
+        },
+        "Plot": {
+          "type": "byte",
+          "value": 0
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "Ref": {
+          "type": "byte",
+          "value": 0
+        },
+        "Static": {
+          "type": "byte",
+          "value": 1
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ZEP_WATER_TNO_4"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "zep_water010"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "byte",
+          "value": 0
+        },
+        "Useable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Will": {
+          "type": "byte",
+          "value": 0
+        },
+        "X": {
+          "type": "float",
+          "value": 66.0
+        },
+        "Y": {
+          "type": "float",
+          "value": 49.599998474121094
+        },
+        "Z": {
+          "type": "float",
+          "value": -1.5
+        },
+        "__struct_id": 9
+      },
+      {
+        "AnimationState": {
+          "type": "byte",
+          "value": 0
+        },
+        "Appearance": {
+          "type": "dword",
+          "value": 3931
+        },
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": 1.5707942247390747
+        },
+        "BodyBag": {
+          "type": "byte",
+          "value": 0
+        },
+        "CloseLockDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Conversation": {
+          "type": "resref",
+          "value": ""
+        },
+        "CurrentHP": {
+          "type": "short",
+          "value": 15
+        },
+        "Description": {
+          "str_ref": 16810951,
+          "type": "cexolocstr",
+          "value": {
+            "0": "A natural effect."
+          }
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 15
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Fort": {
+          "type": "byte",
+          "value": 16
+        },
+        "HP": {
+          "type": "short",
+          "value": 15
+        },
+        "Hardness": {
+          "type": "byte",
+          "value": 5
+        },
+        "HasInventory": {
+          "type": "byte",
+          "value": 0
+        },
+        "Interruptable": {
+          "type": "byte",
+          "value": 1
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "KeyRequired": {
+          "type": "byte",
+          "value": 0
+        },
+        "LocName": {
+          "str_ref": 16813480,
+          "type": "cexolocstr",
+          "value": {
+            "0": "TNO Water, green 1x1"
+          }
+        },
+        "Lockable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Locked": {
+          "type": "byte",
+          "value": 0
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnClosed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDamaged": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDeath": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnInvDisturbed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnLock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnMeleeAttacked": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnOpen": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnSpellCastAt": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUnlock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUsed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "OpenLockDC": {
+          "type": "byte",
+          "value": 18
+        },
+        "Plot": {
+          "type": "byte",
+          "value": 0
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "Ref": {
+          "type": "byte",
+          "value": 0
+        },
+        "Static": {
+          "type": "byte",
+          "value": 1
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ZEP_WATER_TNO_4"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "zep_water010"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "byte",
+          "value": 0
+        },
+        "Useable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Will": {
+          "type": "byte",
+          "value": 0
+        },
+        "X": {
+          "type": "float",
+          "value": 39.0
+        },
+        "Y": {
+          "type": "float",
+          "value": 70.87000274658203
+        },
+        "Z": {
+          "type": "float",
+          "value": -1.5
+        },
+        "__struct_id": 9
+      },
+      {
+        "AnimationState": {
+          "type": "byte",
+          "value": 0
+        },
+        "Appearance": {
+          "type": "dword",
+          "value": 3931
+        },
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Bearing": {
+          "type": "float",
+          "value": -0.0
+        },
+        "BodyBag": {
+          "type": "byte",
+          "value": 0
+        },
+        "CloseLockDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Conversation": {
+          "type": "resref",
+          "value": ""
+        },
+        "CurrentHP": {
+          "type": "short",
+          "value": 15
+        },
+        "Description": {
+          "str_ref": 16810951,
+          "type": "cexolocstr",
+          "value": {
+            "0": "A natural effect."
+          }
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 15
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Fort": {
+          "type": "byte",
+          "value": 16
+        },
+        "HP": {
+          "type": "short",
+          "value": 15
+        },
+        "Hardness": {
+          "type": "byte",
+          "value": 5
+        },
+        "HasInventory": {
+          "type": "byte",
+          "value": 0
+        },
+        "Interruptable": {
+          "type": "byte",
+          "value": 1
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "KeyRequired": {
+          "type": "byte",
+          "value": 0
+        },
+        "LocName": {
+          "str_ref": 16813480,
+          "type": "cexolocstr",
+          "value": {
+            "0": "TNO Water, green 1x1"
+          }
+        },
+        "Lockable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Locked": {
+          "type": "byte",
+          "value": 0
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnClosed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDamaged": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDeath": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnInvDisturbed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnLock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnMeleeAttacked": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnOpen": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnSpellCastAt": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUnlock": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUsed": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "OpenLockDC": {
+          "type": "byte",
+          "value": 18
+        },
+        "Plot": {
+          "type": "byte",
+          "value": 0
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "Ref": {
+          "type": "byte",
+          "value": 0
+        },
+        "Static": {
+          "type": "byte",
+          "value": 1
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ZEP_WATER_TNO_4"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "zep_water010"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "byte",
+          "value": 0
+        },
+        "Useable": {
+          "type": "byte",
+          "value": 0
+        },
+        "Will": {
+          "type": "byte",
+          "value": 0
+        },
+        "X": {
+          "type": "float",
+          "value": 5.0
+        },
+        "Y": {
+          "type": "float",
+          "value": 110.0
+        },
+        "Z": {
+          "type": "float",
+          "value": -1.5
+        },
+        "__struct_id": 9
+      }
+    ]
+  },
+  "SoundList": {
+    "type": "list",
+    "value": []
+  },
+  "StoreList": {
+    "type": "list",
+    "value": []
+  },
+  "TriggerList": {
+    "type": "list",
+    "value": [
+      {
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Cursor": {
+          "type": "byte",
+          "value": 1
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "PointX": {
+                "type": "float",
+                "value": 0.0
+              },
+              "PointY": {
+                "type": "float",
+                "value": 0.0
+              },
+              "PointZ": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 0.0
+              },
+              "PointY": {
+                "type": "float",
+                "value": -1.23388671875
+              },
+              "PointZ": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 9.871101379394531
+              },
+              "PointY": {
+                "type": "float",
+                "value": -1.2338871955871582
+              },
+              "PointZ": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 9.871101379394531
+              },
+              "PointY": {
+                "type": "float",
+                "value": 1.1920928955078125e-06
+              },
+              "PointZ": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 3
+            }
+          ]
+        },
+        "HighlightHeight": {
+          "type": "float",
+          "value": 0.0
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "LinkedTo": {
+          "type": "cexostr",
+          "value": "WP_pl_slmlak_002_001"
+        },
+        "LinkedToFlags": {
+          "type": "byte",
+          "value": 2
+        },
+        "LoadScreenID": {
+          "type": "word",
+          "value": 0
+        },
+        "LocalizedName": {
+          "str_ref": 14760,
+          "type": "cexolocstr",
+          "value": {}
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "ScriptHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "ScriptOnEnter": {
+          "type": "resref",
+          "value": ""
+        },
+        "ScriptOnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "ScriptUserDefine": {
+          "type": "resref",
+          "value": ""
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "pl_slmlak_001_002"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "newtransition"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "int",
+          "value": 1
+        },
+        "XOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 60.043678283691406
+        },
+        "YOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 1.5673291683197021
+        },
+        "ZOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 1
+      },
+      {
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Cursor": {
+          "type": "byte",
+          "value": 1
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "PointX": {
+                "type": "float",
+                "value": -9.629663467407227
+              },
+              "PointY": {
+                "type": "float",
+                "value": 2.0851593017578125
+              },
+              "PointZ": {
+                "type": "float",
+                "value": 0.0250005591660738
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -9.629661560058594
+              },
+              "PointY": {
+                "type": "float",
+                "value": 0.0
+              },
+              "PointZ": {
+                "type": "float",
+                "value": 0.025000499561429024
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 0.0
+              },
+              "PointY": {
+                "type": "float",
+                "value": 0.0
+              },
+              "PointZ": {
+                "type": "float",
+                "value": 0.0250005591660738
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 0.07582378387451172
+              },
+              "PointY": {
+                "type": "float",
+                "value": 2.0851593017578125
+              },
+              "PointZ": {
+                "type": "float",
+                "value": 0.025000499561429024
+              },
+              "__struct_id": 3
+            }
+          ]
+        },
+        "HighlightHeight": {
+          "type": "float",
+          "value": 0.0
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "LinkedTo": {
+          "type": "cexostr",
+          "value": "WP_pl_xanrd_slmlak"
+        },
+        "LinkedToFlags": {
+          "type": "byte",
+          "value": 2
+        },
+        "LoadScreenID": {
+          "type": "word",
+          "value": 0
+        },
+        "LocalizedName": {
+          "str_ref": 14760,
+          "type": "cexolocstr",
+          "value": {}
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "ScriptHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "ScriptOnEnter": {
+          "type": "resref",
+          "value": ""
+        },
+        "ScriptOnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "ScriptUserDefine": {
+          "type": "resref",
+          "value": ""
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "pl_slmlak_xanroad"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "newtransition"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "int",
+          "value": 1
+        },
+        "XOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 9.695572853088379
+        },
+        "YOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 117.73177337646484
+        },
+        "ZOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 1
+      }
+    ]
+  },
+  "WaypointList": {
+    "type": "list",
+    "value": [
+      {
+        "Appearance": {
+          "type": "byte",
+          "value": 1
+        },
+        "Description": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {}
+        },
+        "HasMapNote": {
+          "type": "byte",
+          "value": 0
+        },
+        "LinkedTo": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {}
+        },
+        "MapNote": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {}
+        },
+        "MapNoteEnabled": {
+          "type": "byte",
+          "value": 0
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "WP_pl_slmlak_xanroad"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": ""
+        },
+        "XOrientation": {
+          "type": "float",
+          "value": 1.4694529454573058e-05
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 5.010000228881836
+        },
+        "YOrientation": {
+          "type": "float",
+          "value": -1.0
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 116.5999984741211
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.009999999776482582
+        },
+        "__struct_id": 5
+      },
+      {
+        "Appearance": {
+          "type": "byte",
+          "value": 1
+        },
+        "Description": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {}
+        },
+        "HasMapNote": {
+          "type": "byte",
+          "value": 0
+        },
+        "LinkedTo": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {}
+        },
+        "MapNote": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {}
+        },
+        "MapNoteEnabled": {
+          "type": "byte",
+          "value": 0
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "WP_pl_slmlak_001_002"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": ""
+        },
+        "XOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 64.9792251586914
+        },
+        "YOrientation": {
+          "type": "float",
+          "value": 1.0
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 3.016018867492676
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.010006070137023926
+        },
+        "__struct_id": 5
+      }
+    ]
+  },
+  "__data_type": "GIT",
+  "__struct_id": -1
+}

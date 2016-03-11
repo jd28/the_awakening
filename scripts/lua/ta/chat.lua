@@ -256,9 +256,10 @@ local function CCMessageHandler(msg)
    return false
 end
 
-local NXChat = safe_require 'solstice.nwnx.chat'
-NXChat.SetChatHandler(ChatHandler)
-NXChat.SetCombatMessageHandler(CCMessageHandler)
+local NWNXChat = require 'solstice.nwnx.chat'
+
+NWNXChat.SetChatHandler(ChatHandler)
+NWNXChat.SetCombatMessageHandler(CCMessageHandler)
 
 local M = {}
 M.IsRegisteredSymbol = IsRegisteredSymbol

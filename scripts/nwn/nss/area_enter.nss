@@ -1,4 +1,5 @@
 #include "area_inc"
+#include "pc_persist"
 
 void main(){
 
@@ -62,7 +63,7 @@ void main(){
             }
 
             if (GetLocalInt(oArea, "area_delete_location")){
-                DeletePersistentLocation(oPC);
+                DeletePersistantVariable(oPC, "loc");
             }
 
             // Save location on enter.

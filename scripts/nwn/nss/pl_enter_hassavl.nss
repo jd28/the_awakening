@@ -1,6 +1,6 @@
 #include "nwnx_inc"
 #include "pc_funcs_inc"
-#include "nwnx_redis"
+#include "pc_persist"
 
 int StartingConditional(){
     // Test characters don't have saved locations.
@@ -8,5 +8,5 @@ int StartingConditional(){
         return FALSE;
     }
 
-    return GetIsLocationValid(GetPersistantLocation(GetPCSpeaker()));
+    return GetIsLocationValid(GetPersistantLocation(GetPCSpeaker(), "loc"));
 }

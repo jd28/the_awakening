@@ -85,7 +85,7 @@ void main(){
     // Set Boot time
     int nBootTime;
 
-    SQLExecDirect("SELECT extract(epoch from now());");
+    SQLExecDirect("SELECT UNIX_TIMESTAMP();");
     if (SQLFetch() == SQL_SUCCESS){
         nBootTime = StringToInt(SQLGetData(1));
         SetLocalInt(GetModule(), "BootTime", nBootTime);
@@ -96,13 +96,7 @@ void main(){
         WriteTimestampedLogEntry("ERROR : mod_load : Failed get boot time.");
     }
 
-    SQLExecDirect("SELECT cdkeys, admin FROM nwn.players where admin > 0");
-    while (SQLFetch() == SQL_SUCCESS){
-       string key = SQLGetData(1);
-       string val = SQLGetData(2);
-       WriteTimestampedLogEntry("LOG : mod_load : Adding key: " + key + " : " + val);
-       SetLocalInt(GetModule(), key, StringToInt(val));
-    }
+    ExecuteScript("ta_mod_load", OBJECT_SELF);
 
     // -------------------------------------------------------------------------
     // SIMTools -- Init placeholders for chat gateway

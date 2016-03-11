@@ -16,14 +16,14 @@ function pl_balor_knuckle(obj)
    if taken < 10 then
       obj:SpeakString("You do not have 10 skeleton knuckles!")
    else
-      pc:SetPlayerInt('pc_balor_paid', 1)
+      pc:SetPlayerInt('pc:balor_paid', 1)
       obj:SpeakString("Yes, yes... I will help you.")
    end
 end
 
 function pl_balor_check(obj)
    local pc = Game.GetPCSpeaker()
-   return pc:GetPlayerInt('pc_balor_paid') ~= 0
+   return pc:GetPlayerInt('pc:balor_paid') ~= 0
 end
 
 function pl_balor_buy(obj)
@@ -56,5 +56,5 @@ end
 
 function pl_balor_check2(obj)
    local pc = Game.GetPCSpeaker()
-   return pc:GetPlayerInt('pc_balor_paid') == 0
+   return pc:GetPlayerInt('pc:balor_paid') == 0
 end

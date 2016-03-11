@@ -14,10 +14,11 @@ function M.Load(file)
    local res = runfile(file, l)
 end
 
-function M.Run(resref, level, obj)
+function M.Run(obj)
+   local resref = obj:GetResRef()
    if not _HOLDER[resref] then return end
    local res       = _HOLDER[resref]
-   local lvl_table = Dyn.GetLevelTable(res, level)
+   local lvl_table = Dyn.GetPlayerTable(res, obj:GetArea():GetLocalInt('area_occupied'))
    local items     = Dyn.flatten(lvl_table)
 
    for _, it in ipairs(items) do
@@ -44,7 +45,7 @@ end
 function M.Test(resref, level)
    level = level or 0
    local res       = assert(_HOLDER[resref])
-   local lvl_table = Dyn.GetLevelTable(res, level)
+   local lvl_table = Dyn.GetPlayerTable(res, 1)
    local items     = Dyn.flatten(lvl_table)
 
    local t = {}

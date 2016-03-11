@@ -43,7 +43,7 @@ function M.Generate(object, max)
    local resref = object:GetResRef()
    local creature = _CREATURES[resref]
    if not creature then return end
-   creature   = Dyn.GetLevelTable(creature, level)
+   creature = Dyn.GetPlayerTable(creature, object:GetArea():GetLocalInt('area_occupied'))
    if not creature then return end
 
    -- This probably could be done in a better fashion...
@@ -82,6 +82,7 @@ end
 
 function M.Test(resref, max)
    local creature = _CREATURES[resref]
+   creature = Dyn.GetPlayerTable(creature, 1)
    local ips  = Dyn.flatten(creature.effects, OBJECT_INVALID)
    local res = { "Creature: "..resref }
 

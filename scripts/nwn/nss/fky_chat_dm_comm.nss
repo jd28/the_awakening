@@ -193,12 +193,12 @@ void DoDMChange(struct pl_chat_command pcc){//dm_change <thing> <value>
         }
 
         if (GetIsPC(pcc.oTarget)){
-            nAppear = GetLocalInt(pcc.oTarget, "FKY_CHAT_TRUEAPPEAR");
+            nAppear = GetPersistantInt(pcc.oTarget, "appear");
             if (!nAppear) //if original appearance has not been stored
             {
                 nAppear = GetAppearanceType(pcc.oTarget);
                 SetLocalInt(pcc.oTarget, "FKY_CHAT_TRUEAPPEAR", nAppear);
-                SET("appear:"+GetRedisID(pcc.oTarget), IntToString(nAppear));
+                SetPersistantInt(pcc.oTarget, "appear", nAppear);
             }
         }
 
@@ -311,7 +311,7 @@ void DoDMChangeAppear(struct pl_chat_command pcc){//dm_change
         {
             nAppear = GetAppearanceType(pcc.oTarget);
             SetLocalInt(pcc.oTarget, "FKY_CHAT_TRUEAPPEAR", nAppear);
-            SET("appear:"+GetRedisID(pcc.oTarget), IntToString(nAppear));
+            SetPersistantInt(pcc.oTarget, "appear", nAppear);
         }
     }
     if ((VerifyDMKey(pcc.oTarget) || VerifyAdminKey(pcc.oTarget))&& (pcc.oTarget != pcc.oPC))

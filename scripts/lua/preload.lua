@@ -3,7 +3,6 @@ local ffi = require 'ffi'
 local C = ffi.C
 local fmt = string.format
 local inih = require 'inih'
-
 -- Some sane defaults, can be overwritten in nwnx2.ini.
 local script_dir = 'lua'
 local log_dir = "logs.0"
@@ -28,6 +27,9 @@ OPT.LOG_DIR = log_dir
 OPT.SCRIPT_DIR = script_dir
 package.path = package.path .. ";./"..script_dir.."/?.lua;"
 
+-- Need to do this because redis lib defines a global...
+local redis = require 'ta.redis'
+
 -- Bind servers default logger.
 local Sys = require 'solstice.system'
 local Log = Sys.FileLogger(OPT.LOG_DIR .. '/' .. OPT.LOG_FILE, OPT.LOG_DATE_PATTERN)
@@ -37,7 +39,11 @@ Sys.SetLogger(Log)
 require(OPT.CONSTANTS)
 require('solstice.preload')
 
-require 'combat.new_combat_engine'
+-- Extensions
+require 'extensions.creature'
+require 'extensions.rules'
+
+require 'plugins.combat.load'
 
 if OPT.DATABASE_TYPE
    and OPT.DATABASE_HOSTNAME
@@ -83,12 +89,6 @@ load_dir('loot', 'Loot Table', E.Load)
 -- Items
 local Item = require 'ta.item'
 load_dir('items', 'Item', Item.Load)
-
--- Load IP Handlers.
-load_dir('ip_handlers', 'Itemprop Handler', dofile)
-
--- Load IP Handlers.
-load_dir('effect_handlers', 'Effect Handler', dofile)
 
 -- Hooks
 load_dir('hooks', 'Hook', dofile)

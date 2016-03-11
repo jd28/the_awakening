@@ -1,0 +1,272 @@
+{
+  "DelayEntry": {
+    "type": "dword",
+    "value": 0
+  },
+  "DelayReply": {
+    "type": "dword",
+    "value": 0
+  },
+  "EndConverAbort": {
+    "type": "resref",
+    "value": "nw_walk_wp"
+  },
+  "EndConversation": {
+    "type": "resref",
+    "value": "nw_walk_wp"
+  },
+  "EntryList": {
+    "type": "list",
+    "value": [
+      {
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "Comment": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "RepliesList": {
+          "type": "list",
+          "value": []
+        },
+        "Script": {
+          "type": "resref",
+          "value": "dno_at_csa_1"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Speaker": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "Text": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "Land is has been sighted, but it looks as though we've got company.\n Arm yourselves and prepare for boarders!!"
+          }
+        },
+        "__struct_id": 0
+      },
+      {
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "Comment": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "RepliesList": {
+          "type": "list",
+          "value": []
+        },
+        "Script": {
+          "type": "resref",
+          "value": "dno_at_csa_2"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Speaker": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "Text": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "Lookout!! Incoming!!"
+          }
+        },
+        "__struct_id": 1
+      },
+      {
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "Comment": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "Quest": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "RepliesList": {
+          "type": "list",
+          "value": [
+            {
+              "Active": {
+                "type": "resref",
+                "value": ""
+              },
+              "Index": {
+                "type": "dword",
+                "value": 0
+              },
+              "IsChild": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Script": {
+          "type": "resref",
+          "value": ""
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Speaker": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "Text": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "OK, I think we are clear now. Take the rowboat to shore and good luck."
+          }
+        },
+        "__struct_id": 2
+      }
+    ]
+  },
+  "NumWords": {
+    "type": "dword",
+    "value": 41
+  },
+  "PreventZoomIn": {
+    "type": "byte",
+    "value": 0
+  },
+  "ReplyList": {
+    "type": "list",
+    "value": [
+      {
+        "AnimLoop": {
+          "type": "byte",
+          "value": 1
+        },
+        "Animation": {
+          "type": "dword",
+          "value": 0
+        },
+        "Comment": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "Delay": {
+          "type": "dword",
+          "value": 4294967295
+        },
+        "EntriesList": {
+          "type": "list",
+          "value": []
+        },
+        "Quest": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "Script": {
+          "type": "resref",
+          "value": "dno_at_csa_3"
+        },
+        "Sound": {
+          "type": "resref",
+          "value": ""
+        },
+        "Text": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "Thank you for your help. farewell."
+          }
+        },
+        "__struct_id": 0
+      }
+    ]
+  },
+  "StartingList": {
+    "type": "list",
+    "value": [
+      {
+        "Active": {
+          "type": "resref",
+          "value": "dno_ta_csa_2"
+        },
+        "Index": {
+          "type": "dword",
+          "value": 2
+        },
+        "__struct_id": 0
+      },
+      {
+        "Active": {
+          "type": "resref",
+          "value": "dno_ta_csa_1"
+        },
+        "Index": {
+          "type": "dword",
+          "value": 1
+        },
+        "__struct_id": 1
+      },
+      {
+        "Active": {
+          "type": "resref",
+          "value": ""
+        },
+        "Index": {
+          "type": "dword",
+          "value": 0
+        },
+        "__struct_id": 2
+      }
+    ]
+  },
+  "__data_type": "DLG",
+  "__struct_id": -1
+}

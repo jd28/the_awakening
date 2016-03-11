@@ -24,7 +24,7 @@
 #include "srv_funcs_inc"
 #include "info_inc"
 #include "area_inc"
-#include "nwnx_redis"
+#include "pc_persist"
 
 const string sSpeech_SpeechList = "SpeechList_";
 const string sSpeech_PlayerID = "SpeechPlayerID_";
@@ -415,10 +415,6 @@ void ListCommands(object oPlayer)
     sMessage += C_PURPLE + COMMAND_SYMBOL + "list commands "+C_END+NEWLINE;
     sMessage += C_PURPLE + COMMAND_SYMBOL + "list ignored "+C_END+NEWLINE;
     sMessage += C_PURPLE + COMMAND_SYMBOL + "list modes "+C_END+NEWLINE;
-//    if (ENABLE_LANGUAGES) sMessage += C_PURPLE + "/l "+C_END+NEWLINE;
-//    if (ENABLE_LANGUAGES) sMessage += C_PURPLE + COMMAND_SYMBOL + "speak "+C_END+NEWLINE;
-//    if (ENABLE_LANGUAGES) sMessage += C_PURPLE + COMMAND_SYMBOL + "list languages "+C_END+NEWLINE;
-//    if (ENABLE_LANGUAGES && (ENABLE_FULL_LANGUAGE_LIST_FOR_PLAYERS || VerifyDMKey(oPlayer) || VerifyAdminKey(oPlayer))) sMessage += C_PURPLE + COMMAND_SYMBOL + "list alllanguages "+C_END+NEWLINE;
     sMessage += C_PURPLE + COMMAND_SYMBOL + "lfg "+C_END+NEWLINE;
     if (ENABLE_METACHANNELS) sMessage += C_PURPLE + COMMAND_SYMBOL + "metaaccept "+C_END+NEWLINE;
     if (ENABLE_METACHANNELS) sMessage += C_PURPLE + COMMAND_SYMBOL + "metadecline "+C_END+NEWLINE;
@@ -429,9 +425,6 @@ void ListCommands(object oPlayer)
     if (ENABLE_METACHANNELS) sMessage += C_PURPLE + COMMAND_SYMBOL + "metalist "+C_END+NEWLINE;
     if (ENABLE_METACHANNELS) sMessage += C_PURPLE + "/m "+C_END+NEWLINE;
     if (ENABLE_PLAYER_SETNAME || VerifyDMKey(oPlayer) || VerifyAdminKey(oPlayer)) sMessage += C_GREEN + COMMAND_SYMBOL + "setname "+C_END+NEWLINE;
-//    if (ENABLE_PLAYER_SETNAME || VerifyDMKey(oPlayer) || VerifyAdminKey(oPlayer)) sMessage += C_GREEN + COMMAND_SYMBOL + "setnameall "+C_END+NEWLINE;
-//    if (ENABLE_PLAYER_SETTAILWINGS || VerifyDMKey(oPlayer) || VerifyAdminKey(oPlayer)) sMessage += C_GREEN + COMMAND_SYMBOL + "settail "+C_END+NEWLINE;
-//    if (ENABLE_PLAYER_SETTAILWINGS || VerifyDMKey(oPlayer) || VerifyAdminKey(oPlayer)) sMessage += C_GREEN + COMMAND_SYMBOL + "setwings "+C_END+NEWLINE;
     if (PLAYERS_CAN_DELETE || (VerifyDMKey(oPlayer) && DMS_CAN_DELETE) || VerifyAdminKey(oPlayer)) sMessage += C_GREEN + COMMAND_SYMBOL + "delete "+C_END+NEWLINE;
     sMessage += C_PURPLE + COMMAND_SYMBOL + "skillcheck "+C_END+NEWLINE;
     sMessage += C_PURPLE + COMMAND_SYMBOL + "skillslist "+C_END+NEWLINE;
@@ -468,10 +461,6 @@ void ListHelp(object oPlayer)
     sMessage += C_PURPLE + COMMAND_SYMBOL + "list emotes "+C_END+C_WHITE+COMMAND17+C_END+NEWLINE;
     sMessage += C_PURPLE + COMMAND_SYMBOL + "list commands "+C_END+C_WHITE+COMMAND18+C_END+NEWLINE;
     sMessage += C_PURPLE + COMMAND_SYMBOL + "list ignored "+C_END+C_WHITE+COMMAND19+C_END+NEWLINE;
-//    if (ENABLE_LANGUAGES) sMessage += C_PURPLE + "/l "+C_END+C_WHITE+COMMAND41+C_LT_PURPLE+"/l"+COMMAND42+C_END+C_WHITE+COMMAND43+C_LT_PURPLE+COMMAND_SYMBOL+"list languages"+C_END+C_WHITE+COMMAND44+NEWLINE;
-//    if (ENABLE_LANGUAGES) sMessage += C_PURPLE + COMMAND_SYMBOL + "speak "+C_END+C_WHITE+COMMAND45+C_LT_PURPLE+COMMAND_SYMBOL+"speak"+C_END+C_WHITE+COMMAND46+C_LT_PURPLE+COMMAND_SYMBOL+"speak common"+C_END+C_WHITE+COMMAND47+C_LT_PURPLE+COMMAND_SYMBOL+"list languages"+C_END+C_WHITE+COMMAND48+NEWLINE;
-//    if (ENABLE_LANGUAGES) sMessage += C_PURPLE + COMMAND_SYMBOL + "list languages "+C_END+C_WHITE+COMMAND20+C_LT_PURPLE+"/l"+C_END+C_WHITE+COMMAND20b+C_LT_PURPLE+COMMAND_SYMBOL+"speak"+C_END+C_WHITE+COMMAND20c+C_END+NEWLINE;
-//    if (ENABLE_LANGUAGES && (ENABLE_FULL_LANGUAGE_LIST_FOR_PLAYERS || VerifyDMKey(oPlayer) || VerifyAdminKey(oPlayer))) sMessage += C_PURPLE + COMMAND_SYMBOL + "list alllanguages "+C_END+C_WHITE+COMMAND21+C_END+NEWLINE;
     sMessage += C_PURPLE + COMMAND_SYMBOL + "lfg "+C_END+C_WHITE+COMMAND22+C_END+NEWLINE;
     if (ENABLE_METACHANNELS) sMessage += C_PURPLE + COMMAND_SYMBOL + "metaaccept "+C_END+C_WHITE+COMMAND23+C_END+NEWLINE;
     if (ENABLE_METACHANNELS) sMessage += C_PURPLE + COMMAND_SYMBOL + "metadecline "+C_END+C_WHITE+COMMAND24+C_END+NEWLINE;
@@ -482,9 +471,6 @@ void ListHelp(object oPlayer)
     if (ENABLE_METACHANNELS) sMessage += C_PURPLE + COMMAND_SYMBOL + "metalist "+C_END+C_WHITE+COMMAND29+C_END+NEWLINE;
     if (ENABLE_METACHANNELS) sMessage += C_PURPLE + "/m "+C_END+C_WHITE+COMMAND30+C_END+NEWLINE;
     if (ENABLE_PLAYER_SETNAME || VerifyDMKey(oPlayer) || VerifyAdminKey(oPlayer)) sMessage += C_GREEN + COMMAND_SYMBOL + "setname "+C_END+C_WHITE+COMMAND31+C_LT_GREEN+COMMAND_SYMBOL+"setname ("+COMMAND31c+")"+C_END+C_WHITE+COMMAND31d+C_LT_GREEN+COMMAND_SYMBOL+"setname "+COMMAND31f+C_END+C_WHITE+COMMAND31g+C_END+NEWLINE;
-//    if (ENABLE_PLAYER_SETNAME || VerifyDMKey(oPlayer) || VerifyAdminKey(oPlayer)) sMessage += C_GREEN + COMMAND_SYMBOL + "setnameall "+C_END+C_WHITE+COMMAND32a+C_END+C_LT_GREEN+COMMAND_SYMBOL+"setname"+C_END+C_WHITE+COMMAND32b+C_END+NEWLINE;
-//    if (ENABLE_PLAYER_SETTAILWINGS || VerifyDMKey(oPlayer) || VerifyAdminKey(oPlayer)) sMessage += C_GREEN + COMMAND_SYMBOL + "settail "+C_END+C_WHITE+COMMAND37+C_END+C_LT_GREEN + COMMAND_SYMBOL+"settail (tail number)"+C_END+C_WHITE+COMMAND38 + C_END+NEWLINE;
-//    if (ENABLE_PLAYER_SETTAILWINGS || VerifyDMKey(oPlayer) || VerifyAdminKey(oPlayer)) sMessage += C_GREEN + COMMAND_SYMBOL + "setwings "+C_END+C_WHITE+COMMAND39+C_END+C_LT_GREEN + COMMAND_SYMBOL+"setwing (wing number)"+C_END+C_WHITE+COMMAND38 + C_END+NEWLINE;
     if (PLAYERS_CAN_DELETE || (VerifyDMKey(oPlayer) && DMS_CAN_DELETE) || VerifyAdminKey(oPlayer)) sMessage += C_GREEN + COMMAND_SYMBOL + "delete "+C_END+C_WHITE+COMMAND49+C_LT_GREEN + COMMAND_SYMBOL+"playerinfo"+C_END+C_WHITE+COMMAND48+ C_END+NEWLINE;
     sMessage += C_PURPLE + COMMAND_SYMBOL + "skillcheck "+C_END+C_WHITE+COMMAND33+C_LT_PURPLE+COMMAND_SYMBOL+"skillcheck "+COMMAND33b+C_END+C_WHITE+COMMAND33c+C_LT_PURPLE+COMMAND_SYMBOL+"skillcheck 3 20"+C_END+C_WHITE+COMMAND33d+C_LT_PURPLE+COMMAND_SYMBOL+"skillslist"+C_END+C_WHITE+COMMAND33e+C_END+NEWLINE;
     sMessage += C_PURPLE + COMMAND_SYMBOL + "skillslist "+C_END+C_WHITE+COMMAND34+C_LT_PURPLE+COMMAND_SYMBOL+"skillcheck"+C_END+C_WHITE+COMMAND34b+C_END+NEWLINE;
@@ -1122,7 +1108,7 @@ void DoSpamBan(object oPC, string sSBText)
     if (GetLocalString(oPC, "FKY_CHT_BANREASON") == "") SetLocalString(oPC, "FKY_CHT_BANREASON", sSBText);
     //capture the first message that got them busted so that that can't overwrite with something
     //benign to show the dms to get unbanned so they can try again
-    SET("ban:shout:"+GetRedisID(oPC), "1");
+    SetPersistantInt(oPC, "ban:shout", 1);
     SendMessageToPC(oPC, C_RED+PERMBANSHT1+C_END);//tell em
 }
 

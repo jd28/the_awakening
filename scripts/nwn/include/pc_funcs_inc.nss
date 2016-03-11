@@ -4,7 +4,6 @@
 #include "info_inc"
 #include "pl_effects_inc"
 #include "ws_inc_shifter"
-#include "nwnx_redis"
 
 // Apply Respawn Penalty to PC
 void ApplyRespawnPenalty(object oPC);
@@ -382,16 +381,6 @@ int GetIsPCShifted(object oPC){
         eEffect = GetNextEffect(oPC);
     }
     return FALSE;
-}
-
-string GetRedisID(object oPC, int global = FALSE);
-string GetRedisID(object oPC, int global = FALSE) {
-    if(global) {
-        return GetLocalString(oPC, VAR_PC_PLAYER_NAME);
-    }
-    else {
-        return GetLocalString(oPC, VAR_PC_PLAYER_NAME)+":"+GetLocalString(oPC, VAR_PC_BIC_FILE);
-    }
 }
 
 int GetIsRelevelable(object oPC){
@@ -773,36 +762,6 @@ string GetPlayerId(object oPC) {
 
 string GetCharacterId(object oPC) {
     return GetLocalString(oPC, "pc_character_id");
-}
-
-location GetPersistantLocation(object oPC) {
-    string loc = GET("loc:"+GetRedisID(oPC));
-    return APSStringToLocation(loc);
-}
-
-void DeletePersistentLocation(object oPC) {
-    DEL("loc:"+GetRedisID(oPC));
-}
-
-void SavePersistentLocation(object oPC){
-    object oArea = GetArea(oPC);
-    int type = GetLocalInt(oArea, VAR_AREA_LOC_SAVE);
-    string key, loc;
-    switch(type){
-        case 2:
-            SendPCMessage(oPC, C_RED+"You have reached a point of no return.  In order to save your location " +
-                "you must return to the previous area (if you can).  Your previous saved location has been deleted." + C_END);
-            DeletePersistentLocation(oPC);
-            // No break;
-        case 1:
-            SendPCMessage(oPC, C_RED+"Your location cannot be saved in this area."+C_END);
-        break;
-        default:
-            key = "loc:"+GetRedisID(oPC);
-            loc = APSLocationToString(GetLocation(oPC));
-            SET(key, loc);
-            SendPCMessage(oPC, C_GREEN+"Your location has been saved."+C_END);
-    }
 }
 
 void SendAllMessage(string sMessage, float fDelay = 0.0){

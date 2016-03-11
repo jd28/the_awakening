@@ -47,7 +47,7 @@ void main(){
 
     LoadPersistentState(oPC);
 
-    SetLocalInt(oPC, "NWNX_HELM_HIDDEN", StringToInt(GET("helm:"+GetRedisID(oPC))));
+    SetLocalInt(oPC, "NWNX_HELM_HIDDEN", StringToInt(GET("pc:helm:"+GetRedisID(oPC))));
 // -----------------------------------------------------------------------------
 // SIMTools Stuff
 // -----------------------------------------------------------------------------
@@ -132,14 +132,14 @@ void PCLoadPlayer(object oPC){
             RebuildJournalQuestEntries(oPC);
         }
 
-        int enhanced = GetLocalInt(oPC, "pc_enhanced");
+        int enhanced = GetPersistantInt(oPC, "pc:enhanced", TRUE);
         if(enhanced == 0){
             DelayCommand(15.0f, SendChatLogMessage(oPC, C_RED+"It is highly suggested that you go to the forums at theawakening1.freeforums.org and download " +
                 "the server HAKs and TLK and use one of the !opt enhanced commands.  This is a small 3MB download.  You can play for awhile without it, " +
 				"but leveling without it will likely negatively impact your character!  Please be aware!"+C_END, oPC, 4));
         }
 
-        int hak_version = GetLocalInt(oPC, "pc_hak_version");
+        int hak_version = GetPersistantInt(oPC, "pc:hak_version");
 		if ( hak_version < GetLocalInt(GetModule(), "HAK_VERSION") ) {
 			DelayCommand(15.0f, SendChatLogMessage(oPC,
 												   C_RED +
@@ -150,10 +150,10 @@ void PCLoadPlayer(object oPC){
 		}
 
 
-        int nHP = StringToInt(GET("hp:"+GetRedisID(oPC)));
+        int nHP = GetPersistantInt(oPC, "hp");
         if (nHP < 0){
-            DEL("hp:"+GetRedisID(oPC));
-            DEL("loc:"+GetRedisID(oPC));
+            DeletePersistantVariable(oPC, "hp");
+            DeletePersistantVariable(oPC, "loc");
             ErrorMessage(oPC, "Respawn Penalty: Logged dead.");
             ApplyRespawnPenalty(oPC);
         }

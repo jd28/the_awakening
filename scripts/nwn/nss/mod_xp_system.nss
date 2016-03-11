@@ -12,7 +12,7 @@
 //#include "mod_const_inc"
 #include "mod_funcs_inc"
 #include "pc_funcs_inc"
-#include "nwnx_redis"
+#include "pc_persist"
 
 // Declare the functions
 int GetMaxXP(object oPC);
@@ -166,11 +166,11 @@ void GiveXP(object oKiller, int nXPToGive, int nBossXP, float fKillerBonus, int 
                 if(!GetLocalInt(OBJECT_SELF, "DM_SPAWNED")){
                     if(GetLocalInt(OBJECT_SELF, "xp_set_var")) {
                         SetLocalInt(oParty, GetTag(OBJECT_SELF), TRUE);
-					}
+                    }
                     else if(GetLocalInt(OBJECT_SELF, "xp_set_persist_var")) {
                         SetLocalInt(oParty, GetTag(OBJECT_SELF), TRUE);
-                        SET("killtag:"+GetTag(OBJECT_SELF)+":"+GetRedisID(oParty), "1");
-					}
+                        SetPersistantInt(oParty, "killtag:"+GetTag(OBJECT_SELF), 1);
+                    }
                 }
 
                 if(GetLocalInt(oParty, "FKY_CHAT_XPBANK")){
@@ -189,10 +189,10 @@ void GiveXP(object oKiller, int nXPToGive, int nBossXP, float fKillerBonus, int 
 
                 }
 
-				if (GetLocalInt(OBJECT_SELF, "Boss")) {
-					IncrementLocalInt(oParty, "kill_" + GetResRef(OBJECT_SELF));
-					IncrementLocalInt(oParty, "killg_" + GetResRef(OBJECT_SELF));
-				}
+                if (GetLocalInt(OBJECT_SELF, "Boss")) {
+                    IncrementLocalInt(oParty, "kill_" + GetResRef(OBJECT_SELF));
+                    IncrementLocalInt(oParty, "killg_" + GetResRef(OBJECT_SELF));
+                }
 
                 GiveTakeXP(oParty, nXPToGive);
                 GiveGoldToCreature(oParty, FloatToInt(((GetChallengeRating(OBJECT_SELF) / 2) +1 ) * 40));

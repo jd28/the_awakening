@@ -2,47 +2,61 @@
 local M = {}
 local ffi = require 'ffi'
 local random = math.random
+local max = math.max
+local min = math.min
+local floor = math.floor
 
 ffi.cdef [[
 typedef struct {
    int32_t start;
    int32_t stop;
 } Range;
+
+typedef struct DynamoValue {
+   int32_t start;
+   int32_t stop;
+   double  add;
+   bool    mult;
+} DynamoValue;
 ]]
 
-M.range_t = ffi.typeof("Range")
+local range_t = ffi.typeof("Range")
+local dynamo_value_t = ffi.typeof("DynamoValue")
 
-M.DYNAMO_INVALID = 0
-M.DYNAMO_CHANCE  = 1
-M.DYNAMO_ROTATE  = 2
-M.DYNAMO_EVERY   = 3
-M.DYNAMO_IF      = 4
-M.DYNAMO_RANDOM  = 5
-M.DYNAMO_PERCENT = 6
-M.DYNAMO_OR      = 7
-M.DYNAMO_WEIGHT  = 8
+local DYNAMO_INVALID = 0
+local DYNAMO_CHANCE  = 1
+local DYNAMO_ROTATE  = 2
+local DYNAMO_EVERY   = 3
+local DYNAMO_IF      = 4
+local DYNAMO_RANDOM  = 5
+local DYNAMO_PERCENT = 6
+local DYNAMO_OR      = 7
+local DYNAMO_WEIGHT  = 8
 
-function M.GetLevelTable(tbl, level)
-   level = level or 0
-   if level >= 3 and tbl.Level3 then
-      return tbl.Level3
+local function GetPlayerTable(tbl, num_players)
+   local place
+   local minimum = 1000000
+   for x, y in pairs(tbl) do
+      if type(x) == 'number' then
+         place = place or x
+         minimum = min(minimum, x)
+         if x >= num_players and x <= place then
+            place = x
+         end
+      end
    end
-   if level >= 2 and tbl.Level2 then
-      return tbl.Level2
+   if minimum > num_players then
+      return tbl[minimum]
    end
-   if level >= 1 and tbl.Level1 then
-      return tbl.Level1
-   end
-
-   return tbl.Default
+   return tbl[place]
 end
 
-function M.set_base(tbl)
+local function set_base(tbl)
    tbl._dynamo_base = true
 end
 
-function M.Capture(table, key)
-   local is_const = string.match(key, '^%u[%u_]')
+local function Capture(table, key)
+   local is_const = string.match(key, '^%u[%u_]+')
    if is_const and not _CONSTS[key] then
       error(string.format("Invalid constant: %s!", key))
    end
@@ -56,32 +70,17 @@ function M.Capture(table, key)
    local function f(...)
       local t = {...}
       t.f = key
-      M.set_base(t)
+      set_base(t)
       return t
    end
 
    return f
 end
 
-function M.flatten(tbl, obj, acc)
-   acc = acc or {}
-   for _, sp in ipairs(tbl) do
-      local ex = M.extract(sp, obj)
-      if ex then
-         if ex._dynamo_base then
-            table.insert(acc, ex)
-         else
-            M.flatten(ex, obj, acc)
-         end
-      end
-   end
-   return acc
-end
-
-function M.extract(tbl, obj)
+local function extract(tbl, obj)
    local result = tbl
 
-   if tbl.chance and tbl.chance < math.random(100) then
+   if tbl.chance and tbl.chance < random(100) then
       return nil
    end
 
@@ -89,7 +88,7 @@ function M.extract(tbl, obj)
    -- doesn't need extraction.
    if not tbl._dynamo_type then return tbl end
 
-   if tbl._dynamo_type == M.DYNAMO_ROTATE then
+   if tbl._dynamo_type == DYNAMO_ROTATE then
       if not tbl.rotate then
          print(debug.traceback())
       end
@@ -99,8 +98,8 @@ function M.extract(tbl, obj)
       else
          tbl.rotate = tbl.rotate + 1
       end
-   elseif tbl._dynamo_type == M.DYNAMO_PERCENT then
-      local r = math.random(100)
+   elseif tbl._dynamo_type == DYNAMO_PERCENT then
+      local r = random(100)
       local tot = 0
       for i=1, #tbl, 2 do
          tot = tot + tbl[i]
@@ -109,8 +108,8 @@ function M.extract(tbl, obj)
             break
          end
       end
-   elseif tbl._dynamo_type == M.DYNAMO_WEIGHT then
-      local r = math.random(tbl._weight_sum)
+   elseif tbl._dynamo_type == DYNAMO_WEIGHT then
+      local r = random(tbl._weight_sum)
       local tot = 0
       for i=1, #tbl, 2 do
          tot = tot + tbl[i]
@@ -119,9 +118,9 @@ function M.extract(tbl, obj)
             break
          end
       end
-   elseif tbl._dynamo_type == M.DYNAMO_RANDOM then
-      result = tbl[math.random(#tbl)]
-   elseif tbl._dynamo_type == M.DYNAMO_EVERY then
+   elseif tbl._dynamo_type == DYNAMO_RANDOM then
+      result = tbl[random(#tbl)]
+   elseif tbl._dynamo_type == DYNAMO_EVERY then
       if tbl[tbl.every] then
          result = tbl[tbl.every]
       else
@@ -132,7 +131,7 @@ function M.extract(tbl, obj)
       else
          tbl.every = tbl.every + 1
       end
-   elseif tbl._dynamo_type == M.DYNAMO_IF then
+   elseif tbl._dynamo_type == DYNAMO_IF then
       local r
       for i = 1, #tbl, 2 do
          if tbl[i](obj) then
@@ -141,10 +140,10 @@ function M.extract(tbl, obj)
          end
       end
       result = r
-   elseif tbl._dynamo_type == M.DYNAMO_OR then
+   elseif tbl._dynamo_type == DYNAMO_OR then
       local r
       for _, v in ipairs(tbl) do
-         local r = M.extract(v)
+         local r = extract(v)
          if r then break end
       end
       result = r
@@ -153,59 +152,103 @@ function M.extract(tbl, obj)
    return result
 end
 
-function M.Range(start, stop)
-   return M.range_t(start, stop)
+local function flatten(tbl, obj, acc)
+   acc = acc or {}
+   for _, sp in ipairs(tbl) do
+      local ex = extract(sp, obj)
+      if ex then
+         if ex._dynamo_base then
+            table.insert(acc, ex)
+         else
+            flatten(ex, obj, acc)
+         end
+      end
+   end
+   return acc
 end
 
-function M.GetValue(value, use_max)
+local function Range(start, stop)
+   return dynamo_value_t(start, stop)
+end
+
+local function PerPlayer(base, add, multiply)
+   multiply = multiply and 1 or 0
+   if type(base) == 'number' then
+      return dynamo_value_t(base, base, add, multiply)
+   else -- We assume this is already a range value...
+      base.add = add
+      base.mult = multiply
+      return base
+   end
+end
+
+local function GetValue(value, use_max, players)
    if type(value) == "number" then
       return value
    elseif type(value) == "table" then
       return value[random(1, #value)]
-   elseif value.start == value.stop then
-      return value.start
-   elseif use_max then
-      return value.stop
-   else
-      return random(value.start, value.stop)
    end
+
+   players = players or 1
+   local res
+   if value.start == value.stop then
+      res = value.start
+   elseif use_max then
+      res = value.stop
+   else
+      res = random(value.start, value.stop)
+   end
+
+   if value.add > 0 then
+      local nres = res
+      for i=1, players do
+         if value.mult then
+            nres = nres * value.add
+         else
+            nres = nres + value.add
+         end
+      end
+      res = nres
+   end
+
+   return floor(res)
 end
 
-function M.Chance(chance, tbl)
+local function Chance(chance, tbl)
    tbl.chance = chance
    return tbl
 end
 
-function M.Rotate(t)
+local function Rotate(t)
    t.rotate = 1
-   t._dynamo_type = M.DYNAMO_ROTATE
+   t._dynamo_type = DYNAMO_ROTATE
    return t
 end
 
-function M.Every(t)
+local function Every(t)
    local res = {}
    res.every = 1
-   res._dynamo_type = M.DYNAMO_EVERY
+   res._dynamo_type = DYNAMO_EVERY
    res._dynamo_every_max = -1
    for i = 1, #t, 2 do
-      res._dynamo_every_max = math.max(res._dynamo_every_max, t[i])
+      res._dynamo_every_max = max(res._dynamo_every_max, t[i])
       res[t[i]] = t[i+1]
    end
    return res
 end
 
-function M.If(t)
-   t._dynamo_type = M.DYNAMO_IF
+local function If(t)
+   t._dynamo_type = DYNAMO_IF
    return t
 end
 
-function M.Random(t)
-   t._dynamo_type = M.DYNAMO_RANDOM
+local function Random(t)
+   t._dynamo_type = DYNAMO_RANDOM
    return t
 end
 
-function M.Percent(t)
-   t._dynamo_type = M.DYNAMO_PERCENT
+local function Percent(t)
+   t._dynamo_type = DYNAMO_PERCENT
    assert(#t % 2 == 0)
    local sum = 0
    for i=1, #t, 2 do
@@ -215,13 +258,13 @@ function M.Percent(t)
    return t
 end
 
-function M.Or(t)
-   t._dynamo_type = M.DYNAMO_OR
+local function Or(t)
+   t._dynamo_type = DYNAMO_OR
    return t
 end
 
-function M.Weight(t)
-   t._dynamo_type = M.DYNAMO_WEIGHT
+local function Weight(t)
+   t._dynamo_type = DYNAMO_WEIGHT
    assert(#t % 2 == 0)
    local sum = 0
    for i=1, #t, 2 do
@@ -233,4 +276,20 @@ function M.Weight(t)
    return t
 end
 
+M.GetPlayerTable = GetPlayerTable
+M.Capture = Capture
+M.flatten = flatten
+M.extract = extract
+M.Range = Range
+M.PerPlayer = PerPlayer
+M.GetValue = GetValue
+M.Chance = Chance
+M.Rotate = Rotate
+M.Every = Every
+M.If = If
+M.Random = Random
+M.Percent = Percent
+M.Or = Or
+M.Weight = Weight
+M.set_base = set_base
 return M

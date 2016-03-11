@@ -1,0 +1,85 @@
+{
+  "AddCost": {
+    "type": "dword",
+    "value": 20
+  },
+  "BaseItem": {
+    "type": "int",
+    "value": 24
+  },
+  "Charges": {
+    "type": "byte",
+    "value": 0
+  },
+  "Comment": {
+    "type": "cexostr",
+    "value": "This stone is only used if you left USING_NWNX_DB set to FALSE in the fky_chat_config script. The speed of the bioware database makes it impractical for the number of database reads that the languages system requires the first oncliententer of every character each reset, so local ints stored on an item are used instead. These ints will be saved across resets if the character file is saved via ExportSingleCharacter(), AND if the character is a PC. DM characters cannot store ints on inventory items across resets."
+  },
+  "Cost": {
+    "type": "dword",
+    "value": 20
+  },
+  "Cursed": {
+    "type": "byte",
+    "value": 0
+  },
+  "DescIdentified": {
+    "str_ref": 2993,
+    "type": "cexolocstr",
+    "value": {
+      "0": "This stone keeps track of the languages your character is able to speak."
+    }
+  },
+  "Description": {
+    "str_ref": -1,
+    "type": "cexolocstr",
+    "value": {
+      "0": ""
+    }
+  },
+  "Identified": {
+    "type": "byte",
+    "value": 1
+  },
+  "LocalizedName": {
+    "str_ref": 2985,
+    "type": "cexolocstr",
+    "value": {
+      "0": "Language Stone"
+    }
+  },
+  "ModelPart1": {
+    "type": "byte",
+    "value": 9
+  },
+  "PaletteID": {
+    "type": "byte",
+    "value": 23
+  },
+  "Plot": {
+    "type": "byte",
+    "value": 0
+  },
+  "PropertiesList": {
+    "type": "list",
+    "value": []
+  },
+  "StackSize": {
+    "type": "word",
+    "value": 1
+  },
+  "Stolen": {
+    "type": "byte",
+    "value": 0
+  },
+  "Tag": {
+    "type": "cexostr",
+    "value": "languagestone"
+  },
+  "TemplateResRef": {
+    "type": "resref",
+    "value": "languagestone"
+  },
+  "__data_type": "UTI",
+  "__struct_id": -1
+}

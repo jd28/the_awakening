@@ -44,7 +44,7 @@ end
 
 function M.Spawn(encounter, level, cre)
    local holder        = assert(_HOLDER[encounter:GetTag()])
-   local level_table   = Dyn.GetLevelTable(holder, level)
+   local level_table   = Dyn.GetPlayerTable(holder, encounter:GetArea():GetLocalInt('area_occupied'))
    local spawns        = Dyn.extract(level_table, encounter)
    local policy        = holder.policy or spawns.policy
    local base_delay    = spawns.delay or holder.delay
@@ -121,6 +121,9 @@ function M.Test(tag)
    table.insert(out, string.format("Policy: %d", enc.policy))
    table.insert(out, string.format("Fallover: %d", enc.fallover or -1))
 
+   -- TODO[josh]: fix this...
+--[[
+
    local spawns = Dyn.extract(enc.Default, OBJECT_INVALID)
    spawns = Dyn.flatten(spawns, obj)
    table.insert(out, "Spawns - Default:")
@@ -156,7 +159,7 @@ function M.Test(tag)
          out_spawn(out, v)
       end
    end
-
+]]
    return table.concat(out, '\n')
 
 end

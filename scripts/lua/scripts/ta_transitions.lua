@@ -56,7 +56,7 @@ function nw_g0_transition(trans)
   end
 
   if tar_area:GetLocalInt("area_requires_haks") > 0
-    and pc:GetPlayerInt("pc_enhanced") <= 1
+    and pc:GetPlayerInt("pc:enhanced", true) <= 1
   then
     pc:ErrorMessage "You do not have the required hak files to enter this area!"
     return

@@ -1,0 +1,5674 @@
+{
+  "AreaProperties": {
+    "AmbientSndDay": {
+      "type": "int",
+      "value": 51
+    },
+    "AmbientSndDayVol": {
+      "type": "int",
+      "value": 32
+    },
+    "AmbientSndNight": {
+      "type": "int",
+      "value": 53
+    },
+    "AmbientSndNitVol": {
+      "type": "int",
+      "value": 32
+    },
+    "Comment": {
+      "type": "cexostr",
+      "value": ""
+    },
+    "EnvAudio": {
+      "type": "int",
+      "value": 15
+    },
+    "MusicBattle": {
+      "type": "int",
+      "value": 35
+    },
+    "MusicDay": {
+      "type": "int",
+      "value": 4
+    },
+    "MusicDelay": {
+      "type": "int",
+      "value": 90000
+    },
+    "MusicNight": {
+      "type": "int",
+      "value": 6
+    },
+    "__struct_id": 100
+  },
+  "Creature List": {
+    "type": "list",
+    "value": []
+  },
+  "Door List": {
+    "type": "list",
+    "value": []
+  },
+  "Encounter List": {
+    "type": "list",
+    "value": [
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 33
+              },
+              "CR": {
+                "type": "float",
+                "value": 37.0
+              },
+              "Comment": {
+                "type": "cexostr",
+                "value": ""
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyrwarri"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 1
+              },
+              "__struct_id": 0
+            },
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 143
+              },
+              "CR": {
+                "type": "float",
+                "value": 40.0
+              },
+              "Comment": {
+                "type": "cexostr",
+                "value": ""
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyr"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 0
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 4
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "Comment": {
+                "type": "cexostr",
+                "value": ""
+              },
+              "X": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Y": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.025000095367432
+              },
+              "__struct_id": 1
+            },
+            {
+              "Comment": {
+                "type": "cexostr",
+                "value": ""
+              },
+              "X": {
+                "type": "float",
+                "value": 9.239129066467285
+              },
+              "Y": {
+                "type": "float",
+                "value": -6.657611846923828
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.025000095367432
+              },
+              "__struct_id": 1
+            },
+            {
+              "Comment": {
+                "type": "cexostr",
+                "value": ""
+              },
+              "X": {
+                "type": "float",
+                "value": 10.597826957702637
+              },
+              "Y": {
+                "type": "float",
+                "value": 4.483695983886719
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.025000095367432
+              },
+              "__struct_id": 1
+            },
+            {
+              "Comment": {
+                "type": "cexostr",
+                "value": ""
+              },
+              "X": {
+                "type": "float",
+                "value": 0.4075963497161865
+              },
+              "Y": {
+                "type": "float",
+                "value": 10.461959838867188
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.025000095367432
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "ms_tn_satyrmix_grp"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 1
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 1000
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Comment": {
+                "type": "cexostr",
+                "value": ""
+              },
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 17.34453773498535
+              },
+              "Y": {
+                "type": "float",
+                "value": 74.37120056152344
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.153079986572266
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ms_tn_satyrmix_grp"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "ms_tn_saytrmix_g"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 3.9942538738250732
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 46.13491439819336
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      },
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "Comment": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 32
+              },
+              "CR": {
+                "type": "float",
+                "value": 45.0
+              },
+              "Comment": {
+                "type": "cexostr",
+                "value": ""
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyrarche"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 0
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 4
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "Comment": {
+                "type": "cexostr",
+                "value": ""
+              },
+              "X": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Y": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Z": {
+                "type": "float",
+                "value": 5.186907768249512
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 17.664962768554688
+              },
+              "Y": {
+                "type": "float",
+                "value": -9.183135986328125
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.025000095367432
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 12.033949851989746
+              },
+              "Y": {
+                "type": "float",
+                "value": 2.039031982421875
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.329488754272461
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "ms_tn_satyrarcher_grp"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 2
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 1
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 2
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 1000
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 20.706214904785156
+              },
+              "Y": {
+                "type": "float",
+                "value": 84.31428527832031
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.0
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ms_tn_satyrarcher_grp"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "ms_tn_satyrarche"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 3.0412492752075195
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 74.74740600585938
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      },
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 33
+              },
+              "CR": {
+                "type": "float",
+                "value": 37.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyrwarri"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            },
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 143
+              },
+              "CR": {
+                "type": "float",
+                "value": 40.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyrwiz"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 1
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 9
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 4
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "X": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Y": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.025000095367432
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 9.590025901794434
+              },
+              "Y": {
+                "type": "float",
+                "value": -1.917999267578125
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.025000095367432
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 11.50802993774414
+              },
+              "Y": {
+                "type": "float",
+                "value": 22.7420654296875
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.025000095367432
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 20.55005645751953
+              },
+              "Y": {
+                "type": "float",
+                "value": 26.304092407226562
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.025000095367432
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 25.083526611328125
+              },
+              "Y": {
+                "type": "float",
+                "value": 21.822677612304688
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.024999940767884254
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 29.538705825805664
+              },
+              "Y": {
+                "type": "float",
+                "value": 41.8709716796875
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.024999940767884254
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 20.82405662536621
+              },
+              "Y": {
+                "type": "float",
+                "value": 40.27813720703125
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.025000095367432
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 2.346184492111206
+              },
+              "Y": {
+                "type": "float",
+                "value": 37.57597351074219
+              },
+              "Z": {
+                "type": "float",
+                "value": 5.263003826141357
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "ms_tn_satyrwiz_grp"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 1
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 1000
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 19.626779556274414
+              },
+              "Y": {
+                "type": "float",
+                "value": 146.30628967285156
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.062981128692627
+              },
+              "__struct_id": 2
+            },
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 9.758480072021484
+              },
+              "Y": {
+                "type": "float",
+                "value": 140.82313537597656
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.0
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ms_tn_satyrwiz_grp"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "ms_tn_satyrwiz_g"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 3.4564645290374756
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 113.42306518554688
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      },
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 33
+              },
+              "CR": {
+                "type": "float",
+                "value": 37.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyrwarri"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 1
+              },
+              "__struct_id": 0
+            },
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 143
+              },
+              "CR": {
+                "type": "float",
+                "value": 40.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyr"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 0
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 4
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "X": {
+                "type": "float",
+                "value": -1.4374275207519531
+              },
+              "Y": {
+                "type": "float",
+                "value": -12.115463256835938
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.025000059977173805
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 13.435787200927734
+              },
+              "Y": {
+                "type": "float",
+                "value": -32.25922393798828
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 46.0227165222168
+              },
+              "Y": {
+                "type": "float",
+                "value": 3.9484710693359375
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Y": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.025000059977173805
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "ms_tn_satyrmix_grp"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 1
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 1000
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 42.17892837524414
+              },
+              "Y": {
+                "type": "float",
+                "value": 131.8020782470703
+              },
+              "Z": {
+                "type": "float",
+                "value": -5.7220458984375e-06
+              },
+              "__struct_id": 2
+            },
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 50.87103271484375
+              },
+              "Y": {
+                "type": "float",
+                "value": 142.55712890625
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.06125018000602722
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ms_tn_satyrmix_grp"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "ms_tn_saytrmix_g"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 27.81467056274414
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 150.5390167236328
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      },
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 143
+              },
+              "CR": {
+                "type": "float",
+                "value": 40.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyr"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            },
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 143
+              },
+              "CR": {
+                "type": "float",
+                "value": 40.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyrbard"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 1
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 0
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 4
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "X": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Y": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.08701344579458237
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 11.726524353027344
+              },
+              "Y": {
+                "type": "float",
+                "value": -18.536117553710938
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.025000059977173805
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 6.9973907470703125
+              },
+              "Y": {
+                "type": "float",
+                "value": -30.34430694580078
+              },
+              "Z": {
+                "type": "float",
+                "value": -0.051064230501651764
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 25.399627685546875
+              },
+              "Y": {
+                "type": "float",
+                "value": -32.49708557128906
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 41.20408630371094
+              },
+              "Y": {
+                "type": "float",
+                "value": -10.17193603515625
+              },
+              "Z": {
+                "type": "float",
+                "value": -0.1934557855129242
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 31.11029052734375
+              },
+              "Y": {
+                "type": "float",
+                "value": 10.443458557128906
+              },
+              "Z": {
+                "type": "float",
+                "value": -0.1893225610256195
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "ms_tn_satyrbard_grp"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 1
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 1000
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 80.81014251708984
+              },
+              "Y": {
+                "type": "float",
+                "value": 94.10488891601562
+              },
+              "Z": {
+                "type": "float",
+                "value": 4.999999987376214e-07
+              },
+              "__struct_id": 2
+            },
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 78.795166015625
+              },
+              "Y": {
+                "type": "float",
+                "value": 111.37618255615234
+              },
+              "Z": {
+                "type": "float",
+                "value": 2.384185791015625e-07
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ms_tn_satyrbard_grp"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "ms_tn_stayrbard_"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 64.1900863647461
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 112.78494262695312
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      },
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 32
+              },
+              "CR": {
+                "type": "float",
+                "value": 45.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyrarche"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 0
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 4
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "X": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Y": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 4.692161560058594
+              },
+              "Y": {
+                "type": "float",
+                "value": -21.210586547851562
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 22.452726364135742
+              },
+              "Y": {
+                "type": "float",
+                "value": -29.455909729003906
+              },
+              "Z": {
+                "type": "float",
+                "value": -0.16184452176094055
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 16.243532180786133
+              },
+              "Y": {
+                "type": "float",
+                "value": -2.2304153442382812
+              },
+              "Z": {
+                "type": "float",
+                "value": -0.2563423216342926
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "ms_tn_satyrarcher_grp"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 2
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 1
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 2
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 1000
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 31.71491050720215
+              },
+              "Y": {
+                "type": "float",
+                "value": 105.49200439453125
+              },
+              "Z": {
+                "type": "float",
+                "value": 1.9073486328125e-06
+              },
+              "__struct_id": 2
+            },
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 39.63772964477539
+              },
+              "Y": {
+                "type": "float",
+                "value": 83.83628845214844
+              },
+              "Z": {
+                "type": "float",
+                "value": 2.4073485747067025e-06
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ms_tn_satyrarcher_grp"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "ms_tn_satyrarche"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 22.34013557434082
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 107.60462951660156
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      },
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 32
+              },
+              "CR": {
+                "type": "float",
+                "value": 45.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyrarche"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 0
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 4
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "X": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Y": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 11.620138168334961
+              },
+              "Y": {
+                "type": "float",
+                "value": -15.053367614746094
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.025000499561429024
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 25.353029251098633
+              },
+              "Y": {
+                "type": "float",
+                "value": -5.413932800292969
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.025000059977173805
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 38.946205139160156
+              },
+              "Y": {
+                "type": "float",
+                "value": -0.1330718994140625
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.05723681300878525
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 32.87971496582031
+              },
+              "Y": {
+                "type": "float",
+                "value": 9.903518676757812
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.025000059977173805
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "ms_tn_satyrarcher_grp"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 2
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 1
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 2
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 1000
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 53.89881134033203
+              },
+              "Y": {
+                "type": "float",
+                "value": 98.88964080810547
+              },
+              "Z": {
+                "type": "float",
+                "value": -9.5367431640625e-07
+              },
+              "__struct_id": 2
+            },
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 38.977027893066406
+              },
+              "Y": {
+                "type": "float",
+                "value": 90.96717071533203
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.021160125732421875
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ms_tn_satyrarcher_grp"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "ms_tn_satyrarche"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 25.640745162963867
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 96.77690124511719
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      },
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 33
+              },
+              "CR": {
+                "type": "float",
+                "value": 37.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyrwarri"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            },
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 143
+              },
+              "CR": {
+                "type": "float",
+                "value": 40.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyrwiz"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 1
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 9
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 4
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "X": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Y": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Z": {
+                "type": "float",
+                "value": -0.046982742846012115
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 10.264289855957031
+              },
+              "Y": {
+                "type": "float",
+                "value": -17.362865447998047
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.010692501440644264
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 35.386077880859375
+              },
+              "Y": {
+                "type": "float",
+                "value": -12.525863647460938
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 23.258216857910156
+              },
+              "Y": {
+                "type": "float",
+                "value": 20.40127182006836
+              },
+              "Z": {
+                "type": "float",
+                "value": -0.07594070583581924
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 10.846054077148438
+              },
+              "Y": {
+                "type": "float",
+                "value": 13.984397888183594
+              },
+              "Z": {
+                "type": "float",
+                "value": -0.02187499962747097
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "ms_tn_satyrwiz_grp"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 1
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 1000
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 71.6199722290039
+              },
+              "Y": {
+                "type": "float",
+                "value": 43.63243865966797
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.0
+              },
+              "__struct_id": 2
+            },
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 82.88809204101562
+              },
+              "Y": {
+                "type": "float",
+                "value": 23.73064422607422
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.0
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ms_tn_satyrwiz_grp"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "ms_tn_satyrwiz_g"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 56.7733154296875
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 33.556941986083984
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      },
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 143
+              },
+              "CR": {
+                "type": "float",
+                "value": 40.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyr"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            },
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 143
+              },
+              "CR": {
+                "type": "float",
+                "value": 40.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyrbard"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 1
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 0
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 4
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "X": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Y": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02499988116323948
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 34.33300018310547
+              },
+              "Y": {
+                "type": "float",
+                "value": 20.834022521972656
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.006859683897346258
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 29.137290954589844
+              },
+              "Y": {
+                "type": "float",
+                "value": 48.10967254638672
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.008407378569245338
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 2.597869873046875
+              },
+              "Y": {
+                "type": "float",
+                "value": 39.239593505859375
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "ms_tn_satyrbard_grp"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 1
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 1000
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 114.89281463623047
+              },
+              "Y": {
+                "type": "float",
+                "value": 27.52669906616211
+              },
+              "Z": {
+                "type": "float",
+                "value": 2.384185791015625e-07
+              },
+              "__struct_id": 2
+            },
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 126.0399169921875
+              },
+              "Y": {
+                "type": "float",
+                "value": 43.432762145996094
+              },
+              "Z": {
+                "type": "float",
+                "value": 2.384185791015625e-07
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ms_tn_satyrbard_grp"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "ms_tn_stayrbard_"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 104.27550506591797
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 10.892058372497559
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      },
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 143
+              },
+              "CR": {
+                "type": "float",
+                "value": 40.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyr"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            },
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 143
+              },
+              "CR": {
+                "type": "float",
+                "value": 40.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyrbard"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 1
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 0
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 4
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "X": {
+                "type": "float",
+                "value": -7.067882537841797
+              },
+              "Y": {
+                "type": "float",
+                "value": 9.635101318359375
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Y": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 7.536090850830078
+              },
+              "Y": {
+                "type": "float",
+                "value": 4.547159194946289
+              },
+              "Z": {
+                "type": "float",
+                "value": -0.030052876099944115
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "ms_tn_satyrbard_grp"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 1
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 1000
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 22.87742042541504
+              },
+              "Y": {
+                "type": "float",
+                "value": 10.60024642944336
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.0
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ms_tn_satyrbard_grp"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "ms_tn_stayrbard_"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 26.543193817138672
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 19.738037109375
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      },
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 143
+              },
+              "CR": {
+                "type": "float",
+                "value": 40.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyr"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            },
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 143
+              },
+              "CR": {
+                "type": "float",
+                "value": 40.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyrbard"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 1
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 0
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 4
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "X": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Y": {
+                "type": "float",
+                "value": 0.0
+              },
+              "Z": {
+                "type": "float",
+                "value": -0.24137216806411743
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 0.9765777587890625
+              },
+              "Y": {
+                "type": "float",
+                "value": -18.768753051757812
+              },
+              "Z": {
+                "type": "float",
+                "value": -0.08217058330774307
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 18.12464141845703
+              },
+              "Y": {
+                "type": "float",
+                "value": -10.309440612792969
+              },
+              "Z": {
+                "type": "float",
+                "value": -0.12940064072608948
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "ms_tn_satyrbard_grp"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 1
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 1000
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 139.70797729492188
+              },
+              "Y": {
+                "type": "float",
+                "value": 26.195575714111328
+              },
+              "Z": {
+                "type": "float",
+                "value": -2.384185791015625e-07
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ms_tn_satyrbard_grp"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "ms_tn_stayrbard_"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 120.32207489013672
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 44.71055603027344
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      },
+      {
+        "Active": {
+          "type": "byte",
+          "value": 1
+        },
+        "CreatureList": {
+          "type": "list",
+          "value": [
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 33
+              },
+              "CR": {
+                "type": "float",
+                "value": 37.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyrwarri"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 1
+              },
+              "__struct_id": 0
+            },
+            {
+              "Appearance": {
+                "type": "int",
+                "value": 143
+              },
+              "CR": {
+                "type": "float",
+                "value": 40.0
+              },
+              "ResRef": {
+                "type": "resref",
+                "value": "ms_tn_satyr"
+              },
+              "SingleSpawn": {
+                "type": "byte",
+                "value": 0
+              },
+              "__struct_id": 0
+            }
+          ]
+        },
+        "Difficulty": {
+          "type": "int",
+          "value": 0
+        },
+        "DifficultyIndex": {
+          "type": "int",
+          "value": 4
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "X": {
+                "type": "float",
+                "value": -0.595855712890625
+              },
+              "Y": {
+                "type": "float",
+                "value": 14.634086608886719
+              },
+              "Z": {
+                "type": "float",
+                "value": -0.11808899790048599
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 0.5576490163803101
+              },
+              "Y": {
+                "type": "float",
+                "value": -0.01893901824951172
+              },
+              "Z": {
+                "type": "float",
+                "value": -0.01492295227944851
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 31.87804412841797
+              },
+              "Y": {
+                "type": "float",
+                "value": -1.0826339721679688
+              },
+              "Z": {
+                "type": "float",
+                "value": -0.007394647691398859
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 29.33533477783203
+              },
+              "Y": {
+                "type": "float",
+                "value": 25.577728271484375
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.23862555623054504
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 33.576332092285156
+              },
+              "Y": {
+                "type": "float",
+                "value": 29.39544677734375
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.02499988116323948
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 19.886009216308594
+              },
+              "Y": {
+                "type": "float",
+                "value": 26.386276245117188
+              },
+              "Z": {
+                "type": "float",
+                "value": -0.032199062407016754
+              },
+              "__struct_id": 1
+            },
+            {
+              "X": {
+                "type": "float",
+                "value": 18.52336883544922
+              },
+              "Y": {
+                "type": "float",
+                "value": 17.351715087890625
+              },
+              "Z": {
+                "type": "float",
+                "value": 0.016390228644013405
+              },
+              "__struct_id": 1
+            }
+          ]
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "ms_tn_satyrmix_grp"
+          }
+        },
+        "MaxCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "OnEntered": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExhausted": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnUserDefined": {
+          "type": "resref",
+          "value": ""
+        },
+        "PlayerOnly": {
+          "type": "byte",
+          "value": 1
+        },
+        "RecCreatures": {
+          "type": "int",
+          "value": 3
+        },
+        "Reset": {
+          "type": "byte",
+          "value": 1
+        },
+        "ResetTime": {
+          "type": "int",
+          "value": 1000
+        },
+        "Respawns": {
+          "type": "int",
+          "value": -1
+        },
+        "SpawnOption": {
+          "type": "int",
+          "value": 0
+        },
+        "SpawnPointList": {
+          "type": "list",
+          "value": [
+            {
+              "Orientation": {
+                "type": "float",
+                "value": -0.0
+              },
+              "X": {
+                "type": "float",
+                "value": 131.4197998046875
+              },
+              "Y": {
+                "type": "float",
+                "value": 103.75718688964844
+              },
+              "Z": {
+                "type": "float",
+                "value": -9.5367431640625e-07
+              },
+              "__struct_id": 2
+            }
+          ]
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ms_tn_satyrmix_grp"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "ms_tn_saytrmix_g"
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 126.14543914794922
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 87.45893859863281
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 7
+      }
+    ]
+  },
+  "List": {
+    "type": "list",
+    "value": []
+  },
+  "Placeable List": {
+    "type": "list",
+    "value": []
+  },
+  "SoundList": {
+    "type": "list",
+    "value": []
+  },
+  "StoreList": {
+    "type": "list",
+    "value": []
+  },
+  "TriggerList": {
+    "type": "list",
+    "value": [
+      {
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Cursor": {
+          "type": "byte",
+          "value": 1
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "PointX": {
+                "type": "float",
+                "value": 0.0
+              },
+              "PointY": {
+                "type": "float",
+                "value": 0.0
+              },
+              "PointZ": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -9.889541625976562
+              },
+              "PointY": {
+                "type": "float",
+                "value": -0.03717041015625
+              },
+              "PointZ": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -9.889541625976562
+              },
+              "PointY": {
+                "type": "float",
+                "value": -2.267913818359375
+              },
+              "PointZ": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -0.0371856689453125
+              },
+              "PointY": {
+                "type": "float",
+                "value": -2.267913818359375
+              },
+              "PointZ": {
+                "type": "float",
+                "value": 0.02500000037252903
+              },
+              "__struct_id": 3
+            }
+          ]
+        },
+        "HighlightHeight": {
+          "type": "float",
+          "value": 0.0
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "LinkedTo": {
+          "type": "cexostr",
+          "value": "WP_ms_satyrswmp_003_002"
+        },
+        "LinkedToFlags": {
+          "type": "byte",
+          "value": 2
+        },
+        "LoadScreenID": {
+          "type": "word",
+          "value": 0
+        },
+        "LocalizedName": {
+          "str_ref": 14760,
+          "type": "cexolocstr",
+          "value": {}
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "ScriptHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "ScriptOnEnter": {
+          "type": "resref",
+          "value": ""
+        },
+        "ScriptOnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "ScriptUserDefine": {
+          "type": "resref",
+          "value": ""
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ms_satyrswmp_002_003"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "newtransition"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "int",
+          "value": 1
+        },
+        "XOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 149.9197998046875
+        },
+        "YOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 159.935791015625
+        },
+        "ZOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 1
+      },
+      {
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Cursor": {
+          "type": "byte",
+          "value": 1
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "PointX": {
+                "type": "float",
+                "value": 0.0
+              },
+              "PointY": {
+                "type": "float",
+                "value": 0.0
+              },
+              "PointZ": {
+                "type": "float",
+                "value": 4.025000095367432
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 0.1064143180847168
+              },
+              "PointY": {
+                "type": "float",
+                "value": -12.046175003051758
+              },
+              "PointZ": {
+                "type": "float",
+                "value": 4.02500057220459
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 2.490109920501709
+              },
+              "PointY": {
+                "type": "float",
+                "value": -12.046174049377441
+              },
+              "PointZ": {
+                "type": "float",
+                "value": 4.02500057220459
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 2.468827486038208
+              },
+              "PointY": {
+                "type": "float",
+                "value": 0.021282196044921875
+              },
+              "PointZ": {
+                "type": "float",
+                "value": 4.025000095367432
+              },
+              "__struct_id": 3
+            }
+          ]
+        },
+        "HighlightHeight": {
+          "type": "float",
+          "value": 0.0
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "LinkedTo": {
+          "type": "cexostr",
+          "value": "WP_ms_satyrswmp_001_002"
+        },
+        "LinkedToFlags": {
+          "type": "byte",
+          "value": 2
+        },
+        "LoadScreenID": {
+          "type": "word",
+          "value": 0
+        },
+        "LocalizedName": {
+          "str_ref": 14760,
+          "type": "cexolocstr",
+          "value": {}
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "ScriptHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "ScriptOnEnter": {
+          "type": "resref",
+          "value": ""
+        },
+        "ScriptOnExit": {
+          "type": "resref",
+          "value": ""
+        },
+        "ScriptUserDefine": {
+          "type": "resref",
+          "value": ""
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "ms_satyrswmp_002_001"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "newtransition"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "int",
+          "value": 1
+        },
+        "XOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 0.15016698837280273
+        },
+        "YOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 17.759841918945312
+        },
+        "ZOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 1
+      },
+      {
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Cursor": {
+          "type": "byte",
+          "value": 0
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 10
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "PointX": {
+                "type": "float",
+                "value": -8.448051452636719
+              },
+              "PointY": {
+                "type": "float",
+                "value": 35.95014953613281
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.2705131769180298
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -3.698657989501953
+              },
+              "PointY": {
+                "type": "float",
+                "value": 35.1407470703125
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.24139252305030823
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 0.06879806518554688
+              },
+              "PointY": {
+                "type": "float",
+                "value": 32.631385803222656
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.27200767397880554
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 0.0
+              },
+              "PointY": {
+                "type": "float",
+                "value": 0.0
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.17931059002876282
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 7.140892028808594
+              },
+              "PointY": {
+                "type": "float",
+                "value": 0.7223591804504395
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3991222679615021
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 12.015796661376953
+              },
+              "PointY": {
+                "type": "float",
+                "value": 5.9106974601745605
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.31766363978385925
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 29.022872924804688
+              },
+              "PointY": {
+                "type": "float",
+                "value": 5.207695484161377
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3115862309932709
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 30.899681091308594
+              },
+              "PointY": {
+                "type": "float",
+                "value": 0.3510470390319824
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.26697829365730286
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 48.67120361328125
+              },
+              "PointY": {
+                "type": "float",
+                "value": 0.3521609306335449
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.27214035391807556
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 46.341217041015625
+              },
+              "PointY": {
+                "type": "float",
+                "value": 12.687653541564941
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.30640909075737
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 24.219558715820312
+              },
+              "PointY": {
+                "type": "float",
+                "value": 12.518938064575195
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.348328560590744
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 10.652790069580078
+              },
+              "PointY": {
+                "type": "float",
+                "value": 23.494550704956055
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.4060955345630646
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 9.821292877197266
+              },
+              "PointY": {
+                "type": "float",
+                "value": 34.579246520996094
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3227830231189728
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 27.11028289794922
+              },
+              "PointY": {
+                "type": "float",
+                "value": 36.98223876953125
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3059147298336029
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 27.684635162353516
+              },
+              "PointY": {
+                "type": "float",
+                "value": 51.56487274169922
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3077166974544525
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 19.164894104003906
+              },
+              "PointY": {
+                "type": "float",
+                "value": 54.447731018066406
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.4343279302120209
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 20.156089782714844
+              },
+              "PointY": {
+                "type": "float",
+                "value": 73.33343505859375
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.26391682028770447
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 27.556377410888672
+              },
+              "PointY": {
+                "type": "float",
+                "value": 77.15272521972656
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.30713018774986267
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 28.15715789794922
+              },
+              "PointY": {
+                "type": "float",
+                "value": 82.99507904052734
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3718189299106598
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 37.815528869628906
+              },
+              "PointY": {
+                "type": "float",
+                "value": 86.88035583496094
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.30440422892570496
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 38.57208251953125
+              },
+              "PointY": {
+                "type": "float",
+                "value": 91.63129425048828
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.2994624078273773
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 34.21217346191406
+              },
+              "PointY": {
+                "type": "float",
+                "value": 93.84093475341797
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.21148833632469177
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 23.278854370117188
+              },
+              "PointY": {
+                "type": "float",
+                "value": 93.40623474121094
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3003799617290497
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 20.677379608154297
+              },
+              "PointY": {
+                "type": "float",
+                "value": 87.36563873291016
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.29041919112205505
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 13.403755187988281
+              },
+              "PointY": {
+                "type": "float",
+                "value": 82.94384765625
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.30475351214408875
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 11.548786163330078
+              },
+              "PointY": {
+                "type": "float",
+                "value": 81.5854721069336
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3009757101535797
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 8.760978698730469
+              },
+              "PointY": {
+                "type": "float",
+                "value": 54.24378204345703
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3195410668849945
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -3.847888946533203
+              },
+              "PointY": {
+                "type": "float",
+                "value": 54.51123046875
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.18440857529640198
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -8.041955947875977
+              },
+              "PointY": {
+                "type": "float",
+                "value": 52.657737731933594
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3062306344509125
+              },
+              "__struct_id": 3
+            }
+          ]
+        },
+        "HighlightHeight": {
+          "type": "float",
+          "value": 3.0
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "LinkedTo": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "LinkedToFlags": {
+          "type": "byte",
+          "value": 0
+        },
+        "LoadScreenID": {
+          "type": "word",
+          "value": 0
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "pl_pirhanas"
+          }
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "ScriptHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "ScriptOnEnter": {
+          "type": "resref",
+          "value": "pl_trig_pirhana"
+        },
+        "ScriptOnExit": {
+          "type": "resref",
+          "value": "trig_ex_delvar"
+        },
+        "ScriptUserDefine": {
+          "type": "resref",
+          "value": ""
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "pl_pirhanas"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "pl_pirhanas"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 10
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "int",
+          "value": 0
+        },
+        "XOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 35.052452087402344
+        },
+        "YOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 0.1268138885498047
+        },
+        "ZOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 1
+      },
+      {
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Cursor": {
+          "type": "byte",
+          "value": 0
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 10
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "PointX": {
+                "type": "float",
+                "value": 0.0
+              },
+              "PointY": {
+                "type": "float",
+                "value": 0.0
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3052055835723877
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 14.736461639404297
+              },
+              "PointY": {
+                "type": "float",
+                "value": -0.00116729736328125
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3002600371837616
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 17.899730682373047
+              },
+              "PointY": {
+                "type": "float",
+                "value": 7.6236419677734375
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.2933625876903534
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 35.099266052246094
+              },
+              "PointY": {
+                "type": "float",
+                "value": 10.347076416015625
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3031853139400482
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 36.899322509765625
+              },
+              "PointY": {
+                "type": "float",
+                "value": 33.43083953857422
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.26547566056251526
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 32.5399169921875
+              },
+              "PointY": {
+                "type": "float",
+                "value": 36.48676300048828
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3067632019519806
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 28.54846954345703
+              },
+              "PointY": {
+                "type": "float",
+                "value": 33.69245147705078
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.2666872441768646
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 28.45134735107422
+              },
+              "PointY": {
+                "type": "float",
+                "value": 20.392684936523438
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.29323431849479675
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 21.451034545898438
+              },
+              "PointY": {
+                "type": "float",
+                "value": 16.334152221679688
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3639565408229828
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 14.38650131225586
+              },
+              "PointY": {
+                "type": "float",
+                "value": 25.727317810058594
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.31819185614585876
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 9.961929321289062
+              },
+              "PointY": {
+                "type": "float",
+                "value": 26.21575164794922
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3071870505809784
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 8.412601470947266
+              },
+              "PointY": {
+                "type": "float",
+                "value": 9.476829528808594
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.32198837399482727
+              },
+              "__struct_id": 3
+            }
+          ]
+        },
+        "HighlightHeight": {
+          "type": "float",
+          "value": 3.0
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "LinkedTo": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "LinkedToFlags": {
+          "type": "byte",
+          "value": 0
+        },
+        "LoadScreenID": {
+          "type": "word",
+          "value": 0
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "pl_pirhanas"
+          }
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "ScriptHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "ScriptOnEnter": {
+          "type": "resref",
+          "value": "pl_trig_pirhana"
+        },
+        "ScriptOnExit": {
+          "type": "resref",
+          "value": "trig_ex_delvar"
+        },
+        "ScriptUserDefine": {
+          "type": "resref",
+          "value": ""
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "pl_pirhanas"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "pl_pirhanas"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 10
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "int",
+          "value": 0
+        },
+        "XOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 37.15135192871094
+        },
+        "YOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 106.47428131103516
+        },
+        "ZOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 1
+      },
+      {
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Cursor": {
+          "type": "byte",
+          "value": 0
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 10
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "PointX": {
+                "type": "float",
+                "value": -36.547752380371094
+              },
+              "PointY": {
+                "type": "float",
+                "value": -100.44677734375
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3122151792049408
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -16.119766235351562
+              },
+              "PointY": {
+                "type": "float",
+                "value": -120.97213745117188
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.4538169801235199
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -27.262237548828125
+              },
+              "PointY": {
+                "type": "float",
+                "value": -128.34844970703125
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.298410028219223
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -26.967239379882812
+              },
+              "PointY": {
+                "type": "float",
+                "value": -132.6242218017578
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3065814673900604
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -19.137413024902344
+              },
+              "PointY": {
+                "type": "float",
+                "value": -133.7427215576172
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.39232733845710754
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -17.000244140625
+              },
+              "PointY": {
+                "type": "float",
+                "value": -142.2315216064453
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3065933883190155
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -12.433982849121094
+              },
+              "PointY": {
+                "type": "float",
+                "value": -141.83004760742188
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.31021848320961
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -12.631477355957031
+              },
+              "PointY": {
+                "type": "float",
+                "value": -105.15055847167969
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.5711003541946411
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -2.3610000610351562
+              },
+              "PointY": {
+                "type": "float",
+                "value": -101.23310852050781
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.4624744653701782
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 2.3569793701171875
+              },
+              "PointY": {
+                "type": "float",
+                "value": -108.12699890136719
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3113783299922943
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 7.1129913330078125
+              },
+              "PointY": {
+                "type": "float",
+                "value": -112.72257995605469
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3023364245891571
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 8.685615539550781
+              },
+              "PointY": {
+                "type": "float",
+                "value": -99.44522094726562
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3105666935443878
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -0.270263671875
+              },
+              "PointY": {
+                "type": "float",
+                "value": -95.65252685546875
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.5322083234786987
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 0.25160980224609375
+              },
+              "PointY": {
+                "type": "float",
+                "value": -85.95242309570312
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.2977447211742401
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 9.765464782714844
+              },
+              "PointY": {
+                "type": "float",
+                "value": -79.77572631835938
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.274404913187027
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 8.583282470703125
+              },
+              "PointY": {
+                "type": "float",
+                "value": -57.57151794433594
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3067992627620697
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -0.5384445190429688
+              },
+              "PointY": {
+                "type": "float",
+                "value": -52.93666076660156
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3566341698169708
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 2.8805084228515625
+              },
+              "PointY": {
+                "type": "float",
+                "value": -43.94110107421875
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.28848305344581604
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 17.798133850097656
+              },
+              "PointY": {
+                "type": "float",
+                "value": -41.96723937988281
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.4021941125392914
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 24.93134307861328
+              },
+              "PointY": {
+                "type": "float",
+                "value": -53.60621643066406
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.27616456151008606
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 28.432106018066406
+              },
+              "PointY": {
+                "type": "float",
+                "value": -52.47112274169922
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3035954535007477
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 28.657081604003906
+              },
+              "PointY": {
+                "type": "float",
+                "value": -17.677032470703125
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.30620232224464417
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 20.890480041503906
+              },
+              "PointY": {
+                "type": "float",
+                "value": -16.089706420898438
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.4706675112247467
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 19.44721221923828
+              },
+              "PointY": {
+                "type": "float",
+                "value": -8.057113647460938
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.2992075979709625
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 10.3543701171875
+              },
+              "PointY": {
+                "type": "float",
+                "value": -5.0232696533203125
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.420358806848526
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 10.542930603027344
+              },
+              "PointY": {
+                "type": "float",
+                "value": 0.0925750732421875
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.23736128211021423
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 0.0
+              },
+              "PointY": {
+                "type": "float",
+                "value": 0.0
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.11229798942804337
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -15.215103149414062
+              },
+              "PointY": {
+                "type": "float",
+                "value": -6.9154815673828125
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.31087222695350647
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -1.4034652709960938
+              },
+              "PointY": {
+                "type": "float",
+                "value": -4.82464599609375
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.28873375058174133
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -5.443739414215088
+              },
+              "PointY": {
+                "type": "float",
+                "value": -13.317835807800293
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.2798251807689667
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 6.2692718505859375
+              },
+              "PointY": {
+                "type": "float",
+                "value": -13.18798828125
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.27527230978012085
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 10.513565063476562
+              },
+              "PointY": {
+                "type": "float",
+                "value": -16.717681884765625
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.25020381808280945
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 13.747962951660156
+              },
+              "PointY": {
+                "type": "float",
+                "value": -26.344970703125
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.4244714677333832
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 9.922988891601562
+              },
+              "PointY": {
+                "type": "float",
+                "value": -35.55536651611328
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3831908404827118
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -6.5923919677734375
+              },
+              "PointY": {
+                "type": "float",
+                "value": -36.45500183105469
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.38116970658302307
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -8.685379028320312
+              },
+              "PointY": {
+                "type": "float",
+                "value": -44.61456298828125
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3622695505619049
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -6.496826171875
+              },
+              "PointY": {
+                "type": "float",
+                "value": -60.85169982910156
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.41607263684272766
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -17.092979431152344
+              },
+              "PointY": {
+                "type": "float",
+                "value": -68.6257553100586
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.29763105511665344
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -17.92913055419922
+              },
+              "PointY": {
+                "type": "float",
+                "value": -95.31222534179688
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.5274926424026489
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": -34.05799102783203
+              },
+              "PointY": {
+                "type": "float",
+                "value": -95.41706848144531
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.22068515419960022
+              },
+              "__struct_id": 3
+            }
+          ]
+        },
+        "HighlightHeight": {
+          "type": "float",
+          "value": 3.0
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "LinkedTo": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "LinkedToFlags": {
+          "type": "byte",
+          "value": 0
+        },
+        "LoadScreenID": {
+          "type": "word",
+          "value": 0
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "pl_pirhanas"
+          }
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "ScriptHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "ScriptOnEnter": {
+          "type": "resref",
+          "value": "pl_trig_pirhana"
+        },
+        "ScriptOnExit": {
+          "type": "resref",
+          "value": "trig_ex_delvar"
+        },
+        "ScriptUserDefine": {
+          "type": "resref",
+          "value": ""
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "pl_pirhanas"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "pl_pirhanas"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 10
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "int",
+          "value": 0
+        },
+        "XOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 114.24341583251953
+        },
+        "YOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 159.3739776611328
+        },
+        "ZOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 1
+      },
+      {
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Cursor": {
+          "type": "byte",
+          "value": 0
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 10
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "PointX": {
+                "type": "float",
+                "value": 0.0
+              },
+              "PointY": {
+                "type": "float",
+                "value": 0.0
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.2848965525627136
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 0.8150634765625
+              },
+              "PointY": {
+                "type": "float",
+                "value": -30.526020050048828
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3175496757030487
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 14.495437622070312
+              },
+              "PointY": {
+                "type": "float",
+                "value": -44.70677947998047
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.21362361311912537
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 22.131011962890625
+              },
+              "PointY": {
+                "type": "float",
+                "value": -43.36858367919922
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.32363465428352356
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 21.82623291015625
+              },
+              "PointY": {
+                "type": "float",
+                "value": 12.470710754394531
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.34642985463142395
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 12.321731567382812
+              },
+              "PointY": {
+                "type": "float",
+                "value": 11.747108459472656
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3098123371601105
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 0.352447509765625
+              },
+              "PointY": {
+                "type": "float",
+                "value": -1.3635787963867188
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.24175402522087097
+              },
+              "__struct_id": 3
+            }
+          ]
+        },
+        "HighlightHeight": {
+          "type": "float",
+          "value": 3.0
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "LinkedTo": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "LinkedToFlags": {
+          "type": "byte",
+          "value": 0
+        },
+        "LoadScreenID": {
+          "type": "word",
+          "value": 0
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "pl_pirhanas"
+          }
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "ScriptHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "ScriptOnEnter": {
+          "type": "resref",
+          "value": "pl_trig_pirhana"
+        },
+        "ScriptOnExit": {
+          "type": "resref",
+          "value": "trig_ex_delvar"
+        },
+        "ScriptUserDefine": {
+          "type": "resref",
+          "value": ""
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "pl_pirhanas"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "pl_pirhanas"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 10
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "int",
+          "value": 0
+        },
+        "XOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 136.33071899414062
+        },
+        "YOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 70.79324340820312
+        },
+        "ZOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 1
+      },
+      {
+        "AutoRemoveKey": {
+          "type": "byte",
+          "value": 0
+        },
+        "Cursor": {
+          "type": "byte",
+          "value": 0
+        },
+        "DisarmDC": {
+          "type": "byte",
+          "value": 10
+        },
+        "Faction": {
+          "type": "dword",
+          "value": 1
+        },
+        "Geometry": {
+          "type": "list",
+          "value": [
+            {
+              "PointX": {
+                "type": "float",
+                "value": 0.0
+              },
+              "PointY": {
+                "type": "float",
+                "value": 0.0
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.26912128925323486
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 27.367874145507812
+              },
+              "PointY": {
+                "type": "float",
+                "value": -0.46121931076049805
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3052515685558319
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 18.7071533203125
+              },
+              "PointY": {
+                "type": "float",
+                "value": 4.0661749839782715
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3993919789791107
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 15.823165893554688
+              },
+              "PointY": {
+                "type": "float",
+                "value": 21.78150177001953
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.31526151299476624
+              },
+              "__struct_id": 3
+            },
+            {
+              "PointX": {
+                "type": "float",
+                "value": 1.2212982177734375
+              },
+              "PointY": {
+                "type": "float",
+                "value": 21.51013946533203
+              },
+              "PointZ": {
+                "type": "float",
+                "value": -0.3120547831058502
+              },
+              "__struct_id": 3
+            }
+          ]
+        },
+        "HighlightHeight": {
+          "type": "float",
+          "value": 3.0
+        },
+        "KeyName": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "LinkedTo": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "LinkedToFlags": {
+          "type": "byte",
+          "value": 0
+        },
+        "LoadScreenID": {
+          "type": "word",
+          "value": 0
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {
+            "0": "pl_pirhanas"
+          }
+        },
+        "OnClick": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnDisarm": {
+          "type": "resref",
+          "value": ""
+        },
+        "OnTrapTriggered": {
+          "type": "resref",
+          "value": ""
+        },
+        "PortraitId": {
+          "type": "word",
+          "value": 0
+        },
+        "ScriptHeartbeat": {
+          "type": "resref",
+          "value": ""
+        },
+        "ScriptOnEnter": {
+          "type": "resref",
+          "value": "pl_trig_pirhana"
+        },
+        "ScriptOnExit": {
+          "type": "resref",
+          "value": "trig_ex_delvar"
+        },
+        "ScriptUserDefine": {
+          "type": "resref",
+          "value": ""
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "pl_pirhanas"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": "pl_pirhanas"
+        },
+        "TrapDetectDC": {
+          "type": "byte",
+          "value": 10
+        },
+        "TrapDetectable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapDisarmable": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapFlag": {
+          "type": "byte",
+          "value": 0
+        },
+        "TrapOneShot": {
+          "type": "byte",
+          "value": 1
+        },
+        "TrapType": {
+          "type": "byte",
+          "value": 0
+        },
+        "Type": {
+          "type": "int",
+          "value": 0
+        },
+        "XOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 115.76791381835938
+        },
+        "YOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 0.642301082611084
+        },
+        "ZOrientation": {
+          "type": "float",
+          "value": 0.0
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 0.0
+        },
+        "__struct_id": 1
+      }
+    ]
+  },
+  "WaypointList": {
+    "type": "list",
+    "value": [
+      {
+        "Appearance": {
+          "type": "byte",
+          "value": 1
+        },
+        "Description": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {}
+        },
+        "HasMapNote": {
+          "type": "byte",
+          "value": 0
+        },
+        "LinkedTo": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {}
+        },
+        "MapNote": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {}
+        },
+        "MapNoteEnabled": {
+          "type": "byte",
+          "value": 0
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "WP_ms_satyrswmp_002_001"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": ""
+        },
+        "XOrientation": {
+          "type": "float",
+          "value": 1.0
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 3.6884589195251465
+        },
+        "YOrientation": {
+          "type": "float",
+          "value": 2.1020557596784784e-06
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 10.335098266601562
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": 4.000003814697266
+        },
+        "__struct_id": 5
+      },
+      {
+        "Appearance": {
+          "type": "byte",
+          "value": 1
+        },
+        "Description": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {}
+        },
+        "HasMapNote": {
+          "type": "byte",
+          "value": 0
+        },
+        "LinkedTo": {
+          "type": "cexostr",
+          "value": ""
+        },
+        "LocalizedName": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {}
+        },
+        "MapNote": {
+          "str_ref": -1,
+          "type": "cexolocstr",
+          "value": {}
+        },
+        "MapNoteEnabled": {
+          "type": "byte",
+          "value": 0
+        },
+        "Tag": {
+          "type": "cexostr",
+          "value": "WP_ms_satyrswmp_002_003"
+        },
+        "TemplateResRef": {
+          "type": "resref",
+          "value": ""
+        },
+        "XOrientation": {
+          "type": "float",
+          "value": 1.1356669347151183e-05
+        },
+        "XPosition": {
+          "type": "float",
+          "value": 144.34059143066406
+        },
+        "YOrientation": {
+          "type": "float",
+          "value": -1.0
+        },
+        "YPosition": {
+          "type": "float",
+          "value": 156.8329620361328
+        },
+        "ZPosition": {
+          "type": "float",
+          "value": -5.7220458984375e-06
+        },
+        "__struct_id": 5
+      }
+    ]
+  },
+  "__data_type": "GIT",
+  "__struct_id": -1
+}

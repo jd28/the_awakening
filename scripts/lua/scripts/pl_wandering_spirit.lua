@@ -37,7 +37,7 @@ function pl_wander_et(obj)
    end
 
    pc:AddKnownFeat(epictough, 0)
-   pc:SetPlayerInt("pc_no_relevel", 1)
+   pc:SetPlayerInt("pc:no_relevel", 1)
    pc:SuccessMessage("You have received: Epic Toughness")
 end
 
@@ -51,5 +51,5 @@ function pl_wander_crit(obj)
    end
 
    pc:SuccessMessage("You can now use the !critical chat command!")
-   pc:SetPlayerInt("pc_set_crit", 1, true)
+   pc:SetPlayerInt("pc:set_crit", 1, true)
 end

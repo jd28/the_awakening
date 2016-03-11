@@ -1,5 +1,6 @@
 #include "pc_funcs_inc"
+#include "pc_persist"
 
 int StartingConditional(){
-    return StringToInt(GET("port:Nhrive:"+GetRedisID(GetPCSpeaker())));
+  return GetPersistantInt(GetPCSpeaker(), "port:Nhrive");
 }

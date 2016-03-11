@@ -1,10 +1,11 @@
 #include "mod_funcs_inc"
 #include "pc_funcs_inc"
+#include "pc_persist"
 
 void main(){
 
     object oPC = GetPCSpeaker();
-    location lWaypoint = GetPersistantLocation(oPC);
+    location lWaypoint = GetPersistantLocation(oPC, "loc");
 
     SetLocalInt(oPC, VAR_PC_ENTERED, TRUE);
 
