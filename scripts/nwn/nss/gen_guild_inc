@@ -1,0 +1,182 @@
+// gen_guild_inc
+////////////////////////////////////////////////////////////////////////////////
+// Created By: Genisys / Guile
+// Created On: 11/04/2016
+////////////////////////////////////////////////////////////////////////////////
+// Copyright © 2016 All Rights Reserved
+////////////////////////////////////////////////////////////////////////////////
+/*
+   This include controls the OnEnter event of Guild areas only...
+
+   This has been thoroughly tested & working 100% without error.
+*/
+////////////////////////////////////////////////////////////////////////////////
+// Settings...
+
+// Set this to the DAMAGE_BONUS_XXX Constant you wish to give the NPC
+// Set this to DAMAGE_BONUS_1  to turn it off!
+int GUILD_DMG_BUFF = DAMAGE_BONUS_2d8;
+
+////////////////////////////////////////////////////////////////////////////////
+// Declarations...
+
+// This goes in your OnAreaEnter Event Script... (use #include "gen_guild_inc" )
+void RunGuildVFXs(object oPC);
+
+//Custom Internal Function...
+
+void DoBuff(object oPC, int nWhich);
+void RemoveGuildVFX(object oPC);
+void RunArmagheddon();
+void SetAreaVFXS(object oArea);
+void SetObjectVFXS(object oObject);
+
+////////////////////////////////////////////////////////////////////////////////
+// Definitions...
+
+//------------------------------------------------------------------------------
+void RunGuildlVFXs(object oPC){
+ object oArea = GetArea(oPC);
+ if(oArea != OBJECT_INVALID && oPC != OBJECT_INVALID){
+ if(GetLocalInt(oArea, "VFX_SET"))
+ { return; }
+ // Prevent the area from running VFXs again till reset...
+ SetLocalInt(oArea, "VFX_SET", TRUE);
+ // Show the PC/DM the area...
+ if(GetIsPC(oPC) || GetIsDM(oPC) || GetIsDMPossessed(oPC))
+ { ExploreAreaForPlayer(GetArea(oPC), oPC, TRUE); }
+ string sTag = GetTag(oArea);
+ // Run VFXs depending upon the area....
+ if(sTag == "RRGUILDARENA"){ RunArmagheddon(); }
+ if(sTag == "RRGUILDLOUNGE" || sTag == "RRGUILDGROVE"){
+   SetAreaVFXS(oArea); }
+ }
+}
+//------------------------------------------------------------------------------
+void RunArmagheddon(){
+  object oWay = GetWaypointByTag("gen_vfx_way");
+  location lWay = GetLocation(oWay);
+  effect eVis = EffectVisualEffect(862);
+  ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eVis, lWay);
+  eVis = EffectVisualEffect(912);  // 912 Meteor Impact
+  DelayCommand(1.1, ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eVis, lWay));
+  DelayCommand(6.0, RunArmagheddon()); // Loop into Infinity!
+}
+//------------------------------------------------------------------------------
+void SetAreaVFXS(object oArea){
+ int nSet = GetLocalInt(oArea, "VFX_SET");
+ if(nSet==TRUE) { return; }
+ //Set that this area has set it's VFXs (We only run this one time/restart)
+ SetLocalInt(oArea, "VFX_SET", TRUE);
+ // Check Area for VFX Placeables
+ int nType;
+ object oChk = GetFirstObjectInArea(oArea);
+ while(GetIsObjectValid(oChk)){
+  nType = GetObjectType(oChk);
+  if(nType == OBJECT_TYPE_PLACEABLE) { SetPlotFlag(oChk, TRUE); }
+  SetObjectVFXS(oChk);
+  oChk = GetNextObjectInArea(oArea); }
+}
+//------------------------------------------------------------------------------
+void SetObjectVFXS(object oObject){
+ int n1VFX = GetLocalInt(oObject, "PERM_VFX_1");
+ if(n1VFX >= 1){
+  effect eVis = EffectVisualEffect(n1VFX, FALSE);
+  ApplyEffectToObject(DURATION_TYPE_PERMANENT, eVis, oObject); }
+ int n2VFX = GetLocalInt(oObject, "PERM_VFX_2");
+ if(n2VFX >= 1) {
+  effect eVis = EffectVisualEffect(n2VFX, FALSE);
+  ApplyEffectToObject(DURATION_TYPE_PERMANENT, eVis, oObject); }
+ int n3VFX = GetLocalInt(oObject, "PERM_VFX_3");
+ if(n3VFX >= 1){
+  effect eVis = EffectVisualEffect(n3VFX, FALSE);
+  ApplyEffectToObject(DURATION_TYPE_PERMANENT, eVis, oObject); }
+ int n4VFX = GetLocalInt(oObject, "PERM_VFX_4");
+ if(n4VFX >= 1){
+  effect eVis = EffectVisualEffect(n3VFX, FALSE);
+  ApplyEffectToObject(DURATION_TYPE_PERMANENT, eVis, oObject); }
+ int n5VFX = GetLocalInt(oObject, "PERM_VFX_5");
+ if(n5VFX >= 1){
+  effect eVis = EffectVisualEffect(n3VFX, FALSE);
+  ApplyEffectToObject(DURATION_TYPE_PERMANENT, eVis, oObject); }
+}
+//------------------------------------------------------------------------------
+void RemoveGuildVFX(object oPC){
+if(GetIsObjectValid(oPC)){
+ int nType;
+ effect e = GetFirstEffect(oPC);
+ while(GetIsEffectValid(e)){
+  nType = GetEffectType(e);
+  if( nType == EFFECT_TYPE_VISUALEFFECT &&
+  GetEffectCreator(e) == OBJECT_SELF )
+  { RemoveEffect(oPC, e); }
+   e = GetNextEffect(oPC);
+ } }
+}
+//------------------------------------------------------------------------------
+void DoBuff(object oPC, int nWhich){
+ switch(nWhich){
+  case 1:{
+    // Protection From Elements...
+    AssignCommand(OBJECT_SELF, ActionCastSpellAtObject(SPELL_PROTECTION_FROM_ELEMENTS,
+    oPC, METAMAGIC_EXTEND, TRUE, PROJECTILE_PATH_TYPE_DEFAULT, FALSE));
+    // Other Buffs...  Just A VFX....
+    effect eVis = EffectVisualEffect(VFX_DUR_PROT_SHADOW_ARMOR, FALSE);
+    eVis = SupernaturalEffect(eVis);
+    DelayCommand(1.5, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eVis, oPC, 300.0));
+    eVis = EffectACIncrease(4);
+    eVis = SupernaturalEffect(eVis);
+    DelayCommand(1.5, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eVis, oPC, 300.0));
+    eVis = EffectConcealment(42);
+    eVis = SupernaturalEffect(eVis);
+    DelayCommand(1.5, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eVis, oPC, 300.0));
+    if(GUILD_DMG_BUFF != DAMAGE_BONUS_1){
+    eVis = EffectDamageIncrease(GUILD_DMG_BUFF);
+    eVis = SupernaturalEffect(eVis);
+    DelayCommand(1.5, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eVis, oPC, 300.0)); }
+    eVis = EffectRegenerate(10, 6.0);
+    eVis = SupernaturalEffect(eVis);
+    DelayCommand(1.5, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eVis, oPC, 300.0));
+    eVis = EffectTemporaryHitpoints(200);
+    eVis = SupernaturalEffect(eVis);
+    DelayCommand(1.5, ApplyEffectToObject(DURATION_TYPE_TEMPORARY, eVis, oPC, 300.0));
+   } break;
+  case 2:{ AssignCommand(OBJECT_SELF, ActionCastSpellAtObject(SPELL_GREATER_RESTORATION,
+    oPC, METAMAGIC_EXTEND, TRUE, PROJECTILE_PATH_TYPE_DEFAULT, FALSE));
+    DelayCommand(1.2, AssignCommand(OBJECT_SELF, ActionSpeakString("You should be more careful out there!")));
+    } break;
+  case 3:{  AssignCommand(OBJECT_SELF, ActionCastSpellAtObject(SPELL_FLAME_WEAPON,
+    oPC, METAMAGIC_EXTEND, TRUE, PROJECTILE_PATH_TYPE_DEFAULT, FALSE));
+    AssignCommand(OBJECT_SELF, ActionCastSpellAtObject(SPELL_GREATER_MAGIC_WEAPON,
+    oPC, METAMAGIC_EXTEND, TRUE, PROJECTILE_PATH_TYPE_DEFAULT, FALSE));
+    } break;
+  case 4:{
+     // First Removes The Visuals from the PC!
+     RemoveGuildVFX(oPC);
+     int nVFX;
+     effect eVis;
+     DelayCommand(0.2, AssignCommand(OBJECT_SELF, ActionCastSpellAtObject
+     (SPELL_RESURRECTION, oPC, METAMAGIC_EXTEND, TRUE,
+     PROJECTILE_PATH_TYPE_DEFAULT, FALSE)));
+     nVFX =GetLocalInt(OBJECT_SELF, "GUILD_VFX_1");
+     if(nVFX != 0){
+     eVis = EffectVisualEffect(nVFX, FALSE);
+     eVis = SupernaturalEffect(eVis);
+     DelayCommand(1.8, AssignCommand(OBJECT_SELF,
+     ApplyEffectToObject(DURATION_TYPE_PERMANENT, eVis, oPC))); }
+     nVFX =GetLocalInt(OBJECT_SELF, "GUILD_VFX_2");
+     if(nVFX != 0){
+     eVis = EffectVisualEffect(nVFX, FALSE);
+     eVis = SupernaturalEffect(eVis);
+     DelayCommand(1.8, AssignCommand(OBJECT_SELF,
+     ApplyEffectToObject(DURATION_TYPE_PERMANENT, eVis, oPC))); }
+     nVFX =GetLocalInt(OBJECT_SELF, "GUILD_VFX_3");
+     if(nVFX != 0){
+     effect eVis = EffectVisualEffect(nVFX, FALSE);
+     eVis = SupernaturalEffect(eVis);
+     DelayCommand(1.8, AssignCommand(OBJECT_SELF,
+     ApplyEffectToObject(DURATION_TYPE_PERMANENT, eVis, oPC))); }
+  } break;
+ }// end switch(nWhich)
+}
+////////////////////////////////////////////////////////////////////////////////
