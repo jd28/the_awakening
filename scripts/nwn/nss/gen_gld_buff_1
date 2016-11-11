@@ -1,0 +1,23 @@
+    int nBuff = 1;
+// gen_gld_buff_1
+////////////////////////////////////////////////////////////////////////////////
+// Created By: Genisys / Guile
+// Created On: 10/26/2016
+////////////////////////////////////////////////////////////////////////////////
+// Copyright © 2016 All Rights Reserved
+////////////////////////////////////////////////////////////////////////////////
+/*
+   This will perform one of the 4 actions the Guild NPC can do...
+
+   NOTE: You may want to change the buffs!
+*/
+////////////////////////////////////////////////////////////////////////////////
+#include "gen_guild_inc"
+
+void main()
+{
+ object oPC = GetPCSpeaker();
+ if(oPC != OBJECT_INVALID && GetIsPC(oPC)){
+   AssignCommand(OBJECT_SELF, ClearAllActions());
+   DelayCommand(0.1, DoBuff(oPC, nBuff)); }
+}
