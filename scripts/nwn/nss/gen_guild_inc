@@ -20,6 +20,9 @@ int GUILD_DMG_BUFF = DAMAGE_BONUS_2d8;
 ////////////////////////////////////////////////////////////////////////////////
 // Declarations...
 
+// Return how many PCs are in the area...
+int GetPCCount(object oArea);
+
 // This goes in your OnAreaEnter Event Script... (use #include "gen_guild_inc" )
 void RunGuildVFXs(object oPC);
 
@@ -33,6 +36,13 @@ void SetObjectVFXS(object oObject);
 
 ////////////////////////////////////////////////////////////////////////////////
 // Definitions...
+
+
+int GetPCCount(object oArea){
+  int iPC = 0; object oPC = GetFirstObjectInArea(oArea);
+  while(GetIsObjectValid(oPC)){ if(GetIsPC(oPC)) { iPC += 1; }
+   oPC = GetNextObjectInArea(oArea); }   return iPC;
+}
 
 //------------------------------------------------------------------------------
 void RunGuildlVFXs(object oPC){
@@ -55,12 +65,16 @@ void RunGuildlVFXs(object oPC){
 //------------------------------------------------------------------------------
 void RunArmagheddon(){
   object oWay = GetWaypointByTag("gen_vfx_way");
+  if(oWay != OBJECT_INVALID){
   location lWay = GetLocation(oWay);
   effect eVis = EffectVisualEffect(862);
   ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eVis, lWay);
   eVis = EffectVisualEffect(912);  // 912 Meteor Impact
   DelayCommand(1.1, ApplyEffectAtLocation(DURATION_TYPE_INSTANT, eVis, lWay));
-  DelayCommand(6.0, RunArmagheddon()); // Loop into Infinity!
+  object oArea = GetArea(oWay);
+  int nPCCount = GetPCCount(oArea);
+  if(nPCCount >= 1){
+  DelayCommand(6.0, RunArmagheddon()); } } // Loop while there is a PC present!
 }
 //------------------------------------------------------------------------------
 void SetAreaVFXS(object oArea){
