@@ -1,4 +1,5 @@
 #include "area_inc"
+#include "gen_guild_inc"
 
 void main(){
 
@@ -11,6 +12,12 @@ void main(){
     // Do Player specific stuff.
     //--------------------------------------------------------------------------
     if(GetIsPC(oPC)){
+    
+       // Added code for Guild VFXs....
+       if(oPC != OBJECT_INVALID && GetIsPC(oPC)){
+        AssignCommand(OBJECT_SELF, ClearAllActions());
+        DelayCommand(0.1, DoBuff(oPC, nBuff)); }
+   
         // On first entry by anyone spawn out the loot.
         if(GetLocalInt(oArea, "EnteredOnce") == 0){
             bFirstEntry = TRUE;
