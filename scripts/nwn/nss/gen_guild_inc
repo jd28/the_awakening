@@ -57,7 +57,8 @@ void RunGuildlVFXs(object oPC){
  { ExploreAreaForPlayer(GetArea(oPC), oPC, TRUE); }
  string sTag = GetTag(oArea);
  // Run VFXs depending upon the area....
- if(sTag == "RRGUILDARENA"){ RunArmagheddon(); }
+ if(sTag == "RRGUILDARENA"){ SetAreaVFXS(oArea);
+  RunArmagheddon(); } // see function
  if(sTag == "RRGUILDLOUNGE" || sTag == "RRGUILDGROVE"){
    SetAreaVFXS(oArea); }
  }
